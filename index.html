@@ -45,8 +45,64 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-Exploración de redes de regulación genética y análisis comparativos en pacientes con lupus y sin enfermedad en México.
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="geneexprlupusmx">GeneExprLupusMx<a class="anchor" aria-label="anchor" href="#geneexprlupusmx"></a>
+</h1></div>
+<!-- badges: start -->
+<!-- badges: end -->
+<p>The goal of GeneExprLupusMx is to provide a bilingual, reproducible R data package that integrates transcriptomic profiles and clinical metadata from Mexican women with systemic lupus erythematosus and healthy controls. By combining gene expression data from monocytes, monocyte-derived dendritic cells (moDCs), and tolerogenic dendritic cells (tolDCs), the package enables:</p>
+<ul>
+<li><p><strong>Educational use:</strong> serving as a teaching resource in bioinformatics, immunology, and biomedical sciences.</p></li>
+<li><p><strong>Comparative analysis:</strong> supporting exploration of gene regulation networks and differential expression studies.</p></li>
+<li><p>**Reproducible workflows:*+ offering auxiliary functions and scripts to replicate figures and analyses from the original study.</p></li>
+<li><p><strong>Global integration:</strong> making locally generated datasets visible and usable in international research contexts.</p></li>
+<li><p><strong>Scientific outreach:</strong> promoting open science and the dissemination of biomedical data from Latin America.</p></li>
+</ul>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version of GeneExprLupusMx from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<p>This is a basic example which shows you how to solve a common problem:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span></span>
+<span><span class="co">## basic example code</span></span></code></pre></div>
+<p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    sample_ID   Group     GC      Dose    Dose_category      Age    </span></span>
+<span><span class="co">#&gt;  QR011_0: 1   Ctrl:30   No:57   0  :57   0:57          19     : 9  </span></span>
+<span><span class="co">#&gt;  QR011_1: 1   SLE :69   Si:42   2.5: 6   1:42          27     : 9  </span></span>
+<span><span class="co">#&gt;  QR011_3: 1                     3  : 3                 35     : 9  </span></span>
+<span><span class="co">#&gt;  QR013_0: 1                     5  :30                 23     : 6  </span></span>
+<span><span class="co">#&gt;  QR013_1: 1                     8  : 3                 25     : 6  </span></span>
+<span><span class="co">#&gt;  QR013_3: 1                                            32     : 6  </span></span>
+<span><span class="co">#&gt;  (Other):93                                            (Other):54  </span></span>
+<span><span class="co">#&gt;     Cell_type   Group_age  Nephritis Other_tx  Sledai_score</span></span>
+<span><span class="co">#&gt;  moDC    :33   less30:39   No :60    No :12   0      :18   </span></span>
+<span><span class="co">#&gt;  monocyte:33   more30:60   Si : 9    Si :57   2      : 6   </span></span>
+<span><span class="co">#&gt;  tolDC   :33               NAs:30    NAs:30   4      : 6   </span></span>
+<span><span class="co">#&gt;                                               6      : 6   </span></span>
+<span><span class="co">#&gt;                                               14     : 6   </span></span>
+<span><span class="co">#&gt;                                               (Other):27   </span></span>
+<span><span class="co">#&gt;                                               NAs    :30   </span></span>
+<span><span class="co">#&gt;            Sledai_group SLEDAI_Md    SLEDAI_category</span></span>
+<span><span class="co">#&gt;  High            :12    No :30    Activity   :39    </span></span>
+<span><span class="co">#&gt;  Low             :21    Si :36    No_activity:12    </span></span>
+<span><span class="co">#&gt;  Moderate        : 6    Sí : 3    Zero       :48    </span></span>
+<span><span class="co">#&gt;  Very_high       :15    NAs:30                      </span></span>
+<span><span class="co">#&gt;  Without_activity:15                                </span></span>
+<span><span class="co">#&gt;  NAs             :30                                </span></span>
+<span><span class="co">#&gt; </span></span></code></pre></div>
+<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <code><a href="https://devtools.r-lib.org/reference/build_readme.html" class="external-link">devtools::build_readme()</a></code> is handy for this.</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
