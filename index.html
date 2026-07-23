@@ -54,7 +54,7 @@
 <ul>
 <li><p><strong>Educational use:</strong> serving as a teaching resource in bioinformatics, immunology, and biomedical sciences.</p></li>
 <li><p><strong>Comparative analysis:</strong> supporting exploration of gene regulation networks and differential expression studies.</p></li>
-<li><p>**Reproducible workflows:*+ offering auxiliary functions and scripts to replicate figures and analyses from the original study.</p></li>
+<li><p><strong>Reproducible workflows:</strong> offering auxiliary functions and scripts to replicate figures and analyses from the original study.</p></li>
 <li><p><strong>Global integration:</strong> making locally generated datasets visible and usable in international research contexts.</p></li>
 <li><p><strong>Scientific outreach:</strong> promoting open science and the dissemination of biomedical data from Latin America.</p></li>
 </ul>
@@ -100,7 +100,23 @@
 <span><span class="co">#&gt;  Without_activity:15                                </span></span>
 <span><span class="co">#&gt;  NAs             :30                                </span></span>
 <span><span class="co">#&gt; </span></span></code></pre></div>
-<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <code><a href="https://devtools.r-lib.org/reference/build_readme.html" class="external-link">devtools::build_readme()</a></code> is handy for this.</p>
+<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <code>devtools::build_readme()</code> is handy for this.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 4</span></span>
+<span><span class="co">#&gt;  $ abundance          : num [1:21718, 1:99] 7.504 2.357 0 0.228 0.36 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:21718] "A1BG" "A1BG-AS1" "A1CF" "A2M" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:99] "QR011_0" "QR011_1" "QR011_3" "QR013_0" ...</span></span>
+<span><span class="co">#&gt;  $ counts             : num [1:21718, 1:99] 179 70 0 16 11 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:21718] "A1BG" "A1BG-AS1" "A1CF" "A2M" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:99] "QR011_0" "QR011_1" "QR011_3" "QR013_0" ...</span></span>
+<span><span class="co">#&gt;  $ length             : num [1:21718, 1:99] 1489 1853 8956 4376 1910 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:21718] "A1BG" "A1BG-AS1" "A1CF" "A2M" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:99] "QR011_0" "QR011_1" "QR011_3" "QR013_0" ...</span></span>
+<span><span class="co">#&gt;  $ countsFromAbundance: chr "no"</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

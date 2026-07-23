@@ -13,8 +13,8 @@ cells (tolDCs), the package enables:
 - **Comparative analysis:** supporting exploration of gene regulation
   networks and differential expression studies.
 
-- \*\*Reproducible workflows:\*+ offering auxiliary functions and
-  scripts to replicate figures and analyses from the original study.
+- **Reproducible workflows:** offering auxiliary functions and scripts
+  to replicate figures and analyses from the original study.
 
 - **Global integration:** making locally generated datasets visible and
   usable in international research contexts.
@@ -76,6 +76,23 @@ summary(metadata_cleaned)
 ```
 
 You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
-[`devtools::build_readme()`](https://devtools.r-lib.org/reference/build_readme.html)
-is handy for this.
+up-to-date. `devtools::build_readme()` is handy for this.
+
+``` r
+
+str(filtered_txi)
+#> List of 4
+#>  $ abundance          : num [1:21718, 1:99] 7.504 2.357 0 0.228 0.36 ...
+#>   ..- attr(*, "dimnames")=List of 2
+#>   .. ..$ : chr [1:21718] "A1BG" "A1BG-AS1" "A1CF" "A2M" ...
+#>   .. ..$ : chr [1:99] "QR011_0" "QR011_1" "QR011_3" "QR013_0" ...
+#>  $ counts             : num [1:21718, 1:99] 179 70 0 16 11 ...
+#>   ..- attr(*, "dimnames")=List of 2
+#>   .. ..$ : chr [1:21718] "A1BG" "A1BG-AS1" "A1CF" "A2M" ...
+#>   .. ..$ : chr [1:99] "QR011_0" "QR011_1" "QR011_3" "QR013_0" ...
+#>  $ length             : num [1:21718, 1:99] 1489 1853 8956 4376 1910 ...
+#>   ..- attr(*, "dimnames")=List of 2
+#>   .. ..$ : chr [1:21718] "A1BG" "A1BG-AS1" "A1CF" "A2M" ...
+#>   .. ..$ : chr [1:99] "QR011_0" "QR011_1" "QR011_3" "QR013_0" ...
+#>  $ countsFromAbundance: chr "no"
+```

@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/EveliaCoss/GeneExprLupusMx/blob/HEAD/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/DESCRIPTION)
 
 Coss E (2026). *GeneExprLupusMx: GeneExprLupusMx: transcriptómica de
 lupus en mujeres mexicanas para investigación y enseñanza*. R package
