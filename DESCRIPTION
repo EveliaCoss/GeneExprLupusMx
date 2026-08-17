@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Evelia", "Coss", , "ecossnav@gmail.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-7087-2977"))
-Description: Exploración de redes de regulación genética y análisis comparativos en pacientes con lupus y sin enfermedad en México. 
+Description: Exploración de redes de regulación genética y análisis comparativos de perfiles transcriptómicos entre mujeres mexicanas con lupus y controles sanos. La propuesta busca resolver la falta de herramientas accesibles y reproducibles que integren datos clínicos y moleculares en un mismo entorno, facilitando la interpretación de mecanismos inmunológicos alterados en esta población. Dirigido a investigadores en bioinformática, inmunología y ciencias biomédicas, así como a docentes y estudiantes, ofrece un recurso didáctico que promueve la reproducibilidad científica y la divulgación de datos locales, contribuyendo a su integración en estudios internacionales. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

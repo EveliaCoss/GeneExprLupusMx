@@ -1,0 +1,19 @@
+name: Air Format Check
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  air-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Air
+        uses: posit-dev/setup-air@v1
+
+      - name: Run Air format check
+        run: air format . --check

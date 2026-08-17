@@ -1,5 +1,38 @@
 url: https://eveliacoss.github.io/GeneExprLupusMx/
+
 template:
   bootstrap: 5
-  bootswatch: cerulean
+  bootswatch: default
+  light-switch: true # boton de prender y apagar light/dark theme
+  opengraph:
+    image:
+      src: man/figures/AMRdb-logo2.png
+      alt: "Curated Resource for Antimicrobial Resistance Data Exploration"
+destination: pkgdown
 
+authors:
+  Evelia Coss:
+    href: https://eveliacoss.github.io/
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, download, news]
+    right: [search, github, lightswitch]
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: "Examples using ggplot2"
+        href: articles/examples.html
+      - text: "Examples using ComplexHeatmap"
+        #href: articles/a1.html
+      - text: "Estadistica descriptiva"
+        #href: articles/a2.html
+      - text: ------- # A separator
+      - text: "Category B"
+      - text: Article B1
+    download:
+      text: Download
+      menu:
+      - text: "Download raw data"
+        href: articles/download.html
