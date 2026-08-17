@@ -2,7 +2,7 @@
 
 ## Authors
 
-- **Evelia Coss**. Maintainer, author.
+- **[Evelia Coss](https://eveliacoss.github.io/)**. Maintainer, author.
   [](https://orcid.org/0000-0002-7087-2977)
 
 ## Citation
