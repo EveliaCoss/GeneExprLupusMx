@@ -1,0 +1,45 @@
+---
+title: "Get started with GeneExprLupusMx"
+output: rmarkdown::html_vignette
+date: "`r Sys.Date()`"
+package: "GeneExprLupusMx"
+vignette: >
+  %\VignetteIndexEntry{Get started with GeneExprLupusMx}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(tidyverse)
+library(GeneExprLupusMx)
+```
+
+## General information
+
+## Installation 
+
+Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). 
+
+```{r 'CRAN_install', eval = FALSE}
+install.packages("GeneExprLupusMx")
+```
+
+To install the development version from [Github](https://github.com) use: 
+
+```{r 'github_install', eval = FALSE}
+if (!requireNamespace("remotes", quietly = TRUE)) {
+    install.packages("remotes")
+}
+
+remotes::install_github("EveliaCoss/GeneExprLupusMx")
+```
+
+## Examples:
+
+```{r setup}
+library(GeneExprLupusMx)
+```

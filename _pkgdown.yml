@@ -2,7 +2,7 @@ url: https://eveliacoss.github.io/GeneExprLupusMx/
 
 template:
   bootstrap: 5
-  bootswatch: default
+  bootswatch: flatly
   light-switch: true # boton de prender y apagar light/dark theme
   opengraph:
     image:
@@ -10,29 +10,61 @@ template:
       alt: "Curated Resource for Antimicrobial Resistance Data Exploration"
 destination: pkgdown
 
+lang: es # Lenguaje de Español por default
+
 authors:
   Evelia Coss:
     href: https://eveliacoss.github.io/
 
 navbar:
   structure:
-    left:  [intro, reference, articles, download, news]
+    left:  [home, intro, articles, download, reference, news]
     right: [search, github, lightswitch]
   components:
-    articles:
-      text: Articles
+
+    home:
+      icon: fa-home
+      href: index.html
+      aria-label: Inicio
+
+    intro:
+      text: Getting started
       menu:
-      - text: "Examples using ggplot2"
-        href: articles/examples.html
-      - text: "Examples using ComplexHeatmap"
-        #href: articles/a1.html
-      - text: "Estadistica descriptiva"
-        #href: articles/a2.html
-      - text: ------- # A separator
-      - text: "Category B"
-      - text: Article B1
+      - text: ES - Primeros pasos con el paquete GeneExprLupusMx
+        href: articles/intro_es.html
+      - text: EN - Get started with GeneExprLupusMx
+        href: articles/intro_en.html
+
+    articles:
+      text: "Artículos"
+      menu:
+        - text: "ES - Tutoriales en español"
+        - text: "1 - Introducción"
+        # href: articles/a_intro_progrbasics_es.html
+        - text: "2 - Conociendo a Karel"
+        # href: articles/b_meetingkarel_es.html
+        - text: "3 - Descomposición"
+        # href: articles/c_decomposition_es.html
+        - text: "4 - Estructuras de control"
+        # href: articles/d_controlstructures_es.html
+        - text: "5 - Ejemplos"
+        # href: articles/e_examples_es.html
+        - text: -------   # separador visual
+        - text: "EN - Tutorials in English"
+        - text: "1 - Introduction"
+        # href: articles/a_intro_progrbasics_en.html
+        - text: "2 - Meeting Karel"
+        # href: articles/b_meetingkarel_en.html
+        - text: "3 - Decomposition"
+        # href: articles/c_decomposition_en.html
+        - text: "4 - Control structures"
+        # href: articles/d_controlstructures_en.html
+        - text: "5 - Examples"
+        # href: articles/e_examples_en.html
+
     download:
-      text: Download
+      text: "Descarga de datos"
       menu:
       - text: "Download raw data"
         href: articles/download.html
+
