@@ -28,7 +28,7 @@ Get the latest stable `R` release from [CRAN](http://cran.r-project.org/).
 install.packages("GeneExprLupusMx")
 ```
 
-To install the development version from [Github](https://github.com) use: 
+To install the development version from [Github](https://github.com/EveliaCoss/GeneExprLupusMx/) use: 
 
 ```{r 'github_install', eval = FALSE}
 if (!requireNamespace("remotes", quietly = TRUE)) {

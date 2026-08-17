@@ -12,8 +12,8 @@ Get the latest stable `R` release from
 install.packages("GeneExprLupusMx")
 ```
 
-To install the development version from [Github](https://github.com)
-use:
+To install the development version from
+[Github](https://github.com/EveliaCoss/GeneExprLupusMx/) use:
 
 ``` r
 
