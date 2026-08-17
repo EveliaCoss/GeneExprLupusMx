@@ -28,20 +28,6 @@ You can install the development version of GeneExprLupusMx from
 [GitHub](https://github.com/) with:
 
 ``` r
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # install.packages("pak")
 pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
@@ -51,20 +37,6 @@ pak::pak("EveliaCoss/GeneExprLupusMx")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 library(GeneExprLupusMx)
 ## basic example code
 ```
@@ -73,20 +45,6 @@ What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
 
 ``` r
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 summary(metadata_cleaned)
 #>    sample_ID   Group     GC      Dose    Dose_category      Age    
 #>  QR011_0: 1   Ctrl:30   No:57   0  :57   0:57          19     : 9  
@@ -120,20 +78,6 @@ up-to-date.
 is handy for this.
 
 ``` r
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 str(filtered_txi)
 #> List of 4
 #>  $ abundance          : num [1:21718, 1:99] 7.504 2.357 0 0.228 0.36 ...
