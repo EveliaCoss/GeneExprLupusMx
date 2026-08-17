@@ -29,6 +29,20 @@ You can install the development version of GeneExprLupusMx from
 
 ``` r
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # install.packages("pak")
 pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
@@ -39,6 +53,20 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 library(GeneExprLupusMx)
 ## basic example code
 ```
@@ -47,6 +75,20 @@ What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
 
 ``` r
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 summary(metadata_cleaned)
 #>    sample_ID   Group     GC      Dose    Dose_category      Age    
@@ -76,9 +118,25 @@ summary(metadata_cleaned)
 ```
 
 You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
+up-to-date.
+[`devtools::build_readme()`](https://devtools.r-lib.org/reference/build_readme.html)
+is handy for this.
 
 ``` r
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 str(filtered_txi)
 #> List of 4
