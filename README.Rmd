@@ -2,8 +2,6 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -15,11 +13,25 @@ knitr::opts_chunk$set(
 
 # GeneExprLupusMx
 
-<!-- badges: start -->
+## Explorando el lupus en México: datos abiertos y análisis reproducibles en R
 
-<!-- badges: end -->
+🎯 El objetivo de `GeneExprLupusMx` es proporcionar un paquete de datos en R, bilingüe y reproducible, que integre perfiles transcriptómicos y metadatos clínicos de mujeres mexicanas con **lupus eritematoso sistémico (SLE) y controles sanos**. Al combinar datos de expresión génica de *monocitos, células dendríticas derivadas de monocitos (moDCs) y células dendríticas tolerogénicas (tolDCs)*, el paquete permite:
 
-The goal of GeneExprLupusMx is to provide a bilingual, reproducible R data package that integrates transcriptomic profiles and clinical metadata from Mexican women with systemic lupus erythematosus and healthy controls. By combining gene expression data from monocytes, monocyte-derived dendritic cells (moDCs), and tolerogenic dendritic cells (tolDCs), the package enables:
+- **Uso educativo:** servir como recurso didáctico en bioinformática, inmunología y ciencias biomédicas.
+
+- **Análisis comparativo:** apoyar la exploración de redes de regulación genética y estudios de expresión diferencial.
+
+- **Flujos reproducibles:** ofrecer funciones auxiliares y scripts para replicar figuras y análisis del estudio original.
+
+- **Integración global:** hacer visibles y utilizables los conjuntos de datos generados localmente en contextos internacionales de investigación.
+
+- **Divulgación científica:** promover la ciencia abierta y la difusión de datos biomédicos de América Latina.
+
+------------
+
+## Exploring lupus in Mexico: open data and reproducible analysis in R”
+
+The goal of `GeneExprLupusMx` is to provide a bilingual, reproducible R data package that integrates transcriptomic profiles and clinical metadata from Mexican women with **systemic lupus erythematosus (SLE) and healthy controls**. By combining gene expression data from *monocytes, monocyte-derived dendritic cells (moDCs), and tolerogenic dendritic cells (tolDCs)*, the package enables:
 
 - **Educational use:** serving as a teaching resource in bioinformatics, immunology, and biomedical sciences.
 
@@ -31,32 +43,73 @@ The goal of GeneExprLupusMx is to provide a bilingual, reproducible R data packa
 
 - **Scientific outreach:** promoting open science and the dissemination of biomedical data from Latin America.
 
-## Installation
+## Instalación / Installation
 
-You can install the development version of GeneExprLupusMx from [GitHub](https://github.com/) with:
+Puedes instalar la versión en desarrollo del paquete `GeneExprLupusMx` desde GitHub con: **/** You can install the development version of `GeneExprLupusMx` from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("pak")
 pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
 
-## Example
+## Sobre los datos / About the data
 
-This is a basic example which shows you how to solve a common problem:
+Derivado del estudio **"Gene expression profiling of dendritic cell tolerance dysfunction in women with Systemic lupus erythematosus"**, este recurso integra datos de expresión génica y metadatos clínicos y experimentales de mujeres mexicanas con lupus y controles sanas, en los tres tipos celulares mencionados: *monocitos, células dendríticas derivadas de monocitos (moDCs) y células dendríticas tolerogénicas (tolDCs).* **/** Derived from the study **"Gene expression profiling of dendritic cell tolerance dysfunction in women with Systemic lupus erythematosus"**, this resource integrates gene expression data and clinical and experimental metadata from Mexican women with lupus and healthy controls, across the three mentioned cell types: *monocytes, monocyte-derived dendritic cells (moDCs), and tolerogenic dendritic cells (tolDCs).*
+
+El paquete `GeneExprLupusMx` contiene 4 datasets. **/** The `GeneExprLupusMx` package contains 4 datasets:
+
+- `metadata_cleaned`: 
+- `metadata`: Archivo suplementario
+- `filtered_txi`: Datos sobre expresión diferencial
+- `Redes de regulación`:
+
+Cargar datasets **/** Load datasets:
 
 ```{r example}
 library(GeneExprLupusMx)
-## basic example code
+data(package = 'GeneExprLupusMx')
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+One is called `metadata_cleaned`, and is a simplified version of the raw data; see `?metadata_cleaned` for more info:
 
 ```{r metadata}
 summary(metadata_cleaned)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
+The second dataset is penguins_raw, and contains all the variables and original names as downloaded; see ?penguins_raw for more info.
 
 ```{r filtered_txi}
 str(filtered_txi)
 ```
+
+Both datasets contain data for 344 penguins. There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.
+
+## Ejemplos / Examples
+
+```{r}
+library(tidyverse)
+metadata_cleaned %>% 
+  count(Group, Cell_type)
+```
+
+Penguins are fun to visualize! For example:
+
+
+
+## Cómo citar este paquete / How to cite this package
+
+To cite the palmerpenguins package, please use:
+
+```{r}
+citation("GeneExprLupusMx")
+```
+
+## Additional data use information
+
+donde vive los datos crudos
+
+## References
+
+Data originally published in:
+
+- Hernández-Ledesma AL, Coss-Navarrete EL, Salazar-Magaña S, Ramírez-Espinosa D, Tinajero-Nieto L, Torres-Valdez E, Peña-Ayala AH, Félix-Rodriguez G, Frontana-Vázquez G, García Sotelo JS, Thomas-Chollier M, Trynka G, Rosetti F, Fernandez-Valverde SL, Gutiérrez-Arcelus M, Alpízar-Rodríguez D and Medina-Rivera A (2026) Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus. Front. Immunol. 17:1771959. doi: 10.3389/fimmu.2026.1771959
