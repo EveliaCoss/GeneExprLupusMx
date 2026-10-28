@@ -32,6 +32,8 @@ You can install the development version of GeneExprLupusMx from
 
 
 
+
+
 # install.packages("pak")
 pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
@@ -45,6 +47,8 @@ This is a basic example which shows you how to solve a common problem:
 
 
 
+
+
 library(GeneExprLupusMx)
 ## basic example code
 ```
@@ -53,6 +57,8 @@ What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
 
 ``` r
+
+
 
 
 
@@ -94,6 +100,8 @@ is handy for this.
 
 
 
+
+
 str(filtered_txi)
 #> List of 4
 #>  $ abundance          : num [1:21718, 1:99] 7.504 2.357 0 0.228 0.36 ...
@@ -115,21 +123,50 @@ str(filtered_txi)
 
 ## All functions
 
+- [`Reduce_GOTerm()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/Reduce_GOTerm.md)
+  : Batch Reduce and Visualize GO Terms Across Multiple Datasets
+- [`biotype_summary`](https://eveliacoss.github.io/GeneExprLupusMx/reference/biotype_summary.md)
+  : Gene biotypes
+- [`create_heatmap()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/create_heatmap.md)
+  : Create a ComplexHeatmap with row annotation
+- [`dds`](https://eveliacoss.github.io/GeneExprLupusMx/reference/dds.md)
+  : DESeqDataSet checkpoint from the RNA-seq lesson
+- [`de_results`](https://eveliacoss.github.io/GeneExprLupusMx/reference/de_results.md)
+  : Differential expression results checkpoint (SLE vs Ctrl by cell
+  type)
 - [`filtered_txi`](https://eveliacoss.github.io/GeneExprLupusMx/reference/filtered_txi.md)
   : Filtered transcript count data
+- [`get_heatmap_mat()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/get_heatmap_mat.md)
+  : Generate a heatmap-ready matrix from a DESeq2 object
+- [`go_results`](https://eveliacoss.github.io/GeneExprLupusMx/reference/go_results.md)
+  : Functional enrichment results checkpoint (g:Profiler)
+- [`isg_genes`](https://eveliacoss.github.io/GeneExprLupusMx/reference/isg_genes.md)
+  : Interferon-stimulated genes (ISGs)
 - [`metadata_cleaned`](https://eveliacoss.github.io/GeneExprLupusMx/reference/metadata_cleaned.md)
   : Cleaned metadata with patient and cell type annotations
+- [`processGO()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/processGO.md)
+  : Process GO Enrichment Result from a Single File
+- [`sle_genes`](https://eveliacoss.github.io/GeneExprLupusMx/reference/sle_genes.md)
+  : Genes associated with systemic lupus erythematosus (SLE)
 - [`volunteer_info`](https://eveliacoss.github.io/GeneExprLupusMx/reference/volunteer_info.md)
   : Clinical information per volunteer
+- [`zscore_mat`](https://eveliacoss.github.io/GeneExprLupusMx/reference/zscore_mat.md)
+  : Z-score matrix checkpoint from the RNA-seq lesson
 
 # Articles
 
 ### All vignettes
 
-- [Conociendo a las
+- [Lección 1: Conociendo a las
   participantes](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.md):
 - [Get started with
   GeneExprLupusMx](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_en.md):
-- [De las cuentas de RNA-seq a la exploración de
-  datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md):
+- [Primeros pasos con el paquete
+  GeneExprLupusMx](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md):
+- [Lección 2: De las cuentas de RNA-seq a la exploración de
+  datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md):
 - [intro](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro.md):
+- [Lección 3: Genes diferencialmente expresados entre pacientes y
+  controles](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.md):
+- [Funciones biológicas de los genes diferencialmente
+  expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md):

@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Conociendo a las participantes • GeneExprLupusMx</title>
+<title>Lección 1: Conociendo a las participantes • GeneExprLupusMx</title>
 <script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Conociendo a las participantes">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Lección 1: Conociendo a las participantes">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -41,11 +41,10 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
 <li><h6 class="dropdown-header" data-toc-skip>ES - Tutoriales en español</h6></li>
-    <li><a class="dropdown-item" href="../articles/clinical_es.html">Conociendo a las participantes: estadística descriptiva</a></li>
-    <li><a class="dropdown-item" href="../articles/intro_es.html">1 - De las cuentas de RNA-seq a la exploración de datos</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>2 - Conociendo a Karel</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>3 - Descomposición</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>4 - Estructuras de control</h6></li>
+    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
+    <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
+    <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Obtener GOterms</a></li>
     <li><h6 class="dropdown-header" data-toc-skip>5 - Ejemplos</h6></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
@@ -91,9 +90,9 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Conociendo a las participantes</h1>
-            <h3 data-toc-skip class="subtitle">Lección: estadística
-descriptiva, tablas y normalidad de los datos clínicos</h3>
+      <h1>Lección 1: Conociendo a las participantes</h1>
+            <h3 data-toc-skip class="subtitle">Estadística descriptiva,
+tablas y normalidad de los datos clínicos</h3>
             
             <h4 data-toc-skip class="date">2026-10-28</h4>
       
@@ -122,6 +121,39 @@ pre.mermaid { background: none; border: 0; text-align: center; }
 
 /* Pie de figura justificado */
 .caption-justify { text-align: justify; }
+
+/* Navegación entre lecciones */
+.lesson-nav {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(128, 128, 128, .4);
+}
+.lesson-nav a {
+  padding: .5rem 1rem;
+  border: 1px solid #0758E5;
+  border-radius: .25rem;
+  text-decoration: none;
+}
+.lesson-nav a:hover { background: rgba(7, 88, 229, .08); }
+.lesson-nav .lesson-next { margin-left: auto; }
+
+/* Botón flotante para volver al inicio de la página */
+.back-to-top {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1000;
+  padding: .4rem .9rem;
+  border-radius: 2rem;
+  background: #0758E5;
+  color: #fff !important;
+  text-decoration: none;
+  font-size: .9rem;
+  opacity: .85;
+}
+.back-to-top:hover { opacity: 1; }
 </style>
 <div class="section level2">
 <h2 id="bienvenida">Bienvenida<a class="anchor" aria-label="anchor" href="#bienvenida"></a>
@@ -132,9 +164,8 @@ pre.mermaid { background: none; border: 0; text-align: center; }
 esta lección describimos a las 33 participantes del estudio con
 estadística descriptiva, tablas y gráficas.</p>
 <p><strong>Lo que necesitas saber antes:</strong> lo básico de R y de
-<code>dplyr</code>/<code>ggplot2</code>. No necesitas haber hecho la
-lección <a href="intro_es.html">Primeros pasos</a>, aunque te
-ayudará.</p>
+<code>dplyr</code>/<code>ggplot2</code>. No necesitas saber nada de
+RNA-seq.</p>
 <p><strong>Al terminar podrás:</strong></p>
 <ol style="list-style-type: decimal">
 <li>Distinguir variables <strong>continuas</strong> y
@@ -230,7 +261,7 @@ dos variables categóricas; funciona bien con pocos datos.</li>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span> <span class="co"># nuestros datos</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>       <span class="co"># manipulación de tablas (dplyr) y gráficas (ggplot2)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span>         <span class="co"># unir varias gráficas en un panel</span></span></code></pre></div>
-<p>Usamos los mismos colores que en la lección <a href="intro_es.html">Primeros pasos</a>:</p>
+<p>Usamos los mismos colores para cada grupo en todas las lecciones:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#5BBFB5"</span>, SLE <span class="op">=</span> <span class="st">"#8E5A8C"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -1134,11 +1165,15 @@ muestras pequeñas, puede faltar poder estadístico.</li>
 <div class="section level2">
 <h2 id="y-después">11. ¿Y después?<a class="anchor" aria-label="anchor" href="#y-despu%C3%A9s"></a>
 </h2>
-<p>Con las participantes descritas, puedes pasar al análisis de
-expresión génica en la lección <a href="intro_es.html">Primeros
-pasos</a>. Lo que aprendiste aquí ayuda a decidir qué variables clínicas
-incluir en el diseño (por ejemplo, la edad no difiere entre grupos, así
-que no es una fuente importante de confusión).</p>
+<p>En la siguiente lección, <a href="intro_RNAseq_es.html">De las
+cuentas de RNA-seq a la exploración de datos</a>, explorarás la
+expresión génica de estas mismas participantes. Lo que aprendiste aquí
+ayuda a decidir qué variables clínicas incluir en el diseño (por
+ejemplo, la edad no difiere entre grupos, así que no es una fuente
+importante de confusión).</p>
+<nav class="lesson-nav"><a class="lesson-prev" href="intro_es.html">← Lección anterior: Primeros pasos con el paquete</a>
+  <a class="lesson-next" href="intro_RNAseq_es.html">Siguiente lección: De las cuentas de RNA-seq a la exploración de datos →</a>
+</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
 </div>
 <div class="section level2">
 <h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>
