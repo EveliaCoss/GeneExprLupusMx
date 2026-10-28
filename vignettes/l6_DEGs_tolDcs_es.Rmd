@@ -1,0 +1,377 @@
+---
+title: "Lección 6: La firma transcripcional de las células dendríticas tolerogénicas"
+subtitle: "¿Adquieren las tolDC de las pacientes con lupus su programa tolerogénico?"
+output: rmarkdown::html_vignette
+date: "`r Sys.Date()`"
+package: "GeneExprLupusMx"
+vignette: >
+  %\VignetteIndexEntry{Lección 6: La firma transcripcional de las células dendríticas tolerogénicas}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5
+)
+```
+
+```{css, echo = FALSE, file = "lesson.css"}
+```
+
+## Bienvenida
+
+Las **células dendríticas tolerogénicas (tolDC)** son una promesa terapéutica para el lupus: en lugar de activar al sistema inmune, lo calman. Pero para usarlas en pacientes hay que responder una pregunta: **¿las tolDC obtenidas de pacientes con lupus adquieren el mismo programa tolerogénico que las de personas sanas?** En esta lección lo evaluamos con una **firma transcripcional** publicada.
+
+**Lo que necesitas saber antes:** haber hecho la lección [Diferenciación de monocitos a células dendríticas](l5_DEGs_monocytes_diff_es.html).
+
+**Al terminar podrás:**
+
+1. Usar una **firma transcripcional** de la literatura para evaluar tus propias muestras.
+2. Combinar en una figura la **expresión por muestra** (z-score) y el **cambio por comparación** (LFC).
+3. Explicar por qué **la elección de la referencia** cambia la interpretación de un LFC.
+4. Calcular el cambio entre dos tipos celulares a partir de dos comparaciones con la misma referencia.
+5. Reproducir la **Figura 6** del artículo.
+
+**Tiempo estimado:** 1 hora.
+
+### Mapa de la lección
+
+```{=html}
+<pre class="mermaid">
+flowchart LR
+  A["tolDC_genes<br/>firma de Robertson et al."] --> C["71 genes de la firma<br/>que son DEG"]
+  B["de_celltype_results<br/>(lección 5)"] --> C
+  C --> D["z-score por muestra<br/>(zscore_mat)"]
+  C --> E["LFC tolDC<br/>vs monocito"]
+  D --> F["Figura 6"]
+  E --> F
+  C --> G["¿Coincide la dirección?<br/>Elegir la referencia"]
+</pre>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true });
+</script>
+```
+
+## Glosario
+
+Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
+
+- **Tolerancia inmunológica**: capacidad del sistema inmune de no atacar al propio cuerpo; en el lupus se pierde.
+- **tolDC**: células dendríticas tolerogénicas; promueven la tolerancia.
+- **Firma transcripcional**: conjunto de genes cuya expresión caracteriza a un tipo o estado celular.
+- **Activado / reprimido**: gen que sube / baja en el estado celular de interés respecto a una referencia.
+- **IL-10, dexametasona (DXM)**: una citocina antiinflamatoria y un glucocorticoide que se usan para generar tolDC *in vitro*.
+- **Referencia**: el tipo celular contra el que se calcula un LFC; cambiarla cambia el signo y el tamaño del LFC.
+
+## 1. Preparación
+
+```{r setup}
+library(GeneExprLupusMx) # datos del paquete
+library(tidyverse)       # manipulación de tablas y gráficas
+library(ComplexHeatmap)  # heatmaps
+library(circlize)        # escalas de color para ComplexHeatmap
+```
+
+Colores y umbrales (los mismos de las lecciones anteriores):
+
+```{r colores}
+cell_color    <- c(monocyte = "black", moDC = "palevioletred", tolDC = "gold1")
+group_color   <- c(Ctrl = "#96d4ccff", SLE = "#b493b4ff")
+biotype_color <- c(PCG = "#7570B3", lncRNA = "#E7298A")
+zscore_color  <- colorRamp2(c(-2, -1, 0, 1, 2), c("darkblue", "dodgerblue", "white", "red", "darkred"))
+lfc_color     <- colorRamp2(c(-5, -1, 0, 1, 5), c("darkblue", "dodgerblue", "white", "red", "darkred"))
+
+lfc_threshold  <- 1
+padj_threshold <- 0.05
+```
+
+## 2. Paso 1: la firma de las tolDC
+
+[Robertson et al. (2021)](https://doi.org/10.3389/fimmu.2021.733231) compararon tolDC generadas con distintos protocolos e identificaron los genes que distinguen a las tolDC. El paquete los incluye en `tolDC_genes`:
+
+```{r signature}
+head(tolDC_genes)
+dplyr::count(tolDC_genes, tolDC_signature)
+```
+
+Cada categoría tiene dos partes:
+
+- **Dirección:** `Activated` (el gen sube en las tolDC) o `Repressed` (baja).
+- **Protocolo:** tolDC generadas con IL-10 (`IL10`), con IL-10 y dexametasona (`IL10+DXM`), o la firma de consenso de tolDC (`tolDC_signature`). Algunos genes aparecen en varios protocolos.
+
+## 3. Paso 2: ¿qué genes de la firma cambian en nuestros datos?
+
+Usamos los resultados de la lección anterior (`de_celltype_results`): cada célula dendrítica comparada contra los monocitos, en controles y pacientes. Nos quedamos con los genes de la firma que son DEG en **al menos una** de las cuatro comparaciones:
+
+```{r signature_deg}
+deg_genes <- function(comparison) {
+  df <- de_celltype_results[[comparison]]
+  df$gene[!is.na(df$padj) & df$padj < padj_threshold & abs(df$log2FoldChange) >= lfc_threshold]
+}
+all_deg <- unique(unlist(lapply(names(de_celltype_results), deg_genes)))
+
+signature_deg <- tolDC_genes %>%
+  filter(gene %in% all_deg, gene %in% rownames(zscore_mat))
+nrow(signature_deg)
+dplyr::count(signature_deg, biotype)
+```
+
+**71 de los 86 genes de la firma cambian** durante la diferenciación de nuestras células. Casi todos codifican proteínas (PCG); dos son RNA largos no codificantes (lncRNA).
+
+## 4. Paso 3: la Figura 6
+
+La figura tiene dos *heatmaps* alineados por gen:
+
+- **Izquierda:** la expresión (z-score) de cada gen en cada muestra de monocitos y tolDC, de controles y pacientes.
+- **Derecha:** el LFC de las tolDC respecto a los monocitos, en controles y en pacientes.
+
+Preparamos la parte izquierda con el checkpoint `zscore_mat`:
+
+```{r fig6_zscore}
+sample_info <- metadata_cleaned %>%
+  filter(Cell_type %in% c("monocyte", "tolDC")) %>%
+  mutate(condition = factor(paste(Group, Cell_type, sep = "_"),
+                            levels = c("Ctrl_monocyte", "SLE_monocyte", "Ctrl_tolDC", "SLE_tolDC"))) %>%
+  arrange(condition)
+
+zscore_sig <- zscore_mat[signature_deg$gene, sample_info$sample_ID]
+dim(zscore_sig)
+```
+
+Y la derecha, con el LFC de las tolDC:
+
+```{r fig6_lfc}
+lfc_sig <- sapply(de_celltype_results[c("Ctrl_tolDC", "SLE_tolDC")], function(df)
+  df$log2FoldChange[match(signature_deg$gene, df$gene)])
+rownames(lfc_sig) <- signature_deg$gene
+head(lfc_sig)
+```
+
+Fijamos el **orden de las categorías y de los genes**. Dentro de cada categoría, los genes están ordenados por similitud (*clustering*); aquí escribimos ese orden explícitamente para que la figura siempre se vea igual:
+
+```{r fig6_order}
+fig6_order <- list(
+  "Repressed - IL10+DXM" = c("MAFF", "SOCS1", "APOL4", "CCL17", "LAMP3", "ALOX15", "CH25H", "ACOT7"),
+  "Repressed - tolDC_signature" = c("HCAR2", "FCER1A", "NRGN", "VCL", "ISYNA1", "TRIM36", "ESYT1",
+                                    "KCTD6", "PEA15", "NCAPH", "BCAR3", "NDRG2", "CD1A", "CD1E",
+                                    "CD1B", "CALCRL", "IRF4", "SLC27A3", "C1orf115", "GALNT12"),
+  "Repressed - tolDC_signature, Repressed - IL10+DXM" = c("MMP12", "SCRN1", "CD1C"),
+  "Repressed - IL10" = c("HCAR3", "MAP4K1", "TIFAB", "FABP4", "ATP1B1"),
+  "Activated - IL10+DXM, Activated - IL10" = c("CD163"),
+  "Activated - IL10" = c("HIVEP2", "FPR1", "IL7", "IGF2BP3", "FCGR3A", "FAM20A", "C1S", "TGFA"),
+  "Activated - IL10+DXM" = c("SLC18B1", "S100A8", "MERTK", "LINC01094", "C1QB", "RNASE1", "ADAMDEC1"),
+  "Repressed - tolDC_signature, Repressed - IL10+DXM, Repressed - IL10" = c("CDH1"),
+  "Activated - IL10+DXM, Activated - tolDC_signature" = c("CD14"),
+  "Activated - tolDC_signature" = c("NCOA4", "CD300LF", "C5AR1", "CD93", "TREM1", "SMPDL3A", "NRIP1",
+                                    "NOD2", "NCF1C", "RGS18", "NINJ1", "CEBPB", "MS4A4A", "PAPSS2",
+                                    "C1QA", "SEMA6B", "DRAM1"))
+
+# ¿Son los mismos 71 genes que seleccionamos?
+setequal(unlist(fig6_order), signature_deg$gene)
+
+# reordenar genes, z-scores y LFC según la figura
+fig6_genes   <- unlist(fig6_order, use.names = FALSE)
+fig6_split   <- factor(rep(names(fig6_order), lengths(fig6_order)), levels = names(fig6_order))
+signature_deg <- signature_deg[match(fig6_genes, signature_deg$gene), ]
+zscore_sig   <- zscore_sig[fig6_genes, ]
+lfc_sig      <- lfc_sig[fig6_genes, ]
+```
+
+Con todo en orden, dibujamos los dos paneles:
+
+```{r fig6, fig.width = 13, fig.height = 16}
+ht_zscore <- Heatmap(
+  zscore_sig, name = "zscore", col = zscore_color,
+  cluster_rows = FALSE, cluster_columns = FALSE, # el orden viene de fig6_order
+  show_row_names = FALSE, show_column_names = FALSE,
+  top_annotation = HeatmapAnnotation(
+    Group       = as.character(sample_info$Group),
+    "Cell type" = as.character(sample_info$Cell_type),
+    col = list(Group = group_color, "Cell type" = cell_color),
+    show_annotation_name = FALSE),
+  column_split = sample_info$condition,
+  column_title = c("", "normalized counts", "", ""), column_title_gp = gpar(fontsize = 11),
+  row_split = fig6_split, row_title_rot = 0,
+  row_title_gp = gpar(fontsize = 9), row_gap = unit(3, "mm"),
+  heatmap_legend_param = list(direction = "horizontal"),
+  width = unit(12, "cm"))
+
+ht_lfc <- Heatmap(
+  lfc_sig, name = "log2FC", col = lfc_color,
+  cluster_columns = FALSE, show_column_names = FALSE,
+  column_title = "within-group,\ncompared to monocytes", column_title_gp = gpar(fontsize = 11),
+  row_names_gp = gpar(fontsize = 8),
+  top_annotation = HeatmapAnnotation(
+    Group       = c("Ctrl", "SLE"),
+    "Cell type" = c("tolDC", "tolDC"),
+    col = list(Group = group_color, "Cell type" = cell_color),
+    show_legend = FALSE),
+  right_annotation = rowAnnotation(Biotype = signature_deg$biotype,
+                                   col = list(Biotype = biotype_color)),
+  heatmap_legend_param = list(direction = "horizontal"),
+  width = unit(2, "cm"))
+
+ht_fig6 <- ht_zscore + ht_lfc
+
+ht_opt$message <- FALSE
+draw(ht_fig6, ht_gap = unit(5, "mm"), merge_legends = TRUE,
+     heatmap_legend_side = "top", annotation_legend_side = "top")
+```
+
+::: {.caption-justify}
+**Figura 6.** Firmas transcripcionales asociadas a las tolDC obtenidas al comparar pacientes con lupus (SLE) y controles. *Heatmaps* que muestran `r nrow(signature_deg)` DEG asociados a las firmas transcripcionales de las tolDC (Robertson et al., 2021): `r sum(lfc_sig[, "Ctrl_tolDC"] > 0 & lfc_sig[, "SLE_tolDC"] > 0)` suben y `r sum(lfc_sig[, "Ctrl_tolDC"] < 0 & lfc_sig[, "SLE_tolDC"] < 0)` bajan en las tolDC de ambos grupos respecto a los monocitos, y `r sum(sign(lfc_sig[, "Ctrl_tolDC"]) != sign(lfc_sig[, "SLE_tolDC"]))` cambian en direcciones opuestas según el grupo. Las filas representan genes, agrupados por la categoría de la firma, y las columnas representan muestras de monocitos y tolDC diferenciadas *in vitro*, coloreadas según el tipo celular y el grupo (SLE o Ctrl). Panel izquierdo: *heatmap* con los valores de expresión génica normalizada (z-score). Panel derecho: *heatmap* con los valores de LFC de las tolDC respecto a los monocitos en cada grupo. Los DEG se seleccionaron con |LFC| ≥ 1 y padj < 0.05 en al menos una comparación (moDC o tolDC contra monocitos, en pacientes o en controles). Los biotipos se indican con colores: morado para los genes codificantes de proteínas (PCG) y rosa para los RNA largos no codificantes (lncRNA). SLE, lupus eritematoso sistémico; Ctrl, control sano; tolDC, células dendríticas tolerogénicas; LFC, log2 fold change.
+
+La figura original se encuentra en el [artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+:::
+
+
+Para guardarla en alta resolución:
+
+```{r save_figure, eval = FALSE}
+png("Figura_6.png", width = 13, height = 16, units = "in", res = 300)
+draw(ht_fig6, ht_gap = unit(5, "mm"), merge_legends = TRUE,
+     heatmap_legend_side = "top", annotation_legend_side = "top")
+dev.off()
+```
+
+
+**¿Qué observas?**
+
+- En el panel izquierdo, los patrones de las tolDC de **controles y pacientes son muy parecidos**: los genes que se encienden o se apagan lo hacen en ambos grupos.
+- En el panel derecho, los LFC de controles y pacientes casi siempre tienen el mismo color.
+- **Las tolDC de las pacientes adquieren el programa transcripcional tolerogénico**, igual que las de los controles. Es una buena noticia para su posible uso terapéutico.
+
+::: {.callout-note}
+**Reto 1.** ¿Qué genes de la firma cambian en **direcciones opuestas** en las tolDC de controles y de pacientes?
+
+*Pista:* compara el signo de las dos columnas de `lfc_sig`.
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+```{r reto1}
+lfc_sig[sign(lfc_sig[, "Ctrl_tolDC"]) != sign(lfc_sig[, "SLE_tolDC"]), ]
+```
+
+Solo dos genes, y con LFC pequeños: el programa tolerogénico es prácticamente el mismo en ambos grupos.
+
+</details>
+
+## 5. Paso 4: ¿cambian en la dirección de la firma? La importancia de la referencia
+
+La firma dice qué genes están **activados** o **reprimidos** en las tolDC. ¿Coincide con nuestros LFC?
+
+```{r agreement_mono}
+expected <- ifelse(grepl("^Activated", signature_deg$tolDC_signature), 1, -1)
+mean(sign(lfc_sig[, "Ctrl_tolDC"]) == expected)
+```
+
+¡Solo coincide el 42 %! ¿Las tolDC están mal diferenciadas? No: estamos usando **otra referencia**. Robertson et al. definieron la firma comparando tolDC contra **células dendríticas no tolerogénicas** (como nuestras moDC), mientras que nuestros LFC comparan tolDC contra **monocitos**.
+
+Veamos `CD14`: es "activado" en la firma, pero baja en nuestras tolDC.
+
+```{r cd14}
+sapply(de_celltype_results, function(df) round(df$log2FoldChange[df$gene == "CD14"], 2))
+```
+
+`CD14` es un marcador de monocito: baja en las tolDC (−2.2) y baja aún más en las moDC (−4.8). **Comparada con la moDC, la tolDC conserva más `CD14`**, que es justo lo que describe la firma.
+
+### 5.1 De dos comparaciones a una
+
+No necesitamos repetir el análisis para comparar tolDC contra moDC. Como ambas se compararon contra los **mismos monocitos**, en el mismo modelo, basta con restar:
+
+$$\text{LFC}_{\text{tolDC vs moDC}} = \text{LFC}_{\text{tolDC vs mono}} - \text{LFC}_{\text{moDC vs mono}}$$
+
+```{r tol_vs_modc}
+lfc_all <- sapply(de_celltype_results, function(df)
+  df$log2FoldChange[match(signature_deg$gene, df$gene)])
+rownames(lfc_all) <- signature_deg$gene
+
+tol_vs_modc <- cbind(Ctrl = lfc_all[, "Ctrl_tolDC"] - lfc_all[, "Ctrl_moDC"],
+                     SLE  = lfc_all[, "SLE_tolDC"]  - lfc_all[, "SLE_moDC"])
+
+colMeans(sign(tol_vs_modc) == expected) # proporción que coincide con la firma
+```
+
+Ahora **más del 90 % de los genes coincide** con la firma, en controles y en pacientes. La diferenciación tolerogénica funcionó; solo había que compararla contra la referencia correcta.
+
+```{r agreement_plot, fig.width = 9, fig.height = 4.5}
+tibble(gene = rownames(tol_vs_modc), signature = ifelse(expected == 1, "Activated", "Repressed"),
+       Ctrl = tol_vs_modc[, "Ctrl"], SLE = tol_vs_modc[, "SLE"]) %>%
+  pivot_longer(c(Ctrl, SLE), names_to = "Group", values_to = "LFC") %>%
+  ggplot(aes(x = reorder(gene, LFC), y = LFC, fill = signature)) +
+  geom_col() +
+  facet_wrap(~ Group, ncol = 1) +
+  scale_fill_manual(values = c(Activated = "firebrick3", Repressed = "dodgerblue3")) +
+  labs(x = NULL, y = "LFC tolDC vs moDC", fill = "Firma") +
+  theme_minimal(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, size = 6), legend.position = "top")
+```
+
+Los genes "activados" (rojo) quedan casi todos a la derecha, con LFC positivo, y los "reprimidos" (azul) a la izquierda.
+
+::: {.alert .alert-warning}
+**Restar LFC da la magnitud, no la significancia.** La resta da el mismo LFC que estimaría `DESeq2`, pero no su valor p. Para probar estadísticamente tolDC contra moDC hay que pedirlo al objeto de `DESeq2`, por ejemplo con `results(dds, contrast = c("Cell_type", "tolDC", "moDC"))`.
+:::
+
+::: {.callout-note}
+**Reto 2.** ¿Qué genes **no** coinciden con la firma aun usando la moDC como referencia?
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+```{r reto2}
+tibble(gene = rownames(tol_vs_modc), signature = signature_deg$tolDC_signature,
+       Ctrl = round(tol_vs_modc[, "Ctrl"], 2), SLE = round(tol_vs_modc[, "SLE"], 2)) %>%
+  filter(sign(Ctrl) != expected | sign(SLE) != expected)
+```
+
+Son pocos genes, la mayoría con LFC cercanos a cero. Las diferencias de protocolo entre estudios (citocinas, tiempos de cultivo) explican bien este nivel de discrepancia.
+
+</details>
+
+## 6. Resumen
+
+| Paso | Función clave | ¿Para qué? |
+|------|---------------|------------|
+| Cargar una firma | `tolDC_genes` | Usar conocimiento previo para evaluar tus datos |
+| Seleccionar genes | `filter(gene %in% all_deg)` | Quedarte con los genes de la firma que cambian |
+| Expresión por muestra | `zscore_mat` | Ver la variabilidad entre muestras |
+| Cambio por comparación | LFC de `de_celltype_results` | Resumir el cambio de cada grupo |
+| Cambiar de referencia | resta de LFC | Comparar dos tipos celulares sin repetir el análisis |
+
+### Errores comunes de principiante
+
+- **Comparar con una firma sin revisar su referencia**: un LFC solo tiene sentido respecto a algo.
+- **Concluir que algo "falló" porque no coincide la dirección**: primero verifica que estás comparando lo mismo.
+- **Usar la resta de LFC como prueba estadística**: da la magnitud, no el valor p.
+
+## 7. Próximos pasos
+
+Las tolDC de las pacientes adquieren el programa tolerogénico descrito en la literatura, de forma muy similar a las de los controles. Sin embargo, comparar los LFC de dos modelos separados no permite probar estadísticamente si la diferenciación difiere entre grupos. La lección [¿Se diferencian igual las células de pacientes y controles?](l7_DEGs_between_groups_es.html) responde esta pregunta con un modelo de interacción.
+
+Para continuar, da clic en el botón **Siguiente lección: Comparar la diferenciación entre grupos** al final de esta página.
+
+```{=html}
+<nav class="lesson-nav">
+  <a class="lesson-prev" href="l5_DEGs_monocytes_diff_es.html">← Lección anterior: Diferenciación de monocitos</a>
+  <a class="lesson-next" href="l7_DEGs_between_groups_es.html">Siguiente lección: Comparar la diferenciación entre grupos →</a>
+</nav>
+<a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
+```
+
+## Información de la sesión
+
+```{r}
+sessionInfo()
+```

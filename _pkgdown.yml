@@ -3,11 +3,11 @@ url: https://eveliacoss.github.io/GeneExprLupusMx/
 template:
   bootstrap: 5
   bootswatch: flatly
-  light-switch: true # boton de prender y apagar light/dark theme
+  #light-switch: true # boton de prender y apagar light/dark theme
   opengraph:
     image:
-      src: man/figures/AMRdb-logo2.png
-      alt: "Curated Resource for Antimicrobial Resistance Data Exploration"
+      src: man/figures/overview.png
+      alt: "GeneExprLupusMx: transcriptómica de lupus en mujeres mexicanas"
 destination: pkgdown
 
 lang: es # Lenguaje de Español por default
@@ -39,32 +39,41 @@ navbar:
       text: "Artículos"
       menu:
         - text: "ES - Tutoriales en español"
-        - text: "1 - Conociendo a las participantes: estadística descriptiva"
+        - text: "1 - Conociendo a las participantes"
           href: articles/clinical_es.html
         - text: "2 - De las cuentas de RNA-seq a la exploración de datos"
           href: articles/intro_RNAseq_es.html
         - text: "3 - Genes diferencialmente expresados entre pacientes y controles"
           href: articles/l3_DEGs_es.html
-        - text: "4 - Obtener GOterms"
+        - text: "4 - Funciones biológicas de los genes diferencialmente expresados"
           href: articles/l4_GOterms_es.html
-        - text: "5 - Ejemplos"
-        # href: articles/e_examples_es.html
+        - text: "5 - Diferenciación de monocitos a células dendríticas"
+          href: articles/l5_DEGs_monocytes_diff_es.html
+        - text: "6 - La firma transcripcional de las células dendríticas tolerogénicas"
+          href: articles/l6_DEGs_tolDcs_es.html
+        - text: "7 - ¿Se diferencian igual las células de pacientes y controles?"
+          href: articles/l7_DEGs_between_groups_es.html
         - text: -------   # separador visual
         - text: "EN - Tutorials in English"
-        - text: "1 - Introduction"
-        # href: articles/a_intro_progrbasics_en.html
-        - text: "2 - Meeting Karel"
-        # href: articles/b_meetingkarel_en.html
-        - text: "3 - Decomposition"
-        # href: articles/c_decomposition_en.html
-        - text: "4 - Control structures"
-        # href: articles/d_controlstructures_en.html
-        - text: "5 - Examples"
-        # href: articles/e_examples_en.html
+        - text: "1 - Meeting the participants"
+          href: articles/clinical_en.html
+        - text: "2 - From RNA-seq counts to data exploration"
+          href: articles/intro_RNAseq_en.html
+        - text: "3 - Differentially expressed genes between patients and controls"
+          href: articles/l3_DEGs_en.html
+        - text: "4 - Biological functions of differentially expressed genes"
+          href: articles/l4_GOterms_en.html
+        - text: "5 - Differentiation of monocytes into dendritic cells"
+          href: articles/l5_DEGs_monocytes_diff_en.html
+        - text: "6 - The transcriptional signature of tolerogenic dendritic cells"
+          href: articles/l6_DEGs_tolDcs_en.html
+        - text: "7 - Do patient and control cells differentiate in the same way?"
+          href: articles/l7_DEGs_between_groups_en.html
 
     download:
       text: "Descarga de datos"
       menu:
-      - text: "Download raw data"
-        href: articles/download.html
-
+      - text: "ES - Descarga de datos"
+        href: articles/download_es.html
+      - text: "EN - Data download"
+        href: articles/download_en.html

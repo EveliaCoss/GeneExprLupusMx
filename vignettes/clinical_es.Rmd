@@ -5,7 +5,7 @@ output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 package: "GeneExprLupusMx"
 vignette: >
-  %\VignetteIndexEntry{Conociendo a las participantes}
+  %\VignetteIndexEntry{Lección 1: Conociendo a las participantes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -93,7 +93,7 @@ library(cowplot)         # unir varias gráficas en un panel
 Usamos los mismos colores para cada grupo en todas las lecciones:
 
 ```{r colores}
-group_color <- c(Ctrl = "#5BBFB5", SLE = "#8E5A8C")
+group_color <- c(Ctrl = "#96d4ccff", SLE = "#b493b4ff")
 ```
 
 ## 2. Los datos: `volunteer_info`
@@ -489,7 +489,7 @@ figure_s3
 ```
 
 ::: {.caption-justify}
-**Figura suplementaria S3.** Distribución y evaluación de la normalidad de las variables continuas. Cada panel muestra el histograma con la curva de densidad (arriba) y la gráfica Q–Q (abajo) de **(A)** la edad, **(B)** la edad al diagnóstico, **(C)** el tiempo desde el diagnóstico y **(D)** la dosis de glucocorticoides (GC). En las gráficas Q–Q, los cuantiles de la muestra se comparan con los cuantiles teóricos de una distribución normal (línea roja). Las figuras ilustran las propiedades de distribución de las variables y su desviación de la normalidad, evaluada con la prueba de Shapiro–Wilk.
+**Figura suplementaria S3.** Distribución y evaluación de la normalidad de las variables continuas. Cada panel muestra el histograma con la curva de densidad (arriba) y la gráfica Q–Q (abajo) de **(A)** la edad de todas las voluntarias (n = `r sum(!is.na(volunteer_info$Age_years))`) y, en las pacientes (n = `r nrow(patients)`), **(B)** la edad al diagnóstico, **(C)** el tiempo desde el diagnóstico y **(D)** la dosis de glucocorticoides (GC). El título de cada panel incluye el valor p de la prueba de Shapiro–Wilk. En las gráficas Q–Q, los cuantiles de la muestra se comparan con los cuantiles teóricos de una distribución normal (línea roja). Las figuras ilustran las propiedades de distribución de las variables y su desviación de la normalidad, evaluada con la prueba de Shapiro–Wilk.
 
 La figura suplementaria original se encuentra en el [material suplementario del artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial).
 :::
@@ -521,16 +521,18 @@ ggsave("Figura_S3_normalidad.png", figure_s3, width = 20, height = 7, dpi = 300)
 - **Usar la prueba t sin revisar la normalidad**.
 - **Interpretar p ≥ 0.05 como "no hay diferencia"**: con muestras pequeñas, puede faltar poder estadístico.
 
-## 11. ¿Y después?
+## 11. Próximos pasos
 
-En la siguiente lección, [De las cuentas de RNA-seq a la exploración de datos](intro_RNAseq_es.html), explorarás la expresión génica de estas mismas participantes. Lo que aprendiste aquí ayuda a decidir qué variables clínicas incluir en el diseño (por ejemplo, la edad no difiere entre grupos, así que no es una fuente importante de confusión).
+Con la cohorte caracterizada, el siguiente paso es analizar la expresión génica de estas mismas participantes. En la lección [De las cuentas de RNA-seq a la exploración de datos](intro_RNAseq_es.html) importarás y normalizarás las cuentas, y explorarás la estructura de los datos con *heatmaps* y PCA. Lo aprendido aquí orienta el diseño de ese análisis: por ejemplo, la edad no difiere entre grupos, por lo que no representa una fuente importante de confusión.
+
+Para continuar, da clic en el botón **Siguiente lección: De las cuentas de RNA-seq a la exploración de datos** al final de esta página.
 
 ```{=html}
 <nav class="lesson-nav">
   <a class="lesson-prev" href="intro_es.html">← Lección anterior: Primeros pasos con el paquete</a>
   <a class="lesson-next" href="intro_RNAseq_es.html">Siguiente lección: De las cuentas de RNA-seq a la exploración de datos →</a>
 </nav>
-<a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
+<a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
 ```
 
 ## Información de la sesión

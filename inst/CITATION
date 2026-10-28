@@ -1,0 +1,16 @@
+bibentry(
+  bibtype = "Article",
+  title   = "Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus",
+  author  = c(person("A. L.", "Hernández-Ledesma"), person("E. L.", "Coss-Navarrete"), person("others")),
+  journal = "Frontiers in Immunology",
+  year    = "2026",
+  volume  = "17",
+  pages   = "1771959",
+  doi     = "10.3389/fimmu.2026.1771959",
+  url     = "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full",
+  textVersion = paste(
+    "Hernández-Ledesma AL, Coss-Navarrete EL, et al (2026) Gene expression profiling of",
+    "dendritic cell tolerance dysfunction in women with systemic lupus erythematosus.",
+    "Front. Immunol. 17:1771959. doi: 10.3389/fimmu.2026.1771959."
+  )
+)

@@ -1,0 +1,514 @@
+---
+title: "Lección 7: ¿Se diferencian igual las células de pacientes y controles?"
+subtitle: "Comparar contrastes entre grupos con un modelo de interacción"
+output: rmarkdown::html_vignette
+date: "`r Sys.Date()`"
+package: "GeneExprLupusMx"
+vignette: >
+  %\VignetteIndexEntry{Lección 7: ¿Se diferencian igual las células de pacientes y controles?}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5
+)
+```
+
+```{css, echo = FALSE, file = "lesson.css"}
+```
+
+## Bienvenida
+
+En la lección 5 vimos que, al diferenciarse, los monocitos de pacientes y de controles cambian miles de genes, y que los cambios se parecen mucho. Pero "parecerse" no es "ser iguales". En esta lección hacemos la pregunta de forma estadística: **¿hay genes cuyo cambio de monocito a célula dendrítica es distinto en las pacientes con lupus?** Para responderla usaremos un **modelo con interacción**, que compara directamente los contrastes de ambos grupos.
+
+**Lo que necesitas saber antes:** haber hecho la lección [Diferenciación de monocitos a células dendríticas](l5_DEGs_monocytes_diff_es.html).
+
+**Al terminar podrás:**
+
+1. Explicar qué es una **interacción** y por qué se describe como una "diferencia de diferencias".
+2. Ajustar un modelo `~ Group + Cell_type + Group:Cell_type` con `DESeq2` e interpretar sus coeficientes.
+3. Visualizar una interacción con una gráfica de líneas.
+4. Resumir los genes con su **proceso específico** de Reactome.
+5. Reproducir los paneles **A y B de la Figura 7** del artículo.
+
+**Tiempo estimado:** 1.5 horas.
+
+### Mapa de la lección
+
+```{=html}
+<pre class="mermaid">
+flowchart LR
+  A["filtered_txi<br/>99 muestras"] --> B["Modelo con interacción<br/>~ Group + Cell_type<br/>+ Group:Cell_type"]
+  B --> C["de_interaction_results<br/>padj < 0.05"]
+  C --> D["g:Profiler<br/>go_interaction_results"]
+  D --> E["Proceso específico<br/>de Reactome"]
+  C --> F["Figura 7A<br/>LFC de la interacción"]
+  E --> F
+  E --> G["Figura 7B<br/>procesos por lista"]
+</pre>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true });
+</script>
+```
+
+## Glosario
+
+Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
+
+- **Contraste**: una comparación entre dos condiciones; por ejemplo, moDC contra monocito.
+- **Interacción**: ocurre cuando el efecto de un factor depende de otro. Aquí, cuando el cambio de monocito a célula dendrítica (factor `Cell_type`) depende de si la persona es paciente o control (factor `Group`).
+- **Diferencia de diferencias**: el valor de una interacción. Es el cambio en las pacientes menos el cambio en los controles.
+- **Coeficiente**: cada número que estima un modelo; `DESeq2` los lista con `resultsNames()`.
+- **Proceso específico**: entre todos los términos enriquecidos en los que aparece un gen, el que tiene **menos** genes; el más concreto.
+
+## 1. Preparación
+
+```{r setup}
+library(GeneExprLupusMx) # datos del paquete
+library(tidyverse)       # manipulación de tablas y gráficas
+library(ComplexHeatmap)  # heatmaps
+library(circlize)        # escalas de color para ComplexHeatmap
+library(cowplot)         # unir gráficas en paneles
+```
+
+Colores y umbral (los mismos de las lecciones anteriores, más los de las listas de esta lección):
+
+```{r colores}
+cell_color       <- c(monocyte = "black", moDC = "palevioletred", tolDC = "gold1")
+group_color      <- c(Ctrl = "#96d4ccff", SLE = "#b493b4ff")
+expression_color <- c(UP = "firebrick3", DOWN = "dodgerblue3")
+comparison_color <- c(SLEvsCtrl_moDC = "#4daf4a", SLEvsCtrl_tolDC = "#ff7f00")
+lfc_color        <- colorRamp2(c(-5, -1, 0, 1, 5), c("darkblue", "dodgerblue", "white", "red", "darkred"))
+
+padj_threshold <- 0.05
+```
+
+## 2. Paso 1: ¿qué es una interacción?
+
+Tomemos un gen estimulado por interferón, `ISG15`. En la lección 5 calculamos su LFC de monocito a célula dendrítica en cada grupo:
+
+```{r isg15_lfc}
+sapply(de_celltype_results, function(df) round(df$log2FoldChange[df$gene == "ISG15"], 2))
+```
+
+`ISG15` baja al diferenciarse en ambos grupos, pero en las pacientes baja **más**: en las moDC, −3.41 contra −1.69. La diferencia entre esos dos cambios es la **interacción**:
+
+$$\text{interacción} = \text{LFC}_{\text{SLE}} - \text{LFC}_{\text{Ctrl}} = -3.41 - (-1.69) = -1.72$$
+
+Una gráfica de líneas lo hace evidente. Graficamos el z-score medio de cada grupo en cada tipo celular, usando el checkpoint `zscore_mat`:
+
+```{r plot_interaction_fun}
+plot_interaction <- function(gene) {
+  metadata_cleaned %>%
+    mutate(zscore    = zscore_mat[gene, as.character(sample_ID)],
+           Cell_type = factor(Cell_type, levels = c("monocyte", "moDC", "tolDC"))) %>%
+    group_by(Group, Cell_type) %>%
+    summarise(mean_z = mean(zscore), se = sd(zscore) / sqrt(n()), .groups = "drop") %>%
+    ggplot(aes(x = Cell_type, y = mean_z, color = Group, group = Group)) +
+    geom_line(linewidth = 1) +
+    geom_point(size = 3) +
+    geom_errorbar(aes(ymin = mean_z - se, ymax = mean_z + se), width = 0.1) +
+    scale_color_manual(values = group_color) +
+    labs(title = gene, x = "Tipo celular", y = "z-score medio (± error estándar)", color = "Grupo") +
+    theme_classic(base_size = 12)
+}
+```
+
+```{r isg15_plot, fig.width = 5, fig.height = 4}
+plot_interaction("ISG15")
+```
+
+- Si las dos líneas fueran **paralelas**, el gen cambiaría igual en ambos grupos: no habría interacción.
+- Aquí **no son paralelas**: las pacientes parten de un valor mucho más alto en los monocitos (la firma de interferón de la lección 3) y caen más al diferenciarse.
+
+::: {.alert .alert-warning}
+**Una interacción negativa no significa "más bajo en las pacientes".** Significa que el gen **baja más** (o sube menos) al diferenciarse en las pacientes. En el caso de `ISG15`, las moDC de ambos grupos terminan con niveles parecidos; lo que cambia es la pendiente, porque las pacientes parten de un valor más alto.
+:::
+
+## 3. Paso 2: el modelo con interacción
+
+En la lección 5 ajustamos un modelo para cada grupo y comparamos sus LFC "a ojo". Para obtener un **valor p** de la diferencia, hay que ajustar un solo modelo con las 99 muestras y un término de interacción, `Group:Cell_type`:
+
+```{r interaction_model, eval = FALSE}
+library(DESeq2)
+
+dds <- DESeqDataSetFromTximport(txi     = filtered_txi,
+                                colData = metadata_cleaned,
+                                design  = ~ Group + Cell_type + Group:Cell_type)
+dds$Group     <- relevel(dds$Group, ref = "Ctrl")         # referencia: controles
+dds$Cell_type <- relevel(dds$Cell_type, ref = "monocyte") # referencia: monocitos
+dds <- DESeq(dds) # tarda unos minutos
+
+resultsNames(dds)
+#> [1] "Intercept"                   "Group_SLE_vs_Ctrl"
+#> [3] "Cell_type_moDC_vs_monocyte"  "Cell_type_tolDC_vs_monocyte"
+#> [5] "GroupSLE.Cell_typemoDC"      "GroupSLE.Cell_typetolDC"
+```
+
+Cada coeficiente responde una pregunta distinta:
+
+| Coeficiente | ¿Qué mide? |
+|-------------|------------|
+| `Intercept` | La expresión de referencia: monocitos de los controles |
+| `Group_SLE_vs_Ctrl` | SLE contra Ctrl, **en los monocitos** |
+| `Cell_type_moDC_vs_monocyte` | moDC contra monocito, **en los controles** |
+| `Cell_type_tolDC_vs_monocyte` | tolDC contra monocito, **en los controles** |
+| `GroupSLE.Cell_typemoDC` | **Interacción:** cuánto cambia, en las pacientes, la diferencia moDC contra monocito |
+| `GroupSLE.Cell_typetolDC` | **Interacción:** lo mismo para tolDC contra monocito |
+
+Nos interesan los dos últimos:
+
+```{r interaction_results, eval = FALSE}
+de_interaction_results <- lapply(c(moDC = "moDC", tolDC = "tolDC"), function(cell) {
+  res <- as.data.frame(results(dds, alpha = 0.05, name = paste0("GroupSLE.Cell_type", cell)))
+  data.frame(gene = rownames(res), res, row.names = NULL)
+})
+```
+
+Como el modelo tarda en ajustarse, el paquete incluye el resultado como checkpoint, `de_interaction_results`:
+
+```{r checkpoint}
+names(de_interaction_results)
+head(de_interaction_results$tolDC[order(de_interaction_results$tolDC$padj), ])
+```
+
+Comprobemos que el LFC de la interacción es la diferencia de diferencias que calculamos a mano para `ISG15`:
+
+```{r isg15_check}
+sapply(de_interaction_results, function(df) round(df$log2FoldChange[df$gene == "ISG15"], 2))
+```
+
+En las moDC obtenemos −1.73, prácticamente el −1.72 que calculamos restando. La pequeña diferencia viene de que en la lección 5 el modelo de las pacientes también se ajustó por actividad de la enfermedad y dosis de glucocorticoides.
+
+## 4. Paso 3: ¿qué genes cambian distinto?
+
+Un gen tiene una interacción significativa si su `padj < 0.05`. Lo clasificamos como `UP` o `DOWN` según el signo del LFC, y nombramos cada lista como `SLEvsCtrl_<dirección>_<tipo celular>`:
+
+```{r deg_df}
+deg_df <- imap_dfr(de_interaction_results, function(df, cell) {
+  df %>%
+    filter(!is.na(padj), padj < padj_threshold) %>%
+    mutate(query = paste0("SLEvsCtrl_", ifelse(log2FoldChange > 0, "UP", "DOWN"), "_", cell))
+})
+
+query_order <- c("SLEvsCtrl_UP_moDC", "SLEvsCtrl_DOWN_moDC", "SLEvsCtrl_UP_tolDC", "SLEvsCtrl_DOWN_tolDC")
+dplyr::count(deg_df, query = factor(query, levels = query_order))
+```
+
+**Son muy pocos genes**, comparados con los miles de la lección 5: casi todo el programa de diferenciación es el mismo en pacientes y controles. Y la mayoría de las interacciones son **negativas**: son genes que bajan más al diferenciarse en las pacientes.
+
+Aquí solo pedimos `padj < 0.05`. El LFC de una interacción es una diferencia entre dos cambios, y todos estos genes ya tienen diferencias de al menos 0.34 en valor absoluto.
+
+::: {.callout-note}
+**Reto 1.** ¿Cuántos de estos genes tienen además una interacción grande, con `|log2FoldChange| ≥ 1`?
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+```{r reto1}
+deg_df %>%
+  group_by(query) %>%
+  summarise(total = n(), lfc_1 = sum(abs(log2FoldChange) >= 1))
+```
+
+La mayoría de los genes de las listas `DOWN` tienen una interacción mayor a 1: en las pacientes, su caída al diferenciarse es al menos el doble que en los controles.
+
+</details>
+
+::: {.callout-note}
+**Reto 2.** Usa `plot_interaction()` para graficar `IL5RA` y `ABCG1`. ¿Qué tipo celular explica cada interacción?
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+```{r reto2, fig.width = 10, fig.height = 4}
+plot_grid(plot_interaction("IL5RA"), plot_interaction("ABCG1"), nrow = 1)
+```
+
+- **`IL5RA`** baja en las tolDC de ambos grupos, pero mucho más en las pacientes (interacción en tolDC, LFC ≈ −4.3).
+- **`ABCG1`**, un transportador de colesterol, baja de monocito a tolDC en los controles, pero sube un poco en las pacientes: las líneas se separan (interacción en tolDC, LFC ≈ 2.4).
+
+</details>
+
+## 5. Paso 4: ¿en qué procesos participan?
+
+Como en las lecciones anteriores, buscamos términos enriquecidos en cada lista con g:Profiler (GO:BP, KEGG y Reactome):
+
+```{r gost, eval = FALSE}
+library(gprofiler2)
+set_base_url("https://biit.cs.ut.ee/gprofiler_archive3/e113_eg59_p19") # versión archivada (junio de 2025)
+
+deg_lists <- split(deg_df$gene, deg_df$query)
+gost_res <- gost(deg_lists, organism = "hsapiens", correction_method = "fdr",
+                 user_threshold = 0.05, sources = c("GO:BP", "KEGG", "REAC"), evcodes = TRUE)
+```
+
+El resultado está en el checkpoint `go_interaction_results`:
+
+```{r go_interaction}
+attr(go_interaction_results, "gprofiler_version")
+go_interaction_results %>%
+  dplyr::count(query, source) %>%
+  pivot_wider(names_from = source, values_from = n)
+```
+
+Para la figura usamos solo **Reactome (REAC)**. A cada gen le asignamos su **proceso específico**: el término de Reactome con menos genes en el que aparece (como en la lección 4):
+
+```{r reac_specific}
+reac_specific <- go_interaction_results %>%
+  filter(source == "REAC") %>%
+  separate_rows(intersection, sep = ",") %>%
+  dplyr::rename(gene = intersection) %>%
+  group_by(gene) %>%
+  summarise(specific_process = term_name[which.min(term_size)], .groups = "drop")
+
+deg_reac <- inner_join(deg_df, reac_specific, by = "gene")
+dplyr::n_distinct(deg_reac$gene) # genes con anotación en Reactome
+dplyr::count(deg_reac, query = factor(query, levels = query_order))
+```
+
+De los `r dplyr::n_distinct(deg_df$gene)` genes con interacción significativa, `r dplyr::n_distinct(deg_reac$gene)` tienen un proceso de Reactome. Esos son los genes de la Figura 7A.
+
+## 6. Paso 5: genes compartidos y exclusivos (Figura 7A)
+
+Hacemos una matriz de genes × listas con el LFC de la interacción; queda vacía (`NA`) si el gen no está en esa lista:
+
+```{r fig7a_mat}
+lfc_mat <- deg_reac %>%
+  dplyr::select(gene, query, log2FoldChange) %>%
+  pivot_wider(names_from = query, values_from = log2FoldChange) %>%
+  column_to_rownames("gene") %>%
+  as.matrix()
+lfc_mat <- lfc_mat[order(rownames(lfc_mat)), query_order] # genes en orden alfabético
+head(lfc_mat)
+```
+
+Agrupamos los genes según en qué listas aparecen. Con la misma función agruparemos después los procesos de la Figura 7B:
+
+```{r patterns}
+list_direction <- sub("SLEvsCtrl_(UP|DOWN)_.*", "\\1", query_order) # UP, DOWN, UP, DOWN
+
+# p. ej., "NA_DOWN_NA_DOWN" = está en DOWN_moDC y en DOWN_tolDC
+presence_pattern <- function(mat) {
+  apply(!is.na(mat), 1, function(x) paste(ifelse(x, list_direction, "NA"), collapse = "_"))
+}
+
+pattern_labels <- c(NA_DOWN_NA_DOWN = "Downregulated - SLE both",
+                    NA_DOWN_NA_NA   = "Downregulated - SLE moDC",
+                    NA_NA_NA_DOWN   = "Downregulated - SLE tolDC",
+                    UP_NA_NA_NA     = "Upregulated - SLE moDC",
+                    NA_NA_UP_NA     = "Upregulated - SLE tolDC")
+
+gene_pattern <- factor(pattern_labels[presence_pattern(lfc_mat)], levels = pattern_labels)
+table(gene_pattern)
+
+# etiqueta de cada grupo con su número de genes
+gene_split <- gene_pattern
+levels(gene_split) <- paste0(levels(gene_pattern), " (", table(gene_pattern), " genes)")
+```
+
+Ahora las anotaciones de las columnas. Cada lista se identifica por su dirección, su tipo celular y su comparación; encima va un *barplot* con el número de genes de cada lista:
+
+```{r fig7a_anno}
+column_info <- tibble(query      = query_order,
+                      Expression = list_direction,
+                      Cell_type  = sub(".*_", "", query),
+                      Comparison = sub("_(UP|DOWN)", "", query))
+
+column_anno <- function() {
+  HeatmapAnnotation("Expression" = column_info$Expression,
+                    "Cell type"  = column_info$Cell_type,
+                    "Comparison" = column_info$Comparison,
+                    col = list("Expression" = expression_color,
+                               "Cell type"  = cell_color,
+                               "Comparison" = comparison_color),
+                    annotation_name_side = "left")
+}
+
+deg_counts <- colSums(!is.na(lfc_mat))
+counts_anno <- HeatmapAnnotation(
+  "DEG Counts" = anno_barplot(deg_counts, add_numbers = TRUE, height = unit(2, "cm")),
+  annotation_name_side = "left")
+```
+
+```{r fig7a, fig.width = 8, fig.height = 12}
+ht_fig7a <- Heatmap(
+  lfc_mat, name = "log2FC", col = lfc_color,
+  na_col = "white", rect_gp = gpar(col = "gray", lwd = 2),
+  cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = FALSE,
+  column_split = column_info$Comparison, column_title = "between-group comparison of contrasts",
+  row_split = gene_split, row_title_rot = 0, row_gap = unit(5, "mm"),
+  top_annotation = c(counts_anno, column_anno()),
+  heatmap_legend_param = list(direction = "horizontal"),
+  width = unit(4, "cm"), height = unit(20, "cm"))
+
+ht_opt$message <- FALSE
+draw(ht_fig7a, merge_legends = TRUE,
+     heatmap_legend_side = "bottom", annotation_legend_side = "bottom")
+```
+
+**¿Qué observas?**
+
+- Casi todos los genes son **azules**: bajan más al diferenciarse en las pacientes.
+- Los **9 genes compartidos** por moDC y tolDC son casi todos ISG (`ISG15`, `IFI6`, `USP18`, `XAF1`, `SIGLEC1`…). Las pacientes parten de monocitos con una firma de interferón alta, y esa firma se pierde al diferenciarse.
+- Las **tolDC** tienen además genes de la síntesis de colesterol (`CYP51A1`, `MSMO1`, `MVD`, `IDI1`, `EBP`), y suben `ABCG1`, que saca colesterol de la célula.
+- En las moDC, solo `KDM1A` tiene una interacción positiva.
+
+::: {.callout-note}
+**Reto 3.** ¿Cuáles de los genes de la Figura 7A son ISG? Usa la lista `isg_genes` de la lección 4.
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+```{r reto3}
+isg_in_fig <- rownames(lfc_mat)[rownames(lfc_mat) %in% isg_genes$genes]
+isg_in_fig
+table(gene_pattern[rownames(lfc_mat) %in% isg_genes$genes])
+```
+
+Los ISG están en los genes compartidos y en los que bajan en cada tipo celular; ninguno está entre los que suben.
+
+</details>
+
+## 7. Paso 6: procesos por lista (Figura 7B)
+
+Contamos cuántos genes de cada lista pertenecen a cada proceso específico, y dejamos vacías las celdas sin genes:
+
+```{r fig7b_mat}
+process_mat <- deg_reac %>%
+  dplyr::count(specific_process, query) %>%
+  pivot_wider(names_from = query, values_from = n) %>%
+  column_to_rownames("specific_process") %>%
+  as.matrix()
+process_mat <- process_mat[order(tolower(rownames(process_mat))), query_order] # orden alfabético
+
+process_pattern <- presence_pattern(process_mat) # grupos en orden alfabético
+table(process_pattern)
+```
+
+Cada celda lleva un círculo coloreado según el número de genes. Lo dibujamos con `layer_fun`, como en la lección 5:
+
+```{r fig7b, fig.width = 10, fig.height = 7}
+count_color <- colorRamp2(c(1, 10, 50, 100), c("#FDE725", "#5DC863", "#3B528B", "#440154"))
+
+ht_fig7b <- Heatmap(
+  process_mat, name = "Genes number", col = count_color, na_col = "white",
+  cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = FALSE,
+  row_names_max_width = max_text_width(rownames(process_mat)), # nombres largos completos
+  rect_gp = gpar(type = "none"),
+  layer_fun = function(j, i, x, y, w, h, fill) {
+    grid.rect(x = x, y = y, width = w, height = h, gp = gpar(col = "gray", fill = NA))
+    value <- pindex(process_mat, i, j)
+    keep  <- !is.na(value) # solo celdas con genes
+    if (any(keep)) {
+      grid.circle(x = x[keep], y = y[keep], r = unit(2, "mm"),
+                  gp = gpar(fill = count_color(value[keep]), col = NA))
+    }
+  },
+  column_split = column_info$Comparison, column_title = "between-group comparison of contrasts",
+  row_split = process_pattern, row_title = "Reactome pathways",
+  bottom_annotation = column_anno(),
+  heatmap_legend_param = list(at = c(1, 10, 50, 100), direction = "horizontal"),
+  width = unit(2, "cm"), height = unit(10, "cm"))
+
+draw(ht_fig7b, merge_legends = TRUE,
+     heatmap_legend_side = "bottom", annotation_legend_side = "bottom")
+```
+
+**¿Qué observas?**
+
+- Los procesos de **interferón y respuesta antiviral** ("Interferon alpha/beta signaling", "ISG15 antiviral mechanism", "PKR-mediated signaling") aparecen en los genes que bajan en **ambos** tipos celulares.
+- El **metabolismo del colesterol** ("Cholesterol biosynthesis", "Metabolism of steroids") aparece solo en las **tolDC**, y "HDL remodeling", con `ABCG1`, entre los genes que suben en ellas.
+- En las moDC, el único gen que sube (`KDM1A`) se asocia con el transporte de colesterol ("NR1H3 & NR1H2 regulate gene expression…").
+
+::: {.callout-note}
+**Reto 4.** ¿Qué genes forman cada proceso de la Figura 7B?
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+```{r reto4}
+deg_reac %>%
+  group_by(specific_process) %>%
+  summarise(genes = paste(sort(unique(gene)), collapse = ", "))
+```
+
+</details>
+
+## 8. Para terminar: la Figura 7 del artículo
+
+Reproducimos los paneles A y B. Como en las lecciones anteriores, capturamos los *heatmaps* como objetos gráficos y los unimos con `plot_grid()`:
+
+```{r figura_7, fig.width = 18, fig.height = 12, out.width = "100%"}
+grab <- function(ht, ...) {
+  grid::grid.grabExpr(draw(ht, merge_legends = TRUE, heatmap_legend_side = "bottom",
+                           annotation_legend_side = "bottom", ...), wrap.grobs = TRUE)
+}
+
+figure_7 <- plot_grid(
+  grab(ht_fig7a, padding = unit(c(2, 2, 12, 2), "mm")),
+  plot_grid(grab(ht_fig7b, padding = unit(c(2, 2, 12, 2), "mm")), NULL,
+            ncol = 1, rel_heights = c(0.6, 0.4), labels = c("B", ""), label_size = 20),
+  labels = c("A", ""), label_size = 20, nrow = 1, rel_widths = c(0.38, 0.62))
+figure_7
+```
+
+::: {.caption-justify}
+**Figura 7.** Células dendríticas derivadas de monocitos (moDC y tolDC *in vitro*) y programas transcripcionales asociados, obtenidos al comparar SLE contra Ctrl. **(A)** *Heatmap* de los `r nrow(lfc_mat)` DEG compartidos o exclusivos de las moDC y las tolDC, usando los monocitos como referencia: genes cuyo cambio de monocito a célula dendrítica es distinto en las pacientes que en los controles (término de interacción `Group:Cell_type` de `DESeq2`; padj < 0.05) y que tienen anotación en Reactome. `r table(gene_pattern)[["Downregulated - SLE both"]]` genes bajan en ambos tipos celulares, `r table(gene_pattern)[["Downregulated - SLE moDC"]]` solo en las moDC y `r table(gene_pattern)[["Downregulated - SLE tolDC"]]` solo en las tolDC; `r table(gene_pattern)[["Upregulated - SLE moDC"]]` sube solo en las moDC y `r table(gene_pattern)[["Upregulated - SLE tolDC"]]` solo en las tolDC. La escala de color indica el LFC de la interacción: negativo (azul) si el gen baja más al diferenciarse en las pacientes y positivo (rojo) si sube más. Arriba se muestra el número de DEG de cada lista. **(B)** Procesos biológicos significativos (Reactome; g:Profiler, prueba hipergeométrica con corrección FDR) implicados en las pacientes en estas comparaciones. Cada gen se asigna a su proceso más específico; el color del círculo indica el número de genes. SLE, lupus eritematoso sistémico; Ctrl, control sano; moDC, células dendríticas derivadas de monocitos; tolDC, células dendríticas tolerogénicas; DEG, genes diferencialmente expresados; LFC, log2 fold change.
+
+La figura original se encuentra en el [artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+:::
+
+Para guardarla en alta resolución:
+
+```{r save_figure, eval = FALSE}
+ggsave("Figura_7AB.png", figure_7, width = 18, height = 12, dpi = 300)
+```
+
+## 9. Resumen
+
+| Paso | Función clave | ¿Para qué? |
+|------|---------------|------------|
+| Ver una interacción | `plot_interaction()` | Comparar las pendientes de dos grupos |
+| Modelo con interacción | `~ Group + Cell_type + Group:Cell_type` | Probar si un contraste cambia entre grupos |
+| Leer coeficientes | `resultsNames()`, `results(name = ...)` | Elegir la pregunta correcta |
+| Seleccionar genes | `padj < 0.05` y signo del LFC | Separar listas UP y DOWN |
+| Resumir funciones | proceso específico de Reactome | Ver procesos en lugar de genes |
+
+### Errores comunes de principiante
+
+- **Comparar "a ojo" los LFC de dos modelos separados**: da una idea, pero no un valor p. Para probar la diferencia hay que usar un término de interacción.
+- **Leer una interacción negativa como "más bajo en las pacientes"**: significa que el gen baja más al diferenciarse; los valores absolutos pueden seguir siendo mayores.
+- **Olvidar las referencias**: los coeficientes principales (`Cell_type_moDC_vs_monocyte`) describen a los **controles**, no a todas las muestras.
+
+## 10. Próximos pasos
+
+Con esta lección concluye la ruta de aprendizaje. Las células de las pacientes se diferencian casi igual que las de los controles; las diferencias se concentran en la **firma de interferón**, que las pacientes traen desde los monocitos y pierden al diferenciarse, y en el **metabolismo del colesterol** de las tolDC. Una pregunta natural para profundizar es qué factores de transcripción regulan estos genes.
+
+Para repasar el recorrido completo, regresa a [Primeros pasos con el paquete GeneExprLupusMx](intro_es.html) desde el menú *Artículos*, o da clic en el botón **Lección anterior** al final de esta página. Para trabajar con los datos fuera de R, consulta la página de [Descarga de datos](download_es.html).
+
+```{=html}
+<nav class="lesson-nav">
+  <a class="lesson-prev" href="l6_DEGs_tolDcs_es.html">← Lección anterior: La firma de las tolDC</a>
+</nav>
+<a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
+```
+
+## Información de la sesión
+
+```{r}
+sessionInfo()
+```
