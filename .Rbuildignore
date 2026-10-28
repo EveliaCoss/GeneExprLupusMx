@@ -10,3 +10,4 @@
 ^index\.Rmd$
 ^index\.md$
 ^vignettes/articles$
+^CITATION\.cff$

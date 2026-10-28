@@ -15,8 +15,9 @@ de **GeneExprLupusMx**.
 
 ## Reportes
 
-Si observas una violación al código de conducta, puedes: - Contactar al
-equipo mantenedor del paquete: <ecosnav@gmail.com>  
+Si observas una violación al código de conducta, puedes: 
+
+- Contactar al equipo mantenedor del paquete: <ecossnav@gmail.com>  
 - O bien, seguir el proceso descrito en el [Código de Conducta de
 rOpenSci](https://ropensci.org/es/c%C3%B3digo-de-conducta/).
 

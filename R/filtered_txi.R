@@ -24,7 +24,10 @@
 #'   rows of \code{\link{metadata_cleaned}}. Use it with
 #'   \code{DESeq2::DESeqDataSetFromTximport()}.
 #'
-#' @source Salmon quantifications of the study, imported with \pkg{tximport}.
+#' @source Hernández-Ledesma AL, Coss-Navarrete EL, et al. (2026), Front.
+#'   Immunol. 17:1771959 (\doi{10.3389/fimmu.2026.1771959}); analysis deposited
+#'   in Zenodo (\doi{10.5281/zenodo.17742206}) and code in
+#'   \url{https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic}.
 #'
 #' @seealso \code{\link{metadata_cleaned}}, \code{\link{biotype_summary}}
 #'

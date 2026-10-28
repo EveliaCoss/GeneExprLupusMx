@@ -38,5 +38,5 @@ Initial version of GeneExprLupusMx.
 - New home page (`index.Rmd`) with the Overview image and lesson table.
 - Bilingual README (Spanish and English).
 - Changelog in Spanish (`articles/news_es.html`) and English (this file).
-- `inst/CITATION` file: `citation("GeneExprLupusMx")` returns the original article.
+- `inst/CITATION` file: `citation("GeneExprLupusMx")` returns the package citation; the data citations (article and Zenodo dataset) are listed in the citation sections of the website and README. The package Zenodo DOI is pending.
 - pkgdown menus: Getting started, Tutorials (Spanish and English lessons), Functions, data download and changelog; navigation buttons with white text.

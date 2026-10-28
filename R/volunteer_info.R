@@ -31,7 +31,10 @@
 #' @details Treatment columns are \code{NA} for controls (not applicable).
 #'   The cleaning script is in \code{data-raw/volunteer_info.R}.
 #'
-#' @source Recruitment table of the study.
+#' @source Hernández-Ledesma AL, Coss-Navarrete EL, et al. (2026), Front.
+#'   Immunol. 17:1771959 (\doi{10.3389/fimmu.2026.1771959}); analysis deposited
+#'   in Zenodo (\doi{10.5281/zenodo.17742206}) and code in
+#'   \url{https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic}.
 #'
 #' @examples
 #' data(volunteer_info)

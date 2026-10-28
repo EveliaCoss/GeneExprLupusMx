@@ -104,6 +104,10 @@ flowchart LR
   T["filtered_txi<br/>cuentas por gen"] -- "columnas = sample_ID" --- M["metadata_cleaned<br/>una fila por muestra"]
   M -- "Volunteer_ID<br/>(prefijo de sample_ID)" --- V["volunteer_info<br/>una fila por voluntaria"]
 </pre>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true });
+</script>
 ```
 
 ```{r}
@@ -136,9 +140,21 @@ Además, la guía [Cómo usar las funciones del paquete](functions_es.html) mues
 
 ## ¿Cómo citar?
 
-Si usas estos datos, cita el artículo original:
+Hay dos citas: una para el **paquete** y otra para los **datos**. Si usas este recurso, por favor incluye ambas.
+
+**1) Cómo citar el paquete** (lecciones, funciones y objetos de R):
+
+> Coss E (2026) *GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje*. Paquete de R. <https://github.com/EveliaCoss/GeneExprLupusMx>.
+
+::: {.callout-pending}
+**Pendiente:** El DOI de Zenodo del paquete se agregará próximamente; mientras tanto, cita el repositorio de GitHub y la versión que usaste (`packageVersion("GeneExprLupusMx")`).
+:::
+
+**2) Cómo citar los datos** (artículo original y análisis en Zenodo):
 
 > Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full). *Front. Immunol.* 17:1771959. [doi: 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
+
+> Coss-Navarrete EL, Hernández-Ledesma AL, *et al* (2025) [Analysis of gene expression profiles during tolerance induction in dendritic cells from women with Systemic Lupus Erythematosus](https://doi.org/10.5281/zenodo.17742206) [Data set]. *Zenodo*. [doi: 10.5281/zenodo.17742206](https://doi.org/10.5281/zenodo.17742206).
 
 ```{=html}
 <nav class="lesson-nav">
