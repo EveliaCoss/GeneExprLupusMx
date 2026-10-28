@@ -35,6 +35,10 @@
     color: #14164D;
   }
   main blockquote > :last-child { margin-bottom: 0; }
+  /* Recuadro rojo para pendientes (p. ej., DOI del paquete) */
+  main .callout-pending { border: 1px solid #E05252; border-left-width: 5px; border-radius: .25rem; padding: .75rem 1rem; margin: 1rem 0; background: #FDECEC; color: #14164D; }
+  main .callout-pending > :last-child { margin-bottom: 0; }
+  main .callout-pending strong:first-child { color: #B42318; }
 </style>
 </head>
 <body>
@@ -275,6 +279,11 @@ main table.table > :not(caption) > * > th { background-color: #3D3F8F; color: wh
 main table.table > :not(caption) > * > th:hover { background-color: #7F62B3; }
 main table.table > tbody > tr:nth-child(even) > td { background-color: #ECEEFE; }
 main table.table > tbody > tr:hover > * { background: #E8F6F4; }
+
+/* Recuadro rojo para pendientes (p. ej., DOI del paquete) */
+.callout-pending { border: 1px solid #E05252; border-left-width: 5px; border-radius: .25rem; padding: .75rem 1rem; margin: 1rem 0; background: #FDECEC; color: #14164D; }
+.callout-pending > :last-child { margin-bottom: 0; }
+.callout-pending strong:first-child { color: #B42318; }
 </style>
 <div class="section level2">
 <h2 id="welcome">Welcome<a class="anchor" aria-label="anchor" href="#welcome"></a>

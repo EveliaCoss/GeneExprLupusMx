@@ -1,16 +1,23 @@
 bibentry(
-  bibtype = "Article",
-  title   = "Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus",
-  author  = c(person("A. L.", "Hernández-Ledesma"), person("E. L.", "Coss-Navarrete"), person("others")),
-  journal = "Frontiers in Immunology",
+  bibtype = "Manual",
+  header  = "Para citar el paquete GeneExprLupusMx / To cite the GeneExprLupusMx package:",
+  title   = "GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje",
+  author  = person("Evelia", "Coss", email = "ecossnav@gmail.com",
+                   comment = c(ORCID = "0000-0002-7087-2977")),
   year    = "2026",
-  volume  = "17",
-  pages   = "1771959",
-  doi     = "10.3389/fimmu.2026.1771959",
-  url     = "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full",
-  textVersion = paste(
-    "Hernández-Ledesma AL, Coss-Navarrete EL, et al (2026) Gene expression profiling of",
-    "dendritic cell tolerance dysfunction in women with systemic lupus erythematosus.",
-    "Front. Immunol. 17:1771959. doi: 10.3389/fimmu.2026.1771959."
+  note    = paste("R package version", meta$Version),
+  url     = "https://github.com/EveliaCoss/GeneExprLupusMx",
+  textVersion = paste0(
+    "Coss E (2026) GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas ",
+    "con lecciones de aprendizaje. R package version ", meta$Version, ". ",
+    "https://github.com/EveliaCoss/GeneExprLupusMx"
   )
+)
+
+citFooter(
+  "Pendiente / Pending: el DOI de Zenodo del paquete se agregará próximamente /",
+  "the Zenodo DOI of the package will be added soon.",
+  "Los datos provienen de / The data come from:",
+  "Hernández-Ledesma AL, Coss-Navarrete EL, et al (2026) Front. Immunol. 17:1771959,",
+  "doi: 10.3389/fimmu.2026.1771959; y / and Zenodo, doi: 10.5281/zenodo.17742206."
 )

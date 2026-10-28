@@ -35,6 +35,10 @@
     color: #14164D;
   }
   main blockquote > :last-child { margin-bottom: 0; }
+  /* Recuadro rojo para pendientes (p. ej., DOI del paquete) */
+  main .callout-pending { border: 1px solid #E05252; border-left-width: 5px; border-radius: .25rem; padding: .75rem 1rem; margin: 1rem 0; background: #FDECEC; color: #14164D; }
+  main .callout-pending > :last-child { margin-bottom: 0; }
+  main .callout-pending strong:first-child { color: #B42318; }
 </style>
 </head>
 <body>
@@ -238,8 +242,10 @@ figuras y tablas (incluida la Tabla 1).</li>
 <li>Registro de cambios en español (esta página) e inglés
 (<code>NEWS.md</code>).</li>
 <li>Archivo <code>inst/CITATION</code>:
-<code>citation("GeneExprLupusMx")</code> devuelve el artículo
-original.</li>
+<code>citation("GeneExprLupusMx")</code> devuelve la cita del paquete;
+las citas de los datos (artículo y <em>dataset</em> de Zenodo) están en
+las secciones de citas del sitio y del README. El DOI de Zenodo del
+paquete está pendiente.</li>
 <li>Menús de pkgdown: Getting started, Tutoriales (lecciones en español
 e inglés), Funciones, descarga de datos y registro de cambios; botones
 de navegación con letras blancas.</li>

@@ -88,10 +88,45 @@ the [European Genome-phenome Archive (EGA)](https://ega-archive.org/)
 under controlled access; the identifiers are listed in Supplementary
 Table 2 of the article.
 
+## Origen de los datos / Data sources
+
+Los datos de este paquete provienen del [artículo
+original](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full),
+del análisis depositado en
+[Zenodo](https://doi.org/10.5281/zenodo.17742206) y del repositorio de
+código
+[NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic)
+(por ejemplo, las figuras de la [Figura
+2](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic/tree/main/figures/fig2)).
+Aquí se reorganizaron en objetos de R listos para usar; los scripts de
+`data-raw/` documentan cada paso. **/** The data in this package come
+from the [original
+article](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full),
+the analysis deposited in
+[Zenodo](https://doi.org/10.5281/zenodo.17742206) and the code
+repository
+[NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic)
+(for example, the [Figure
+2](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic/tree/main/figures/fig2)
+figures). Here they were reorganized into ready-to-use R objects; the
+`data-raw/` scripts document each step.
+
 ## Cómo citar / How to cite
 
-Si usas estos datos, cita el artículo original. **/** If you use these
-data, please cite the original article:
+Hay dos citas: una para el **paquete** y otra para los **datos**; si
+usas este recurso, por favor incluye ambas. **/** There are two
+citations: one for the **package** and one for the **data**; if you use
+this resource, please include both.
+
+**1) Cómo citar el paquete / How to cite the package**
+
+> Coss E (2026) *GeneExprLupusMx: Datos transcriptómicos de lupus en
+> mujeres mexicanas con lecciones de aprendizaje*. Paquete de R.
+> <https://github.com/EveliaCoss/GeneExprLupusMx>.
+
+<div class="callout-pending"><strong>Pendiente / Pending:</strong> El DOI de Zenodo del paquete se agregará próximamente; mientras tanto, cita el repositorio de GitHub y la versión que usaste (<code>packageVersion("GeneExprLupusMx")</code>). <strong>/</strong> The Zenodo DOI of the package will be added soon; in the meantime, cite the GitHub repository and the version you used (<code>packageVersion("GeneExprLupusMx")</code>).</div>
+
+**2) Cómo citar los datos / How to cite the data**
 
 > Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
 > expression profiling of dendritic cell tolerance dysfunction in women
@@ -99,6 +134,13 @@ data, please cite the original article:
 > erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
 > *Front. Immunol.* 17:1771959. [doi:
 > 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
+
+> Coss-Navarrete EL, Hernández-Ledesma AL, *et al* (2025) [Analysis of
+> gene expression profiles during tolerance induction in dendritic cells
+> from women with Systemic Lupus
+> Erythematosus](https://doi.org/10.5281/zenodo.17742206) \[Data set\].
+> *Zenodo*. [doi:
+> 10.5281/zenodo.17742206](https://doi.org/10.5281/zenodo.17742206).
 
 ## Agradecimientos / Acknowledgements
 

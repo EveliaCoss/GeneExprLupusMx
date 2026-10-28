@@ -35,6 +35,10 @@
     color: #14164D;
   }
   main blockquote > :last-child { margin-bottom: 0; }
+  /* Recuadro rojo para pendientes (p. ej., DOI del paquete) */
+  main .callout-pending { border: 1px solid #E05252; border-left-width: 5px; border-radius: .25rem; padding: .75rem 1rem; margin: 1rem 0; background: #FDECEC; color: #14164D; }
+  main .callout-pending > :last-child { margin-bottom: 0; }
+  main .callout-pending strong:first-child { color: #B42318; }
 </style>
 </head>
 <body>
@@ -224,7 +228,50 @@ encuentran en la carpeta <a href="https://github.com/EveliaCoss/GeneExprLupusMx/
 del repositorio.</p>
 </div>
 <div class="section level2">
-<h2 id="cargar-los-datos-en-r">2. Cargar los datos en R<a class="anchor" aria-label="anchor" href="#cargar-los-datos-en-r"></a>
+<h2 id="origen-de-los-datos">2. Origen de los datos<a class="anchor" aria-label="anchor" href="#origen-de-los-datos"></a>
+</h2>
+<p>Los datos de este paquete provienen del estudio publicado en
+<em>Frontiers in Immunology</em>. Se obtuvieron de tres fuentes, que
+aquí se reorganizaron en objetos de R listos para usar:</p>
+<table class="table">
+<colgroup>
+<col width="33%">
+<col width="66%">
+</colgroup>
+<thead><tr class="header">
+<th>Fuente</th>
+<th>¿Qué contiene?</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Artículo
+original</a></td>
+<td>Diseño del estudio, métodos, figuras y material suplementario
+(incluida la Tabla suplementaria 2 con los identificadores de EGA)</td>
+</tr>
+<tr class="even">
+<td><a href="https://zenodo.org/records/17742206" class="external-link">Zenodo: registro
+17742206</a></td>
+<td>Análisis de expresión génica depositado por las autoras:
+cuantificación con nf-core/rnaseq (Salmon) y análisis con
+<code>tximport</code> y <code>DESeq2</code>
+</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic" class="external-link">GitHub:
+NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic</a></td>
+<td>Código del análisis original y sus figuras, por ejemplo las de la <a href="https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic/tree/main/figures/fig2" class="external-link">Figura
+2</a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Los scripts de la carpeta <a href="https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw" class="external-link"><code>data-raw/</code></a>
+documentan cómo se generó cada objeto del paquete a partir de estas
+fuentes.</p>
+</div>
+<div class="section level2">
+<h2 id="cargar-los-datos-en-r">3. Cargar los datos en R<a class="anchor" aria-label="anchor" href="#cargar-los-datos-en-r"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
@@ -235,7 +282,7 @@ del repositorio.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="exportar-a-archivos-csv">3. Exportar a archivos CSV<a class="anchor" aria-label="anchor" href="#exportar-a-archivos-csv"></a>
+<h2 id="exportar-a-archivos-csv">4. Exportar a archivos CSV<a class="anchor" aria-label="anchor" href="#exportar-a-archivos-csv"></a>
 </h2>
 <p>Para trabajar con otro programa (Excel, Python, etc.), exporta los
 objetos como tablas:</p>
@@ -256,7 +303,7 @@ objetos como tablas:</p>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="descarga-directa-desde-github">4. Descarga directa desde GitHub<a class="anchor" aria-label="anchor" href="#descarga-directa-desde-github"></a>
+<h2 id="descarga-directa-desde-github">5. Descarga directa desde GitHub<a class="anchor" aria-label="anchor" href="#descarga-directa-desde-github"></a>
 </h2>
 <p>Cada objeto también está disponible como archivo <code>.rda</code> en
 la carpeta <a href="https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data" class="external-link"><code>data/</code></a>
@@ -267,7 +314,7 @@ del repositorio. Puedes cargarlo sin instalar el paquete:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="datos-crudos-de-secuenciación">5. Datos crudos de secuenciación<a class="anchor" aria-label="anchor" href="#datos-crudos-de-secuenciaci%C3%B3n"></a>
+<h2 id="datos-crudos-de-secuenciación">6. Datos crudos de secuenciación<a class="anchor" aria-label="anchor" href="#datos-crudos-de-secuenciaci%C3%B3n"></a>
 </h2>
 <p>Los datos crudos (archivos FASTQ de RNA-seq) de pacientes y controles
 están depositados en el <a href="https://ega-archive.org/" class="external-link">European
@@ -278,9 +325,33 @@ análisis se encuentran en la Tabla suplementaria 2 del <a href="https://www.fro
 suplementario del artículo</a>.</p>
 </div>
 <div class="section level2">
-<h2 id="cómo-citar">6. Cómo citar<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-citar"></a>
+<h2 id="cómo-citar">7. Cómo citar<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-citar"></a>
 </h2>
-<p>Si usas estos datos, cita el artículo original:</p>
+<p>Hay dos tipos de cita: una para el <strong>paquete</strong> y otra
+para los <strong>datos</strong>. Si usas este recurso, por favor incluye
+ambas.</p>
+<div class="section level3">
+<h3 id="citar-el-paquete">7.1 Citar el paquete<a class="anchor" aria-label="anchor" href="#citar-el-paquete"></a>
+</h3>
+<p>Si usas las lecciones, las funciones o los objetos del paquete, cita
+también <code>GeneExprLupusMx</code>:</p>
+<blockquote>
+<p>Coss E (2026) <em>GeneExprLupusMx: Datos transcriptómicos de lupus en
+mujeres mexicanas con lecciones de aprendizaje</em>. Paquete de R. <a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link uri">https://github.com/EveliaCoss/GeneExprLupusMx</a>.</p>
+</blockquote>
+<div class="callout-pending">
+<p><strong>Pendiente:</strong> El DOI de Zenodo del paquete se agregará
+próximamente; mientras tanto, cita el repositorio de GitHub y la versión
+que usaste (<code>packageVersion("GeneExprLupusMx")</code>).</p>
+</div>
+<p>En R, <code>citation("GeneExprLupusMx")</code> muestra la cita del
+paquete.</p>
+</div>
+<div class="section level3">
+<h3 id="citar-los-datos">7.2 Citar los datos<a class="anchor" aria-label="anchor" href="#citar-los-datos"></a>
+</h3>
+<p>Los datos provienen del artículo original y del análisis depositado
+en Zenodo:</p>
 <blockquote>
 <p>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene
 expression profiling of dendritic cell tolerance dysfunction in women
@@ -288,7 +359,15 @@ with systemic lupus erythematosus</a>. <em>Front. Immunol.</em>
 17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
 10.3389/fimmu.2026.1771959</a>.</p>
 </blockquote>
+<blockquote>
+<p>Coss-Navarrete EL, Hernández-Ledesma AL, <em>et al</em> (2025) <a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">Analysis of gene
+expression profiles during tolerance induction in dendritic cells from
+women with Systemic Lupus Erythematosus</a> [Data set]. <em>Zenodo</em>.
+<a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">doi:
+10.5281/zenodo.17742206</a>.</p>
+</blockquote>
 <a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Índice de contenidos"><h2>En esta página</h2>
     </nav></aside>

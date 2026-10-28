@@ -42,5 +42,5 @@ Versión inicial de GeneExprLupusMx.
 - Nueva página de inicio (`index.Rmd`) con la imagen *Overview* y la tabla de lecciones.
 - README bilingüe (español e inglés).
 - Registro de cambios en español (esta página) e inglés (`NEWS.md`).
-- Archivo `inst/CITATION`: `citation("GeneExprLupusMx")` devuelve el artículo original.
+- Archivo `inst/CITATION`: `citation("GeneExprLupusMx")` devuelve la cita del paquete; las citas de los datos (artículo y *dataset* de Zenodo) están en las secciones de citas del sitio y del README. El DOI de Zenodo del paquete está pendiente.
 - Menús de pkgdown: Getting started, Tutoriales (lecciones en español e inglés), Funciones, descarga de datos y registro de cambios; botones de navegación con letras blancas.

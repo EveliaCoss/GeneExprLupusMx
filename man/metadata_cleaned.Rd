@@ -38,7 +38,10 @@ score 0, and all controls), \code{No_activity} (score 1-3) or
 }
 }
 \source{
-Clinical records of the study, curated for the analysis.
+Hernández-Ledesma AL, Coss-Navarrete EL, et al. (2026), Front.
+Immunol. 17:1771959 (\doi{10.3389/fimmu.2026.1771959}); analysis deposited
+in Zenodo (\doi{10.5281/zenodo.17742206}) and code in
+\url{https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic}.
 }
 \usage{
 metadata_cleaned

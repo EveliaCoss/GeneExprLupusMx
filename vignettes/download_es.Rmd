@@ -33,7 +33,19 @@ Todos los datos de `GeneExprLupusMx` se distribuyen con el paquete: al cargarlo 
 
 La descripción completa de cada objeto está en la [Referencia](../reference/index.html) o en R con `?nombre_del_objeto`. Los scripts que generan cada objeto se encuentran en la carpeta [`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw) del repositorio.
 
-## 2. Cargar los datos en R
+## 2. Origen de los datos
+
+Los datos de este paquete provienen del estudio publicado en *Frontiers in Immunology*. Se obtuvieron de tres fuentes, que aquí se reorganizaron en objetos de R listos para usar:
+
+| Fuente | ¿Qué contiene? |
+|--------|----------------|
+| [Artículo original](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full) | Diseño del estudio, métodos, figuras y material suplementario (incluida la Tabla suplementaria 2 con los identificadores de EGA) |
+| [Zenodo: registro 17742206](https://zenodo.org/records/17742206) | Análisis de expresión génica depositado por las autoras: cuantificación con nf-core/rnaseq (Salmon) y análisis con `tximport` y `DESeq2` |
+| [GitHub: NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic) | Código del análisis original y sus figuras, por ejemplo las de la [Figura 2](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic/tree/main/figures/fig2) |
+
+Los scripts de la carpeta [`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw) documentan cómo se generó cada objeto del paquete a partir de estas fuentes.
+
+## 3. Cargar los datos en R
 
 ```{r}
 # install.packages("remotes")
@@ -44,7 +56,7 @@ data(package = "GeneExprLupusMx") # lista de objetos disponibles
 head(metadata_cleaned)
 ```
 
-## 3. Exportar a archivos CSV
+## 4. Exportar a archivos CSV
 
 Para trabajar con otro programa (Excel, Python, etc.), exporta los objetos como tablas:
 
@@ -65,7 +77,7 @@ for (cell in names(de_results)) {
 }
 ```
 
-## 4. Descarga directa desde GitHub
+## 5. Descarga directa desde GitHub
 
 Cada objeto también está disponible como archivo `.rda` en la carpeta [`data/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data) del repositorio. Puedes cargarlo sin instalar el paquete:
 
@@ -75,15 +87,33 @@ load(url(url))
 head(metadata_cleaned)
 ```
 
-## 5. Datos crudos de secuenciación
+## 6. Datos crudos de secuenciación
 
 Los datos crudos (archivos FASTQ de RNA-seq) de pacientes y controles están depositados en el [European Genome-phenome Archive (EGA)](https://ega-archive.org/) con **acceso controlado**. Para obtenerlos se requiere una solicitud formal y la aprobación del comité de acceso a datos correspondiente. Los identificadores de cada análisis se encuentran en la Tabla suplementaria 2 del [material suplementario del artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial).
 
-## 6. Cómo citar
+## 7. Cómo citar
 
-Si usas estos datos, cita el artículo original:
+Hay dos tipos de cita: una para el **paquete** y otra para los **datos**. Si usas este recurso, por favor incluye ambas.
+
+### 7.1 Citar el paquete
+
+Si usas las lecciones, las funciones o los objetos del paquete, cita también `GeneExprLupusMx`:
+
+> Coss E (2026) *GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje*. Paquete de R. <https://github.com/EveliaCoss/GeneExprLupusMx>.
+
+::: {.callout-pending}
+**Pendiente:** El DOI de Zenodo del paquete se agregará próximamente; mientras tanto, cita el repositorio de GitHub y la versión que usaste (`packageVersion("GeneExprLupusMx")`).
+:::
+
+En R, `citation("GeneExprLupusMx")` muestra la cita del paquete.
+
+### 7.2 Citar los datos
+
+Los datos provienen del artículo original y del análisis depositado en Zenodo:
 
 > Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full). *Front. Immunol.* 17:1771959. [doi: 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
+
+> Coss-Navarrete EL, Hernández-Ledesma AL, *et al* (2025) [Analysis of gene expression profiles during tolerance induction in dendritic cells from women with Systemic Lupus Erythematosus](https://doi.org/10.5281/zenodo.17742206) [Data set]. *Zenodo*. [doi: 10.5281/zenodo.17742206](https://doi.org/10.5281/zenodo.17742206).
 
 ```{=html}
 <a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>

@@ -28,7 +28,10 @@ A data frame with 33 rows and 16 columns:
 }
 }
 \source{
-Recruitment table of the study.
+Hernández-Ledesma AL, Coss-Navarrete EL, et al. (2026), Front.
+Immunol. 17:1771959 (\doi{10.3389/fimmu.2026.1771959}); analysis deposited
+in Zenodo (\doi{10.5281/zenodo.17742206}) and code in
+\url{https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic}.
 }
 \usage{
 volunteer_info
