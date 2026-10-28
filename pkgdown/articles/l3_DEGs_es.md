@@ -1,4 +1,4 @@
-# Genes diferencialmente expresados entre pacientes y controles
+# Lección 3: Genes diferencialmente expresados entre pacientes y controles
 
 ## Bienvenida
 
@@ -95,7 +95,7 @@ Colores y umbrales que usaremos en toda la lección:
 ``` r
 
 cell_color  <- c(monocyte = "black", moDC = "palevioletred", tolDC = "gold1")
-group_color <- c(Ctrl = "#5BBFB5", SLE = "#8E5A8C")
+group_color <- c(Ctrl = "#96d4ccff", SLE = "#b493b4ff")
 
 lfc_threshold  <- 1    # |log2 fold change| mínimo
 padj_threshold <- 0.05 # valor p ajustado máximo
@@ -108,9 +108,9 @@ los metadatos (`metadata_cleaned`), la información de las voluntarias
 (`volunteer_info`) y el checkpoint `zscore_mat` de la lección anterior.
 
 Para el análisis de expresión diferencial partimos de las **cuentas
-crudas de todos los genes**, igual que en el artículo. Creamos un objeto
-`DESeqDataSet` con el diseño `~ Group` (SLE contra Ctrl), que después
-dividiremos por tipo celular:
+crudas de todos los genes**. Creamos un objeto `DESeqDataSet` con el
+diseño `~ Group` (SLE contra Ctrl), que después dividiremos por tipo
+celular:
 
 ``` r
 
@@ -134,8 +134,8 @@ full_dds
 filtramos los genes poco expresados para visualizar. Para la expresión
 diferencial no hace falta: `DESeq2` aplica su propio **filtrado
 independiente** y deja `padj = NA` en los genes sin información. Partir
-de todas las cuentas nos permite reproducir exactamente los resultados
-del artículo.
+de todas las cuentas deja que `DESeq2` decida qué genes tienen
+información suficiente para probarse.
 
 ## 2. **Paso 1:** ¿las células son lo que dicen ser?
 
@@ -481,11 +481,6 @@ sapply(de_classified, function(df) table(factor(df$Expression,
 En los monocitos todos los cambios son **aumentos**; en las células
 dendríticas diferenciadas *in vitro*, predominan las **disminuciones**.
 
-**Sobre el umbral de LFC.** El pie de la Figura 2 del artículo menciona
-LFC ≥ 0.5, pero los números de los volcano plots publicados (37; 4 y 40;
-4 y 12) se obtienen con **\|LFC\| ≥ 1**, que es el umbral que usamos
-aquí. En el Reto 1 verás qué pasa con 0.5.
-
 **Reto 1.** ¿Cuántos genes suben y bajan en cada tipo celular si usas
 `|LFC| ≥ 0.5` en lugar de 1?
 
@@ -719,6 +714,14 @@ figure_2
 
 ![](l3_DEGs_es_files/figure-html/figura_2-1.png)
 
+``` r
+
+
+# Número de DEG por tipo celular, para el pie de figura
+up_n   <- function(cell) sum(de_classified[[cell]]$Expression == "Up-regulated")
+down_n <- function(cell) sum(de_classified[[cell]]$Expression == "Down-regulated")
+```
+
 **Figura 2.** Validación de los tipos celulares y perfil transcriptómico
 integrado entre grupos. **(A)** *Heatmap* de la expresión génica
 normalizada, con los genes en las filas y las muestras en las columnas,
@@ -730,7 +733,8 @@ color indica la expresión media por grupo (z-score) y el tamaño del
 punto, el porcentaje de muestras por encima del promedio de cada gen.
 Cada columna es un biomarcador del tipo celular indicado arriba.
 **(C–E)** Volcano plots de los genes diferencialmente expresados entre
-grupos en **(C)** monocitos, **(D)** moDC y **(E)** tolDC. Los DEG se
+grupos en **(C)** monocitos (37 suben y 0 bajan en SLE), **(D)** moDC (4
+suben y 40 bajan) y **(E)** tolDC (4 suben y 12 bajan). Los DEG se
 seleccionaron con \|LFC\| ≥ 1 y padj \< 0.05, usando la prueba de Wald
 con corrección de Benjamini–Hochberg (FDR).
 
@@ -775,12 +779,16 @@ los tres tipos celulares). La siguiente lección empezará desde ahí.
 
 ## 10. ¿Y después?
 
-Ya sabemos **qué** genes cambian. En la siguiente lección averiguaremos
-**qué hacen**: buscaremos las funciones biológicas, rutas y procesos
-asociados a los 94 DEG en bases de datos como Gene Ontology y Reactome.
+Ya sabemos **qué** genes cambian. En la [siguiente
+lección](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md)
+averiguaremos **qué hacen**: buscaremos las funciones biológicas, rutas
+y procesos asociados a los 94 DEG en bases de datos como Gene Ontology y
+Reactome.
 
 [← Lección anterior: De las cuentas de RNA-seq a la exploración de
 datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md)
+[Siguiente lección: Funciones biológicas de los DEG
+→](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md)
 
 [↑ Inicio](#top "Volver al inicio de la página")
 

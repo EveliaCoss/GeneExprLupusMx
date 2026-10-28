@@ -1,26 +1,35 @@
-#' Filtered transcript count data
+#' Gene-level RNA-seq quantification (tximport)
 #'
-#' This dataset contains transcript-level count data obtained with \pkg{Salmon},
-#' imported using \pkg{tximport}, and annotated with Ensembl gene identifiers.
-#' Duplicate entries in gene biotypes were previously removed to ensure
-#' consistency in downstream analyses.
+#' Gene-level RNA-seq quantification of the 99 samples of the study
+#' (33 volunteers x 3 cell types: monocytes, moDCs and tolDCs). Transcripts were
+#' quantified with \pkg{Salmon} and summarized to genes with \pkg{tximport}.
+#' Genes are identified by their gene symbol; duplicated entries in gene
+#' biotypes were removed before creating this object.
 #'
-#' @format A list object with the following elements:
+#' @format A list with the structure returned by \code{tximport::tximport()}:
 #' \describe{
-#'   \item{counts}{Matrix of transcript counts.}
-#'   \item{abundance}{Matrix of normalized transcript abundances.}
-#'   \item{length}{Effective transcript lengths.}
-#'   \item{metadata}{Data frame containing sample-level metadata.}
+#'   \item{abundance}{Numeric matrix (21,718 genes x 99 samples) of gene
+#'     abundances in transcripts per million (TPM).}
+#'   \item{counts}{Numeric matrix (21,718 genes x 99 samples) of estimated
+#'     read counts. Values are not integers because Salmon estimates them.}
+#'   \item{length}{Numeric matrix (21,718 genes x 99 samples) with the average
+#'     effective transcript length of each gene in each sample; \pkg{DESeq2}
+#'     uses it as a normalization offset.}
+#'   \item{countsFromAbundance}{Character, \code{"no"}: counts were not
+#'     derived from abundances.}
 #' }
 #'
-#' @details This object is typically used for differential gene expression
-#' analysis with \pkg{DESeq2}, after importing transcript quantifications
-#' and mapping them to Ensembl identifiers.
+#' @details Row names are gene symbols (e.g., \code{"A1BG"}) and column names
+#'   are sample identifiers (e.g., \code{"QR011_1"}), in the same order as the
+#'   rows of \code{\link{metadata_cleaned}}. Use it with
+#'   \code{DESeq2::DESeqDataSetFromTximport()}.
 #'
-#' @source Processed internally from transcript quantifications generated with Salmon.
+#' @source Salmon quantifications of the study, imported with \pkg{tximport}.
+#'
+#' @seealso \code{\link{metadata_cleaned}}, \code{\link{biotype_summary}}
 #'
 #' @examples
-#' data(filtered_txi)
 #' names(filtered_txi)
-#' head(filtered_txi$counts)
+#' dim(filtered_txi$counts)
+#' filtered_txi$counts[1:4, 1:4]
 "filtered_txi"

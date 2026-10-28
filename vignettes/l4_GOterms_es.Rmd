@@ -1,11 +1,11 @@
 ---
-title: "Funciones biológicas de los genes diferencialmente expresados"
-subtitle: "Análisis de enriquecimiento funcional con g:Profiler"
+title: "Lección 4: Funciones biológicas de los genes diferencialmente expresados"
+subtitle: "Análisis de enriquecimiento funcional con g:Profiler2"
 output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 package: "GeneExprLupusMx"
 vignette: >
-  %\VignetteIndexEntry{Funciones biológicas de los genes diferencialmente expresados}
+  %\VignetteIndexEntry{Lección 4: Funciones biológicas de los genes diferencialmente expresados}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -91,7 +91,7 @@ Colores y umbrales (los mismos de la lección anterior):
 
 ```{r colores}
 cell_color  <- c(monocyte = "black", moDC = "palevioletred", tolDC = "gold1")
-group_color <- c(Ctrl = "#5BBFB5", SLE = "#8E5A8C")
+group_color <- c(Ctrl = "#96d4ccff", SLE = "#b493b4ff")
 
 lfc_threshold  <- 1
 padj_threshold <- 0.05
@@ -151,7 +151,7 @@ La **prueba hipergeométrica** calcula qué tan probable es sacar tantas canicas
 **Enriquecimiento no es causalidad.** Que una lista esté enriquecida en "respuesta a virus" no significa que haya un virus: significa que los genes que cambian suelen participar juntos en esa función. Es una pista para generar hipótesis.
 :::
 
-## 3. Paso 1: enriquecimiento con g:Profiler
+## 3. **Paso 1:** enriquecimiento con g:Profiler
 
 [g:Profiler](https://biit.cs.ut.ee/gprofiler) consulta al mismo tiempo varias bases de datos (GO, Reactome, KEGG, WikiPathways, TF, miRNA, HP, CORUM). En R se usa con la función `gost()` del paquete `gprofiler2`:
 
@@ -160,7 +160,7 @@ library(gprofiler2)
 
 deg_lists <- split(deg_df$gene, deg_df$query) # una lista de genes por query
 
-# Versión archivada de g:Profiler (junio de 2025), la usada en el artículo
+# Versión archivada de g:Profiler (junio de 2025)
 set_base_url("https://biit.cs.ut.ee/gprofiler_archive3/e113_eg59_p19")
 
 gost_res <- gost(deg_lists,
@@ -171,7 +171,7 @@ gost_res <- gost(deg_lists,
 ```
 
 ::: {.alert .alert-warning}
-**Las bases de datos cambian.** g:Profiler actualiza sus anotaciones varias veces al año, así que la misma lista de genes puede dar resultados algo distintos con el tiempo. Para que tus análisis sean reproducibles, **fija la versión** con `set_base_url()` y repórtala. Con la versión actual, por ejemplo, los monocitos dan 351 términos en lugar de 322.
+**Las bases de datos cambian.** g:Profiler actualiza sus anotaciones varias veces al año, así que la misma lista de genes puede dar resultados algo distintos con el tiempo. Para que tus análisis sean reproducibles, **fija la versión** con `set_base_url()` y repórtala.
 :::
 
 `gost()` necesita conexión a internet. Para que esta lección funcione sin conexión, el paquete incluye el resultado como checkpoint, `go_results`:
@@ -239,7 +239,7 @@ Son procesos del **metabolismo y transporte de lípidos y colesterol** (por ejem
 
 </details>
 
-## 4. Paso 2: panorama de los 94 DEG (Figura 3A)
+## 4. **Paso 2:** panorama de los 94 DEG (Figura 3A)
 
 Construiremos tres *heatmaps* alineados por gen:
 
@@ -373,7 +373,7 @@ draw(ht_fig3a, ht_gap = unit(5, "mm"), merge_legends = TRUE,
 - Los genes que **bajan** son sobre todo de moDC; varios tienen pocas anotaciones o ninguna, entre ellos los lncRNA.
 - En la columna de expresión, el bloque de monocitos de las pacientes destaca en rojo para los genes que suben: es la firma de interferón.
 
-## 5. Paso 3: genes asociados al lupus e ISG (Figuras 3B y 3C)
+## 5. **Paso 3:** genes asociados al lupus e ISG (Figuras 3B y 3C)
 
 Comparamos los DEG con dos listas de referencia incluidas en el paquete:
 
@@ -439,7 +439,7 @@ p_isg
 
 Casi todos los genes asociados al lupus que encontramos son también **ISG**, y están altos sobre todo en los **monocitos de las pacientes** (fila `SLE_monocyte`). `IFI27` es la excepción que confirma la regla: sube en los tres tipos celulares. En cambio, `LBH`, `AUTS2` e `IL2RB` son DEG que **bajan** en las moDC de las pacientes. En la gráfica destacan más por su alta expresión en los monocitos, porque el z-score compara cada muestra con todas las demás, de los tres tipos celulares.
 
-## 6. Paso 4: ¿en qué procesos participan los ISG? (Figura 3D)
+## 6. **Paso 4:** ¿en qué procesos participan los ISG? (Figura 3D)
 
 Para cada ISG buscamos sus términos de **Reactome (REAC)** y **GO:BP**. Como cada gen puede estar en muchos términos, resumimos con dos:
 
@@ -479,22 +479,51 @@ isg_padj[, 1:6]
 Las anotaciones de arriba muestran el patrón de cada gen y sus procesos. Los genes sin anotación aparecen como "No information":
 
 ```{r fig3d, fig.width = 16, fig.height = 5}
-process_of <- function(src, column) {
+# proceso de cada gen en una base de datos ("No information" si no tiene anotación)
+process_of <- function(src, column, genes = isg_order$gene) {
   info <- filter(process_info, source == src)
-  value <- info[[column]][match(isg_order$gene, info$gene)]
+  value <- info[[column]][match(genes, info$gene)]
   replace_na(value, "No information")
 }
 
+# colores de los procesos (los usaremos también en la Figura S4)
 reac_specific_color <- c(
-  "Interferon alpha/beta signaling" = "#b3de69", "Immune System" = "#4daf4a",
-  "Maturation of nucleoprotein" = "#1f78b4", "Inhibition of PKR" = "#33a02c",
+  "Interferon alpha/beta signaling" = "#b3de69",
+  "Immune System" = "#4daf4a",
+  "Complement cascade" = "#80b1d3",
+  "Alternative complement activation" = "#8c6bb1",
+  "Synthesis of PI" = "#ffff33",
+  "Defective ABCA1 causes TGD" = "#a50f15",
+  "HDL remodeling" = "#a6bddb",
+  "Resolution of Sister Chromatid Cohesion" = "#e7298a",
+  "Cholesterol biosynthesis" = "#fd8d3c",
+  "TNFR1-mediated ceramide production" = "#fccde5",
+  "Establishment of Sister Chromatid Cohesion" = "#ae017e",
+  "Maturation of nucleoprotein" = "#1f78b4",
+  "RSV-host interactions" = "#e41a1c",
+  "Inhibition of PKR" = "#33a02c",
   "Negative regulators of DDX58/IFIH1 signaling" = "#ff7f00",
-  "ISG15 antiviral mechanism" = "#6a3d9a", "OAS antiviral response" = "#cab2d6",
+  "ISG15 antiviral mechanism" = "#6a3d9a",
+  "OAS antiviral response" = "#cab2d6",
   "No information" = "gray")
-reac_parent_color <- c("Immune System" = "#4daf4a", "Nicotinate metabolism" = "#a65628",
-                       "No information" = "gray")
-bp_parent_color <- c("response to stimulus" = "#66c2a4", "biological regulation" = "#1f78b4",
-                     "No information" = "gray")
+reac_parent_color <- c(
+  "Immune System" = "#4daf4a",
+  "Synthesis of PI" = "#ffff33",
+  "Mitotic Metaphase and Anaphase" = "#377eb8",
+  "Metabolism of lipids" = "#984ea3",
+  "Transport of small molecules" = "#ff7f00",
+  "Respiratory Syncytial Virus Infection Pathway" = "#e41a1c",
+  "Nicotinate metabolism" = "#a65628",
+  "No information" = "gray")
+bp_parent_color <- c(
+  "response to stimulus" = "#66c2a4",
+  "cellular response to stimulus" = "#7a0177",
+  "cell communication" = "#3f007d",
+  "positive regulation of biological process" = "#fcc5c0",
+  "biological regulation" = "#1f78b4",
+  "ketone body catabolic process" = "#e31a1c",
+  "multicellular organismal process" = "#ff7f00",
+  "No information" = "gray")
 padj_color <- colorRamp2(c(0, 0.001, 0.01, 0.05), c("darkred", "red", "#fd8d3c", "#fed976"))
 
 process_anno <- HeatmapAnnotation(
@@ -562,7 +591,70 @@ process_info %>% filter(gene == "ABCA1")
 
 </details>
 
-## 7. Para terminar: la Figura 3 del artículo
+## 7. **Paso 5:** procesos de todos los DEG (Figura suplementaria S4)
+
+La Figura 3D mostró solo los ISG. Repitamos el análisis con **todos los DEG que tienen anotación** en Reactome o GO:BP, agrupándolos por su proceso padre de Reactome:
+
+```{r s4_info}
+s4_info <- gene_info %>%
+  filter(gene %in% process_info$gene) %>%
+  mutate(reac_parent   = factor(process_of("REAC", "parent_process", gene),
+                                levels = names(reac_parent_color)),
+         reac_specific = process_of("REAC", "specific_process", gene),
+         bp_parent     = process_of("GO:BP", "parent_process", gene)) %>%
+  arrange(reac_parent, gene)
+
+nrow(s4_info)                   # DEG con anotación en REAC o GO:BP
+dplyr::count(s4_info, reac_parent)
+```
+
+Como en la Figura 3D, cada celda lleva el padj de expresión diferencial del gen si tiene anotación en esa base de datos:
+
+```{r s4_mat}
+s4_padj <- sapply(c(REAC = "REAC", BP = "GO:BP"), function(src) {
+  annotated <- s4_info$gene %in% process_info$gene[process_info$source == src]
+  ifelse(annotated, s4_info$padj, NA)
+})
+rownames(s4_padj) <- s4_info$gene
+head(s4_padj)
+```
+
+```{r figura_s4, fig.width = 10, fig.height = 17}
+ht_s4 <- Heatmap(
+  s4_padj, col = padj_color, na_col = "#f0f0f0",
+  border = TRUE, rect_gp = gpar(col = "white", lwd = 2),
+  cluster_rows = FALSE, cluster_columns = FALSE, row_names_side = "right",
+  left_annotation = rowAnnotation(
+    "Parent process (REAC)"   = as.character(s4_info$reac_parent),
+    "Specific process (REAC)" = s4_info$reac_specific,
+    "Parent process (BP)"     = s4_info$bp_parent,
+    col = list("Parent process (REAC)"   = reac_parent_color,
+               "Specific process (REAC)" = reac_specific_color,
+               "Parent process (BP)"     = bp_parent_color)),
+  right_annotation = rowAnnotation(
+    "SLE vs Control\n(Cell type)" = s4_info$pattern,
+    col = list("SLE vs Control\n(Cell type)" = pattern_color),
+    annotation_legend_param = list("SLE vs Control\n(Cell type)" = list(nrow = 3))),
+  row_split = droplevels(s4_info$reac_parent), row_title_rot = 0,
+  heatmap_legend_param = list(title = "FDR-BH\n(padj)", at = c(0, 0.001, 0.01, 0.05)),
+  width = unit(2, "cm"))
+
+draw(ht_s4, merge_legends = TRUE)
+```
+
+**¿Qué observas?**
+
+- El bloque más grande es **"Immune System"**: reúne los ISG de los monocitos y también genes de linfocitos T que bajan en las moDC (`CD28`, `CD40LG`, `ZAP70`, `CARD11`).
+- Los genes de las **tolDC** forman sus propios grupos: **metabolismo de lípidos** (`ACAT2`, `MSMO1`, `SMPD3`) y **transporte de moléculas pequeñas** (`ABCA1`, `ABCG1`). Es la alteración lipídica que vimos en el Reto 1.
+- Muchos genes sin información en Reactome sí tienen anotación en GO:BP, sobre todo como "biological regulation".
+
+::: {.caption-justify}
+**Figura suplementaria S4.** Procesos biológicos asociados a los DEG obtenidos al comparar SLE contra Ctrl en cada tipo celular. Los procesos se clasificaron según las categorías padre y específicas de Reactome (REAC) y los términos padre de Gene Ontology Biological Process (GO:BP). Los procesos padre de REAC incluyen el sistema inmune, la división celular (*Mitotic Metaphase and Anaphase*), el metabolismo de lípidos y el transporte de moléculas pequeñas. La escala de color representa el padj (FDR-BH) de expresión diferencial de cada gen, con un umbral máximo de padj < 0.05; las celdas grises indican que el gen no tiene anotación en esa base de datos. DEG: genes diferencialmente expresados.
+
+La figura suplementaria original se encuentra en el [material suplementario del artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial).
+:::
+
+## 8. Para terminar: la Figura 3 del artículo
 
 Capturamos los *heatmaps* como objetos gráficos (como en la lección anterior) y los unimos con los *dot plots*:
 
@@ -589,17 +681,13 @@ figure_3
 La figura original se encuentra en el [artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
 :::
 
-::: {.alert .alert-info}
-El pie de la Figura 3 publicada menciona 57 DEG (26 que suben y 31 que bajan), pero el *heatmap* de la propia figura muestra 94 DEG (43 y 51), que es el número que obtenemos aquí con los umbrales de la lección anterior.
-:::
-
 Para guardarla en alta resolución:
 
 ```{r save_figure, eval = FALSE}
 ggsave("Figura_3.png", figure_3, width = 16, height = 30, dpi = 300)
 ```
 
-## 8. Resumen
+## 9. Resumen
 
 | Paso | Función clave | ¿Para qué? |
 |------|---------------|------------|
@@ -619,15 +707,18 @@ ggsave("Figura_3.png", figure_3, width = 16, height = 30, dpi = 300)
 - **Mezclar genes que suben y bajan en una sola lista**: puede diluir señales opuestas.
 - **Ignorar el tamaño del término**: un término con 5,000 genes es muy general; uno con 20 es más informativo.
 
-## 9. ¿Y después?
+## 10. Próximos pasos
 
-Con esta lección completaste el recorrido del artículo: desde las cuentas de RNA-seq hasta las funciones biológicas alteradas en el lupus. A partir de aquí puedes explorar otras preguntas con los mismos datos: ¿cambian los resultados si incluyes la fecha de toma de muestra en el diseño?, ¿qué pasa con otros umbrales?, ¿se asocian los ISG con la actividad de la enfermedad?
+Hasta aquí comparamos pacientes contra controles dentro de cada tipo celular. La lección [Diferenciación de monocitos a células dendríticas](l5_DEGs_monocytes_diff_es.html) plantea una pregunta distinta: **¿qué cambia cuando un monocito se diferencia en célula dendrítica?**, y ¿ocurre de la misma forma en pacientes y en controles?
+
+Para continuar, da clic en el botón **Siguiente lección: Diferenciación de monocitos** al final de esta página.
 
 ```{=html}
 <nav class="lesson-nav">
   <a class="lesson-prev" href="l3_DEGs_es.html">← Lección anterior: Genes diferencialmente expresados</a>
+  <a class="lesson-next" href="l5_DEGs_monocytes_diff_es.html">Siguiente lección: Diferenciación de monocitos →</a>
 </nav>
-<a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
+<a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
 ```
 
 ## Información de la sesión

@@ -1,0 +1,91 @@
+gene,Gene_name,process,Associated pathways,Expression,link,contrast
+CD14,CD14,Maduration,Surface markers for monocytes,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CD163,CD163,Maduration,Surface markers for monocytes,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CDH1,E-cadherin,Cell adhesion and motility,Cell adhesion and motility,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+LGALS2,Galectin-2,Cell adhesion and motility,Cell adhesion and motility,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+PECAM1,PECAM1,Cell adhesion and motility,Cell adhesion and motility,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CD31,CD31,Cell adhesion and motility,Cell adhesion and motility,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+ICAM1,ICAM1,Cell adhesion and motility,Cell adhesion and motility,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CD54,CD54,Cell adhesion and motility,Cell adhesion and motility,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+JAK3,JAK3,Signal transduction/Growth control,Signal transduccion/Growth control,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+GBP 2.00,GBP 2.00,Signal transduction/Growth control,Signal transduccion/Growth control,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+DUSP6,DUSP6,Signal transduction/Growth control,Signal transduccion/Growth control,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+MAP3K8,MAP3K8,Signal transduction/Growth control,Signal transduccion/Growth control,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CXCL8,CXCL8,Chemokines,Chemiokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IL8,IL-8,Chemokines,Chemiokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CXCL3,CXCL3/MIP-2B,Chemokines,Chemiokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CCL4,CCL4/MIP1B,Chemokines,Chemiokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+TNF,TNF-a,Cytokines,Citokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IL15,IL-15,Cytokines,Citokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IL6,IL-6,Cytokines,Citokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IL6R,IL-6R,Cytokines,Citokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IL13RA1,IL13RA1,Cytokines,Citokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IL10RA,IL10RA,Cytokines,Citokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+TGFBR3,TGFBR3,Cytokines,Citokines,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IRF7A,IRF7A,Transcription regulation,Transcription regulation,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+ERF2,ERF2,Transcription regulation,Transcription regulation,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+FOSB,FOSB,Transcription regulation,Transcription regulation,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+KLF9,KLF9,Transcription regulation,Transcription regulation,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+GATA2,GATA2,Transcription regulation,Transcription regulation,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+JUNB,JUNB,Transcription regulation,Transcription regulation,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+NFKBIA,NFKBIA,Transcription regulation,Transcription regulation,Downregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+MRC1,MRC1,Pattern and antigen recognition,Pattern and antigen recognition,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CD32,FcγRII/CD32,Pattern and antigen recognition,Pattern and antigen recognition,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+NOD1,NOD1,Pattern and antigen recognition,Pattern and antigen recognition,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+LAMP1,LAMP1,Antigen processing and presentation,Antigen processing and presentation,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+HLA-DPA1,HLA-DPA1,Antigen processing and presentation,Antigen processing and presentation,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+HLA-DQA1,HLA-DQA1,Antigen processing and presentation,Antigen processing and presentation,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CD1A,CD1a,Antigen processing and presentation,Antigen processing and presentation,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CD83,CD83,Maduration,Co-estimulatory molecules,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CD86,CD86,Maduration,Co-estimulatory molecules,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+TGFB1,TGF-b1/TGF-beta,Growth factors,Growth factors,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CSF1,CSF1,Growth factors,Growth factors,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CCL13,CCL13/MCP-4,Th2 response,Chemiokines,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CCL17,CCL17/TARC,Th2 response,Chemiokines,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CCL18,CCL18/PARC,Th2 response,Chemiokines,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CCL22,CCL22/MDC,Th2 response,Chemiokines,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CCR5,CCR5,Th2 response,Chemiokines,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CCRL2,CCRL2,Th2 response,Chemiokines,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IL1B,IL-1β,Cytokines,Cytokines,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+TNFR2,TNFR2,Cytokines,Cytokines,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IL1R1,IL1R1,Cytokines,Cytokines,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+ALOX15,ALOX15,Lipid metabolism,Lipid metabolism,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+LIPA,LIPA,Lipid metabolism,Lipid metabolism,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CYP27A1,CYP27A1,Lipid metabolism,Lipid metabolism,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+FABP4,FABP4,Lipid metabolism,Lipid metabolism,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+FABP5,FABP5,Lipid metabolism,Lipid metabolism,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+DBI,acyl-CoA-binding protein,Lipid metabolism,Lipid metabolism,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+ADORA1,ADORA1,Adenosine receptors,Adenosine receptors,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+ADORA2B,ADORA2B,Adenosine receptors,Adenosine receptors,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+RAP1GAP,RAP1GAP,Signaling molecules,Signaling molecules,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IP3KB,IP3KB,Signaling molecules,Signaling molecules,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+TRAF3,TRAF3,Signaling molecules,Signaling molecules,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+GNAI2,GNAI2,Signaling molecules,Signaling molecules,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+ANXA2,ANXA2,Signaling molecules,Signaling molecules,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+IRF4,IRF4,Transcription factors,Transcription factors,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CEBPA,CEBP-a,Transcription factors,Transcription factors,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+PPARG,PPAR-y,Transcription factors,Transcription factors,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+TP53,p53,TP53 Regulates Transcription of Cell Death Genes,Transcription factors,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+MYC,c-myc,Signaling molecules,Transcription factors,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+S100A9,S100A9/MRP14,Ca2+ binding,Ca2+ binding,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+S100A8,S100A8/MRP8,Ca2+ binding,Ca2+ binding,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+HSP27,HSP27,chaperones,chaperones,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+GRP78,GRP78,chaperones,chaperones,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+PRDX3,PRDX3,oxidative stress,oxidative stress,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+SOD2,SOD2,oxidative stress,oxidative stress,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte
+CD40,CD40,Maduration,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+CD80,CD80,Maduration,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+CD68,CD68,Maduration,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+CD274,CD274,Immune regulation,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+PDCD1LG2,PDCD1LG2,Immune regulation,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+PDGFRB,PDGFRB,Regulatory,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+CD200,CD200,Regulatory,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+CD200R1,CD200R1,Regulatory,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+SOCS1,SOCS1,Regulatory,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+SOCS2,SOCS2,Regulatory,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+ALDH1A2,ALDH1A2,Regulatory,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+IL4I1,IL4I1,Th2 response,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+BCL2L1,BCL2L1,Th2 response,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+TNFRSF4,TNFRSF4,Th2 response,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+TSLP,TSLP,Th2 response,,Downregulated,https://www.nature.com/articles/s41586-020-2134-y,mregDC and average tissue-resident dendritic cell (pooled DC1 and DC2)
+IL10,IL10,Cytokines,,Upregulated,https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2015.00528/full,moDC vs monocyte

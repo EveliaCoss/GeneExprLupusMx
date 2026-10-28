@@ -165,7 +165,7 @@ tipo celular y cada grupo tengan siempre el mismo color:
 ``` r
 
 cell_color  <- c(monocyte = "black", moDC = "palevioletred", tolDC = "gold1")
-group_color <- c(Ctrl = "#5BBFB5", SLE = "#8E5A8C")
+group_color <- c(Ctrl = "#96d4ccff", SLE = "#b493b4ff")
 ```
 
 ## 4. **Paso 1:** conocer los datos
@@ -708,13 +708,13 @@ expr_long %>%
 
 ![](intro_RNAseq_es_files/figure-html/isg_genes-1.png)
 
-**¿Qué observas?** En los **monocitos**, las pacientes con lupus
-(morado) expresan más estos genes que los controles (verde). Fíjate
-también en que los puntos morados están muy dispersos: algunas pacientes
-tienen valores muy altos y otras, valores parecidos a los controles. En
-moDC y tolDC la diferencia es mucho menor: al diferenciarse *in vitro*,
-lejos del ambiente inflamatorio del cuerpo, las células “olvidan” en
-parte la señal de interferón.
+**¿Qué observas?** En los **monocitos**, las pacientes con lupus (lila)
+expresan más estos genes que los controles (verde agua). Fíjate también
+en que los puntos de las pacientes están muy dispersos: algunas
+pacientes tienen valores muy altos y otras, valores parecidos a los
+controles. En moDC y tolDC la diferencia es mucho menor: al
+diferenciarse *in vitro*, lejos del ambiente inflamatorio del cuerpo,
+las células “olvidan” en parte la señal de interferón.
 
 **Esto todavía no es una prueba estadística.** Una gráfica sugiere
 diferencias; para afirmarlas se necesita un análisis de expresión
@@ -899,10 +899,8 @@ variación.** El efecto del lupus es más sutil y queda “tapado”.
 **¿Todos los genes o solo los más variables?** Muchos tutoriales
 calculan el PCA solo con los 500 genes más variables. Esa elección
 cambia el resultado: con 500 genes, PC1 explica alrededor del 80% de la
-variación; con todos, alrededor del 63%. Usamos todos los genes porque
-así se hizo en el artículo original (PC1 = 62.23%, PC2 = 9.33%; la
-pequeña diferencia viene del filtrado de genes y de usar las longitudes
-de `tximport`). **Siempre reporta cuántos genes usaste.**
+variación; con todos, alrededor del 63%. Aquí usamos todos los genes.
+**Siempre reporta cuántos genes usaste.**
 
 ### 11.4 Mirar dentro de un solo tipo celular
 
@@ -1094,9 +1092,9 @@ otros dos con el mismo estilo:
 
 - **A.** Tipo celular, el PCA de la sección 11.3.
 - **C.** Actividad de la enfermedad. Usamos la columna `SLEDAI` de
-  `volunteer_info`, codificada como en la Tabla 1 del artículo: `1` =
-  con actividad (SLEDAI ≥ 6 puntos), `0` = sin actividad o con actividad
-  baja (0–5 puntos) y `NA` = controles.
+  `volunteer_info`, codificada así: `1` = con actividad (SLEDAI ≥ 6
+  puntos), `0` = sin actividad o con actividad baja (0–5 puntos) y `NA`
+  = controles.
 
 ``` r
 
@@ -1157,7 +1155,7 @@ evaluar posibles efectos de lote entre colectas; no se observa una
 agrupación importante por fecha. **(C)** PCA coloreado por actividad de
 la enfermedad (SLEDAI): 1 indica actividad (puntaje SLEDAI ≥ 6), 0
 indica sin actividad o actividad baja (0–5 puntos) y los controles se
-marcan como NA. PC1 y PC2 explican el 62.23% y el 9.33% de la varianza
+marcan como NA. PC1 y PC2 explican el 63.44% y el 9.51% de la varianza
 total, respectivamente. Cada punto representa una muestra. Abreviaturas:
 SLE, lupus eritematoso sistémico; Ctrl, control sano; mo, monocitos;
 moDC, células dendríticas derivadas de monocitos; tolDC, células
@@ -1167,15 +1165,6 @@ Tabla suplementaria S1 y el Dataset S2.
 La figura suplementaria original se encuentra en el archivo *Data Sheet
 1.docx* del [material suplementario del
 artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial).
-
-En esta lección, PC1 y PC2 explican el 63.44% y el 9.51% de la varianza,
-en lugar del 62.23% y 9.33% del artículo. La diferencia viene del
-filtrado de genes poco expresados y del uso de las longitudes de
-`tximport` (sección 11.2). Las conclusiones son las mismas.
-
-El pie publicado define el grupo 1 como “SLEDAI \> 0”; aquí usamos la
-definición de la Tabla 1 del artículo (≥ 6 puntos), que coincide con los
-datos: 10 pacientes con actividad y 13 sin ella o con actividad baja.
 
 Para guardar la figura en alta resolución:
 

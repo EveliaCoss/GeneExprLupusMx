@@ -1,0 +1,90 @@
+---
+title: "Descarga de datos"
+output: rmarkdown::html_vignette
+package: "GeneExprLupusMx"
+vignette: >
+  %\VignetteIndexEntry{Descarga de datos}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+```
+
+```{css, echo = FALSE, file = "lesson.css"}
+```
+
+Todos los datos de `GeneExprLupusMx` se distribuyen con el paquete: al cargarlo quedan disponibles en R, sin descargas adicionales. Esta página explica cómo obtenerlos fuera de R y dónde se encuentran los datos crudos de secuenciación.
+
+## 1. Datos incluidos en el paquete
+
+| Objeto | Contenido | Tamaño |
+|--------|-----------|--------|
+| `filtered_txi` | Cuentas de RNA-seq (Salmon + `tximport`): `counts`, `abundance` (TPM) y `length` | 21,718 genes × 99 muestras |
+| `metadata_cleaned` | Grupo, tipo celular y datos clínicos de cada muestra | 99 muestras |
+| `volunteer_info` | Edad, diagnóstico, tratamientos y fecha de reclutamiento | 33 voluntarias |
+| `biotype_summary` | Biotipo de cada gen | 1 fila por gen |
+| `sle_genes`, `isg_genes` | Genes asociados al lupus y genes estimulados por interferón | listas de genes |
+| `moDC_genes`, `dc_genes`, `tolDC_genes` | Genes de diferenciación de células dendríticas y firma de las tolDC | listas de genes |
+| `dds`, `zscore_mat` | `DESeqDataSet` normalizado y matriz de z-scores | 13,596 genes × 99 muestras |
+| `de_results`, `de_celltype_results`, `de_interaction_results` | Resultados de expresión diferencial (`DESeq2`) | 1 fila por gen |
+| `go_results`, `go_celltype_results`, `go_interaction_results` | Enriquecimiento funcional (g:Profiler) | 1 fila por término |
+
+La descripción completa de cada objeto está en la [Referencia](../reference/index.html) o en R con `?nombre_del_objeto`. Los scripts que generan cada objeto se encuentran en la carpeta [`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw) del repositorio.
+
+## 2. Cargar los datos en R
+
+```{r}
+# install.packages("remotes")
+remotes::install_github("EveliaCoss/GeneExprLupusMx")
+
+library(GeneExprLupusMx)
+data(package = "GeneExprLupusMx") # lista de objetos disponibles
+head(metadata_cleaned)
+```
+
+## 3. Exportar a archivos CSV
+
+Para trabajar con otro programa (Excel, Python, etc.), exporta los objetos como tablas:
+
+```{r}
+dir.create("GeneExprLupusMx_datos", showWarnings = FALSE)
+
+# Metadatos e información de las voluntarias
+write.csv(metadata_cleaned, "GeneExprLupusMx_datos/metadata_cleaned.csv", row.names = FALSE)
+write.csv(volunteer_info,   "GeneExprLupusMx_datos/volunteer_info.csv",   row.names = FALSE)
+
+# Matrices de cuentas y TPM (genes en filas, muestras en columnas)
+write.csv(filtered_txi$counts,    "GeneExprLupusMx_datos/counts.csv")
+write.csv(filtered_txi$abundance, "GeneExprLupusMx_datos/tpm.csv")
+
+# Resultados de expresión diferencial: un archivo por tipo celular
+for (cell in names(de_results)) {
+  write.csv(de_results[[cell]], paste0("GeneExprLupusMx_datos/de_SLEvsCtrl_", cell, ".csv"), row.names = FALSE)
+}
+```
+
+## 4. Descarga directa desde GitHub
+
+Cada objeto también está disponible como archivo `.rda` en la carpeta [`data/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data) del repositorio. Puedes cargarlo sin instalar el paquete:
+
+```{r}
+url <- "https://github.com/EveliaCoss/GeneExprLupusMx/raw/main/data/metadata_cleaned.rda"
+load(url(url))
+head(metadata_cleaned)
+```
+
+## 5. Datos crudos de secuenciación
+
+Los datos crudos (archivos FASTQ de RNA-seq) de pacientes y controles están depositados en el [European Genome-phenome Archive (EGA)](https://ega-archive.org/) con **acceso controlado**. Para obtenerlos se requiere una solicitud formal y la aprobación del comité de acceso a datos correspondiente. Los identificadores de cada análisis se encuentran en la Tabla suplementaria 2 del [material suplementario del artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial).
+
+## 6. Cómo citar
+
+Si usas estos datos, cita el artículo original:
+
+> Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full). *Front. Immunol.* 17:1771959. [doi: 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
+
+```{=html}
+<a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
+```

@@ -5,18 +5,18 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>l4_GOterms_es • GeneExprLupusMx</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lección 4: Funciones biológicas de los genes diferencialmente expresados • GeneExprLupusMx</title>
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="l4_GOterms_es">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Lección 4: Funciones biológicas de los genes diferencialmente expresados">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Ir al contenido</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Navegación del sitio"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Navegación del sitio"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">GeneExprLupusMx</a>
 
@@ -44,8 +44,10 @@
     <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
     <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
     <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
-    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Obtener GOterms</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Ejemplos</h6></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Funciones biológicas de los genes diferencialmente expresados</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_es.html">5 - Diferenciación de monocitos a células dendríticas</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma de las células dendríticas tolerogénicas</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_es.html">7 - ¿Se diferencian igual las células de pacientes y controles?</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
     <li><h6 class="dropdown-header" data-toc-skip>1 - Introduction</h6></li>
@@ -69,14 +71,6 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Buscar en el sitio" placeholder="Buscar" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/EveliaCoss/GeneExprLupusMx/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Interruptor de color"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Claro</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Oscuro</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
       </ul>
 </div>
 
@@ -90,8 +84,11 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>l4_GOterms_es</h1>
+      <h1>Lección 4: Funciones biológicas de los genes diferencialmente expresados</h1>
+            <h3 data-toc-skip class="subtitle">Análisis de
+enriquecimiento funcional con g:Profiler2</h3>
             
+            <h4 data-toc-skip class="date">2026-10-28</h4>
       
       <small class="dont-index">Código: <a href="https://github.com/EveliaCoss/GeneExprLupusMx/blob/HEAD/vignettes/l4_GOterms_es.Rmd" class="external-link"><code>vignettes/l4_GOterms_es.Rmd</code></a></small>
       <div class="d-none name"><code>l4_GOterms_es.Rmd</code></div>
@@ -99,9 +96,1107 @@
 
     
     
+<style type="text/css">
+.callout-note, .callout-tip {
+  border: 1px solid;
+  border-left-width: 5px;
+  border-radius: .25rem;
+  padding: .75rem 1rem;
+  margin: 1rem 0;
+}
+.callout-note { border-color: #0758E5; background: rgba(7, 88, 229, .06); }
+.callout-tip  { border-color: #00A047; background: rgba(0, 160, 71, .06); }
+.callout-note > :last-child { margin-bottom: 0; }
+.callout-tip > summary { cursor: pointer; font-weight: bold; color: #00A047; }
+.callout-tip[open] > summary { margin-bottom: .75rem; }
+
+/* Diagrama mermaid sin el fondo gris de los bloques de código */
+pre.mermaid { background: none; border: 0; text-align: center; }
+
+/* Pie de figura justificado */
+.caption-justify { text-align: justify; }
+
+/* Navegación entre lecciones */
+.lesson-nav {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(128, 128, 128, .4);
+}
+.lesson-nav a {
+  padding: .5rem 1rem;
+  border: 1px solid #0758E5;
+  border-radius: .25rem;
+  text-decoration: none;
+}
+.lesson-nav a:hover { background: rgba(7, 88, 229, .08); }
+.lesson-nav .lesson-next { margin-left: auto; }
+
+/* Botón flotante para volver al inicio de la página */
+.back-to-top {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1000;
+  padding: .4rem .9rem;
+  border-radius: 2rem;
+  background: #0758E5;
+  color: #fff !important;
+  text-decoration: none;
+  font-size: .9rem;
+  opacity: .85;
+}
+.back-to-top:hover { opacity: 1; }
+</style>
+<div class="section level2">
+<h2 id="bienvenida">Bienvenida<a class="anchor" aria-label="anchor" href="#bienvenida"></a>
+</h2>
+<p>En la lección anterior encontramos <strong>94 genes diferencialmente
+expresados (DEG)</strong> entre pacientes con lupus y controles. Una
+lista de genes, por sí sola, dice poco: la pregunta ahora es
+<strong>¿qué hacen esos genes?, ¿participan en procesos biológicos
+comunes?</strong></p>
+<p><strong>Lo que necesitas saber antes:</strong> haber hecho la lección
+<a href="l3_DEGs_es.html">Genes diferencialmente expresados</a>.</p>
+<p><strong>Al terminar podrás:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Explicar qué es un <strong>análisis de enriquecimiento
+funcional</strong> y qué pregunta responde.</li>
+<li>Hacer un análisis de enriquecimiento con <strong>g:Profiler</strong>
+e interpretar sus resultados.</li>
+<li>Reconocer las principales bases de datos funcionales (Gene Ontology,
+Reactome, KEGG…).</li>
+<li>Identificar genes asociados al lupus y <strong>genes estimulados por
+interferón</strong> entre los DEG.</li>
+<li>Reproducir la <strong>Figura 3</strong> del artículo.</li>
+</ol>
+<p><strong>Tiempo estimado:</strong> 1.5 horas.</p>
+<div class="section level3">
+<h3 id="mapa-de-la-lección">Mapa de la lección<a class="anchor" aria-label="anchor" href="#mapa-de-la-lecci%C3%B3n"></a>
+</h3>
+<pre class="mermaid">
+flowchart LR
+  A["de_results<br>(lección 3)"] --&gt; B["94 DEG por tipo<br>celular y dirección"]
+  B --&gt; C["g:Profiler:<br>enriquecimiento"]
+  B --&gt; D["Listas de referencia:<br>SLE e ISG"]
+  C --&gt; E["3A. Heatmaps DEG,<br>LFC y anotaciones"]
+  D --&gt; F["3B y 3C. Dot plots"]
+  C --&gt; G["3D. Procesos REAC y BP"]
+  E --&gt; H["Figura 3"]
+  F --&gt; H
+  G --&gt; H
+</pre>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true });
+</script>
+</div>
+</div>
+<div class="section level2">
+<h2 id="glosario">Glosario<a class="anchor" aria-label="anchor" href="#glosario"></a>
+</h2>
+<p>Estos son los términos que usaremos. Vuelve aquí cada vez que lo
+necesites.</p>
+<ul>
+<li>
+<strong>Anotación funcional</strong>: información sobre qué hace un
+gen (procesos, rutas, localización…).</li>
+<li>
+<strong>Término</strong>: una categoría funcional, por ejemplo
+“respuesta a virus”, con su lista de genes.</li>
+<li>
+<strong>Enriquecimiento funcional</strong>: prueba si un término
+aparece en nuestra lista de genes <strong>más de lo esperado por
+azar</strong>.</li>
+<li>
+<strong>Prueba hipergeométrica</strong>: prueba estadística del
+enriquecimiento (como sacar canicas de una bolsa sin reemplazo).</li>
+<li>
+<strong>Gene Ontology (GO)</strong>: vocabulario de funciones con
+tres ramas: proceso biológico (<strong>BP</strong>), componente celular
+(<strong>CC</strong>) y función molecular (<strong>MF</strong>).</li>
+<li>
+<strong>Reactome (REAC)</strong>, <strong>KEGG</strong>,
+<strong>WikiPathways (WP)</strong>: bases de datos de rutas
+biológicas.</li>
+<li>
+<strong>TF</strong>: sitios de unión de factores de transcripción.
+<strong>MIRNA</strong>: blancos de microRNAs. <strong>HP</strong>:
+fenotipos humanos. <strong>CORUM</strong>: complejos de proteínas.</li>
+<li>
+<strong>Término padre / específico</strong>: las bases de datos
+están organizadas en jerarquías; un término general (padre) contiene
+términos más específicos.</li>
+<li>
+<strong>ISG</strong> (<em>interferon-stimulated genes</em>): genes
+que se encienden en respuesta al interferón.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="preparación">1. Preparación<a class="anchor" aria-label="anchor" href="#preparaci%C3%B3n"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span></span></code></pre></div>
-  </main>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span> <span class="co"># datos del paquete</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>       <span class="co"># manipulación de tablas y gráficas</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap" class="external-link">ComplexHeatmap</a></span><span class="op">)</span>  <span class="co"># heatmaps</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/circlize" class="external-link">circlize</a></span><span class="op">)</span>        <span class="co"># escalas de color para ComplexHeatmap</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span>            <span class="co"># dibujar formas dentro de los heatmaps</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span>         <span class="co"># unir gráficas en un panel</span></span></code></pre></div>
+<p>Colores y umbrales (los mismos de la lección anterior):</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cell_color</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>monocyte <span class="op">=</span> <span class="st">"black"</span>, moDC <span class="op">=</span> <span class="st">"palevioletred"</span>, tolDC <span class="op">=</span> <span class="st">"gold1"</span><span class="op">)</span></span>
+<span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#96d4ccff"</span>, SLE <span class="op">=</span> <span class="st">"#b493b4ff"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">lfc_threshold</span>  <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="va">padj_threshold</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="punto-de-partida-los-deg-de-la-lección-anterior">Punto de partida: los DEG de la lección anterior<a class="anchor" aria-label="anchor" href="#punto-de-partida-los-deg-de-la-lecci%C3%B3n-anterior"></a>
+</h3>
+<p>El checkpoint <code>de_results</code> contiene los resultados de
+<code>DESeq2</code> de los tres tipos celulares. Recuperamos los DEG en
+una sola tabla:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">deg_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">de_results</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">cell</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">de_results</span><span class="op">[[</span><span class="va">cell</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span>, <span class="va">padj</span> <span class="op">&lt;</span> <span class="va">padj_threshold</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">log2FoldChange</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="va">lfc_threshold</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Cell_type  <span class="op">=</span> <span class="va">cell</span>,</span>
+<span>           Expression <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">log2FoldChange</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="st">"Up-regulated"</span>, <span class="st">"Down-regulated"</span><span class="op">)</span>,</span>
+<span>           query      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"SLE"</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">log2FoldChange</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="st">"UP"</span>, <span class="st">"DOWN"</span><span class="op">)</span>, <span class="va">cell</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">deg_df</span>, <span class="va">query</span><span class="op">)</span></span>
+<span><span class="co">#&gt;             query  n</span></span>
+<span><span class="co">#&gt; 1   SLE_DOWN_moDC 40</span></span>
+<span><span class="co">#&gt; 2  SLE_DOWN_tolDC 12</span></span>
+<span><span class="co">#&gt; 3     SLE_UP_moDC  4</span></span>
+<span><span class="co">#&gt; 4 SLE_UP_monocyte 37</span></span>
+<span><span class="co">#&gt; 5    SLE_UP_tolDC  4</span></span></code></pre></div>
+<p>Cada combinación de tipo celular y dirección es una <strong>lista de
+genes</strong> (<code>query</code>). Los monocitos no tienen genes que
+bajen, así que hay cinco listas.</p>
+<p>Un mismo gen puede ser DEG en más de un tipo celular. Para las
+gráficas necesitamos <strong>una fila por gen</strong> (94 genes) y una
+etiqueta que describa su <strong>patrón</strong>: en qué tipos celulares
+cambia.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">genes_in</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cell</span>, <span class="va">direction</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">deg_df</span><span class="op">$</span><span class="va">gene</span><span class="op">[</span><span class="va">deg_df</span><span class="op">$</span><span class="va">Cell_type</span> <span class="op">==</span> <span class="va">cell</span> <span class="op">&amp;</span> <span class="va">deg_df</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="va">direction</span><span class="op">]</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">gene_info</span> <span class="op">&lt;-</span> <span class="va">deg_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">gene</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># una fila por gen</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>    <span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">genes_in</span><span class="op">(</span><span class="st">"monocyte"</span>, <span class="st">"Up-regulated"</span><span class="op">)</span>,</span>
+<span>                                     <span class="fu">genes_in</span><span class="op">(</span><span class="st">"moDC"</span>, <span class="st">"Up-regulated"</span><span class="op">)</span>,</span>
+<span>                                     <span class="fu">genes_in</span><span class="op">(</span><span class="st">"tolDC"</span>, <span class="st">"Up-regulated"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Tri-lineage (UP)"</span>,</span>
+<span>    <span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect</a></span><span class="op">(</span><span class="fu">genes_in</span><span class="op">(</span><span class="st">"moDC"</span>, <span class="st">"Down-regulated"</span><span class="op">)</span>,</span>
+<span>                        <span class="fu">genes_in</span><span class="op">(</span><span class="st">"tolDC"</span>, <span class="st">"Down-regulated"</span><span class="op">)</span><span class="op">)</span> <span class="op">~</span> <span class="st">"moDC &amp; tolDC (DOWN)"</span>,</span>
+<span>    <span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu">genes_in</span><span class="op">(</span><span class="st">"monocyte"</span>, <span class="st">"Up-regulated"</span><span class="op">)</span> <span class="op">~</span> <span class="st">"monocyte (UP)"</span>,</span>
+<span>    <span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu">genes_in</span><span class="op">(</span><span class="st">"moDC"</span>, <span class="st">"Up-regulated"</span><span class="op">)</span>     <span class="op">~</span> <span class="st">"moDC (UP)"</span>,</span>
+<span>    <span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu">genes_in</span><span class="op">(</span><span class="st">"moDC"</span>, <span class="st">"Down-regulated"</span><span class="op">)</span>   <span class="op">~</span> <span class="st">"moDC (DOWN)"</span>,</span>
+<span>    <span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu">genes_in</span><span class="op">(</span><span class="st">"tolDC"</span>, <span class="st">"Up-regulated"</span><span class="op">)</span>    <span class="op">~</span> <span class="st">"tolDC (UP)"</span>,</span>
+<span>    <span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu">genes_in</span><span class="op">(</span><span class="st">"tolDC"</span>, <span class="st">"Down-regulated"</span><span class="op">)</span>  <span class="op">~</span> <span class="st">"tolDC (DOWN)"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">gene_info</span>, <span class="va">pattern</span><span class="op">)</span></span>
+<span><span class="co">#&gt;               pattern  n</span></span>
+<span><span class="co">#&gt; 1    Tri-lineage (UP)  1</span></span>
+<span><span class="co">#&gt; 2 moDC &amp; tolDC (DOWN)  1</span></span>
+<span><span class="co">#&gt; 3         moDC (DOWN) 39</span></span>
+<span><span class="co">#&gt; 4           moDC (UP)  3</span></span>
+<span><span class="co">#&gt; 5       monocyte (UP) 36</span></span>
+<span><span class="co">#&gt; 6        tolDC (DOWN) 11</span></span>
+<span><span class="co">#&gt; 7          tolDC (UP)  3</span></span></code></pre></div>
+<p><strong>Tri-lineage (UP)</strong> son los genes que suben en los tres
+tipos celulares (solo <code>IFI27</code>) y <strong>moDC &amp; tolDC
+(DOWN)</strong>, los que bajan en ambas células dendríticas.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="qué-es-un-análisis-de-enriquecimiento">2. ¿Qué es un análisis de enriquecimiento?<a class="anchor" aria-label="anchor" href="#qu%C3%A9-es-un-an%C3%A1lisis-de-enriquecimiento"></a>
+</h2>
+<p>Imagina una bolsa con 20,000 canicas (todos los genes del genoma).
+200 de ellas son rojas: los genes de un término, por ejemplo “respuesta
+a virus”. Sacamos al azar 37 canicas (nuestros DEG de monocitos).
+Esperaríamos sacar menos de una roja. <strong>Si sacamos 15, algo no es
+azar</strong>: nuestros genes están <strong>enriquecidos</strong> en ese
+término.</p>
+<p>La <strong>prueba hipergeométrica</strong> calcula qué tan probable
+es sacar tantas canicas rojas por azar. Como se prueban miles de
+términos a la vez, los valores p se corrigen (FDR), igual que en la
+expresión diferencial.</p>
+<div class="alert alert-info">
+<p><strong>Enriquecimiento no es causalidad.</strong> Que una lista esté
+enriquecida en “respuesta a virus” no significa que haya un virus:
+significa que los genes que cambian suelen participar juntos en esa
+función. Es una pista para generar hipótesis.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="paso-1-enriquecimiento-con-gprofiler">3. <strong>Paso 1:</strong> enriquecimiento con g:Profiler<a class="anchor" aria-label="anchor" href="#paso-1-enriquecimiento-con-gprofiler"></a>
+</h2>
+<p><a href="https://biit.cs.ut.ee/gprofiler" class="external-link">g:Profiler</a> consulta al
+mismo tiempo varias bases de datos (GO, Reactome, KEGG, WikiPathways,
+TF, miRNA, HP, CORUM). En R se usa con la función <code><a href="https://rdrr.io/pkg/gprofiler2/man/gost.html" class="external-link">gost()</a></code>
+del paquete <code>gprofiler2</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gprofiler2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">deg_lists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/splitAsList.html" class="external-link">split</a></span><span class="op">(</span><span class="va">deg_df</span><span class="op">$</span><span class="va">gene</span>, <span class="va">deg_df</span><span class="op">$</span><span class="va">query</span><span class="op">)</span> <span class="co"># una lista de genes por query</span></span>
+<span></span>
+<span><span class="co"># Versión archivada de g:Profiler (junio de 2025)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/gprofiler2/man/set_base_url.html" class="external-link">set_base_url</a></span><span class="op">(</span><span class="st">"https://biit.cs.ut.ee/gprofiler_archive3/e113_eg59_p19"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gost_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gprofiler2/man/gost.html" class="external-link">gost</a></span><span class="op">(</span><span class="va">deg_lists</span>,</span>
+<span>                 organism          <span class="op">=</span> <span class="st">"hsapiens"</span>, <span class="co"># humano</span></span>
+<span>                 correction_method <span class="op">=</span> <span class="st">"fdr"</span>,      <span class="co"># corrección por comparaciones múltiples</span></span>
+<span>                 user_threshold    <span class="op">=</span> <span class="fl">0.05</span>,       <span class="co"># padj máximo</span></span>
+<span>                 evcodes           <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>       <span class="co"># incluir qué genes tiene cada término</span></span></code></pre></div>
+<div class="alert alert-warning">
+<p><strong>Las bases de datos cambian.</strong> g:Profiler actualiza sus
+anotaciones varias veces al año, así que la misma lista de genes puede
+dar resultados algo distintos con el tiempo. Para que tus análisis sean
+reproducibles, <strong>fija la versión</strong> con
+<code><a href="https://rdrr.io/pkg/gprofiler2/man/set_base_url.html" class="external-link">set_base_url()</a></code> y repórtala.</p>
+</div>
+<p><code><a href="https://rdrr.io/pkg/gprofiler2/man/gost.html" class="external-link">gost()</a></code> necesita conexión a internet. Para que esta
+lección funcione sin conexión, el paquete incluye el resultado como
+checkpoint, <code>go_results</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">go_results</span>, <span class="st">"gprofiler_version"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "e113_eg59_p19_903d2221"</span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">go_results</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 943</span></span>
+<span><span class="co">#&gt; Columns: 10</span></span>
+<span><span class="co">#&gt; $ query             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "SLE_DOWN_moDC"<span style="color: #949494;">, </span>"SLE_DOWN_moDC"<span style="color: #949494;">, </span>"SLE_DOWN_moDC"<span style="color: #949494;">, </span>"…</span></span>
+<span><span class="co">#&gt; $ source            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "CORUM"<span style="color: #949494;">, </span>"CORUM"<span style="color: #949494;">, </span>"CORUM"<span style="color: #949494;">, </span>"CORUM"<span style="color: #949494;">, </span>"CORUM"<span style="color: #949494;">, </span>"CORUM"…</span></span>
+<span><span class="co">#&gt; $ term_id           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "CORUM:7577"<span style="color: #949494;">, </span>"CORUM:6805"<span style="color: #949494;">, </span>"CORUM:6799"<span style="color: #949494;">, </span>"CORUM:679…</span></span>
+<span><span class="co">#&gt; $ term_name         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "APP-APBB1-KAT5 complex"<span style="color: #949494;">, </span>"S1PR1-beta-arrestin 2 com…</span></span>
+<span><span class="co">#&gt; $ term_size         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 3<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>560<span style="color: #949494;">,</span>…</span></span>
+<span><span class="co">#&gt; $ query_size        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>36<span style="color: #949494;">, </span>…</span></span>
+<span><span class="co">#&gt; $ intersection_size <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>…</span></span>
+<span><span class="co">#&gt; $ p_value           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 7.524322e-03<span style="color: #949494;">, </span>7.524322e-03<span style="color: #949494;">, </span>7.524322e-03<span style="color: #949494;">, </span>7.524322e-…</span></span>
+<span><span class="co">#&gt; $ parents           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "CORUM:0000000"<span style="color: #949494;">, </span>"CORUM:0000000"<span style="color: #949494;">, </span>"CORUM:0000000"<span style="color: #949494;">, </span>"…</span></span>
+<span><span class="co">#&gt; $ intersection      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "APBB1"<span style="color: #949494;">, </span>"S1PR1"<span style="color: #949494;">, </span>"S1PR1"<span style="color: #949494;">, </span>"S1PR1"<span style="color: #949494;">, </span>"APBB1"<span style="color: #949494;">, </span>"HIP1R"…</span></span></code></pre></div>
+<p>Las columnas más importantes son:</p>
+<table class="table">
+<thead><tr class="header">
+<th>Columna</th>
+<th>Significado</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>query</code></td>
+<td>Lista de genes (tipo celular y dirección)</td>
+</tr>
+<tr class="even">
+<td><code>source</code></td>
+<td>Base de datos</td>
+</tr>
+<tr class="odd">
+<td><code>term_name</code></td>
+<td>Nombre del término</td>
+</tr>
+<tr class="even">
+<td><code>term_size</code></td>
+<td>Genes anotados al término en todo el genoma</td>
+</tr>
+<tr class="odd">
+<td><code>intersection_size</code></td>
+<td>Genes de <strong>nuestra lista</strong> anotados al término</td>
+</tr>
+<tr class="even">
+<td><code>p_value</code></td>
+<td>Valor p ajustado (FDR)</td>
+</tr>
+<tr class="odd">
+<td><code>intersection</code></td>
+<td>Cuáles son esos genes</td>
+</tr>
+</tbody>
+</table>
+<p>¿Cuántos términos significativos hay por lista y base de datos?</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">query</span>, <span class="va">source</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">source</span>, values_from <span class="op">=</span> <span class="va">n</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 11</span></span></span>
+<span><span class="co">#&gt;   query        CORUM `GO:BP` `GO:CC`    HP  KEGG  REAC    WP `GO:MF` MIRNA    TF</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> SLE_DOWN_mo…    16     201       7    48    10     1     8       0     0     0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> SLE_DOWN_to…     6       0       0     3     0    10    12       8     0     0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> SLE_UP_moDC      0       0       0     0     1     1     3       4     0     0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> SLE_UP_mono…     2     183       2     0    10    19    12      15     1    78</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> SLE_UP_tolDC     0     172       6    14     5    16    16      53     0     0</span></span></code></pre></div>
+<p>Las listas con más genes (monocitos UP, moDC DOWN) tienen más
+términos, y la mayoría vienen de <a href="GO:BP" class="uri">GO:BP</a>,
+la base de datos más grande.</p>
+<div class="section level3">
+<h3 id="los-términos-más-significativos">3.1 Los términos más significativos<a class="anchor" aria-label="anchor" href="#los-t%C3%A9rminos-m%C3%A1s-significativos"></a>
+</h3>
+<p>Veamos los 10 procesos biológicos (<a href="GO:BP" class="uri">GO:BP</a>) más significativos de los monocitos:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">query</span> <span class="op">==</span> <span class="st">"SLE_UP_monocyte"</span>, <span class="va">source</span> <span class="op">==</span> <span class="st">"GO:BP"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span><span class="va">p_value</span>, n <span class="op">=</span> <span class="fl">10</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">p_value</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">term_name</span>, <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">p_value</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, xend <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">p_value</span><span class="op">)</span>, yend <span class="op">=</span> <span class="va">term_name</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"grey60"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">intersection_size</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"firebrick3"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="st">"-log"</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span> <span class="op">*</span> <span class="st">"(padj)"</span><span class="op">)</span>, y <span class="op">=</span> <span class="cn">NULL</span>, size <span class="op">=</span> <span class="st">"Genes de\nla lista"</span>,</span>
+<span>       title <span class="op">=</span> <span class="st">"Monocitos (UP): procesos biológicos"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="l4_GOterms_es_files/figure-html/top_terms-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
+<p>Todos los términos tienen que ver con la <strong>respuesta a virus y
+al interferón</strong>: la firma de interferón que vimos en las
+lecciones anteriores, ahora respaldada por el análisis de
+enriquecimiento.</p>
+<div class="callout-note">
+<p><strong>Reto 1.</strong> ¿Cuáles son los 5 términos de Reactome
+(<code>REAC</code>) más significativos en las tolDC con genes que suben
+(<code>SLE_UP_tolDC</code>)? ¿Qué tipo de procesos son?</p>
+</div>
+<details class="callout-tip"><summary>
+Ver solución
+</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">query</span> <span class="op">==</span> <span class="st">"SLE_UP_tolDC"</span>, <span class="va">source</span> <span class="op">==</span> <span class="st">"REAC"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span><span class="va">p_value</span>, n <span class="op">=</span> <span class="fl">5</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">term_name</span>, <span class="va">intersection_size</span>, <span class="va">p_value</span>, <span class="va">intersection</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                                                           term_name</span></span>
+<span><span class="co">#&gt; 1 NR1H3 &amp; NR1H2 regulate gene expression linked to cholesterol transport and efflux</span></span>
+<span><span class="co">#&gt; 2                                                NR1H2 and NR1H3-mediated signaling</span></span>
+<span><span class="co">#&gt; 3                            Plasma lipoprotein assembly, remodeling, and clearance</span></span>
+<span><span class="co">#&gt; 4                                                        Defective ABCA1 causes TGD</span></span>
+<span><span class="co">#&gt; 5                                                                      HDL assembly</span></span>
+<span><span class="co">#&gt;   intersection_size      p_value intersection</span></span>
+<span><span class="co">#&gt; 1                 2 0.0006116482  ABCA1,ABCG1</span></span>
+<span><span class="co">#&gt; 2                 2 0.0006116482  ABCA1,ABCG1</span></span>
+<span><span class="co">#&gt; 3                 2 0.0010219157  ABCA1,ABCG1</span></span>
+<span><span class="co">#&gt; 4                 1 0.0034075420        ABCA1</span></span>
+<span><span class="co">#&gt; 5                 1 0.0084434412        ABCA1</span></span></code></pre></div>
+<p>Son procesos del <strong>metabolismo y transporte de lípidos y
+colesterol</strong> (por ejemplo, la ruta de <code>ABCA1</code>), muy
+distintos de la respuesta a interferón de los monocitos.</p>
+</details>
+</div>
+</div>
+<div class="section level2">
+<h2 id="paso-2-panorama-de-los-94-deg-figura-3a">4. <strong>Paso 2:</strong> panorama de los 94 DEG (Figura 3A)<a class="anchor" aria-label="anchor" href="#paso-2-panorama-de-los-94-deg-figura-3a"></a>
+</h2>
+<p>Construiremos tres <em>heatmaps</em> alineados por gen:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Expresión (z-score)</strong> de cada DEG en todas las
+muestras.</li>
+<li>
+<strong>LFC</strong> de cada gen en cada lista de DEG.</li>
+<li>
+<strong>Presencia de anotación significativa</strong> en cada base
+de datos.</li>
+</ol>
+<div class="section level3">
+<h3 id="heatmap-de-expresión">4.1 Heatmap de expresión<a class="anchor" aria-label="anchor" href="#heatmap-de-expresi%C3%B3n"></a>
+</h3>
+<p>Ordenamos las muestras por tipo celular y grupo, y tomamos los
+z-scores de los 94 genes del checkpoint <code>zscore_mat</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sample_order</span> <span class="op">&lt;-</span> <span class="va">metadata_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Cell_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Cell_type</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monocyte"</span>, <span class="st">"moDC"</span>, <span class="st">"tolDC"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">Cell_type</span>, <span class="va">Group</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">deg_mat</span> <span class="op">&lt;-</span> <span class="va">zscore_mat</span><span class="op">[</span><span class="va">gene_info</span><span class="op">$</span><span class="va">gene</span>, <span class="va">sample_order</span><span class="op">$</span><span class="va">sample_ID</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">deg_mat</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 94 99</span></span></code></pre></div>
+<p>Agregamos anotaciones: arriba, el grupo y el tipo celular de cada
+muestra; a la izquierda, el LFC; a la derecha, el biotipo del gen (de
+<code>biotype_summary</code>) y su patrón.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pattern_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tri-lineage (UP)"</span> <span class="op">=</span> <span class="st">"#b2182b"</span>, <span class="st">"monocyte (UP)"</span> <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>                   <span class="st">"moDC (UP)"</span> <span class="op">=</span> <span class="st">"palevioletred"</span>, <span class="st">"moDC (DOWN)"</span> <span class="op">=</span> <span class="st">"palevioletred"</span>,</span>
+<span>                   <span class="st">"tolDC (UP)"</span> <span class="op">=</span> <span class="st">"gold1"</span>, <span class="st">"tolDC (DOWN)"</span> <span class="op">=</span> <span class="st">"gold1"</span>,</span>
+<span>                   <span class="st">"moDC &amp; tolDC (DOWN)"</span> <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span>
+<span><span class="va">biotype_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PCG"</span> <span class="op">=</span> <span class="st">"#7570B3"</span>, <span class="st">"lncRNA"</span> <span class="op">=</span> <span class="st">"#E7298A"</span><span class="op">)</span></span>
+<span><span class="va">lfc_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html" class="external-link">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#8c510a"</span>, <span class="st">"#bf812d"</span>, <span class="st">"white"</span>, <span class="st">"#35978f"</span>, <span class="st">"#01665e"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">zscore_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html" class="external-link">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"darkblue"</span>, <span class="st">"dodgerblue"</span>, <span class="st">"white"</span>, <span class="st">"red"</span>, <span class="st">"darkred"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gene_biotype</span> <span class="op">&lt;-</span> <span class="va">biotype_summary</span><span class="op">$</span><span class="va">Group_biotype</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">gene_info</span><span class="op">$</span><span class="va">gene</span>, <span class="va">biotype_summary</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">gene_biotype</span><span class="op">)</span></span>
+<span><span class="co">#&gt; gene_biotype</span></span>
+<span><span class="co">#&gt; lncRNA    PCG </span></span>
+<span><span class="co">#&gt;      4     90</span></span>
+<span></span>
+<span><span class="va">sample_anno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/HeatmapAnnotation.html" class="external-link">HeatmapAnnotation</a></span><span class="op">(</span></span>
+<span>  Group       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">sample_order</span><span class="op">$</span><span class="va">Group</span><span class="op">)</span>,</span>
+<span>  <span class="st">"Cell type"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">sample_order</span><span class="op">$</span><span class="va">Cell_type</span><span class="op">)</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Group <span class="op">=</span> <span class="va">group_color</span>, <span class="st">"Cell type"</span> <span class="op">=</span> <span class="va">cell_color</span><span class="op">)</span>,</span>
+<span>  annotation_name_side <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ht_expression</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span></span>
+<span>  <span class="va">deg_mat</span>, name <span class="op">=</span> <span class="st">"Z-score"</span>, col <span class="op">=</span> <span class="va">zscore_color</span>,</span>
+<span>  cluster_rows <span class="op">=</span> <span class="cn">TRUE</span>, cluster_columns <span class="op">=</span> <span class="cn">FALSE</span>, show_row_dend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show_row_names <span class="op">=</span> <span class="cn">FALSE</span>, show_column_names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  top_annotation  <span class="op">=</span> <span class="va">sample_anno</span>,</span>
+<span>  left_annotation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/rowAnnotation.html" class="external-link">rowAnnotation</a></span><span class="op">(</span><span class="st">"SLE vs Control\n(LFC)"</span> <span class="op">=</span> <span class="va">gene_info</span><span class="op">$</span><span class="va">log2FoldChange</span>,</span>
+<span>                                  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"SLE vs Control\n(LFC)"</span> <span class="op">=</span> <span class="va">lfc_color</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  right_annotation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/rowAnnotation.html" class="external-link">rowAnnotation</a></span><span class="op">(</span>Biotype <span class="op">=</span> <span class="va">gene_biotype</span>,</span>
+<span>                                   <span class="st">"SLE vs Control\n(Cell type)"</span> <span class="op">=</span> <span class="va">gene_info</span><span class="op">$</span><span class="va">pattern</span>,</span>
+<span>                                   col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Biotype <span class="op">=</span> <span class="va">biotype_color</span>,</span>
+<span>                                              <span class="st">"SLE vs Control\n(Cell type)"</span> <span class="op">=</span> <span class="va">pattern_color</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  column_split <span class="op">=</span> <span class="va">sample_order</span><span class="op">$</span><span class="va">Cell_type</span>,</span>
+<span>  row_split    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gene_info</span><span class="op">$</span><span class="va">Expression</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Up-regulated"</span>, <span class="st">"Down-regulated"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  heatmap_legend_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"horizontal"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="heatmap-de-lfc-por-lista">4.2 Heatmap de LFC por lista<a class="anchor" aria-label="anchor" href="#heatmap-de-lfc-por-lista"></a>
+</h3>
+<p>Una matriz con el LFC de cada gen en cada lista de DEG (0 si el gen
+no es DEG en esa lista). Arriba, un <em>barplot</em> con cuántos DEG
+tiene cada lista:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lfc_mat</span> <span class="op">&lt;-</span> <span class="va">deg_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>column <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace</a></span><span class="op">(</span><span class="va">query</span>, <span class="st">"SLE_(UP|DOWN)_(.*)"</span>, <span class="st">"\\2 (\\1)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># "monocyte (UP)"</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">column</span>, <span class="va">log2FoldChange</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">column</span>, values_from <span class="op">=</span> <span class="va">log2FoldChange</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">column_to_rownames</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">lfc_mat</span> <span class="op">&lt;-</span> <span class="va">lfc_mat</span><span class="op">[</span><span class="va">gene_info</span><span class="op">$</span><span class="va">gene</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monocyte (UP)"</span>, <span class="st">"moDC (UP)"</span>, <span class="st">"moDC (DOWN)"</span>,</span>
+<span>                                     <span class="st">"tolDC (UP)"</span>, <span class="st">"tolDC (DOWN)"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">lfc_mat</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="co">#&gt; monocyte (UP)     moDC (UP)   moDC (DOWN)    tolDC (UP)  tolDC (DOWN) </span></span>
+<span><span class="co">#&gt;            37             4            40             4            12</span></span>
+<span></span>
+<span><span class="va">ht_lfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span></span>
+<span>  <span class="va">lfc_mat</span>, name <span class="op">=</span> <span class="st">"SLE vs Control\n(LFC)"</span>, col <span class="op">=</span> <span class="va">lfc_color</span>, show_heatmap_legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  cluster_columns <span class="op">=</span> <span class="cn">FALSE</span>, show_row_names <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  rect_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"#f0f0f0"</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  top_annotation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/HeatmapAnnotation.html" class="external-link">HeatmapAnnotation</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Cell type"</span>  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monocyte"</span>, <span class="st">"moDC"</span>, <span class="st">"moDC"</span>, <span class="st">"tolDC"</span>, <span class="st">"tolDC"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"DEG Counts"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/anno_barplot.html" class="external-link">anno_barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">lfc_mat</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span>, add_numbers <span class="op">=</span> <span class="cn">TRUE</span>, height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Cell type"</span> <span class="op">=</span> <span class="va">cell_color</span><span class="op">)</span>, show_legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="heatmap-de-anotaciones">4.3 Heatmap de anotaciones<a class="anchor" aria-label="anchor" href="#heatmap-de-anotaciones"></a>
+</h3>
+<p>¿En qué bases de datos tiene cada gen al menos un término
+significativo? Separamos la columna <code>intersection</code> (genes
+separados por comas) en una fila por gen:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gene_source</span> <span class="op">&lt;-</span> <span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">source</span>, <span class="va">intersection</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_rows.html" class="external-link">separate_rows</a></span><span class="op">(</span><span class="va">intersection</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">intersection</span>, source <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">source</span>, <span class="st">"GO:"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">presence_mat</span> <span class="op">&lt;-</span> <span class="va">gene_source</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>present <span class="op">=</span> <span class="st">"yes"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">source</span>, values_from <span class="op">=</span> <span class="va">present</span>, values_fill <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">right_join</a></span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">gene_info</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># los 94 DEG</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="op">-</span><span class="va">gene</span>, <span class="op">~</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html" class="external-link">replace_na</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"no"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">column_to_rownames</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">presence_mat</span> <span class="op">&lt;-</span> <span class="va">presence_mat</span><span class="op">[</span><span class="va">gene_info</span><span class="op">$</span><span class="va">gene</span>,</span>
+<span>                             <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BP"</span>, <span class="st">"CC"</span>, <span class="st">"MF"</span>, <span class="st">"REAC"</span>, <span class="st">"HP"</span>, <span class="st">"KEGG"</span>, <span class="st">"WP"</span>, <span class="st">"TF"</span>, <span class="st">"CORUM"</span>, <span class="st">"MIRNA"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">presence_mat</span> <span class="op">==</span> <span class="st">"yes"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    BP    CC    MF  REAC    HP  KEGG    WP    TF CORUM MIRNA </span></span>
+<span><span class="co">#&gt;    70    63    19    43    17    22    31    31    10    12</span></span>
+<span></span>
+<span><span class="va">n_up</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">gene_info</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="st">"Up-regulated"</span><span class="op">)</span></span>
+<span><span class="va">n_down</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">gene_info</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="st">"Down-regulated"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ht_presence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span></span>
+<span>  <span class="va">presence_mat</span>, name <span class="op">=</span> <span class="st">"Significant\nannotation presence"</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>yes <span class="op">=</span> <span class="st">"#238b45"</span>, no <span class="op">=</span> <span class="st">"#f0f0f0"</span><span class="op">)</span>,</span>
+<span>  cluster_columns <span class="op">=</span> <span class="cn">FALSE</span>, show_row_names <span class="op">=</span> <span class="cn">TRUE</span>, row_names_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>,</span>
+<span>  rect_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"white"</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  column_title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">gene_info</span><span class="op">)</span>, <span class="st">" DEG ("</span>, <span class="va">n_up</span>, <span class="st">" UP / "</span>, <span class="va">n_down</span>, <span class="st">" DOWN)"</span><span class="op">)</span>,</span>
+<span>  width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="los-tres-juntos">4.4 Los tres juntos<a class="anchor" aria-label="anchor" href="#los-tres-juntos"></a>
+</h3>
+<p>Al unir <em>heatmaps</em> con <code>+</code>,
+<code>ComplexHeatmap</code> aplica a todos el orden de filas del
+primero, así que cada fila es el mismo gen en los tres:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ht_fig3a</span> <span class="op">&lt;-</span> <span class="va">ht_expression</span> <span class="op">+</span> <span class="va">ht_lfc</span> <span class="op">+</span> <span class="va">ht_presence</span></span>
+<span></span>
+<span><span class="va">ht_opt</span><span class="op">$</span><span class="va">message</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="va">ht_fig3a</span>, ht_gap <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">5</span>, <span class="st">"mm"</span><span class="op">)</span>, merge_legends <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>     heatmap_legend_side <span class="op">=</span> <span class="st">"top"</span>, annotation_legend_side <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="l4_GOterms_es_files/figure-html/fig3a-1.png" class="r-plt" alt="" width="1248" style="display: block; margin: auto;"></p>
+<p><strong>¿Qué observas?</strong></p>
+<ul>
+<li>Los genes que <strong>suben</strong> (bloque superior) son sobre
+todo de monocitos y tienen muchas anotaciones en casi todas las bases de
+datos: son genes bien estudiados de la respuesta inmune.</li>
+<li>Los genes que <strong>bajan</strong> son sobre todo de moDC; varios
+tienen pocas anotaciones o ninguna, entre ellos los lncRNA.</li>
+<li>En la columna de expresión, el bloque de monocitos de las pacientes
+destaca en rojo para los genes que suben: es la firma de
+interferón.</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="paso-3-genes-asociados-al-lupus-e-isg-figuras-3b-y-3c">5. <strong>Paso 3:</strong> genes asociados al lupus e ISG (Figuras
+3B y 3C)<a class="anchor" aria-label="anchor" href="#paso-3-genes-asociados-al-lupus-e-isg-figuras-3b-y-3c"></a>
+</h2>
+<p>Comparamos los DEG con dos listas de referencia incluidas en el
+paquete:</p>
+<ul>
+<li>
+<code>sle_genes</code>: genes asociados al lupus en la literatura
+(cuatro estudios).</li>
+<li>
+<code>isg_genes</code>: 423 genes estimulados por interferón (Yu et
+al., 2025).</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sle_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">sle_genes</span><span class="op">$</span><span class="va">Gene_name</span><span class="op">)</span>, <span class="va">gene_info</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="va">isg_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">isg_genes</span><span class="op">$</span><span class="va">genes</span>, <span class="va">gene_info</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="va">sle_deg</span></span>
+<span><span class="co">#&gt;  [1] "IFI44L"  "RSAD2"   "USP18"   "IFIT3"   "CMPK2"   "ISG15"   "IFI6"   </span></span>
+<span><span class="co">#&gt;  [8] "IFI27"   "IFIT1"   "LBH"     "OAS1"    "OAS2"    "EIF2AK2"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">isg_deg</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 32</span></span></code></pre></div>
+<p><strong>13 DEG</strong> ya estaban asociados al lupus y
+<strong>32</strong> son ISG. Los graficamos como en la lección anterior:
+un <em>dot plot</em> con la expresión media (z-score) por grupo y tipo
+celular. Como lo haremos dos veces, lo guardamos en una función:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">plot_gene_dots</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">x_label</span>, <span class="va">gene_levels</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">dots_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">zscore_mat</span><span class="op">[</span><span class="va">genes</span>, <span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">gene</span>, names_to <span class="op">=</span> <span class="st">"sample_ID"</span>, values_to <span class="op">=</span> <span class="st">"expression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">metadata_cleaned</span>, <span class="va">sample_ID</span>, <span class="va">Group</span>, <span class="va">Cell_type</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"sample_ID"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Group</span>, <span class="va">Cell_type</span>, <span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>mean_expression <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">expression</span><span class="op">)</span>,</span>
+<span>              pct_expressed   <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">expression</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene_info</span>, <span class="va">gene</span>, <span class="va">pattern</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">Group</span>, <span class="va">Cell_type</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span>,</span>
+<span>                              levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SLE_tolDC"</span>, <span class="st">"Ctrl_tolDC"</span>, <span class="st">"SLE_moDC"</span>,</span>
+<span>                                         <span class="st">"Ctrl_moDC"</span>, <span class="st">"SLE_monocyte"</span>, <span class="st">"Ctrl_monocyte"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>           pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">pattern</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tri-lineage (UP)"</span>, <span class="st">"monocyte (UP)"</span>, <span class="st">"moDC (DOWN)"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>           gene    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gene</span>, levels <span class="op">=</span> <span class="va">gene_levels</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">min_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">dots_df</span><span class="op">$</span><span class="va">mean_expression</span><span class="op">)</span></span>
+<span>  <span class="va">max_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">dots_df</span><span class="op">$</span><span class="va">mean_expression</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dots_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gene</span>, y <span class="op">=</span> <span class="va">condition</span>, color <span class="op">=</span> <span class="va">mean_expression</span>, size <span class="op">=</span> <span class="va">pct_expressed</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html" class="external-link">scale_color_gradientn</a></span><span class="op">(</span>colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"darkblue"</span>, <span class="st">"dodgerblue"</span>, <span class="st">"white"</span>, <span class="st">"red"</span>, <span class="st">"darkred"</span><span class="op">)</span>,</span>
+<span>                          values <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="va">min_val</span>, <span class="fl">0</span>, <span class="va">max_val</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                          limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">squish</a></span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">ggh4x</span><span class="fu">::</span><span class="fu"><a href="https://teunbrand.github.io/ggh4x/reference/facet_grid2.html" class="external-link">facet_grid2</a></span><span class="op">(</span><span class="op">~</span> <span class="va">pattern</span>, scales <span class="op">=</span> <span class="st">"free_x"</span>, space <span class="op">=</span> <span class="st">"free_x"</span>,</span>
+<span>                       strip <span class="op">=</span> <span class="fu">ggh4x</span><span class="fu">::</span><span class="fu"><a href="https://teunbrand.github.io/ggh4x/reference/strip_vanilla.html" class="external-link">strip_vanilla</a></span><span class="op">(</span>clip <span class="op">=</span> <span class="st">"off"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x_label</span>, y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>         color <span class="op">=</span> <span class="st">"Expresión media\nen el grupo (z-score)"</span>,</span>
+<span>         size <span class="op">=</span> <span class="st">"% de muestras\npor encima del promedio"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span>, legend.box <span class="op">=</span> <span class="st">"vertical"</span>,</span>
+<span>          strip.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span>,</span>
+<span>          axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_sle</span> <span class="op">&lt;-</span> <span class="fu">plot_gene_dots</span><span class="op">(</span><span class="va">sle_deg</span>, <span class="st">"Genes asociados a SLE compartidos"</span>,</span>
+<span>                        gene_levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IFI27"</span>, <span class="st">"CMPK2"</span>, <span class="st">"EIF2AK2"</span>, <span class="st">"IFI44L"</span>, <span class="st">"IFI6"</span>, <span class="st">"IFIT1"</span>,</span>
+<span>                                        <span class="st">"IFIT3"</span>, <span class="st">"ISG15"</span>, <span class="st">"OAS1"</span>, <span class="st">"OAS2"</span>, <span class="st">"RSAD2"</span>, <span class="st">"USP18"</span>, <span class="st">"LBH"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p_sle</span></span></code></pre></div>
+<p><img src="l4_GOterms_es_files/figure-html/fig3b-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_isg</span> <span class="op">&lt;-</span> <span class="fu">plot_gene_dots</span><span class="op">(</span><span class="va">isg_deg</span>, <span class="st">"Genes estimulados por interferón (ISG)"</span><span class="op">)</span></span>
+<span><span class="va">p_isg</span></span></code></pre></div>
+<p><img src="l4_GOterms_es_files/figure-html/fig3c-1.png" class="r-plt" alt="" width="1152" style="display: block; margin: auto;"></p>
+<p>Casi todos los genes asociados al lupus que encontramos son también
+<strong>ISG</strong>, y están altos sobre todo en los <strong>monocitos
+de las pacientes</strong> (fila <code>SLE_monocyte</code>).
+<code>IFI27</code> es la excepción que confirma la regla: sube en los
+tres tipos celulares. En cambio, <code>LBH</code>, <code>AUTS2</code> e
+<code>IL2RB</code> son DEG que <strong>bajan</strong> en las moDC de las
+pacientes. En la gráfica destacan más por su alta expresión en los
+monocitos, porque el z-score compara cada muestra con todas las demás,
+de los tres tipos celulares.</p>
+</div>
+<div class="section level2">
+<h2 id="paso-4-en-qué-procesos-participan-los-isg-figura-3d">6. <strong>Paso 4:</strong> ¿en qué procesos participan los ISG?
+(Figura 3D)<a class="anchor" aria-label="anchor" href="#paso-4-en-qu%C3%A9-procesos-participan-los-isg-figura-3d"></a>
+</h2>
+<p>Para cada ISG buscamos sus términos de <strong>Reactome
+(REAC)</strong> y <strong><a href="GO:BP" class="uri">GO:BP</a></strong>. Como cada gen puede estar en muchos
+términos, resumimos con dos:</p>
+<ul>
+<li>
+<strong>Proceso específico:</strong> el término con
+<strong>menos</strong> genes (<code>term_size</code> mínimo), el más
+concreto.</li>
+<li>
+<strong>Proceso padre:</strong> el término con <strong>más</strong>
+genes (<code>term_size</code> máximo), el más general.</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">process_info</span> <span class="op">&lt;-</span> <span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">source</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"REAC"</span>, <span class="st">"GO:BP"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_rows.html" class="external-link">separate_rows</a></span><span class="op">(</span><span class="va">intersection</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">intersection</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">source</span>, <span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>specific_process <span class="op">=</span> <span class="va">term_name</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min</a></span><span class="op">(</span><span class="va">term_size</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>            parent_process   <span class="op">=</span> <span class="va">term_name</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">term_size</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>            .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">process_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ISG15"</span>, <span class="st">"OAS1"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 4</span></span></span>
+<span><span class="co">#&gt;   source gene  specific_process                               parent_process    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> GO:BP  ISG15 positive regulation of protein oligomerization biological regula…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> GO:BP  OAS1  negative regulation of IP-10 production        biological regula…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> REAC   ISG15 Negative regulators of DDX58/IFIH1 signaling   Immune System     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> REAC   OAS1  OAS antiviral response                         Immune System</span></span></code></pre></div>
+<p>Construimos una matriz con una fila por base de datos (REAC y BP) y
+una columna por ISG. Cada celda lleva el <strong>padj de expresión
+diferencial</strong> del gen si el gen tiene anotación en esa base de
+datos, y queda vacía si no la tiene:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">isg_order</span> <span class="op">&lt;-</span> <span class="va">gene_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">isg_deg</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">pattern</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tri-lineage (UP)"</span>, <span class="st">"monocyte (UP)"</span>, <span class="st">"moDC (DOWN)"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">pattern</span>, <span class="va">gene</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">isg_padj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>REAC <span class="op">=</span> <span class="st">"REAC"</span>, BP <span class="op">=</span> <span class="st">"GO:BP"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">src</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">annotated</span> <span class="op">&lt;-</span> <span class="va">isg_order</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">process_info</span><span class="op">$</span><span class="va">gene</span><span class="op">[</span><span class="va">process_info</span><span class="op">$</span><span class="va">source</span> <span class="op">==</span> <span class="va">src</span><span class="op">]</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">annotated</span>, <span class="va">isg_order</span><span class="op">$</span><span class="va">padj</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">isg_padj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">isg_padj</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">isg_padj</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">isg_order</span><span class="op">$</span><span class="va">gene</span></span>
+<span><span class="va">isg_padj</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></span>
+<span><span class="co">#&gt;             IFI27        CMPK2      DDX60     EIF2AK2 EPSTI1         GMPR</span></span>
+<span><span class="co">#&gt; REAC 1.137584e-07           NA         NA 0.004584681     NA           NA</span></span>
+<span><span class="co">#&gt; BP   1.137584e-07 0.0002735559 0.01576357 0.004584681     NA 6.766521e-05</span></span></code></pre></div>
+<p>Las anotaciones de arriba muestran el patrón de cada gen y sus
+procesos. Los genes sin anotación aparecen como “No information”:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># proceso de cada gen en una base de datos ("No information" si no tiene anotación)</span></span>
+<span><span class="va">process_of</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">src</span>, <span class="va">column</span>, <span class="va">genes</span> <span class="op">=</span> <span class="va">isg_order</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">process_info</span>, <span class="va">source</span> <span class="op">==</span> <span class="va">src</span><span class="op">)</span></span>
+<span>  <span class="va">value</span> <span class="op">&lt;-</span> <span class="va">info</span><span class="op">[[</span><span class="va">column</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">info</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html" class="external-link">replace_na</a></span><span class="op">(</span><span class="va">value</span>, <span class="st">"No information"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># colores de los procesos (los usaremos también en la Figura S4)</span></span>
+<span><span class="va">reac_specific_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Interferon alpha/beta signaling"</span> <span class="op">=</span> <span class="st">"#b3de69"</span>,</span>
+<span>  <span class="st">"Immune System"</span> <span class="op">=</span> <span class="st">"#4daf4a"</span>,</span>
+<span>  <span class="st">"Complement cascade"</span> <span class="op">=</span> <span class="st">"#80b1d3"</span>,</span>
+<span>  <span class="st">"Alternative complement activation"</span> <span class="op">=</span> <span class="st">"#8c6bb1"</span>,</span>
+<span>  <span class="st">"Synthesis of PI"</span> <span class="op">=</span> <span class="st">"#ffff33"</span>,</span>
+<span>  <span class="st">"Defective ABCA1 causes TGD"</span> <span class="op">=</span> <span class="st">"#a50f15"</span>,</span>
+<span>  <span class="st">"HDL remodeling"</span> <span class="op">=</span> <span class="st">"#a6bddb"</span>,</span>
+<span>  <span class="st">"Resolution of Sister Chromatid Cohesion"</span> <span class="op">=</span> <span class="st">"#e7298a"</span>,</span>
+<span>  <span class="st">"Cholesterol biosynthesis"</span> <span class="op">=</span> <span class="st">"#fd8d3c"</span>,</span>
+<span>  <span class="st">"TNFR1-mediated ceramide production"</span> <span class="op">=</span> <span class="st">"#fccde5"</span>,</span>
+<span>  <span class="st">"Establishment of Sister Chromatid Cohesion"</span> <span class="op">=</span> <span class="st">"#ae017e"</span>,</span>
+<span>  <span class="st">"Maturation of nucleoprotein"</span> <span class="op">=</span> <span class="st">"#1f78b4"</span>,</span>
+<span>  <span class="st">"RSV-host interactions"</span> <span class="op">=</span> <span class="st">"#e41a1c"</span>,</span>
+<span>  <span class="st">"Inhibition of PKR"</span> <span class="op">=</span> <span class="st">"#33a02c"</span>,</span>
+<span>  <span class="st">"Negative regulators of DDX58/IFIH1 signaling"</span> <span class="op">=</span> <span class="st">"#ff7f00"</span>,</span>
+<span>  <span class="st">"ISG15 antiviral mechanism"</span> <span class="op">=</span> <span class="st">"#6a3d9a"</span>,</span>
+<span>  <span class="st">"OAS antiviral response"</span> <span class="op">=</span> <span class="st">"#cab2d6"</span>,</span>
+<span>  <span class="st">"No information"</span> <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span>
+<span><span class="va">reac_parent_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Immune System"</span> <span class="op">=</span> <span class="st">"#4daf4a"</span>,</span>
+<span>  <span class="st">"Synthesis of PI"</span> <span class="op">=</span> <span class="st">"#ffff33"</span>,</span>
+<span>  <span class="st">"Mitotic Metaphase and Anaphase"</span> <span class="op">=</span> <span class="st">"#377eb8"</span>,</span>
+<span>  <span class="st">"Metabolism of lipids"</span> <span class="op">=</span> <span class="st">"#984ea3"</span>,</span>
+<span>  <span class="st">"Transport of small molecules"</span> <span class="op">=</span> <span class="st">"#ff7f00"</span>,</span>
+<span>  <span class="st">"Respiratory Syncytial Virus Infection Pathway"</span> <span class="op">=</span> <span class="st">"#e41a1c"</span>,</span>
+<span>  <span class="st">"Nicotinate metabolism"</span> <span class="op">=</span> <span class="st">"#a65628"</span>,</span>
+<span>  <span class="st">"No information"</span> <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span>
+<span><span class="va">bp_parent_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"response to stimulus"</span> <span class="op">=</span> <span class="st">"#66c2a4"</span>,</span>
+<span>  <span class="st">"cellular response to stimulus"</span> <span class="op">=</span> <span class="st">"#7a0177"</span>,</span>
+<span>  <span class="st">"cell communication"</span> <span class="op">=</span> <span class="st">"#3f007d"</span>,</span>
+<span>  <span class="st">"positive regulation of biological process"</span> <span class="op">=</span> <span class="st">"#fcc5c0"</span>,</span>
+<span>  <span class="st">"biological regulation"</span> <span class="op">=</span> <span class="st">"#1f78b4"</span>,</span>
+<span>  <span class="st">"ketone body catabolic process"</span> <span class="op">=</span> <span class="st">"#e31a1c"</span>,</span>
+<span>  <span class="st">"multicellular organismal process"</span> <span class="op">=</span> <span class="st">"#ff7f00"</span>,</span>
+<span>  <span class="st">"No information"</span> <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span>
+<span><span class="va">padj_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html" class="external-link">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"darkred"</span>, <span class="st">"red"</span>, <span class="st">"#fd8d3c"</span>, <span class="st">"#fed976"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">process_anno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/HeatmapAnnotation.html" class="external-link">HeatmapAnnotation</a></span><span class="op">(</span></span>
+<span>  <span class="st">"SLE vs Control (Cell type)"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">isg_order</span><span class="op">$</span><span class="va">pattern</span><span class="op">)</span>,</span>
+<span>  <span class="st">"Parent process (REAC)"</span>      <span class="op">=</span> <span class="fu">process_of</span><span class="op">(</span><span class="st">"REAC"</span>, <span class="st">"parent_process"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"Specific process (REAC)"</span>    <span class="op">=</span> <span class="fu">process_of</span><span class="op">(</span><span class="st">"REAC"</span>, <span class="st">"specific_process"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"Parent process (BP)"</span>        <span class="op">=</span> <span class="fu">process_of</span><span class="op">(</span><span class="st">"GO:BP"</span>, <span class="st">"parent_process"</span><span class="op">)</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"SLE vs Control (Cell type)"</span> <span class="op">=</span> <span class="va">pattern_color</span>,</span>
+<span>             <span class="st">"Parent process (REAC)"</span>      <span class="op">=</span> <span class="va">reac_parent_color</span>,</span>
+<span>             <span class="st">"Specific process (REAC)"</span>    <span class="op">=</span> <span class="va">reac_specific_color</span>,</span>
+<span>             <span class="st">"Parent process (BP)"</span>        <span class="op">=</span> <span class="va">bp_parent_color</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ht_fig3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span></span>
+<span>  <span class="va">isg_padj</span>, col <span class="op">=</span> <span class="va">padj_color</span>, na_col <span class="op">=</span> <span class="st">"#f0f0f0"</span>, border <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  cluster_rows <span class="op">=</span> <span class="cn">FALSE</span>, cluster_columns <span class="op">=</span> <span class="cn">FALSE</span>, row_names_side <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>  rect_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>,</span>
+<span>  layer_fun <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">j</span>, <span class="va">i</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">w</span>, <span class="va">h</span>, <span class="va">fill</span><span class="op">)</span> <span class="op">{</span> <span class="co"># un círculo por celda con anotación</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/grid/grid.rect.html" class="external-link">grid.rect</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, width <span class="op">=</span> <span class="va">w</span>, height <span class="op">=</span> <span class="va">h</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"grey"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/grid/grid.circle.html" class="external-link">grid.circle</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">2</span>, <span class="st">"mm"</span><span class="op">)</span>,</span>
+<span>                gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu">padj_color</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/pindex.html" class="external-link">pindex</a></span><span class="op">(</span><span class="va">isg_padj</span>, <span class="va">i</span>, <span class="va">j</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  top_annotation <span class="op">=</span> <span class="va">process_anno</span>,</span>
+<span>  column_split <span class="op">=</span> <span class="va">isg_order</span><span class="op">$</span><span class="va">pattern</span>,</span>
+<span>  heatmap_legend_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"FDR-BH\n(padj)"</span>, direction <span class="op">=</span> <span class="st">"horizontal"</span>,</span>
+<span>                              at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.01</span>, <span class="fl">0.03</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="va">ht_fig3d</span>, merge_legends <span class="op">=</span> <span class="cn">TRUE</span>, annotation_legend_side <span class="op">=</span> <span class="st">"top"</span>, heatmap_legend_side <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="l4_GOterms_es_files/figure-html/fig3d-1.png" class="r-plt" alt="" width="1536" style="display: block; margin: auto;"></p>
+<p>Los ISG de los monocitos se concentran en el <strong>sistema
+inmune</strong> de Reactome, en procesos antivirales específicos:
+señalización por interferón alfa/beta, mecanismo antiviral de ISG15 y
+respuesta antiviral de OAS. <strong>Es la huella molecular del
+interferón en el lupus.</strong></p>
+<div class="callout-note">
+<p><strong>Reto 2.</strong> ¿Qué genes de los monocitos participan en el
+término de Reactome “Interferon alpha/beta signaling”?</p>
+<p><em>Pista:</em> filtra <code>go_results</code> por
+<code>query</code>, <code>source</code> y <code>term_name</code>, y mira
+la columna <code>intersection</code>.</p>
+</div>
+<details class="callout-tip"><summary>
+Ver solución
+</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">query</span> <span class="op">==</span> <span class="st">"SLE_UP_monocyte"</span>, <span class="va">source</span> <span class="op">==</span> <span class="st">"REAC"</span>,</span>
+<span>         <span class="va">term_name</span> <span class="op">==</span> <span class="st">"Interferon alpha/beta signaling"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">term_name</span>, <span class="va">intersection_size</span>, <span class="va">term_size</span>, <span class="va">p_value</span>, <span class="va">intersection</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                         term_name intersection_size term_size      p_value</span></span>
+<span><span class="co">#&gt; 1 Interferon alpha/beta signaling                16        76 1.032738e-25</span></span>
+<span><span class="co">#&gt;                                                                               intersection</span></span>
+<span><span class="co">#&gt; 1 EIF2AK2,IFI27,IFI6,IFIT1,IFIT3,IFITM3,ISG15,MX1,MX2,OAS1,OAS2,OAS3,OASL,RSAD2,USP18,XAF1</span></span></code></pre></div>
+</details><div class="callout-note">
+<p><strong>Reto 3.</strong> ¿En qué bases de datos tiene anotación
+<code>ABCA1</code> (que sube en las tolDC) y cuál es su proceso
+específico en Reactome?</p>
+<p><em>Pista:</em> usa <code>gene_source</code> y
+<code>process_info</code>.</p>
+</div>
+<details class="callout-tip"><summary>
+Ver solución
+</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gene_source</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op">==</span> <span class="st">"ABCA1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 2</span></span></span>
+<span><span class="co">#&gt;   gene  source</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ABCA1 BP    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ABCA1 CC    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ABCA1 MF    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ABCA1 HP    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ABCA1 KEGG  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ABCA1 REAC  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> ABCA1 WP</span></span>
+<span><span class="va">process_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op">==</span> <span class="st">"ABCA1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span></span>
+<span><span class="co">#&gt;   source gene  specific_process                                   parent_process</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> GO:BP  ABCA1 positive regulation of high-density lipoprotein p… cellular resp…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> REAC   ABCA1 Defective ABCA1 causes TGD                         Transport of …</span></span></code></pre></div>
+<p><code>ABCA1</code> participa en el transporte de colesterol: un
+ejemplo de las alteraciones del <strong>metabolismo de lípidos</strong>
+en las tolDC de las pacientes.</p>
+</details>
+</div>
+<div class="section level2">
+<h2 id="paso-5-procesos-de-todos-los-deg-figura-suplementaria-s4">7. <strong>Paso 5:</strong> procesos de todos los DEG (Figura
+suplementaria S4)<a class="anchor" aria-label="anchor" href="#paso-5-procesos-de-todos-los-deg-figura-suplementaria-s4"></a>
+</h2>
+<p>La Figura 3D mostró solo los ISG. Repitamos el análisis con
+<strong>todos los DEG que tienen anotación</strong> en Reactome o <a href="GO:BP" class="uri">GO:BP</a>, agrupándolos por su proceso padre de
+Reactome:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s4_info</span> <span class="op">&lt;-</span> <span class="va">gene_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">process_info</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>reac_parent   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu">process_of</span><span class="op">(</span><span class="st">"REAC"</span>, <span class="st">"parent_process"</span>, <span class="va">gene</span><span class="op">)</span>,</span>
+<span>                                levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">reac_parent_color</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         reac_specific <span class="op">=</span> <span class="fu">process_of</span><span class="op">(</span><span class="st">"REAC"</span>, <span class="st">"specific_process"</span>, <span class="va">gene</span><span class="op">)</span>,</span>
+<span>         bp_parent     <span class="op">=</span> <span class="fu">process_of</span><span class="op">(</span><span class="st">"GO:BP"</span>, <span class="st">"parent_process"</span>, <span class="va">gene</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">reac_parent</span>, <span class="va">gene</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">s4_info</span><span class="op">)</span>                   <span class="co"># DEG con anotación en REAC o GO:BP</span></span>
+<span><span class="co">#&gt; [1] 75</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">s4_info</span>, <span class="va">reac_parent</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                     reac_parent  n</span></span>
+<span><span class="co">#&gt; 1                                 Immune System 33</span></span>
+<span><span class="co">#&gt; 2                Mitotic Metaphase and Anaphase  2</span></span>
+<span><span class="co">#&gt; 3                          Metabolism of lipids  3</span></span>
+<span><span class="co">#&gt; 4                  Transport of small molecules  2</span></span>
+<span><span class="co">#&gt; 5 Respiratory Syncytial Virus Infection Pathway  1</span></span>
+<span><span class="co">#&gt; 6                         Nicotinate metabolism  2</span></span>
+<span><span class="co">#&gt; 7                                No information 32</span></span></code></pre></div>
+<p>Como en la Figura 3D, cada celda lleva el padj de expresión
+diferencial del gen si tiene anotación en esa base de datos:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s4_padj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>REAC <span class="op">=</span> <span class="st">"REAC"</span>, BP <span class="op">=</span> <span class="st">"GO:BP"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">src</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">annotated</span> <span class="op">&lt;-</span> <span class="va">s4_info</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">process_info</span><span class="op">$</span><span class="va">gene</span><span class="op">[</span><span class="va">process_info</span><span class="op">$</span><span class="va">source</span> <span class="op">==</span> <span class="va">src</span><span class="op">]</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">annotated</span>, <span class="va">s4_info</span><span class="op">$</span><span class="va">padj</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">s4_padj</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">s4_info</span><span class="op">$</span><span class="va">gene</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s4_padj</span><span class="op">)</span></span>
+<span><span class="co">#&gt;              REAC         BP</span></span>
+<span><span class="co">#&gt; CARD11 0.04425396 0.04425396</span></span>
+<span><span class="co">#&gt; CD28   0.02831443 0.02831443</span></span>
+<span><span class="co">#&gt; CD40LG 0.01483254 0.01483254</span></span>
+<span><span class="co">#&gt; CD96   0.01135195 0.01135195</span></span>
+<span><span class="co">#&gt; CFI    0.02067849 0.02067849</span></span>
+<span><span class="co">#&gt; DEFA1B 0.02095546 0.02095546</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ht_s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span></span>
+<span>  <span class="va">s4_padj</span>, col <span class="op">=</span> <span class="va">padj_color</span>, na_col <span class="op">=</span> <span class="st">"#f0f0f0"</span>,</span>
+<span>  border <span class="op">=</span> <span class="cn">TRUE</span>, rect_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"white"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  cluster_rows <span class="op">=</span> <span class="cn">FALSE</span>, cluster_columns <span class="op">=</span> <span class="cn">FALSE</span>, row_names_side <span class="op">=</span> <span class="st">"right"</span>,</span>
+<span>  left_annotation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/rowAnnotation.html" class="external-link">rowAnnotation</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Parent process (REAC)"</span>   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">s4_info</span><span class="op">$</span><span class="va">reac_parent</span><span class="op">)</span>,</span>
+<span>    <span class="st">"Specific process (REAC)"</span> <span class="op">=</span> <span class="va">s4_info</span><span class="op">$</span><span class="va">reac_specific</span>,</span>
+<span>    <span class="st">"Parent process (BP)"</span>     <span class="op">=</span> <span class="va">s4_info</span><span class="op">$</span><span class="va">bp_parent</span>,</span>
+<span>    col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Parent process (REAC)"</span>   <span class="op">=</span> <span class="va">reac_parent_color</span>,</span>
+<span>               <span class="st">"Specific process (REAC)"</span> <span class="op">=</span> <span class="va">reac_specific_color</span>,</span>
+<span>               <span class="st">"Parent process (BP)"</span>     <span class="op">=</span> <span class="va">bp_parent_color</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  right_annotation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/rowAnnotation.html" class="external-link">rowAnnotation</a></span><span class="op">(</span></span>
+<span>    <span class="st">"SLE vs Control\n(Cell type)"</span> <span class="op">=</span> <span class="va">s4_info</span><span class="op">$</span><span class="va">pattern</span>,</span>
+<span>    col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"SLE vs Control\n(Cell type)"</span> <span class="op">=</span> <span class="va">pattern_color</span><span class="op">)</span>,</span>
+<span>    annotation_legend_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"SLE vs Control\n(Cell type)"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  row_split <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="va">s4_info</span><span class="op">$</span><span class="va">reac_parent</span><span class="op">)</span>, row_title_rot <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  heatmap_legend_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"FDR-BH\n(padj)"</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">2</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="va">ht_s4</span>, merge_legends <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="l4_GOterms_es_files/figure-html/figura_s4-1.png" class="r-plt" alt="" width="960" style="display: block; margin: auto;"></p>
+<p><strong>¿Qué observas?</strong></p>
+<ul>
+<li>El bloque más grande es <strong>“Immune System”</strong>: reúne los
+ISG de los monocitos y también genes de linfocitos T que bajan en las
+moDC (<code>CD28</code>, <code>CD40LG</code>, <code>ZAP70</code>,
+<code>CARD11</code>).</li>
+<li>Los genes de las <strong>tolDC</strong> forman sus propios grupos:
+<strong>metabolismo de lípidos</strong> (<code>ACAT2</code>,
+<code>MSMO1</code>, <code>SMPD3</code>) y <strong>transporte de
+moléculas pequeñas</strong> (<code>ABCA1</code>, <code>ABCG1</code>). Es
+la alteración lipídica que vimos en el Reto 1.</li>
+<li>Muchos genes sin información en Reactome sí tienen anotación en <a href="GO:BP" class="uri">GO:BP</a>, sobre todo como “biological
+regulation”.</li>
+</ul>
+<div class="caption-justify">
+<p><strong>Figura suplementaria S4.</strong> Procesos biológicos
+asociados a los DEG obtenidos al comparar SLE contra Ctrl en cada tipo
+celular. Los procesos se clasificaron según las categorías padre y
+específicas de Reactome (REAC) y los términos padre de Gene Ontology
+Biological Process (<a href="GO:BP" class="uri">GO:BP</a>). Los procesos
+padre de REAC incluyen el sistema inmune, la división celular
+(<em>Mitotic Metaphase and Anaphase</em>), el metabolismo de lípidos y
+el transporte de moléculas pequeñas. La escala de color representa el
+padj (FDR-BH) de expresión diferencial de cada gen, con un umbral máximo
+de padj &lt; 0.05; las celdas grises indican que el gen no tiene
+anotación en esa base de datos. DEG: genes diferencialmente
+expresados.</p>
+<p>La figura suplementaria original se encuentra en el <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial" class="external-link">material
+suplementario del artículo</a>.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="para-terminar-la-figura-3-del-artículo">8. Para terminar: la Figura 3 del artículo<a class="anchor" aria-label="anchor" href="#para-terminar-la-figura-3-del-art%C3%ADculo"></a>
+</h2>
+<p>Capturamos los <em>heatmaps</em> como objetos gráficos (como en la
+lección anterior) y los unimos con los <em>dot plots</em>:</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">grab</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">ht</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="va">ht</span>, merge_legends <span class="op">=</span> <span class="cn">TRUE</span>, heatmap_legend_side <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>                           annotation_legend_side <span class="op">=</span> <span class="st">"top"</span>, <span class="va">...</span><span class="op">)</span>, wrap.grobs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">figure_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid</a></span><span class="op">(</span></span>
+<span>  <span class="fu">grab</span><span class="op">(</span><span class="va">ht_fig3a</span>, ht_gap <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">5</span>, <span class="st">"mm"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="va">p_sle</span>,</span>
+<span>  <span class="va">p_isg</span>,</span>
+<span>  <span class="fu">grab</span><span class="op">(</span><span class="va">ht_fig3d</span><span class="op">)</span>,</span>
+<span>  labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>, label_size <span class="op">=</span> <span class="fl">20</span>, ncol <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  rel_heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.2</span>, <span class="fl">0.9</span>, <span class="fl">0.9</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">figure_3</span></span></code></pre></div>
+<p><img src="l4_GOterms_es_files/figure-html/figura_3-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<div class="caption-justify">
+<p><strong>Figura 3.</strong> El análisis de enriquecimiento funcional
+revela perturbaciones específicas de cada tipo celular y una marca
+compartida del lupus. <strong>(A)</strong> Visualización integrada de
+los DEG y su enriquecimiento funcional. Izquierda: <em>heatmap</em> de
+los 94 DEG (43 que suben y 51 que bajan) entre SLE y Ctrl en los tres
+tipos celulares, seleccionados con |LFC| ≥ 1 y padj &lt; 0.05; la escala
+de color corresponde a z-scores. Centro: LFC de SLE contra Ctrl en cada
+lista de DEG, con un <em>barplot</em> del número de DEG por lista.
+Derecha: presencia de términos funcionales significativos (g:Profiler;
+prueba hipergeométrica) en GO (BP, CC, MF), REAC, HP, KEGG, WP, TF,
+CORUM y miRNA. <strong>(B, C)</strong> Expresión media (z-score) por
+grupo y tipo celular (filas) de <strong>(B)</strong> los DEG asociados a
+SLE y <strong>(C)</strong> los ISG diferencialmente expresados; el
+tamaño del punto indica el porcentaje de muestras por encima del
+promedio de cada gen. Los genes se agrupan según su patrón: “Tri-lineage
+(UP)” sube en los tres tipos celulares, “monocyte (UP)” sube en
+monocitos y “moDC (DOWN)” baja en moDC. <strong>(D)</strong> Procesos
+biológicos asociados a los ISG diferencialmente expresados, según los
+términos padre y específicos de Reactome (REAC) y los términos padre de
+<a href="GO:BP" class="uri">GO:BP</a>. Los círculos indican que el gen
+tiene anotación en esa base de datos; su color representa el padj
+(FDR-BH) de expresión diferencial del gen.</p>
+<p>La figura original se encuentra en el <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">artículo</a>.</p>
+</div>
+<p>Para guardarla en alta resolución:</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"Figura_3.png"</span>, <span class="va">figure_3</span>, width <span class="op">=</span> <span class="fl">16</span>, height <span class="op">=</span> <span class="fl">30</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="resumen">9. Resumen<a class="anchor" aria-label="anchor" href="#resumen"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="18%">
+<col width="45%">
+<col width="36%">
+</colgroup>
+<thead><tr class="header">
+<th>Paso</th>
+<th>Función clave</th>
+<th>¿Para qué?</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Listas de DEG</td>
+<td>
+<code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>, <code><a href="https://rdrr.io/pkg/S4Vectors/man/splitAsList.html" class="external-link">split()</a></code>
+</td>
+<td>Separar genes por tipo celular y dirección</td>
+</tr>
+<tr class="even">
+<td>Enriquecimiento</td>
+<td><code><a href="https://rdrr.io/pkg/gprofiler2/man/gost.html" class="external-link">gprofiler2::gost()</a></code></td>
+<td>Encontrar funciones sobrerrepresentadas</td>
+</tr>
+<tr class="odd">
+<td>Reproducibilidad</td>
+<td><code><a href="https://rdrr.io/pkg/gprofiler2/man/set_base_url.html" class="external-link">set_base_url()</a></code></td>
+<td>Fijar la versión de las bases de datos</td>
+</tr>
+<tr class="even">
+<td>Explorar términos</td>
+<td><code>slice_min(p_value)</code></td>
+<td>Ver los procesos más significativos</td>
+</tr>
+<tr class="odd">
+<td>Genes por término</td>
+<td><code><a href="https://tidyr.tidyverse.org/reference/separate_rows.html" class="external-link">separate_rows()</a></code></td>
+<td>Pasar de “término → genes” a “gen → términos”</td>
+</tr>
+<tr class="even">
+<td>Listas de referencia</td>
+<td><code><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect()</a></code></td>
+<td>Encontrar genes de SLE e ISG entre los DEG</td>
+</tr>
+<tr class="odd">
+<td>Integrar</td>
+<td>heatmaps con <code>+</code>
+</td>
+<td>Ver expresión, LFC y anotaciones juntas</td>
+</tr>
+</tbody>
+</table>
+<div class="section level3">
+<h3 id="errores-comunes-de-principiante">Errores comunes de principiante<a class="anchor" aria-label="anchor" href="#errores-comunes-de-principiante"></a>
+</h3>
+<ul>
+<li>
+<strong>Interpretar enriquecimiento como causalidad</strong>: indica
+asociación funcional, no mecanismo.</li>
+<li>
+<strong>No reportar la versión de la base de datos</strong>: los
+resultados cambian con el tiempo.</li>
+<li>
+<strong>Usar listas muy pequeñas</strong>: con 4 genes (moDC UP)
+casi no hay poder; los términos que salen pueden depender de un solo
+gen.</li>
+<li>
+<strong>Mezclar genes que suben y bajan en una sola lista</strong>:
+puede diluir señales opuestas.</li>
+<li>
+<strong>Ignorar el tamaño del término</strong>: un término con 5,000
+genes es muy general; uno con 20 es más informativo.</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="y-después">10. ¿Y después?<a class="anchor" aria-label="anchor" href="#y-despu%C3%A9s"></a>
+</h2>
+<p>Hasta aquí comparamos pacientes contra controles dentro de cada tipo
+celular. En la <a href="l5_DEGs_monocytes_diff_es.html">siguiente
+lección</a> cambiamos la pregunta: <strong>¿qué cambia cuando un
+monocito se diferencia en célula dendrítica?</strong>, y ¿ese proceso es
+igual en pacientes y en controles?</p>
+<nav class="lesson-nav"><a class="lesson-prev" href="l3_DEGs_es.html">← Lección anterior: Genes diferencialmente expresados</a>
+  <a class="lesson-next" href="l5_DEGs_monocytes_diff_es.html">Siguiente lección: Diferenciación de monocitos →</a>
+</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
+</div>
+<div class="section level2">
+<h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>
+</h2>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; R version 4.6.0 (2026-04-24)</span></span>
+<span><span class="co">#&gt; Platform: aarch64-apple-darwin23</span></span>
+<span><span class="co">#&gt; Running under: macOS Tahoe 26.6.2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Matrix products: default</span></span>
+<span><span class="co">#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRblas.0.dylib </span></span>
+<span><span class="co">#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; locale:</span></span>
+<span><span class="co">#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; time zone: America/Mexico_City</span></span>
+<span><span class="co">#&gt; tzcode source: internal</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attached base packages:</span></span>
+<span><span class="co">#&gt; [1] grid      stats     graphics  grDevices utils     datasets  methods  </span></span>
+<span><span class="co">#&gt; [8] base     </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; other attached packages:</span></span>
+<span><span class="co">#&gt;  [1] cowplot_1.2.0              circlize_0.4.18           </span></span>
+<span><span class="co">#&gt;  [3] ComplexHeatmap_2.28.0      lubridate_1.9.5           </span></span>
+<span><span class="co">#&gt;  [5] forcats_1.0.1              stringr_1.6.0             </span></span>
+<span><span class="co">#&gt;  [7] dplyr_1.2.1                purrr_1.2.2               </span></span>
+<span><span class="co">#&gt;  [9] readr_2.2.0                tidyr_1.3.2               </span></span>
+<span><span class="co">#&gt; [11] tibble_3.3.1               ggplot2_4.0.3             </span></span>
+<span><span class="co">#&gt; [13] tidyverse_2.0.0            GeneExprLupusMx_0.0.0.9000</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
+<span><span class="co">#&gt;  [1] shape_1.4.6.1       gtable_0.3.6        rjson_0.2.23       </span></span>
+<span><span class="co">#&gt;  [4] xfun_0.60           bslib_0.11.0        htmlwidgets_1.6.4  </span></span>
+<span><span class="co">#&gt;  [7] GlobalOptions_0.1.4 tzdb_0.5.0          vctrs_0.7.3        </span></span>
+<span><span class="co">#&gt; [10] tools_4.6.0         generics_0.1.4      stats4_4.6.0       </span></span>
+<span><span class="co">#&gt; [13] parallel_4.6.0      cluster_2.1.8.2     pkgconfig_2.0.3    </span></span>
+<span><span class="co">#&gt; [16] RColorBrewer_1.1-3  S7_0.2.2            desc_1.4.3         </span></span>
+<span><span class="co">#&gt; [19] S4Vectors_0.50.1    lifecycle_1.0.5     compiler_4.6.0     </span></span>
+<span><span class="co">#&gt; [22] farver_2.1.2        textshaping_1.0.5   codetools_0.2-20   </span></span>
+<span><span class="co">#&gt; [25] clue_0.3-68         htmltools_0.5.9     sass_0.4.10        </span></span>
+<span><span class="co">#&gt; [28] yaml_2.3.12         pillar_1.11.1       pkgdown_2.2.1      </span></span>
+<span><span class="co">#&gt; [31] crayon_1.5.3        jquerylib_0.1.4     cachem_1.1.0       </span></span>
+<span><span class="co">#&gt; [34] magick_2.9.1        iterators_1.0.14    foreach_1.5.2      </span></span>
+<span><span class="co">#&gt; [37] ggh4x_0.3.1         tidyselect_1.2.1    digest_0.6.39      </span></span>
+<span><span class="co">#&gt; [40] stringi_1.8.9       labeling_0.4.3      fastmap_1.2.0      </span></span>
+<span><span class="co">#&gt; [43] colorspace_2.1-3    cli_3.6.6           magrittr_2.0.5     </span></span>
+<span><span class="co">#&gt; [46] utf8_1.2.6          withr_3.0.3         scales_1.4.0       </span></span>
+<span><span class="co">#&gt; [49] timechange_0.4.0    rmarkdown_2.31      matrixStats_1.5.0  </span></span>
+<span><span class="co">#&gt; [52] otel_0.2.0          ragg_1.5.2          png_0.1-9          </span></span>
+<span><span class="co">#&gt; [55] GetoptLong_1.1.1    hms_1.1.4           evaluate_1.0.5     </span></span>
+<span><span class="co">#&gt; [58] knitr_1.51          IRanges_2.46.0      doParallel_1.0.17  </span></span>
+<span><span class="co">#&gt; [61] rlang_1.3.0         Rcpp_1.1.2          glue_1.8.1         </span></span>
+<span><span class="co">#&gt; [64] BiocGenerics_0.58.1 rstudioapi_0.19.0   jsonlite_2.0.0     </span></span>
+<span><span class="co">#&gt; [67] R6_2.6.1            systemfonts_1.3.2   fs_2.1.0</span></span></code></pre></div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Índice de contenidos"><h2>En esta página</h2>
+    </nav></aside>
 </div>
 
 

@@ -1,0 +1,95 @@
+gene,process,GOterm,info
+LYN,Signaling kinases,DC differentiation,positive regulation of dendritic cell apoptotic process
+F2RL1,DC differentiation,DC differentiation,mature conventional dendritic cell differentiation
+LILRB2,Antigen processing and presentation,DC differentiation,regulation of dendritic cell differentiation
+TRAF6,DC differentiation,DC differentiation,myeloid dendritic cell differentiation
+FLT3,Signaling kinases,DC differentiation,dendritic cell differentiation
+AZI2,DC differentiation,DC differentiation,dendritic cell differentiation and proliferation
+HLA-B,DC differentiation,DC differentiation,regulation of dendritic cell differentiation
+GATA1,Transcription factors,DC differentiation,
+AGER,DC differentiation,DC differentiation,
+NOTCH2,Signaling kinases,DC differentiation,
+CAMK4,DC differentiation,DC differentiation,
+CSF2,DC differentiation,DC differentiation,
+IL4,DC differentiation,DC differentiation,
+NLRP12,Pattern recognition,DC differentiation,
+CXCR4,Chemokine receptors,DC differentiation,
+GPR183,Migration,DC differentiation,
+EXT1,Protein processing,DC differentiation,
+IL12A,Migration,DC differentiation,
+ASB2,Migration,DC differentiation,
+CXCR2,Chemokine receptors,DC differentiation,
+ALOX5,Lipid metabolism,DC differentiation,
+CCR2,Chemokine receptors,DC differentiation,
+CCL5,DC differentiation,DC differentiation,
+CCR6,Chemokine receptors,DC differentiation,
+JAK3,Signaling kinases,DC differentiation,negative regulation of dendritic cell cytokine production
+CLEC7A,Cytokine production,DC differentiation,positive regulation of dendritic cell cytokine production
+KIT,Signaling kinases,DC differentiation,positive regulation of dendritic cell cytokine production
+NOD2,Pattern recognition,DC differentiation,
+TICAM1,Pattern recognition,DC differentiation,positive regulation of myeloid dendritic cell cytokine production
+DDX21,Cytokine production,DC differentiation,positive regulation of myeloid dendritic cell cytokine production
+TLR9,Cytokine production,DC differentiation,
+TGFB1,DC differentiation,DC differentiation,
+CEBPB,Transcription factors,DC differentiation,
+PRTN3,DC differentiation,DC differentiation,
+HLA-G,Antigen processing and presentation,DC differentiation,
+DOCK8,DC differentiation,DC differentiation,
+HAVCR2,Immune modulators,DC differentiation,
+DCSTAMP,DC-specific,DC differentiation,
+RBPJ,Transcription factors,DC differentiation,
+DHRS2,Lipid metabolism,DC differentiation,
+BATF3,Transcription factors,DC differentiation,
+BATF,Transcription factors,DC differentiation,
+UBD,Protein processing,DC differentiation,
+SLAMF1,Immune modulators,DC differentiation,
+IRF4,Transcription factors,DC differentiation,
+ITGB8,Antigen processing and presentation,DC differentiation,
+IL10,DC differentiation,DC differentiation,
+TREM2,Immune modulators,DC differentiation,
+FCGR2B,Antigen processing and presentation,DC differentiation,
+ZBTB46,Transcription factors,DC differentiation,
+CCL19,Apoptosis,DC differentiation,negative regulation of dendritic cell apoptotic process
+BATF2,Transcription factors,DC differentiation,
+TMEM176B,DC-specific,DC differentiation,
+TMEM176A,DC-specific,DC differentiation,
+IRF8,Transcription factors,DC differentiation,
+SLAMF8,Immune modulators,DC differentiation,
+CCR5,Migration,DC differentiation,
+CALR,Antigen processing and presentation,DC differentiation,
+CXCR1,Chemokine receptors,DC differentiation,
+CCR1,Chemokine receptors,DC differentiation,
+EPS8,Migration,DC differentiation,
+MPEG1,Antigen processing and presentation,DC differentiation,
+LILRB1,Apoptosis,DC differentiation,negative regulation of dendritic cell apoptotic process
+CLEC4D,Pattern recognition,DC differentiation,
+NOD1,Pattern recognition,DC differentiation,
+BCL2L1,Apoptosis,DC differentiation,negative regulation of dendritic cell apoptotic process
+BCL2,Apoptosis,DC differentiation,negative regulation of dendritic cell apoptotic process
+BCL3,Apoptosis,DC differentiation,
+PYCARD,Apoptosis,DC differentiation,
+CD68,Antigen processing and presentation,DC differentiation,
+CD48,Immune modulators,Hemostasis,
+FLT3LG,Growth factors,DC differentiation,
+LAG3,Immune checkpoints,DC differentiation,
+FGL2,Immune checkpoints,DC differentiation,
+F2R,Pattern recognition,DC differentiation,
+DOCK2,Migration,DC differentiation,
+TLR3,Cytokine production,DC differentiation,
+THBS1,Adhesion molecules,DC differentiation,
+CLEC4A,Pattern recognition,DC differentiation,
+TSPAN32,Migration,DC differentiation,
+SLC11A1,Transport and Metabolism ,DC differentiation,
+AXL,TAM signaling,DC differentiation,"Receptor - Signaling kinases ,negative regulation of dendritic cell apoptotic process"
+GAS6,TAM signaling,DC differentiation,"Ligando, Apoptosis, negative regulation of dendritic cell apoptotic process"
+PROS1,TAM signaling,biological regulation,Ligand
+MERTK,TAM signaling,biological regulation,Receptor
+TYRO3,TAM signaling,,Receptor
+AKT1,TAM signaling,,
+STAT1,TAM signaling,,negative regulation of response to cytokine stimulus
+STAT2,TAM signaling,,Interferon alpha/beta signaling
+STAT3,TAM signaling,,negative regulation of response to cytokine stimulus
+STAT5B,TAM signaling,,Inactivation of CSF3 (G-CSF) signaling
+SOCS1,TAM signaling,,
+SOCS2,TAM signaling,,
+SOCS3,TAM signaling,,

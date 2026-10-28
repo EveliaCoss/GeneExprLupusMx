@@ -1,0 +1,22 @@
+#' Genes associated with dendritic cell differentiation and function
+#'
+#' Curated list of genes associated with Gene Ontology terms related to
+#' dendritic cells, grouped by biological process. Used to explore canonical
+#' dendritic cell differentiation pathways (Figure 5B of the article).
+#'
+#' @format A data frame with 94 rows and 4 columns:
+#' \describe{
+#'   \item{gene}{Gene symbol.}
+#'   \item{process}{Biological process (e.g., \code{"DC differentiation"},
+#'     \code{"Migration"}, \code{"TAM signaling"}).}
+#'   \item{GOterm}{Group of Gene Ontology terms used to select the gene.}
+#'   \item{info}{Gene Ontology term associated with the gene.}
+#' }
+#'
+#' @details The script that generates it is \code{data-raw/lesson5_data.R}.
+#'
+#' @source Gene Ontology annotations (\url{https://geneontology.org}).
+#'
+#' @examples
+#' table(dc_genes$process)
+"dc_genes"

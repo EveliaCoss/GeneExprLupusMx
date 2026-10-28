@@ -91,7 +91,7 @@ Usamos los mismos colores para cada grupo en todas las lecciones:
 
 ``` r
 
-group_color <- c(Ctrl = "#5BBFB5", SLE = "#8E5A8C")
+group_color <- c(Ctrl = "#96d4ccff", SLE = "#b493b4ff")
 ```
 
 ## 2. Los datos: `volunteer_info`
@@ -708,13 +708,15 @@ figure_s3
 
 **Figura suplementaria S3.** Distribución y evaluación de la normalidad
 de las variables continuas. Cada panel muestra el histograma con la
-curva de densidad (arriba) y la gráfica Q–Q (abajo) de **(A)** la edad,
-**(B)** la edad al diagnóstico, **(C)** el tiempo desde el diagnóstico y
-**(D)** la dosis de glucocorticoides (GC). En las gráficas Q–Q, los
-cuantiles de la muestra se comparan con los cuantiles teóricos de una
-distribución normal (línea roja). Las figuras ilustran las propiedades
-de distribución de las variables y su desviación de la normalidad,
-evaluada con la prueba de Shapiro–Wilk.
+curva de densidad (arriba) y la gráfica Q–Q (abajo) de **(A)** la edad
+de todas las voluntarias (n = 33) y, en las pacientes (n = 23), **(B)**
+la edad al diagnóstico, **(C)** el tiempo desde el diagnóstico y **(D)**
+la dosis de glucocorticoides (GC). El título de cada panel incluye el
+valor p de la prueba de Shapiro–Wilk. En las gráficas Q–Q, los cuantiles
+de la muestra se comparan con los cuantiles teóricos de una distribución
+normal (línea roja). Las figuras ilustran las propiedades de
+distribución de las variables y su desviación de la normalidad, evaluada
+con la prueba de Shapiro–Wilk.
 
 La figura suplementaria original se encuentra en el [material
 suplementario del

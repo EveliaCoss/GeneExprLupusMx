@@ -5,7 +5,7 @@ output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 package: "GeneExprLupusMx"
 vignette: >
-  %\VignetteIndexEntry{De las cuentas de RNA-seq a la exploración de datos}
+  %\VignetteIndexEntry{Lección 2: De las cuentas de RNA-seq a la exploración de datos}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -96,7 +96,9 @@ En este estudio se analizaron tres tipos de células del sistema inmune:
 knitr::include_graphics("img/overview.png")
 ```
 
-**Diseño del estudio:** participaron 33 mujeres mexicanas, 10 controles sanas (`Ctrl`) y 23 pacientes con lupus (`SLE`). De cada una se obtuvieron los tres tipos celulares, lo que da **33 × 3 = 99 muestras**. Las voluntarias se reclutaron entre junio de 2022 y febrero de 2023. Los datos provienen del artículo publicado en *Frontiers in Immunology* ([doi: 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959)).
+**Diseño del estudio:** participaron 33 mujeres mexicanas, 10 controles sanas (`Ctrl`) y 23 pacientes con lupus (`SLE`). De cada una se obtuvieron los tres tipos celulares, lo que da **33 × 3 = 99 muestras**. Las voluntarias se reclutaron entre junio de 2022 y febrero de 2023. Los datos provienen del artículo:
+
+> Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full). *Front. Immunol.* 17:1771959. [doi: 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
 
 > **Nuestra pregunta guía:** ¿cambia la expresión de los genes en estas células cuando una persona tiene lupus?
 
@@ -142,7 +144,7 @@ Definimos los colores que usaremos en todas las gráficas, para que cada tipo ce
 
 ```{r colores}
 cell_color  <- c(monocyte = "black", moDC = "palevioletred", tolDC = "gold1")
-group_color <- c(Ctrl = "#5BBFB5", SLE = "#8E5A8C")
+group_color <- c(Ctrl = "#96d4ccff", SLE = "#b493b4ff")
 ```
 
 ## 4. **Paso 1:** conocer los datos
@@ -472,7 +474,7 @@ expr_long %>%
   theme_minimal()
 ```
 
-**¿Qué observas?** En los **monocitos**, las pacientes con lupus (morado) expresan más estos genes que los controles (verde). Fíjate también en que los puntos morados están muy dispersos: algunas pacientes tienen valores muy altos y otras, valores parecidos a los controles. En moDC y tolDC la diferencia es mucho menor: al diferenciarse *in vitro*, lejos del ambiente inflamatorio del cuerpo, las células "olvidan" en parte la señal de interferón.
+**¿Qué observas?** En los **monocitos**, las pacientes con lupus (lila) expresan más estos genes que los controles (verde agua). Fíjate también en que los puntos de las pacientes están muy dispersos: algunas pacientes tienen valores muy altos y otras, valores parecidos a los controles. En moDC y tolDC la diferencia es mucho menor: al diferenciarse *in vitro*, lejos del ambiente inflamatorio del cuerpo, las células "olvidan" en parte la señal de interferón.
 
 ::: {.alert .alert-warning}
 **Esto todavía no es una prueba estadística.** Una gráfica sugiere diferencias; para afirmarlas se necesita un análisis de expresión diferencial (por ejemplo, con `DESeq()`), que toma en cuenta la variabilidad y las comparaciones múltiples.
@@ -614,7 +616,7 @@ ggplot(pca_all$data, aes(x = PC1, y = PC2, color = Cell_type)) +
 Conclusión: **el tipo celular es, por mucho, la mayor fuente de variación.** El efecto del lupus es más sutil y queda "tapado".
 
 ::: {.alert .alert-info}
-**¿Todos los genes o solo los más variables?** Muchos tutoriales calculan el PCA solo con los 500 genes más variables. Esa elección cambia el resultado: con 500 genes, PC1 explica alrededor del 80% de la variación; con todos, alrededor del 63%. Usamos todos los genes porque así se hizo en el artículo original (PC1 = 62.23%, PC2 = 9.33%; la pequeña diferencia viene del filtrado de genes y de usar las longitudes de `tximport`). **Siempre reporta cuántos genes usaste.**
+**¿Todos los genes o solo los más variables?** Muchos tutoriales calculan el PCA solo con los 500 genes más variables. Esa elección cambia el resultado: con 500 genes, PC1 explica alrededor del 80% de la variación; con todos, alrededor del 63%. Aquí usamos todos los genes. **Siempre reporta cuántos genes usaste.**
 :::
 
 ### 11.4 Mirar dentro de un solo tipo celular
@@ -768,7 +770,7 @@ p_date
 Juntemos los tres PCA en un solo panel, tal como aparecen en el artículo original. Ya tenemos el de fecha (`p_date`, del Reto 4); construimos los otros dos con el mismo estilo:
 
 - **A.** Tipo celular, el PCA de la sección 11.3.
-- **C.** Actividad de la enfermedad. Usamos la columna `SLEDAI` de `volunteer_info`, codificada como en la Tabla 1 del artículo: `1` = con actividad (SLEDAI ≥ 6 puntos), `0` = sin actividad o con actividad baja (0–5 puntos) y `NA` = controles.
+- **C.** Actividad de la enfermedad. Usamos la columna `SLEDAI` de `volunteer_info`, codificada así: `1` = con actividad (SLEDAI ≥ 6 puntos), `0` = sin actividad o con actividad baja (0–5 puntos) y `NA` = controles.
 
 ```{r figura_s2, fig.width = 24, fig.height = 7, out.width = "100%"}
 # Estilo común para los paneles
@@ -818,15 +820,9 @@ figure_s2
 ```
 
 ::: {.caption-justify}
-**Figura suplementaria S2.** Análisis de componentes principales (PCA) de las cuentas de RNA-seq normalizadas. **(A)** PCA coloreado por tipo celular (monocitos, moDC y tolDC) y con forma según el grupo (SLE y Ctrl); muestra una separación clara, impulsada principalmente por la identidad celular. **(B)** PCA con las fechas de toma de muestra, para evaluar posibles efectos de lote entre colectas; no se observa una agrupación importante por fecha. **(C)** PCA coloreado por actividad de la enfermedad (SLEDAI): 1 indica actividad (puntaje SLEDAI ≥ 6), 0 indica sin actividad o actividad baja (0–5 puntos) y los controles se marcan como NA. PC1 y PC2 explican el 62.23% y el 9.33% de la varianza total, respectivamente. Cada punto representa una muestra. Abreviaturas: SLE, lupus eritematoso sistémico; Ctrl, control sano; mo, monocitos; moDC, células dendríticas derivadas de monocitos; tolDC, células dendríticas tolerogénicas. Los datos de esta figura se encuentran en la Tabla suplementaria S1 y el Dataset S2.
+**Figura suplementaria S2.** Análisis de componentes principales (PCA) de las cuentas de RNA-seq normalizadas. **(A)** PCA coloreado por tipo celular (monocitos, moDC y tolDC) y con forma según el grupo (SLE y Ctrl); muestra una separación clara, impulsada principalmente por la identidad celular. **(B)** PCA con las fechas de toma de muestra, para evaluar posibles efectos de lote entre colectas; no se observa una agrupación importante por fecha. **(C)** PCA coloreado por actividad de la enfermedad (SLEDAI): 1 indica actividad (puntaje SLEDAI ≥ 6), 0 indica sin actividad o actividad baja (0–5 puntos) y los controles se marcan como NA. PC1 y PC2 explican el `r sprintf("%.2f", pca_all$variance[1])`% y el `r sprintf("%.2f", pca_all$variance[2])`% de la varianza total, respectivamente. Cada punto representa una muestra. Abreviaturas: SLE, lupus eritematoso sistémico; Ctrl, control sano; mo, monocitos; moDC, células dendríticas derivadas de monocitos; tolDC, células dendríticas tolerogénicas. Los datos de esta figura se encuentran en la Tabla suplementaria S1 y el Dataset S2.
 
 La figura suplementaria original se encuentra en el archivo *Data Sheet 1.docx* del [material suplementario del artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial).
-:::
-
-::: {.alert .alert-info}
-En esta lección, PC1 y PC2 explican el `r pca_all$variance[1]`% y el `r pca_all$variance[2]`% de la varianza, en lugar del 62.23% y 9.33% del artículo. La diferencia viene del filtrado de genes poco expresados y del uso de las longitudes de `tximport` (sección 11.2). Las conclusiones son las mismas.
-
-El pie publicado define el grupo 1 como "SLEDAI > 0"; aquí usamos la definición de la Tabla 1 del artículo (≥ 6 puntos), que coincide con los datos: 10 pacientes con actividad y 13 sin ella o con actividad baja.
 :::
 
 Para guardar la figura en alta resolución:
@@ -878,11 +874,13 @@ Para volver a cargarlos: `dds <- readRDS("dds.rds")`.
 - **Confundir "se ve diferente en la gráfica" con "es significativo"**.
 - **No revisar efectos de lote** antes de comparar grupos.
 
-## 14. ¿Y después?
+## 14. Próximos pasos
 
-El siguiente paso natural es el **análisis de expresión diferencial**: encontrar, con estadística, qué genes cambian entre pacientes y controles dentro de cada tipo celular. Con `DESeq2` se hace con `DESeq()` y `results()`. Con lo que aprendiste aquí, un buen diseño tomaría en cuenta el tipo celular, el lote de toma de muestra y que las muestras de una misma voluntaria están pareadas.
+El siguiente paso es el **análisis de expresión diferencial**: identificar, con un modelo estadístico, qué genes cambian entre pacientes y controles dentro de cada tipo celular. Lo abordamos en la lección [Genes diferencialmente expresados entre pacientes y controles](l3_DEGs_es.html) con las funciones `DESeq()` y `results()` de `DESeq2`. Un buen diseño debe considerar el tipo celular, el lote de toma de muestra y el pareo de las muestras de una misma voluntaria.
 
-Para recursos de aprendizaje sobre esto, consulta:
+Para continuar, da clic en el botón **Siguiente lección: Genes diferencialmente expresados** al final de esta página.
+
+Recursos complementarios:
 
 - La [viñeta oficial de DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).
 - El flujo de trabajo [*RNA-seq workflow*](https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html) de Bioconductor.
@@ -892,14 +890,14 @@ Para recursos de aprendizaje sobre esto, consulta:
 - Love MI, Huber W, Anders S (2014). Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. *Genome Biology* 15:550. [doi:10.1186/s13059-014-0550-8](https://doi.org/10.1186/s13059-014-0550-8)
 - Soneson C, Love MI, Robinson MD (2015). Differential analyses for RNA-seq: transcript-level estimates improve gene-level inferences. *F1000Research* 4:1521. [doi:10.12688/f1000research.7563.2](https://doi.org/10.12688/f1000research.7563.2)
 - Patro R, *et al.* (2017). Salmon provides fast and bias-aware quantification of transcript expression. *Nature Methods* 14:417–419. [doi:10.1038/nmeth.4197](https://doi.org/10.1038/nmeth.4197)
-- Artículo original de los datos: *Frontiers in Immunology* (2026). [doi:10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959)
+- Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full). *Front. Immunol.* 17:1771959. [doi: 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
 
 ```{=html}
 <nav class="lesson-nav">
   <a class="lesson-prev" href="clinical_es.html">← Lección anterior: Conociendo a las participantes</a>
   <a class="lesson-next" href="l3_DEGs_es.html">Siguiente lección: Genes diferencialmente expresados →</a>
 </nav>
-<a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
+<a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
 ```
 
 ## Información de la sesión

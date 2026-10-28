@@ -33,6 +33,9 @@ You can install the development version of GeneExprLupusMx from
 
 
 
+
+
+
 # install.packages("pak")
 pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
@@ -47,6 +50,9 @@ This is a basic example which shows you how to solve a common problem:
 
 
 
+
+
+
 library(GeneExprLupusMx)
 ## basic example code
 ```
@@ -55,6 +61,9 @@ What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
 
 ``` r
+
+
+
 
 
 
@@ -98,6 +107,9 @@ is handy for this.
 
 
 
+
+
+
 str(filtered_txi)
 #> List of 4
 #>  $ abundance          : num [1:21718, 1:99] 7.504 2.357 0 0.228 0.36 ...
@@ -125,23 +137,42 @@ str(filtered_txi)
   : Gene biotypes
 - [`create_heatmap()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/create_heatmap.md)
   : Create a ComplexHeatmap with row annotation
+- [`dc_genes`](https://eveliacoss.github.io/GeneExprLupusMx/reference/dc_genes.md)
+  : Genes associated with dendritic cell differentiation and function
 - [`dds`](https://eveliacoss.github.io/GeneExprLupusMx/reference/dds.md)
   : DESeqDataSet checkpoint from the RNA-seq lesson
+- [`de_celltype_results`](https://eveliacoss.github.io/GeneExprLupusMx/reference/de_celltype_results.md)
+  : Differential expression results: dendritic cells vs monocytes
+- [`de_interaction_results`](https://eveliacoss.github.io/GeneExprLupusMx/reference/de_interaction_results.md)
+  : Differential expression results: between-group comparison of
+  contrasts
 - [`de_results`](https://eveliacoss.github.io/GeneExprLupusMx/reference/de_results.md)
   : Differential expression results checkpoint (SLE vs Ctrl by cell
   type)
 - [`filtered_txi`](https://eveliacoss.github.io/GeneExprLupusMx/reference/filtered_txi.md)
-  : Filtered transcript count data
+  : Gene-level RNA-seq quantification (tximport)
 - [`get_heatmap_mat()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/get_heatmap_mat.md)
   : Generate a heatmap-ready matrix from a DESeq2 object
+- [`go_celltype_results`](https://eveliacoss.github.io/GeneExprLupusMx/reference/go_celltype_results.md)
+  : Functional enrichment checkpoint: dendritic cells vs monocytes
+  (g:Profiler)
+- [`go_interaction_results`](https://eveliacoss.github.io/GeneExprLupusMx/reference/go_interaction_results.md)
+  : Functional enrichment checkpoint: between-group comparison of
+  contrasts (g:Profiler)
+- [`go_results`](https://eveliacoss.github.io/GeneExprLupusMx/reference/go_results.md)
+  : Functional enrichment results checkpoint (g:Profiler)
 - [`isg_genes`](https://eveliacoss.github.io/GeneExprLupusMx/reference/isg_genes.md)
   : Interferon-stimulated genes (ISGs)
 - [`metadata_cleaned`](https://eveliacoss.github.io/GeneExprLupusMx/reference/metadata_cleaned.md)
-  : Cleaned metadata with patient and cell type annotations
+  : Sample metadata: group, cell type and clinical information
+- [`moDC_genes`](https://eveliacoss.github.io/GeneExprLupusMx/reference/moDC_genes.md)
+  : Genes described in the differentiation of monocytes into moDCs
 - [`processGO()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/processGO.md)
   : Process GO Enrichment Result from a Single File
 - [`sle_genes`](https://eveliacoss.github.io/GeneExprLupusMx/reference/sle_genes.md)
   : Genes associated with systemic lupus erythematosus (SLE)
+- [`tolDC_genes`](https://eveliacoss.github.io/GeneExprLupusMx/reference/tolDC_genes.md)
+  : Transcriptional signature of tolerogenic dendritic cells (tolDCs)
 - [`volunteer_info`](https://eveliacoss.github.io/GeneExprLupusMx/reference/volunteer_info.md)
   : Clinical information per volunteer
 - [`zscore_mat`](https://eveliacoss.github.io/GeneExprLupusMx/reference/zscore_mat.md)
@@ -160,6 +191,13 @@ str(filtered_txi)
 - [Lección 2: De las cuentas de RNA-seq a la exploración de
   datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md):
 - [intro](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro.md):
-- [Genes diferencialmente expresados entre pacientes y
+- [Lección 3: Genes diferencialmente expresados entre pacientes y
   controles](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.md):
-- [l4_GOterms_es](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md):
+- [Lección 4: Funciones biológicas de los genes diferencialmente
+  expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md):
+- [Lección 5: Diferenciación de monocitos a células
+  dendríticas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_es.md):
+- [Lección 6: La firma transcripcional de las células dendríticas
+  tolerogénicas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.md):
+- [Lección 7: ¿Se diferencian igual las células de pacientes y
+  controles?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.md):

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lección 2: De las cuentas de RNA-seq a la exploración de datos • GeneExprLupusMx</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <a href="#main" class="visually-hidden-focusable">Ir al contenido</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Navegación del sitio"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Navegación del sitio"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">GeneExprLupusMx</a>
 
@@ -44,8 +44,10 @@
     <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
     <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
     <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
-    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Obtener GOterms</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Ejemplos</h6></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Funciones biológicas de los genes diferencialmente expresados</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_es.html">5 - Diferenciación de monocitos a células dendríticas</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma de las células dendríticas tolerogénicas</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_es.html">7 - ¿Se diferencian igual las células de pacientes y controles?</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
     <li><h6 class="dropdown-header" data-toc-skip>1 - Introduction</h6></li>
@@ -69,14 +71,6 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Buscar en el sitio" placeholder="Buscar" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/EveliaCoss/GeneExprLupusMx/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Interruptor de color"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Claro</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Oscuro</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
       </ul>
 </div>
 
@@ -94,7 +88,7 @@
             <h3 data-toc-skip class="subtitle">Importación,
 normalización y visualización de los datos</h3>
             
-            <h4 data-toc-skip class="date">2026-10-27</h4>
+            <h4 data-toc-skip class="date">2026-10-28</h4>
       
       <small class="dont-index">Código: <a href="https://github.com/EveliaCoss/GeneExprLupusMx/blob/HEAD/vignettes/intro_RNAseq_es.Rmd" class="external-link"><code>vignettes/intro_RNAseq_es.Rmd</code></a></small>
       <div class="d-none name"><code>intro_RNAseq_es.Rmd</code></div>
@@ -353,7 +347,7 @@ tienes dudas, escribe el paquete explícitamente:
 cada tipo celular y cada grupo tengan siempre el mismo color:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cell_color</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>monocyte <span class="op">=</span> <span class="st">"black"</span>, moDC <span class="op">=</span> <span class="st">"palevioletred"</span>, tolDC <span class="op">=</span> <span class="st">"gold1"</span><span class="op">)</span></span>
-<span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#5BBFB5"</span>, SLE <span class="op">=</span> <span class="st">"#8E5A8C"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#96d4ccff"</span>, SLE <span class="op">=</span> <span class="st">"#b493b4ff"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -866,12 +860,13 @@ USP18 e IFI6</strong>.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="intro_RNAseq_es_files/figure-html/isg_genes-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p><strong>¿Qué observas?</strong> En los <strong>monocitos</strong>,
-las pacientes con lupus (morado) expresan más estos genes que los
-controles (verde). Fíjate también en que los puntos morados están muy
-dispersos: algunas pacientes tienen valores muy altos y otras, valores
-parecidos a los controles. En moDC y tolDC la diferencia es mucho menor:
-al diferenciarse <em>in vitro</em>, lejos del ambiente inflamatorio del
-cuerpo, las células “olvidan” en parte la señal de interferón.</p>
+las pacientes con lupus (lila) expresan más estos genes que los
+controles (verde agua). Fíjate también en que los puntos de las
+pacientes están muy dispersos: algunas pacientes tienen valores muy
+altos y otras, valores parecidos a los controles. En moDC y tolDC la
+diferencia es mucho menor: al diferenciarse <em>in vitro</em>, lejos del
+ambiente inflamatorio del cuerpo, las células “olvidan” en parte la
+señal de interferón.</p>
 <div class="alert alert-warning">
 <p><strong>Esto todavía no es una prueba estadística.</strong> Una
 gráfica sugiere diferencias; para afirmarlas se necesita un análisis de
@@ -1049,11 +1044,8 @@ variación.</strong> El efecto del lupus es más sutil y queda
 <p><strong>¿Todos los genes o solo los más variables?</strong> Muchos
 tutoriales calculan el PCA solo con los 500 genes más variables. Esa
 elección cambia el resultado: con 500 genes, PC1 explica alrededor del
-80% de la variación; con todos, alrededor del 63%. Usamos todos los
-genes porque así se hizo en el artículo original (PC1 = 62.23%, PC2 =
-9.33%; la pequeña diferencia viene del filtrado de genes y de usar las
-longitudes de <code>tximport</code>). <strong>Siempre reporta cuántos
-genes usaste.</strong></p>
+80% de la variación; con todos, alrededor del 63%. Aquí usamos todos los
+genes. <strong>Siempre reporta cuántos genes usaste.</strong></p>
 </div>
 </div>
 <div class="section level3">
@@ -1240,10 +1232,10 @@ artículo original. Ya tenemos el de fecha (<code>p_date</code>, del Reto
 <strong>A.</strong> Tipo celular, el PCA de la sección 11.3.</li>
 <li>
 <strong>C.</strong> Actividad de la enfermedad. Usamos la columna
-<code>SLEDAI</code> de <code>volunteer_info</code>, codificada como en
-la Tabla 1 del artículo: <code>1</code> = con actividad (SLEDAI ≥ 6
-puntos), <code>0</code> = sin actividad o con actividad baja (0–5
-puntos) y <code>NA</code> = controles.</li>
+<code>SLEDAI</code> de <code>volunteer_info</code>, codificada así:
+<code>1</code> = con actividad (SLEDAI ≥ 6 puntos), <code>0</code> = sin
+actividad o con actividad baja (0–5 puntos) y <code>NA</code> =
+controles.</li>
 </ul>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Estilo común para los paneles</span></span>
@@ -1302,7 +1294,7 @@ posibles efectos de lote entre colectas; no se observa una agrupación
 importante por fecha. <strong>(C)</strong> PCA coloreado por actividad
 de la enfermedad (SLEDAI): 1 indica actividad (puntaje SLEDAI ≥ 6), 0
 indica sin actividad o actividad baja (0–5 puntos) y los controles se
-marcan como NA. PC1 y PC2 explican el 62.23% y el 9.33% de la varianza
+marcan como NA. PC1 y PC2 explican el 63.44% y el 9.51% de la varianza
 total, respectivamente. Cada punto representa una muestra. Abreviaturas:
 SLE, lupus eritematoso sistémico; Ctrl, control sano; mo, monocitos;
 moDC, células dendríticas derivadas de monocitos; tolDC, células
@@ -1311,17 +1303,6 @@ Tabla suplementaria S1 y el Dataset S2.</p>
 <p>La figura suplementaria original se encuentra en el archivo <em>Data
 Sheet 1.docx</em> del <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial" class="external-link">material
 suplementario del artículo</a>.</p>
-</div>
-<div class="alert alert-info">
-<p>En esta lección, PC1 y PC2 explican el 63.44% y el 9.51% de la
-varianza, en lugar del 62.23% y 9.33% del artículo. La diferencia viene
-del filtrado de genes poco expresados y del uso de las longitudes de
-<code>tximport</code> (sección 11.2). Las conclusiones son las
-mismas.</p>
-<p>El pie publicado define el grupo 1 como “SLEDAI &gt; 0”; aquí usamos
-la definición de la Tabla 1 del artículo (≥ 6 puntos), que coincide con
-los datos: 10 pacientes con actividad y 13 sin ella o con actividad
-baja.</p>
 </div>
 <p>Para guardar la figura en alta resolución:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">

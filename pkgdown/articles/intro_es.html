@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Primeros pasos con el paquete GeneExprLupusMx • GeneExprLupusMx</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <a href="#main" class="visually-hidden-focusable">Ir al contenido</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Navegación del sitio"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Navegación del sitio"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">GeneExprLupusMx</a>
 
@@ -44,8 +44,10 @@
     <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
     <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
     <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
-    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Obtener GOterms</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Ejemplos</h6></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Funciones biológicas de los genes diferencialmente expresados</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_es.html">5 - Diferenciación de monocitos a células dendríticas</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma de las células dendríticas tolerogénicas</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_es.html">7 - ¿Se diferencian igual las células de pacientes y controles?</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
     <li><h6 class="dropdown-header" data-toc-skip>1 - Introduction</h6></li>
@@ -69,14 +71,6 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Buscar en el sitio" placeholder="Buscar" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/EveliaCoss/GeneExprLupusMx/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Interruptor de color"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Claro</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Oscuro</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
       </ul>
 </div>
 
@@ -94,7 +88,7 @@
             <h3 data-toc-skip class="subtitle">Qué contiene el paquete y
 por dónde empezar</h3>
             
-            <h4 data-toc-skip class="date">2026-10-27</h4>
+            <h4 data-toc-skip class="date">2026-10-28</h4>
       
       <small class="dont-index">Código: <a href="https://github.com/EveliaCoss/GeneExprLupusMx/blob/HEAD/vignettes/intro_es.Rmd" class="external-link"><code>vignettes/intro_es.Rmd</code></a></small>
       <div class="d-none name"><code>intro_es.Rmd</code></div>
@@ -199,8 +193,9 @@ lecciones usan además <code>DESeq2</code>, disponible en <a href="https://bioco
 <div class="section level2">
 <h2 id="qué-datos-contiene">¿Qué datos contiene?<a class="anchor" aria-label="anchor" href="#qu%C3%A9-datos-contiene"></a>
 </h2>
-<p>El paquete incluye tres conjuntos de datos. Están disponibles en
-cuanto cargas el paquete; no hay que descargar nada más.</p>
+<p>El paquete incluye tres conjuntos de datos principales. Están
+disponibles en cuanto cargas el paquete; no hay que descargar nada
+más.</p>
 <table class="table">
 <colgroup>
 <col width="18%">
@@ -234,6 +229,53 @@ cuanto cargas el paquete; no hay que descargar nada más.</p>
 <td>Edad, diagnóstico, tratamientos y fecha de reclutamiento</td>
 <td>voluntaria</td>
 <td>33 voluntarias</td>
+</tr>
+</tbody>
+</table>
+<p>También incluye <strong>listas de genes de referencia</strong> que
+usan algunas lecciones:</p>
+<table class="table">
+<colgroup>
+<col width="24%">
+<col width="42%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th>Objeto</th>
+<th>Qué contiene</th>
+<th>Se usa en</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>biotype_summary</code></td>
+<td>Biotipo de cada gen (codificante, lncRNA…)</td>
+<td>Lección 4</td>
+</tr>
+<tr class="even">
+<td><code>sle_genes</code></td>
+<td>Genes asociados al lupus en la literatura</td>
+<td>Lección 4</td>
+</tr>
+<tr class="odd">
+<td><code>isg_genes</code></td>
+<td>Genes estimulados por interferón (Yu et al., 2025)</td>
+<td>Lección 4</td>
+</tr>
+<tr class="even">
+<td><code>moDC_genes</code></td>
+<td>Genes descritos en la diferenciación de monocito a moDC</td>
+<td>Lección 5</td>
+</tr>
+<tr class="odd">
+<td><code>dc_genes</code></td>
+<td>Genes asociados a la diferenciación de células dendríticas</td>
+<td>Lección 5</td>
+</tr>
+<tr class="even">
+<td><code>tolDC_genes</code></td>
+<td>Firma transcripcional de las células dendríticas tolerogénicas
+(Robertson et al., 2021)</td>
+<td>Lección 6</td>
 </tr>
 </tbody>
 </table>
@@ -271,6 +313,35 @@ muestras); requiere <code>DESeq2</code>
 <td>Resultados de expresión diferencial SLE vs Ctrl de cada tipo celular
 (<code>DESeq2</code>)</td>
 <td>Lección 3</td>
+</tr>
+<tr class="even">
+<td><code>go_results</code></td>
+<td>Términos funcionales enriquecidos de los DEG (g:Profiler, versión
+e113)</td>
+<td>Lección 4</td>
+</tr>
+<tr class="odd">
+<td><code>de_celltype_results</code></td>
+<td>Expresión diferencial de moDC y tolDC contra monocitos, en controles
+y pacientes (<code>DESeq2</code>)</td>
+<td>Lección 5</td>
+</tr>
+<tr class="even">
+<td><code>go_celltype_results</code></td>
+<td>Términos funcionales enriquecidos de esos DEG (g:Profiler)</td>
+<td>Lección 5</td>
+</tr>
+<tr class="odd">
+<td><code>de_interaction_results</code></td>
+<td>Interacción <code>Group:Cell_type</code>: genes cuyo cambio de
+monocito a célula dendrítica es distinto en las pacientes
+(<code>DESeq2</code>)</td>
+<td>Lección 7</td>
+</tr>
+<tr class="even">
+<td><code>go_interaction_results</code></td>
+<td>Términos funcionales enriquecidos de esos genes (g:Profiler)</td>
+<td>Lección 7</td>
 </tr>
 </tbody>
 </table>
@@ -324,6 +395,10 @@ flowchart LR
   P["Primeros pasos<br>(esta página)"] --&gt; L1["1. Conociendo a las participantes:<br>estadística descriptiva"]
   L1 --&gt; L2["2. De las cuentas de RNA-seq<br>a la exploración de datos"]
   L2 --&gt; L3["3. Genes diferencialmente<br>expresados"]
+  L3 --&gt; L4["4. Funciones biológicas<br>de los DEG"]
+  L4 --&gt; L5["5. Diferenciación de monocitos<br>a células dendríticas"]
+  L5 --&gt; L6["6. La firma de las células<br>dendríticas tolerogénicas"]
+  L6 --&gt; L7["7. ¿Se diferencian igual<br>pacientes y controles?"]
 </pre>
 <script type="module">
   import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
@@ -369,6 +444,53 @@ diferencial con <code>DESeq2</code> e interpretar volcano plots</td>
 <td>
 <code>filtered_txi</code>, <code>metadata_cleaned</code>,
 <code>zscore_mat</code>
+</td>
+<td>1.5 h</td>
+</tr>
+<tr class="even">
+<td><a href="l4_GOterms_es.html">4. Funciones biológicas de los
+DEG</a></td>
+<td>Hacer un análisis de enriquecimiento funcional con g:Profiler,
+identificar genes de SLE e ISG e interpretar procesos biológicos</td>
+<td>
+<code>de_results</code>, <code>go_results</code>,
+<code>sle_genes</code>, <code>isg_genes</code>,
+<code>biotype_summary</code>
+</td>
+<td>1.5 h</td>
+</tr>
+<tr class="odd">
+<td><a href="l5_DEGs_monocytes_diff_es.html">5. Diferenciación de
+monocitos a células dendríticas</a></td>
+<td>Comparar células dendríticas contra monocitos, validar la
+diferenciación con genes conocidos y explorar rutas y metabolismo de
+lípidos</td>
+<td>
+<code>de_celltype_results</code>, <code>go_celltype_results</code>,
+<code>moDC_genes</code>, <code>dc_genes</code>
+</td>
+<td>1.5 h</td>
+</tr>
+<tr class="even">
+<td><a href="l6_DEGs_tolDcs_es.html">6. La firma de las células
+dendríticas tolerogénicas</a></td>
+<td>Evaluar las tolDC con una firma publicada, combinar z-scores y LFC,
+y elegir la referencia correcta para comparar</td>
+<td>
+<code>tolDC_genes</code>, <code>de_celltype_results</code>,
+<code>zscore_mat</code>
+</td>
+<td>1 h</td>
+</tr>
+<tr class="odd">
+<td><a href="l7_DEGs_between_groups_es.html">7. ¿Se diferencian igual
+las células de pacientes y controles?</a></td>
+<td>Ajustar un modelo con interacción, interpretar una “diferencia de
+diferencias” y resumir los genes con procesos de Reactome</td>
+<td>
+<code>de_interaction_results</code>,
+<code>go_interaction_results</code>, <code>zscore_mat</code>,
+<code>isg_genes</code>
 </td>
 <td>1.5 h</td>
 </tr>
