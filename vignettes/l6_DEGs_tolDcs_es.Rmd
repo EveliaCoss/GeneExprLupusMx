@@ -72,6 +72,10 @@ Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
 - **IL-10, dexametasona (DXM)**: una citocina antiinflamatoria y un glucocorticoide que se usan para generar tolDC *in vitro*.
 - **Referencia**: el tipo celular contra el que se calcula un LFC; cambiarla cambia el signo y el tamaño del LFC.
 
+```{r lesson_overview, echo = FALSE, out.width = "100%", fig.cap = "Resumen visual de la lección 6."}
+knitr::include_graphics("img/lesson6_overview_es.png")
+```
+
 ## 1. Preparación
 
 ```{r setup}

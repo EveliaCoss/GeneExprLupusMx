@@ -82,6 +82,10 @@ These are the terms we will use. Come back here whenever you need to.
 - **Wilcoxon (Mann–Whitney) test**: compares two groups without assuming normality.
 - **Fisher's exact test**: assesses the association between two categorical variables; works well with small samples.
 
+```{r lesson_overview, echo = FALSE, out.width = "100%", fig.cap = "Visual summary of lesson 1."}
+knitr::include_graphics("img/lesson1_overview_en.png")
+```
+
 ## 1. Setup
 
 ```{r setup}

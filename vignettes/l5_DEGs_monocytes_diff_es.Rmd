@@ -74,6 +74,10 @@ Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
 - **Comparación dentro de grupo**: se compara cada tipo celular contra los monocitos **del mismo grupo** (controles con controles, pacientes con pacientes).
 - **Reprogramación metabólica**: cambio en las rutas metabólicas que usa una célula al cambiar de función.
 
+```{r lesson_overview, echo = FALSE, out.width = "100%", fig.cap = "Resumen visual de la lección 5."}
+knitr::include_graphics("img/lesson5_overview_es.png")
+```
+
 ## 1. Preparación
 
 ```{r setup}

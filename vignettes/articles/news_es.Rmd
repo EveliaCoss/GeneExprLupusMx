@@ -20,6 +20,7 @@ Versión inicial de GeneExprLupusMx.
   - `l6_DEGs_tolDcs` (Lección 6): firma transcripcional de las tolDC; Figura 6, y genes concordantes y divergentes con la firma de Robertson et al.
   - `l7_DEGs_between_groups` (Lección 7): modelo con interacción `Group:Cell_type`; Figuras 7A y 7B, y figura suplementaria de trayectorias de expresión de los DEG de interacción.
 - Páginas de descarga de datos en español e inglés (`download_es`, `download_en`).
+- Cada lección abre con una imagen ilustrativa de resumen (después del glosario), en español e inglés: datos de entrada, los pasos de la lección con sus figuras reales, hallazgos clave y *checkpoints*.
 - Cada lección incluye glosario, mapa de la lección, retos con solución, pies de figura y de tabla con valores calculados en el código y botones de navegación por idioma.
 - Lecciones homogeneizadas: mismo formato de pasos, glosario unificado, prerrequisitos con títulos completos y pies en todas las figuras y tablas (incluida la Tabla 1).
 

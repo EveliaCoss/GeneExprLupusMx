@@ -16,6 +16,7 @@ Initial version of GeneExprLupusMx.
   - `l6_DEGs_tolDcs` (Lesson 6): transcriptional signature of tolDCs; Figure 6, and genes concordant and divergent with the Robertson et al. signature.
   - `l7_DEGs_between_groups` (Lesson 7): interaction model `Group:Cell_type`; Figures 7A and 7B, and supplementary figure of expression trajectories of the interaction DEGs.
 - Data download pages in Spanish and English (`download_es`, `download_en`).
+- Each lesson opens with an illustrative summary image (after the glossary), in Spanish and English: input data, the lesson steps with its real figures, key findings and checkpoints.
 - Each lesson includes a glossary, lesson map, challenges with solutions, figure and table captions with values computed in the code, and per-language navigation buttons.
 - Lessons harmonized: same step format, unified glossary, prerequisites with full titles, and captions for every figure and table (including Table 1).
 

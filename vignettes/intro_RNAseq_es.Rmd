@@ -82,6 +82,10 @@ Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
 - **ISG** (*interferon-stimulated genes*): genes que se encienden en respuesta al interferón.
 - **SLEDAI** (*SLE Disease Activity Index*): puntaje de actividad del lupus; más alto = enfermedad más activa.
 
+```{r lesson_overview, echo = FALSE, out.width = "100%", fig.cap = "Resumen visual de la lección 2."}
+knitr::include_graphics("img/lesson2_overview_es.png")
+```
+
 ## 1. Contexto biológico: ¿qué estamos estudiando?
 
 El **lupus eritematoso sistémico** (LES, o *SLE* en inglés) es una enfermedad **autoinmune**: el sistema inmune ataca por error los tejidos del propio cuerpo. Afecta sobre todo a mujeres (alrededor de 9 de cada 10 casos). Uno de sus rasgos moleculares más conocidos es la **firma de interferón**: en las pacientes se encienden muchos genes que normalmente responden a infecciones virales, llamados *genes estimulados por interferón* (ISG).
@@ -91,10 +95,6 @@ En este estudio se analizaron tres tipos de células del sistema inmune:
 - **Monocitos** (`monocyte`): células que circulan en la sangre. Se obtuvieron directamente de cada participante.
 - **Células dendríticas derivadas de monocitos** (`moDC`): se obtienen al cultivar los monocitos con GM-CSF e IL-4. Son "activadoras", porque presentan antígenos y encienden la respuesta inmune.
 - **Células dendríticas tolerogénicas** (`tolDC`): se obtienen al cultivar los monocitos con GM-CSF e IL-10. Su papel es "calmar" la respuesta inmune y promover la tolerancia.
-
-```{r overview, echo = FALSE, out.width = "100%", fig.cap = "Resumen del estudio y del contenido del paquete."}
-knitr::include_graphics("img/overview.png")
-```
 
 **Diseño del estudio:** participaron 33 mujeres mexicanas, 10 controles sanas (`Ctrl`) y 23 pacientes con lupus (`SLE`). De cada una se obtuvieron los tres tipos celulares, lo que da **33 × 3 = 99 muestras**. Las voluntarias se reclutaron entre junio de 2022 y febrero de 2023. Los datos provienen del artículo:
 

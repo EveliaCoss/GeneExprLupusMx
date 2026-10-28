@@ -72,6 +72,10 @@ These are the terms we will use. Come back here whenever you need to.
 - **IL-10, dexamethasone (DXM)**: an anti-inflammatory cytokine and a glucocorticoid used to generate tolDCs *in vitro*.
 - **Reference**: the cell type against which an LFC is calculated; changing it changes the sign and size of the LFC.
 
+```{r lesson_overview, echo = FALSE, out.width = "100%", fig.cap = "Visual summary of lesson 6."}
+knitr::include_graphics("img/lesson6_overview_en.png")
+```
+
 ## 1. Setup
 
 ```{r setup}
