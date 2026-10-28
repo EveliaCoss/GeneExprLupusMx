@@ -1,0 +1,22 @@
+#' Z-score matrix checkpoint from the RNA-seq lesson
+#'
+#' Gene-wise z-scores of the variance-stabilized expression (VST) computed in
+#' the lesson "De las cuentas de RNA-seq a la exploración de datos"
+#' (\code{vignette("intro_RNAseq_es")}). Useful for heatmaps and clustering.
+#'
+#' Steps: \code{vst(dds, blind = FALSE)}, removal of genes with zero variance,
+#' and \code{t(scale(t(...)))} so that each gene has mean 0 and standard
+#' deviation 1 across samples.
+#'
+#' @format A numeric matrix with 13,596 genes (rows) and 99 samples (columns).
+#'
+#' @details The script that generates it is \code{data-raw/lesson2_checkpoints.R}.
+#'
+#' @source Generated from \code{\link{dds}}.
+#'
+#' @seealso \code{\link{dds}}
+#'
+#' @examples
+#' dim(zscore_mat)
+#' zscore_mat[1:4, 1:4]
+"zscore_mat"

@@ -1,0 +1,41 @@
+#' Functional enrichment results checkpoint (g:Profiler)
+#'
+#' Functional enrichment of the differentially expressed genes (DEG) of each
+#' cell type, obtained with \pkg{gprofiler2} in the lesson "Funciones
+#' biológicas de los genes diferencialmente expresados"
+#' (\code{vignette("l4_GOterms_es")}).
+#'
+#' DEG were defined in \code{\link{de_results}} with
+#' \code{|log2FoldChange| >= 1} and \code{padj < 0.05}, and queried as five
+#' lists (\code{SLE_UP_monocyte}, \code{SLE_UP_moDC}, \code{SLE_DOWN_moDC},
+#' \code{SLE_UP_tolDC}, \code{SLE_DOWN_tolDC}) with
+#' \code{gost(organism = "hsapiens", correction_method = "fdr",
+#' user_threshold = 0.05, evcodes = TRUE)}.
+#'
+#' @format A data frame with 943 rows (significant terms) and 10 columns:
+#' \describe{
+#'   \item{query}{Gene list (cell type and direction of change).}
+#'   \item{source}{Database: \code{GO:BP}, \code{GO:CC}, \code{GO:MF},
+#'     \code{REAC}, \code{KEGG}, \code{WP}, \code{TF}, \code{MIRNA},
+#'     \code{HP} or \code{CORUM}.}
+#'   \item{term_id}{Term identifier.}
+#'   \item{term_name}{Term name.}
+#'   \item{term_size}{Number of genes annotated to the term.}
+#'   \item{query_size}{Number of genes of the list with annotation in the database.}
+#'   \item{intersection_size}{Number of genes of the list annotated to the term.}
+#'   \item{p_value}{Adjusted p-value (FDR) of the hypergeometric test.}
+#'   \item{parents}{Comma-separated parent terms in the database hierarchy.}
+#'   \item{intersection}{Comma-separated genes of the list annotated to the term.}
+#' }
+#'
+#' @details g:Profiler updates its databases periodically. To reproduce the
+#'   article, the archived version \code{e113_eg59_p19} (June 2025) was used;
+#'   it is stored in \code{attr(go_results, "gprofiler_version")}. The script
+#'   that generates it is \code{data-raw/lesson4_checkpoints.R}.
+#'
+#' @source g:Profiler (\url{https://biit.cs.ut.ee/gprofiler}).
+#'
+#' @examples
+#' table(go_results$query)
+#' table(go_results$source)
+"go_results"

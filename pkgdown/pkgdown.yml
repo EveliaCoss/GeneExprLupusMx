@@ -5,8 +5,11 @@ articles:
   clinical_es: clinical_es.html
   intro_en: intro_en.html
   intro_es: intro_es.html
+  intro_RNAseq_es: intro_RNAseq_es.html
   intro: intro.html
-last_built: 2026-10-28T03:51Z
+  l3_DEGs_es: l3_DEGs_es.html
+  l4_GOterms_es: l4_GOterms_es.html
+last_built: 2026-10-28T05:45Z
 urls:
   reference: https://eveliacoss.github.io/GeneExprLupusMx/reference
   article: https://eveliacoss.github.io/GeneExprLupusMx/articles

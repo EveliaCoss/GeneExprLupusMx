@@ -1,4 +1,4 @@
-# Conociendo a las participantes
+# Lección 1: Conociendo a las participantes
 
 ## Bienvenida
 
@@ -9,9 +9,7 @@ lección describimos a las 33 participantes del estudio con estadística
 descriptiva, tablas y gráficas.
 
 **Lo que necesitas saber antes:** lo básico de R y de `dplyr`/`ggplot2`.
-No necesitas haber hecho la lección [Primeros
-pasos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md),
-aunque te ayudará.
+No necesitas saber nada de RNA-seq.
 
 **Al terminar podrás:**
 
@@ -89,8 +87,7 @@ library(tidyverse)       # manipulación de tablas (dplyr) y gráficas (ggplot2)
 library(cowplot)         # unir varias gráficas en un panel
 ```
 
-Usamos los mismos colores que en la lección [Primeros
-pasos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md):
+Usamos los mismos colores para cada grupo en todas las lecciones:
 
 ``` r
 
@@ -756,12 +753,19 @@ ggsave("Figura_S3_normalidad.png", figure_s3, width = 20, height = 7, dpi = 300)
 
 ## 11. ¿Y después?
 
-Con las participantes descritas, puedes pasar al análisis de expresión
-génica en la lección [Primeros
-pasos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md).
-Lo que aprendiste aquí ayuda a decidir qué variables clínicas incluir en
-el diseño (por ejemplo, la edad no difiere entre grupos, así que no es
-una fuente importante de confusión).
+En la siguiente lección, [De las cuentas de RNA-seq a la exploración de
+datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md),
+explorarás la expresión génica de estas mismas participantes. Lo que
+aprendiste aquí ayuda a decidir qué variables clínicas incluir en el
+diseño (por ejemplo, la edad no difiere entre grupos, así que no es una
+fuente importante de confusión).
+
+[← Lección anterior: Primeros pasos con el
+paquete](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md)
+[Siguiente lección: De las cuentas de RNA-seq a la exploración de datos
+→](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md)
+
+[↑ Inicio](#top "Volver al inicio de la página")
 
 ## Información de la sesión
 

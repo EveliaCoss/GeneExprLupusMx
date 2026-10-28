@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>De las cuentas de RNA-seq a la exploración de datos • GeneExprLupusMx</title>
+<title>Primeros pasos con el paquete GeneExprLupusMx • GeneExprLupusMx</title>
 <script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="De las cuentas de RNA-seq a la exploración de datos">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Primeros pasos con el paquete GeneExprLupusMx">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Ir al contenido</a>
@@ -41,11 +41,10 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
 <li><h6 class="dropdown-header" data-toc-skip>ES - Tutoriales en español</h6></li>
-    <li><a class="dropdown-item" href="../articles/clinical_es.html">Conociendo a las participantes: estadística descriptiva</a></li>
-    <li><a class="dropdown-item" href="../articles/intro_es.html">1 - De las cuentas de RNA-seq a la exploración de datos</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>2 - Conociendo a Karel</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>3 - Descomposición</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>4 - Estructuras de control</h6></li>
+    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
+    <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
+    <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Obtener GOterms</a></li>
     <li><h6 class="dropdown-header" data-toc-skip>5 - Ejemplos</h6></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
@@ -91,9 +90,9 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>De las cuentas de RNA-seq a la exploración de datos</h1>
-            <h3 data-toc-skip class="subtitle">Importación,
-normalización y visualización de los datos</h3>
+      <h1>Primeros pasos con el paquete GeneExprLupusMx</h1>
+            <h3 data-toc-skip class="subtitle">Qué contiene el paquete y
+por dónde empezar</h3>
             
             <h4 data-toc-skip class="date">2026-10-27</h4>
       
@@ -122,1396 +121,271 @@ pre.mermaid { background: none; border: 0; text-align: center; }
 
 /* Pie de figura justificado */
 .caption-justify { text-align: justify; }
+
+/* Navegación entre lecciones */
+.lesson-nav {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(128, 128, 128, .4);
+}
+.lesson-nav a {
+  padding: .5rem 1rem;
+  border: 1px solid #0758E5;
+  border-radius: .25rem;
+  text-decoration: none;
+}
+.lesson-nav a:hover { background: rgba(7, 88, 229, .08); }
+.lesson-nav .lesson-next { margin-left: auto; }
+
+/* Botón flotante para volver al inicio de la página */
+.back-to-top {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1000;
+  padding: .4rem .9rem;
+  border-radius: 2rem;
+  background: #0758E5;
+  color: #fff !important;
+  text-decoration: none;
+  font-size: .9rem;
+  opacity: .85;
+}
+.back-to-top:hover { opacity: 1; }
 </style>
 <div class="section level2">
-<h2 id="bienvenida">Bienvenida<a class="anchor" aria-label="anchor" href="#bienvenida"></a>
+<h2 id="qué-es-geneexprlupusmx">¿Qué es GeneExprLupusMx?<a class="anchor" aria-label="anchor" href="#qu%C3%A9-es-geneexprlupusmx"></a>
 </h2>
-<p>Esta lección es para ti si <strong>estás comenzando a analizar datos
-de transcriptómica</strong> (RNA-seq). Usaremos datos reales de mujeres
-mexicanas con lupus y de controles sanos para recorrer, paso a paso, el
-camino que va de una tabla de números a una interpretación
-biológica.</p>
-<p><strong>Lo que necesitas saber antes:</strong> lo básico de R (crear
-objetos, usar funciones) y, si es posible, un poco de <code>dplyr</code>
-y <code>ggplot2</code>. No necesitas saber de RNA-seq: lo explicamos
-sobre la marcha.</p>
-<p><strong>Al terminar podrás:</strong></p>
-<ol style="list-style-type: decimal">
-<li>Explicar qué son una <strong>matriz de cuentas</strong> y una tabla
-de <strong>metadatos</strong>.</li>
-<li>Construir un objeto <code>DESeqDataSet</code>, que es la estructura
-que usa <code>DESeq2</code>.</li>
-<li>Explicar <strong>por qué</strong> hay que normalizar y
-<strong>cómo</strong> lo hace <code>DESeq2</code>.</li>
-<li>Transformar los datos (VST) y explorarlos con gráficas de genes,
-<em>heatmaps</em> y PCA.</li>
-<li>Relacionar lo que ves en las gráficas con la biología del
-lupus.</li>
-</ol>
-<p><strong>Tiempo estimado:</strong> 1 a 1.5 horas.</p>
-<div class="section level3">
-<h3 id="mapa-de-la-lección">Mapa de la lección<a class="anchor" aria-label="anchor" href="#mapa-de-la-lecci%C3%B3n"></a>
-</h3>
-<pre class="mermaid">
-flowchart TB
-  subgraph pre["Ya hecho en el paquete"]
-    direction LR
-    A["Lecturas (FASTQ)"] -- "Salmon + tximport" --&gt; B["filtered_txi<br>cuentas"]
-    M["metadata_cleaned<br>una fila por muestra"]
-    V["volunteer_info<br>una fila por voluntaria"]
-  end
-  subgraph lec["En esta lección"]
-    direction LR
-    C["DESeqDataSet"] --&gt; D["Filtrado"] --&gt; E["Normalización"] --&gt; F["VST"] --&gt; G["Exploración<br>genes · heatmap · PCA"]
-  end
-  pre --&gt; lec
-</pre>
-<script type="module">
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-  mermaid.initialize({ startOnLoad: true });
-</script>
-</div>
-</div>
-<div class="section level2">
-<h2 id="glosario">Glosario<a class="anchor" aria-label="anchor" href="#glosario"></a>
-</h2>
-<p>Estos son los términos que usaremos. Vuelve aquí cada vez que lo
-necesites.</p>
+<p><code>GeneExprLupusMx</code> es un paquete de R con <strong>datos
+transcriptómicos (RNA-seq) de mujeres mexicanas con lupus eritematoso
+sistémico (LES, o <em>SLE</em> en inglés) y de controles sanas</strong>.
+Está pensado para investigación y para enseñanza: además de los datos,
+incluye lecciones paso a paso para aprender a analizarlos.</p>
 <ul>
 <li>
-<strong>Lectura (<em>read</em>)</strong>: fragmento de RNA
-secuenciado.</li>
+<strong>33 participantes:</strong> 10 controles sanas
+(<code>Ctrl</code>) y 23 pacientes con lupus (<code>SLE</code>).</li>
 <li>
-<strong>Cuenta</strong>: número de lecturas asignadas a un gen en
-una muestra.</li>
+<strong>3 tipos celulares por participante:</strong> monocitos,
+células dendríticas derivadas de monocitos (moDC) y células dendríticas
+tolerogénicas (tolDC).</li>
 <li>
-<strong>Matriz de cuentas</strong>: tabla de genes (filas) ×
-muestras (columnas).</li>
-<li>
-<strong>Metadatos</strong>: información que describe a cada
-muestra.</li>
-<li>
-<strong>Tamaño de librería</strong>: total de lecturas de una
-muestra (profundidad de secuenciación).</li>
-<li>
-<strong>Normalización</strong>: corrección que hace comparables las
-muestras entre sí.</li>
-<li>
-<strong>VST</strong>: transformación tipo logaritmo que estabiliza
-la varianza.</li>
-<li>
-<strong>z-score</strong>: valor estandarizado de un gen (en
-desviaciones estándar respecto a su media).</li>
-<li>
-<strong>PCA</strong>: técnica que resume muchas variables en unos
-pocos ejes.</li>
-<li>
-<strong>Efecto de lote (<em>batch effect</em>)</strong>: diferencias
-entre muestras causadas por <em>cuándo</em> o <em>cómo</em> se
-procesaron, no por la biología.</li>
-<li>
-<strong>Columna llave</strong>: columna que comparten dos tablas y
-que sirve para unirlas (aquí, <code>Volunteer_ID</code>).</li>
-<li>
-<strong>ISG</strong>: gen estimulado por interferón.</li>
-<li>
-<strong>SLEDAI</strong>: índice clínico de actividad del lupus.</li>
+<strong>99 muestras</strong> en total (33 × 3).</li>
 </ul>
-</div>
-<div class="section level2">
-<h2 id="contexto-biológico-qué-estamos-estudiando">1. Contexto biológico: ¿qué estamos estudiando?<a class="anchor" aria-label="anchor" href="#contexto-biol%C3%B3gico-qu%C3%A9-estamos-estudiando"></a>
-</h2>
-<p>El <strong>lupus eritematoso sistémico</strong> (LES, o <em>SLE</em>
-en inglés) es una enfermedad <strong>autoinmune</strong>: el sistema
-inmune ataca por error los tejidos del propio cuerpo. Afecta sobre todo
-a mujeres (alrededor de 9 de cada 10 casos). Uno de sus rasgos
-moleculares más conocidos es la <strong>firma de interferón</strong>: en
-las pacientes se encienden muchos genes que normalmente responden a
-infecciones virales, llamados <em>genes estimulados por interferón</em>
-(ISG).</p>
-<p>En este estudio se analizaron tres tipos de células del sistema
-inmune:</p>
-<ul>
-<li>
-<strong>Monocitos</strong> (<code>monocyte</code>): células que
-circulan en la sangre. Se obtuvieron directamente de cada
-participante.</li>
-<li>
-<strong>Células dendríticas derivadas de monocitos</strong>
-(<code>moDC</code>): se obtienen al cultivar los monocitos con GM-CSF e
-IL-4. Son “activadoras”, porque presentan antígenos y encienden la
-respuesta inmune.</li>
-<li>
-<strong>Células dendríticas tolerogénicas</strong>
-(<code>tolDC</code>): se obtienen al cultivar los monocitos con GM-CSF e
-IL-10. Su papel es “calmar” la respuesta inmune y promover la
-tolerancia.</li>
-</ul>
-<div class="figure" style="text-align: center">
+<p>Los datos provienen del artículo publicado en <em>Frontiers in
+Immunology</em> (<a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
+10.3389/fimmu.2026.1771959</a>).</p>
+<div class="figure">
 <img src="img/overview.png" class="r-plt" alt="Resumen del estudio y del contenido del paquete." width="100%"><p class="caption">
 Resumen del estudio y del contenido del paquete.
 </p>
 </div>
-<p><strong>Diseño del estudio:</strong> participaron 33 mujeres
-mexicanas, 10 controles sanas (<code>Ctrl</code>) y 23 pacientes con
-lupus (<code>SLE</code>). De cada una se obtuvieron los tres tipos
-celulares, lo que da <strong>33 × 3 = 99 muestras</strong>. Las
-voluntarias se reclutaron entre junio de 2022 y febrero de 2023. Los
-datos provienen del artículo publicado en <em>Frontiers in
-Immunology</em> (<a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
-10.3389/fimmu.2026.1771959</a>).</p>
-<blockquote>
-<p><strong>Nuestra pregunta guía:</strong> ¿cambia la expresión de los
-genes en estas células cuando una persona tiene lupus?</p>
-</blockquote>
 </div>
 <div class="section level2">
-<h2 id="rna-seq-en-dos-minutos">2. RNA-seq en dos minutos<a class="anchor" aria-label="anchor" href="#rna-seq-en-dos-minutos"></a>
+<h2 id="instalación">Instalación<a class="anchor" aria-label="anchor" href="#instalaci%C3%B3n"></a>
 </h2>
-<ol style="list-style-type: decimal">
-<li>Se extrae el <strong>RNA</strong> de las células. Cada gen activo
-produce copias de RNA: cuanto más activo, más copias.</li>
-<li>El RNA se fragmenta y se <strong>secuencia</strong>. Cada fragmento
-leído se llama <strong>lectura</strong> (<em>read</em>).</li>
-<li>Un programa (aquí, <strong>Salmon</strong>) identifica a qué gen
-pertenece cada lectura y las <strong>cuenta</strong>.</li>
-</ol>
-<p>El resultado es una tabla: cuántas lecturas tiene cada gen en cada
-muestra. A esa tabla la llamamos <strong>matriz de cuentas</strong>. Más
-lecturas significa más expresión, pero solo en términos
-<em>relativos</em>, como veremos en la sección de normalización.</p>
-<div class="alert alert-info">
-<p><strong>Buena noticia:</strong> los pasos más pesados (alinear las
-lecturas con Salmon e importarlas con <code>tximport</code>) ya están
-hechos. El paquete incluye el resultado listo para analizar.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="preparación">3. Preparación<a class="anchor" aria-label="anchor" href="#preparaci%C3%B3n"></a>
-</h2>
-<div class="section level3">
-<h3 id="instalación">Instalación<a class="anchor" aria-label="anchor" href="#instalaci%C3%B3n"></a>
-</h3>
-<p>Instala el paquete desde <a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GitHub</a> y
-<code>DESeq2</code> desde <a href="https://bioconductor.org/packages/DESeq2" class="external-link">Bioconductor</a>. Solo
-necesitas hacerlo una vez.</p>
+<p>Instala el paquete desde <a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GitHub</a>. Algunas
+lecciones usan además <code>DESeq2</code>, disponible en <a href="https://bioconductor.org/packages/DESeq2" class="external-link">Bioconductor</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"remotes"</span>, <span class="st">"BiocManager"</span>, <span class="st">"tidyverse"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"DESeq2"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="cargar-los-paquetes">Cargar los paquetes<a class="anchor" aria-label="anchor" href="#cargar-los-paquetes"></a>
-</h3>
+<p>Una vez instalado, cárgalo:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span> <span class="co"># nuestros datos</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thelovelab/DESeq2" class="external-link">DESeq2</a></span><span class="op">)</span>          <span class="co"># normalización y análisis de RNA-seq</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>       <span class="co"># manipulación de tablas (dplyr) y gráficas (ggplot2)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggrepel.slowkow.com/" class="external-link">ggrepel</a></span><span class="op">)</span>         <span class="co"># etiquetas que no se enciman en ggplot2</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span>         <span class="co"># unir varias gráficas en un panel</span></span></code></pre></div>
-<div class="alert alert-warning">
-<p><strong>El orden importa.</strong> <code>DESeq2</code> y
-<code>dplyr</code> tienen funciones con el mismo nombre (por ejemplo,
-<code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count()</a></code> y <code><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select()</a></code>). R usa la del último
-paquete cargado; por eso cargamos <code>tidyverse</code> al final. Si
-tienes dudas, escribe el paquete explícitamente:
-<code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code>.</p>
-</div>
-<p>Definimos los colores que usaremos en todas las gráficas, para que
-cada tipo celular y cada grupo tengan siempre el mismo color:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cell_color</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>monocyte <span class="op">=</span> <span class="st">"#7B8FA6"</span>, moDC <span class="op">=</span> <span class="st">"palevioletred"</span>, tolDC <span class="op">=</span> <span class="st">"goldenrod2"</span><span class="op">)</span></span>
-<span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#5BBFB5"</span>, SLE <span class="op">=</span> <span class="st">"#8E5A8C"</span><span class="op">)</span></span></code></pre></div>
-</div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="paso-1-conocer-los-datos">4. <strong>Paso 1:</strong> conocer los datos<a class="anchor" aria-label="anchor" href="#paso-1-conocer-los-datos"></a>
+<h2 id="qué-datos-contiene">¿Qué datos contiene?<a class="anchor" aria-label="anchor" href="#qu%C3%A9-datos-contiene"></a>
 </h2>
-<p>Antes de analizar cualquier cosa hay que <strong>mirar los
-datos</strong>. Este paso evita la mayoría de los errores.</p>
-<div class="section level3">
-<h3 id="la-matriz-de-cuentas-filtered_txi">4.1 La matriz de cuentas: <code>filtered_txi</code><a class="anchor" aria-label="anchor" href="#la-matriz-de-cuentas-filtered_txi"></a>
-</h3>
-<p><code>filtered_txi</code> es una lista con varias matrices. La más
-importante es <code>counts</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "abundance"           "counts"              "length"             </span></span>
-<span><span class="co">#&gt; [4] "countsFromAbundance"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span> <span class="co"># genes x muestras</span></span>
-<span><span class="co">#&gt; [1] 21718    99</span></span>
-<span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
-<span><span class="co">#&gt;          QR011_0   QR011_1  QR011_3 QR013_0</span></span>
-<span><span class="co">#&gt; A1BG     179.000   134.000  401.000 163.000</span></span>
-<span><span class="co">#&gt; A1BG-AS1  69.977    76.949  205.607  76.942</span></span>
-<span><span class="co">#&gt; A1CF       0.000     0.000    0.000   0.000</span></span>
-<span><span class="co">#&gt; A2M       16.000 27777.937 3700.000  29.584</span></span>
-<span><span class="co">#&gt; A2M-AS1   11.000    14.063   12.000  24.416</span></span></code></pre></div>
-<ul>
-<li>
-<strong>Filas = genes</strong> (21,718 genes, identificados por su
-símbolo, por ejemplo <code>A2M</code>).</li>
-<li>
-<strong>Columnas = muestras</strong> (99). El nombre de cada muestra
-tiene dos partes: <code>QR011_1</code> = paciente <code>QR011</code>,
-tipo celular <code>1</code> (<code>_0</code> = monocito, <code>_1</code>
-= moDC, <code>_3</code> = tolDC).</li>
-</ul>
-<p>Observa dos detalles:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Hay números con decimales.</strong> Salmon <em>estima</em>
-las cuentas, porque algunas lecturas podrían venir de más de un gen. No
-hay que redondearlas a mano: <code>DESeq2</code> lo hará por
-nosotros.</li>
-<li>
-<strong>Hay muchos ceros.</strong> ¿Qué proporción de la tabla es
-cero?</li>
-</ol>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.3492151</span></span></code></pre></div>
-<p>Y los valores son muy desiguales. Veamos la primera muestra:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. </span></span>
-<span><span class="co">#&gt;      0.0      0.0     30.0    873.3    514.8 432335.0</span></span></code></pre></div>
-<p>La mitad de los genes tiene pocas lecturas y unos cuantos tienen
-cientos de miles. Esta desigualdad será importante más adelante.</p>
-</div>
-<div class="section level3">
-<h3 id="los-metadatos-metadata_cleaned">4.2 Los metadatos: <code>metadata_cleaned</code><a class="anchor" aria-label="anchor" href="#los-metadatos-metadata_cleaned"></a>
-</h3>
-<p>Los metadatos describen <strong>quién es cada muestra</strong>: su
-grupo, tipo celular, edad, tratamiento, actividad de la enfermedad,
-etc.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">metadata_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">sample_ID</span>, <span class="va">Group</span>, <span class="va">Cell_type</span>, <span class="va">Age</span>, <span class="va">GC</span>, <span class="va">SLEDAI_category</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;         sample_ID Group Cell_type Age GC SLEDAI_category</span></span>
-<span><span class="co">#&gt; QR011_0   QR011_0  Ctrl  monocyte  25 No            Zero</span></span>
-<span><span class="co">#&gt; QR011_1   QR011_1  Ctrl      moDC  25 No            Zero</span></span>
-<span><span class="co">#&gt; QR011_3   QR011_3  Ctrl     tolDC  25 No            Zero</span></span>
-<span><span class="co">#&gt; QR013_0   QR013_0  Ctrl  monocyte  23 No            Zero</span></span>
-<span><span class="co">#&gt; QR013_1   QR013_1  Ctrl      moDC  23 No            Zero</span></span>
-<span><span class="co">#&gt; QR013_3   QR013_3  Ctrl     tolDC  23 No            Zero</span></span></code></pre></div>
-<p>¿Cuántas muestras hay de cada combinación?</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">metadata_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Group</span>, <span class="va">Cell_type</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Group Cell_type  n</span></span>
-<span><span class="co">#&gt; 1  Ctrl      moDC 10</span></span>
-<span><span class="co">#&gt; 2  Ctrl  monocyte 10</span></span>
-<span><span class="co">#&gt; 3  Ctrl     tolDC 10</span></span>
-<span><span class="co">#&gt; 4   SLE      moDC 23</span></span>
-<span><span class="co">#&gt; 5   SLE  monocyte 23</span></span>
-<span><span class="co">#&gt; 6   SLE     tolDC 23</span></span></code></pre></div>
-<p>Las tres muestras de una misma paciente <strong>no son
-independientes</strong>: comparten su genética, su edad y su historia
-clínica. Guardemos el identificador de cada voluntaria en una columna
-<code>Volunteer_ID</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Volunteer_ID</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"_.*"</span>, <span class="st">""</span>, <span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">sample_ID</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Volunteer_ID</span><span class="op">)</span> <span class="co"># número de participantes</span></span>
-<span><span class="co">#&gt; [1] 33</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="coinciden-las-cuentas-y-los-metadatos">4.3 ¿Coinciden las cuentas y los metadatos?<a class="anchor" aria-label="anchor" href="#coinciden-las-cuentas-y-los-metadatos"></a>
-</h3>
-<p>Es la comprobación <strong>más importante</strong> de todo el
-análisis: la columna 1 de la matriz de cuentas debe corresponder a la
-fila 1 de los metadatos, la 2 a la 2, y así sucesivamente. Si el orden
-no coincide, todas las conclusiones serán falsas y R <strong>no te
-avisará</strong>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span> <span class="op">==</span> <span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">sample_ID</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
-<p><code>TRUE</code>: podemos continuar.</p>
-<div class="callout-note">
-<p><strong>Reto 1.</strong> ¿Cuántas pacientes con lupus tienen nefritis
-(daño renal)? <em>Pista:</em> cada paciente aparece tres veces; filtra
-un solo tipo celular antes de contar.</p>
-</div>
-<details class="callout-tip"><summary>
-Ver solución
-</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">metadata_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Cell_type</span> <span class="op">==</span> <span class="st">"monocyte"</span>, <span class="va">Group</span> <span class="op">==</span> <span class="st">"SLE"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Nephritis</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Nephritis  n</span></span>
-<span><span class="co">#&gt; 1        No 20</span></span>
-<span><span class="co">#&gt; 2        Si  3</span></span></code></pre></div>
-</details>
-</div>
-<div class="section level3">
-<h3 id="la-información-de-cada-voluntaria-volunteer_info">4.4 La información de cada voluntaria:
-<code>volunteer_info</code><a class="anchor" aria-label="anchor" href="#la-informaci%C3%B3n-de-cada-voluntaria-volunteer_info"></a>
-</h3>
-<p><code>metadata_cleaned</code> tiene <strong>una fila por
-muestra</strong>. Pero hay datos que pertenecen a la
-<strong>persona</strong>, no a la muestra: cuándo fue reclutada, cuántos
-años lleva con el diagnóstico o qué tratamientos recibe. Si los
-pusiéramos en <code>metadata_cleaned</code>, cada dato aparecería
-repetido tres veces. Por eso viven en otra tabla,
-<code>volunteer_info</code>, con <strong>una fila por
-voluntaria</strong>:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">volunteer_info</span><span class="op">)</span> <span class="co"># 33 voluntarias</span></span>
-<span><span class="co">#&gt; [1] 33 16</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">volunteer_info</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Volunteer_ID Volunteer Group Age_years Years_with_diagnosis</span></span>
-<span><span class="co">#&gt; 1        QR011         1  Ctrl        25                   NA</span></span>
-<span><span class="co">#&gt; 2        QR013         2  Ctrl        23                   NA</span></span>
-<span><span class="co">#&gt; 3        QR014         3   SLE        32                    5</span></span>
-<span><span class="co">#&gt; 4        QR017         4   SLE        22                    4</span></span>
-<span><span class="co">#&gt; 5        QR020         5   SLE        42                    5</span></span>
-<span><span class="co">#&gt; 6        QR021         6   SLE        23                    4</span></span>
-<span><span class="co">#&gt;   Age_at_diagnosis_years SLEDAI Nephritis Treatment_GCC GCC_drug GCC_dose_mg</span></span>
-<span><span class="co">#&gt; 1                     NA     NA      &lt;NA&gt;            NA     &lt;NA&gt;          NA</span></span>
-<span><span class="co">#&gt; 2                     NA     NA      &lt;NA&gt;            NA     &lt;NA&gt;          NA</span></span>
-<span><span class="co">#&gt; 3                     27      1       Yes          TRUE      PDN           5</span></span>
-<span><span class="co">#&gt; 4                     18      1        No          TRUE      PDN           8</span></span>
-<span><span class="co">#&gt; 5                     37      0        No         FALSE     &lt;NA&gt;          NA</span></span>
-<span><span class="co">#&gt; 6                     19      0        No         FALSE     &lt;NA&gt;          NA</span></span>
-<span><span class="co">#&gt;   Treatment_AM Treatment_MMF Treatment_AZT Treatment_MTT Time_of_recruitment</span></span>
-<span><span class="co">#&gt; 1           NA            NA            NA            NA          2022-06-01</span></span>
-<span><span class="co">#&gt; 2           NA            NA            NA            NA          2022-06-01</span></span>
-<span><span class="co">#&gt; 3         TRUE          TRUE         FALSE         FALSE          2022-06-01</span></span>
-<span><span class="co">#&gt; 4        FALSE         FALSE         FALSE         FALSE          2022-06-01</span></span>
-<span><span class="co">#&gt; 5         TRUE         FALSE          TRUE         FALSE          2022-06-01</span></span>
-<span><span class="co">#&gt; 6        FALSE         FALSE         FALSE         FALSE          2022-06-01</span></span></code></pre></div>
-<p>Las dos tablas comparten la columna <code>Volunteer_ID</code>. Es la
-<strong>columna llave</strong>: nos permitirá unirlas cuando lo
-necesitemos (lo harás en el Reto 4).</p>
-<p>Con esta tabla, el Reto 1 se resuelve en una línea, porque cada
-persona aparece una sola vez:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">volunteer_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Group</span>, <span class="va">Nephritis</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Group Nephritis  n</span></span>
-<span><span class="co">#&gt; 1  Ctrl      &lt;NA&gt; 10</span></span>
-<span><span class="co">#&gt; 2   SLE        No 20</span></span>
-<span><span class="co">#&gt; 3   SLE       Yes  3</span></span></code></pre></div>
-<p>¿Cuántas voluntarias se reclutaron cada mes?</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">volunteer_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Recruitment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">Time_of_recruitment</span>, <span class="st">"%Y-%m"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># "2022-06", "2022-07", ...</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Recruitment</span>, <span class="va">Group</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">Group</span>, values_from <span class="op">=</span> <span class="va">n</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 3</span></span></span>
-<span><span class="co">#&gt;   Recruitment  Ctrl   SLE</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 2022-06         2     4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2022-07         0     1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 2022-08         3     1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 2022-09         0     1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 2022-10         1     4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> 2022-12         1     1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> 2023-01         2    10</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> 2023-02         1     1</span></span></code></pre></div>
-<p>Fíjate en enero de 2023: se reclutaron 10 pacientes y solo 2
-controles. Recuerda este detalle; volveremos a él en el PCA.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="paso-2-crear-el-objeto-deseqdataset">5. <strong>Paso 2:</strong> crear el objeto
-<code>DESeqDataSet</code><a class="anchor" aria-label="anchor" href="#paso-2-crear-el-objeto-deseqdataset"></a>
-</h2>
-<p><code>DESeq2</code> guarda todo en un solo objeto, como un
-<strong>expediente</strong> con tres partes:</p>
-<table class="table">
-<thead><tr class="header">
-<th>Parte</th>
-<th>Qué contiene</th>
-<th>Cómo verla</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Cuentas</td>
-<td>La matriz genes × muestras</td>
-<td><code>counts(dds)</code></td>
-</tr>
-<tr class="even">
-<td>Metadatos</td>
-<td>La información de cada muestra</td>
-<td><code>colData(dds)</code></td>
-</tr>
-<tr class="odd">
-<td>Diseño</td>
-<td>Qué variables explican las diferencias</td>
-<td><code>design(dds)</code></td>
-</tr>
-</tbody>
-</table>
-<p>Antes de crearlo elegimos los <strong>niveles de referencia</strong>,
-es decir, contra qué comparamos. Lo natural es comparar contra los
-controles sanos (<code>Ctrl</code>) y contra los monocitos, la célula de
-origen.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Group</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Group</span>, ref <span class="op">=</span> <span class="st">"Ctrl"</span><span class="op">)</span></span>
-<span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Cell_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Cell_type</span>, ref <span class="op">=</span> <span class="st">"monocyte"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromTximport</a></span><span class="op">(</span>txi     <span class="op">=</span> <span class="va">filtered_txi</span>,</span>
-<span>                                colData <span class="op">=</span> <span class="va">metadata_cleaned</span>,</span>
-<span>                                design  <span class="op">=</span> <span class="op">~</span> <span class="va">Cell_type</span> <span class="op">+</span> <span class="va">Group</span><span class="op">)</span></span>
-<span><span class="va">dds</span></span>
-<span><span class="co">#&gt; class: DESeqDataSet </span></span>
-<span><span class="co">#&gt; dim: 21718 99 </span></span>
-<span><span class="co">#&gt; metadata(1): version</span></span>
-<span><span class="co">#&gt; assays(2): counts avgTxLength</span></span>
-<span><span class="co">#&gt; rownames(21718): A1BG A1BG-AS1 ... ZZEF1 ZZZ3</span></span>
-<span><span class="co">#&gt; rowData names(0):</span></span>
-<span><span class="co">#&gt; colnames(99): QR011_0 QR011_1 ... QR108_1 QR108_3</span></span>
-<span><span class="co">#&gt; colData names(15): sample_ID Group ... SLEDAI_category Volunteer_ID</span></span></code></pre></div>
-<p>La fórmula <code>~ Cell_type + Group</code> se lee: <em>“la expresión
-de cada gen depende del tipo celular y del grupo (lupus o
-control)”</em>.</p>
-<div class="alert alert-info">
-<p>Al usar <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromTximport()</a></code> aparece el mensaje
-<code>using counts and average transcript lengths from tximport</code>.
-Significa que <code>DESeq2</code> también guardó la <strong>longitud de
-los transcritos</strong> de cada gen en cada muestra y la usará al
-normalizar.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="paso-3-filtrar-los-genes-poco-expresados">6. <strong>Paso 3:</strong> filtrar los genes poco expresados<a class="anchor" aria-label="anchor" href="#paso-3-filtrar-los-genes-poco-expresados"></a>
-</h2>
-<p>Un gen con 0 o 2 lecturas en casi todas las muestras no aporta
-información: es ruido. Lo quitamos.</p>
-<p><strong>Regla:</strong> conservamos los genes con <strong>al menos 10
-lecturas en al menos 10 muestras</strong>. Elegimos 10 muestras porque
-es el tamaño del grupo más pequeño (10 controles por tipo celular). Así
-no descartamos un gen que solo se exprese en ese grupo.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">keep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="fu">counts</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">10</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">keep</span><span class="op">)</span> <span class="co"># FALSE = se eliminan, TRUE = se conservan</span></span>
-<span><span class="co">#&gt; keep</span></span>
-<span><span class="co">#&gt; FALSE  TRUE </span></span>
-<span><span class="co">#&gt;  8122 13596</span></span>
-<span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="va">dds</span><span class="op">[</span><span class="va">keep</span>, <span class="op">]</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 13596    99</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="paso-4-normalización">7. <strong>Paso 4:</strong> normalización<a class="anchor" aria-label="anchor" href="#paso-4-normalizaci%C3%B3n"></a>
-</h2>
-<div class="section level3">
-<h3 id="por-qué-hay-que-normalizar">7.1 ¿Por qué hay que normalizar?<a class="anchor" aria-label="anchor" href="#por-qu%C3%A9-hay-que-normalizar"></a>
-</h3>
-<p>Imagina dos muestras con un mismo gen X:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>sample      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
-<span>       total_reads <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10e6</span>, <span class="fl">20e6</span><span class="op">)</span>,</span>
-<span>       geneX_reads <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>geneX_per_million <span class="op">=</span> <span class="va">geneX_reads</span> <span class="op">/</span> <span class="va">total_reads</span> <span class="op">*</span> <span class="fl">1e6</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span></span>
-<span><span class="co">#&gt;   sample total_reads geneX_reads geneX_per_million</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> A         10<span style="text-decoration: underline;">000</span>000         100                10</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> B         20<span style="text-decoration: underline;">000</span>000         200                10</span></span></code></pre></div>
-<p>La muestra B tiene el doble de lecturas del gen X, pero
-<strong>también se secuenció el doble</strong>. Una vez corregido, el
-gen X se expresa igual en las dos. Esa corrección es la
-<strong>normalización</strong>.</p>
-<p>¿Varía mucho la profundidad de secuenciación en nuestros datos?</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>sample_ID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span>,</span>
-<span>       million_reads  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu">counts</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1e6</span>,</span>
-<span>       Cell_type <span class="op">=</span> <span class="va">dds</span><span class="op">$</span><span class="va">Cell_type</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">sample_ID</span>, <span class="va">million_reads</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">million_reads</span>, fill <span class="op">=</span> <span class="va">Cell_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">cell_color</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Muestras (ordenadas)"</span>, y <span class="op">=</span> <span class="st">"Millones de lecturas"</span>, fill <span class="op">=</span> <span class="st">"Tipo celular"</span>,</span>
-<span>       title <span class="op">=</span> <span class="st">"Tamaño de librería por muestra"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/library_size-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<p>Sí: algunas muestras tienen varias veces más lecturas que otras.
-<strong>Sin normalizar, compararíamos profundidad de secuenciación, no
-biología.</strong></p>
-</div>
-<div class="section level3">
-<h3 id="cómo-normaliza-deseq2">7.2 ¿Cómo normaliza DESeq2?<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-normaliza-deseq2"></a>
-</h3>
-<p><code>DESeq2</code> usa el método de la <strong>mediana de las
-razones</strong>. En palabras sencillas:</p>
-<ol style="list-style-type: decimal">
-<li>Para cada gen calcula una muestra “promedio” de referencia (la media
-geométrica de todas las muestras).</li>
-<li>Divide cada muestra entre esa referencia, gen por gen.</li>
-<li>La <strong>mediana</strong> de esas divisiones es el <strong>factor
-de normalización</strong> de la muestra. Usar la mediana evita que unos
-pocos genes muy expresados distorsionen el resultado.</li>
-</ol>
-<p>Con datos de <code>tximport</code> hay un detalle extra: además de la
-profundidad, se corrige la <strong>longitud de los transcritos</strong>,
-que puede variar entre muestras. Por eso, en lugar de un solo número por
-muestra (<code>sizeFactors</code>), <code>DESeq2</code> guarda una tabla
-de factores gen × muestra (<code>normalizationFactors</code>).</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu">estimateSizeFactors</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span>
-<span><span class="fu">sizeFactors</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span>                    <span class="co"># NULL: con tximport no se usa</span></span>
-<span><span class="co">#&gt; NULL</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/normalizationFactors.html" class="external-link">normalizationFactors</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="co"># factores gen x muestra</span></span>
-<span><span class="co">#&gt;            QR011_0   QR011_1   QR011_3   QR013_0</span></span>
-<span><span class="co">#&gt; A1BG     0.7292214 0.7590954 0.9675822 0.8422480</span></span>
-<span><span class="co">#&gt; A1BG-AS1 0.7301966 0.7591523 0.9701181 0.8427474</span></span>
-<span><span class="co">#&gt; A2M      0.7285477 0.7554575 0.9710304 0.9000925</span></span>
-<span><span class="co">#&gt; A2M-AS1  0.7302545 0.7590955 0.9703467 0.8427377</span></span></code></pre></div>
-<p>Con los factores calculados ya podemos obtener las <strong>cuentas
-normalizadas</strong>:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">norm_counts</span> <span class="op">&lt;-</span> <span class="fu">counts</span><span class="op">(</span><span class="va">dds</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">norm_counts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
-<span><span class="co">#&gt;            QR011_0    QR011_1    QR011_3   QR013_0</span></span>
-<span><span class="co">#&gt; A1BG     245.46729   176.5259  414.43509 193.52969</span></span>
-<span><span class="co">#&gt; A1BG-AS1  95.86459   101.4289  212.34528  91.36783</span></span>
-<span><span class="co">#&gt; A2M       21.96150 36769.7731 3810.38550  33.32991</span></span>
-<span><span class="co">#&gt; A2M-AS1   15.06324    18.4430   12.36671  28.47861</span></span></code></pre></div>
-<div class="alert alert-warning">
-<p><strong>Importante:</strong> las cuentas normalizadas sirven para
-<strong>comparar y graficar</strong>. Para el análisis de expresión
-diferencial (<code><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq()</a></code>) siempre se usan las <strong>cuentas
-crudas</strong>, porque <code>DESeq2</code> aplica la normalización
-internamente. Nunca le pases cuentas ya normalizadas.</p>
-</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="paso-5-transformación-estabilizadora-de-la-varianza-vst">8. <strong>Paso 5:</strong> transformación estabilizadora de la
-varianza (VST)<a class="anchor" aria-label="anchor" href="#paso-5-transformaci%C3%B3n-estabilizadora-de-la-varianza-vst"></a>
-</h2>
-<div class="section level3">
-<h3 id="por-qué-otra-transformación">8.1 ¿Por qué otra transformación?<a class="anchor" aria-label="anchor" href="#por-qu%C3%A9-otra-transformaci%C3%B3n"></a>
-</h3>
-<p>Las cuentas normalizadas todavía tienen un problema: <strong>los
-genes muy expresados varían mucho más que los poco expresados</strong>,
-solo por su escala. Si hiciéramos un PCA o un <em>heatmap</em> con
-ellas, unos cuantos genes muy abundantes dominarían el resultado.</p>
-<p>La solución es usar una escala logarítmica. Pero
-<code>log2(x + 1)</code> exagera el ruido de los genes con pocas
-cuentas. La <strong>VST</strong> (<em>variance stabilizing
-transformation</em>) es un logaritmo “inteligente” que corrige eso.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">vsd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/vst.html" class="external-link">vst</a></span><span class="op">(</span><span class="va">dds</span>, blind <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">vsd</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span> <span class="co"># valores en escala aproximadamente log2</span></span>
-<span><span class="co">#&gt;           QR011_0   QR011_1   QR011_3  QR013_0</span></span>
-<span><span class="co">#&gt; A1BG     8.335329  7.980506  8.947756 8.076851</span></span>
-<span><span class="co">#&gt; A1BG-AS1 7.396740  7.446462  8.176147 7.355095</span></span>
-<span><span class="co">#&gt; A2M      6.400719 15.169477 11.926583 6.626424</span></span>
-<span><span class="co">#&gt; A2M-AS1  6.229470  6.317794  6.150936 6.536546</span></span></code></pre></div>
-<div class="alert alert-info">
-<p><strong>¿<code>blind = TRUE</code> o
-<code>blind = FALSE</code>?</strong> Con <code>blind = FALSE</code>, la
-transformación conoce el diseño (<code>~ Cell_type + Group</code>) y no
-confunde las diferencias biológicas esperadas con ruido. Es lo
-recomendado para gráficas y análisis posteriores. Usa
-<code>blind = TRUE</code> si quieres una exploración que no sepa nada
-del diseño, por ejemplo, para control de calidad.</p>
-</div>
-<p>Comprobémoslo: la gráfica muestra, para cada gen, su expresión media
-(eje x) contra su desviación estándar (eje y). Lo ideal es una línea
-<strong>plana</strong>: que la variabilidad no dependa de cuánto se
-expresa el gen.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mean_vs_sd</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mat</span>, <span class="va">label</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">mat</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span>, scale <span class="op">=</span> <span class="va">label</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="fu">mean_vs_sd</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">norm_counts</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>, <span class="st">"log2(cuentas normalizadas + 1)"</span><span class="op">)</span>,</span>
-<span>          <span class="fu">mean_vs_sd</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">vsd</span><span class="op">)</span>, <span class="st">"VST"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mean</span>, y <span class="op">=</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.05</span>, size <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">scale</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Expresión media del gen"</span>, y <span class="op">=</span> <span class="st">"Desviación estándar"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/mean_sd-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<p>Con <code>log2(x + 1)</code>, los genes de baja expresión (izquierda)
-tienen una variabilidad inflada. Con VST la línea roja queda más
-plana.</p>
-</div>
-<div class="section level3">
-<h3 id="funcionó-la-normalización">8.2 ¿Funcionó la normalización?<a class="anchor" aria-label="anchor" href="#funcion%C3%B3-la-normalizaci%C3%B3n"></a>
-</h3>
-<p>Si todo salió bien, las distribuciones de todas las muestras deben
-quedar <strong>alineadas</strong>. Cada caja es una muestra:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">to_long</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mat</span>, <span class="va">stage</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">gene</span>, names_to <span class="op">=</span> <span class="st">"sample_ID"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>stage <span class="op">=</span> <span class="va">stage</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="fu">to_long</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="fu">counts</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>, <span class="st">"1. log2(cuentas crudas + 1)"</span><span class="op">)</span>,</span>
-<span>          <span class="fu">to_long</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">norm_counts</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>, <span class="st">"2. log2(cuentas normalizadas + 1)"</span><span class="op">)</span>,</span>
-<span>          <span class="fu">to_long</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">vsd</span><span class="op">)</span>, <span class="st">"3. VST"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">metadata_cleaned</span>, by <span class="op">=</span> <span class="st">"sample_ID"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sample_ID</span>, y <span class="op">=</span> <span class="va">value</span>, fill <span class="op">=</span> <span class="va">Cell_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span>, linewidth <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">stage</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">cell_color</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Muestras"</span>, y <span class="op">=</span> <span class="st">"Expresión"</span>, fill <span class="op">=</span> <span class="st">"Tipo celular"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/norm_check-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<p>En el panel 1 las cajas suben y bajan de una muestra a otra; en los
-paneles 2 y 3 quedan a la misma altura. La normalización funcionó.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="paso-6-explorar-genes-individuales">9. <strong>Paso 6:</strong> explorar genes individuales<a class="anchor" aria-label="anchor" href="#paso-6-explorar-genes-individuales"></a>
-</h2>
-<div class="section level3">
-<h3 id="tienen-sentido-biológico-los-datos">9.1 ¿Tienen sentido biológico los datos?<a class="anchor" aria-label="anchor" href="#tienen-sentido-biol%C3%B3gico-los-datos"></a>
-</h3>
-<p>Antes de buscar algo nuevo, comprueba algo que <strong>ya
-sabes</strong>. Si los datos son buenos, los genes marcadores de cada
-tipo celular deben comportarse como se espera:</p>
-<ul>
-<li>
-<strong>CD14</strong>: marcador clásico de monocitos.</li>
-<li>
-<strong>CD1A</strong> y <strong>CD209</strong> (DC-SIGN): marcadores
-de células dendríticas.</li>
-</ul>
-<p>Primero preparamos una tabla en formato largo con la expresión VST y
-los metadatos. Es el formato que prefiere <code>ggplot2</code>:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">expr_long</span> <span class="op">&lt;-</span> <span class="fu">to_long</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">vsd</span><span class="op">)</span>, <span class="st">"VST"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">sample_ID</span>, expression <span class="op">=</span> <span class="va">value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">metadata_cleaned</span>, by <span class="op">=</span> <span class="st">"sample_ID"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">expr_long</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 17</span></span></span>
-<span><span class="co">#&gt;   gene  sample_ID expression Group GC    Dose  Dose_category Age   Cell_type</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> A1BG  QR011_0         8.34 Ctrl  No    0     0             25    monocyte </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> A1BG  QR011_1         7.98 Ctrl  No    0     0             25    moDC     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> A1BG  QR011_3         8.95 Ctrl  No    0     0             25    tolDC    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> A1BG  QR013_0         8.08 Ctrl  No    0     0             23    monocyte </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> A1BG  QR013_1         8.25 Ctrl  No    0     0             23    moDC     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> A1BG  QR013_3         8.18 Ctrl  No    0     0             23    tolDC    </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 8 more variables: Group_age &lt;fct&gt;, Nephritis &lt;fct&gt;, Other_tx &lt;fct&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   Sledai_score &lt;fct&gt;, Sledai_group &lt;fct&gt;, SLEDAI_Md &lt;fct&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   SLEDAI_category &lt;fct&gt;, Volunteer_ID &lt;fct&gt;</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">expr_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CD14"</span>, <span class="st">"CD1A"</span>, <span class="st">"CD209"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Cell_type</span>, y <span class="op">=</span> <span class="va">expression</span>, fill <span class="op">=</span> <span class="va">Cell_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.15</span>, size <span class="op">=</span> <span class="fl">0.8</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">gene</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">cell_color</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Expresión (VST)"</span>, title <span class="op">=</span> <span class="st">"Genes marcadores de tipo celular"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/markers-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<p><code>CD14</code> es alto en monocitos y <code>CD1A</code> en moDC,
-tal como esperábamos. Los datos tienen sentido.</p>
-</div>
-<div class="section level3">
-<h3 id="la-firma-de-interferón-en-lupus">9.2 La firma de interferón en lupus<a class="anchor" aria-label="anchor" href="#la-firma-de-interfer%C3%B3n-en-lupus"></a>
-</h3>
-<p>Ahora sí, la pregunta del estudio. Veamos cuatro genes estimulados
-por interferón (ISG) reportados en el artículo: <strong>IFI27, IFI44L,
-USP18 e IFI6</strong>.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">isg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IFI27"</span>, <span class="st">"IFI44L"</span>, <span class="st">"USP18"</span>, <span class="st">"IFI6"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">expr_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">isg</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Cell_type</span>, y <span class="op">=</span> <span class="va">expression</span>, fill <span class="op">=</span> <span class="va">Group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitterdodge.html" class="external-link">position_jitterdodge</a></span><span class="op">(</span>jitter.width <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.7</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">gene</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">group_color</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Expresión (VST)"</span>, fill <span class="op">=</span> <span class="st">"Grupo"</span>,</span>
-<span>       title <span class="op">=</span> <span class="st">"Genes estimulados por interferón"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/isg_genes-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<p><strong>¿Qué observas?</strong> En los <strong>monocitos</strong>,
-las pacientes con lupus (morado) expresan más estos genes que los
-controles (verde). Fíjate también en que los puntos morados están muy
-dispersos: algunas pacientes tienen valores muy altos y otras, valores
-parecidos a los controles. En moDC y tolDC la diferencia es mucho menor:
-al diferenciarse <em>in vitro</em>, lejos del ambiente inflamatorio del
-cuerpo, las células “olvidan” en parte la señal de interferón.</p>
-<div class="alert alert-warning">
-<p><strong>Esto todavía no es una prueba estadística.</strong> Una
-gráfica sugiere diferencias; para afirmarlas se necesita un análisis de
-expresión diferencial (por ejemplo, con <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq()</a></code>), que toma
-en cuenta la variabilidad y las comparaciones múltiples.</p>
-</div>
-<div class="callout-note">
-<p><strong>Reto 2.</strong> En el artículo se reporta que en las tolDC
-de pacientes con lupus disminuye <strong>IL10RA</strong>, el receptor de
-la señal antiinflamatoria IL-10. Grafica <code>IL10RA</code> e
-<code>IRF4</code> por tipo celular y grupo. ¿Ves alguna diferencia?</p>
-</div>
-<details class="callout-tip"><summary>
-Ver solución
-</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">expr_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IL10RA"</span>, <span class="st">"IRF4"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Cell_type</span>, y <span class="op">=</span> <span class="va">expression</span>, fill <span class="op">=</span> <span class="va">Group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span>outlier.shape <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">gene</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">group_color</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-</details>
-</div>
-</div>
-<div class="section level2">
-<h2 id="paso-7-heatmap-con-z-scores">10. <strong>Paso 7:</strong> <em>heatmap</em> con z-scores<a class="anchor" aria-label="anchor" href="#paso-7-heatmap-con-z-scores"></a>
-</h2>
-<p>Un <em>heatmap</em> muestra muchos genes y muestras a la vez con
-colores. Pero cada gen tiene su propia escala (uno puede rondar 6 y otro
-15), así que primero los <strong>estandarizamos</strong> con el
-<strong>z-score</strong>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mfrac><mrow><mtext mathvariant="normal">expresión</mtext><mo>−</mo><mtext mathvariant="normal">media del gen</mtext></mrow><mtext mathvariant="normal">desviación estándar del gen</mtext></mfrac></mrow><annotation encoding="application/x-tex">z = \frac{\text{expresión} - \text{media del gen}}{\text{desviación estándar del gen}}</annotation></semantics></math></p>
-<p>Un z-score de <code>+2</code> significa <em>“este gen está 2
-desviaciones estándar por encima de su propio promedio en esta
-muestra”</em>. Así todos los genes quedan en la misma escala.</p>
-<div class="alert alert-warning">
-<p>Calcula los z-scores sobre los <strong>datos transformados
-(VST)</strong>, nunca sobre las cuentas crudas. Las cuentas crudas no
-están corregidas por profundidad de secuenciación, así que el
-<em>heatmap</em> mostraría el tamaño de librería en vez de la
-biología.</p>
-</div>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">vsd_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">vsd</span><span class="op">)</span></span>
-<span><span class="va">vsd_mat</span> <span class="op">&lt;-</span> <span class="va">vsd_mat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">vsd_mat</span>, <span class="fl">1</span>, <span class="va">var</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="op">]</span> <span class="co"># quitar genes sin variación</span></span>
-<span><span class="va">zscore_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">vsd_mat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>               <span class="co"># scale() trabaja por columnas: transponemos</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">zscore_mat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 13596    99</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">zscore_mat</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt;          QR011_0 QR011_1 QR011_3 QR013_0</span></span>
-<span><span class="co">#&gt; A1BG        1.02    0.15    2.51    0.39</span></span>
-<span><span class="co">#&gt; A1BG-AS1   -0.38   -0.26    1.48   -0.48</span></span>
-<span><span class="co">#&gt; A2M        -1.35    1.12    0.20   -1.28</span></span>
-<span><span class="co">#&gt; A2M-AS1    -0.28    0.01   -0.54    0.72</span></span></code></pre></div>
-<p>Dibujamos el <em>heatmap</em> de un conjunto de ISG, con las muestras
-agrupadas por tipo celular y grupo:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">isg_extended</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IFI27"</span>, <span class="st">"IFI44L"</span>, <span class="st">"IFI44"</span>, <span class="st">"USP18"</span>, <span class="st">"IFI6"</span>, <span class="st">"ISG15"</span>, <span class="st">"MX1"</span>, <span class="st">"RSAD2"</span>, <span class="st">"IFIT1"</span>, <span class="st">"OAS1"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">zscore_mat</span><span class="op">[</span><span class="va">isg_extended</span>, <span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">gene</span>, names_to <span class="op">=</span> <span class="st">"sample_ID"</span>, values_to <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">metadata_cleaned</span>, by <span class="op">=</span> <span class="st">"sample_ID"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmin</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmax</a></span><span class="op">(</span><span class="va">z</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># limitar a [-2, 2] para que los extremos no dominen el color</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sample_ID</span>, y <span class="op">=</span> <span class="va">gene</span>, fill <span class="op">=</span> <span class="va">z</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_tile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Cell_type</span> <span class="op">+</span> <span class="va">Group</span>, scales <span class="op">=</span> <span class="st">"free_x"</span>, space <span class="op">=</span> <span class="st">"free_x"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html" class="external-link">scale_fill_gradient2</a></span><span class="op">(</span>low <span class="op">=</span> <span class="st">"steelblue"</span>, mid <span class="op">=</span> <span class="st">"white"</span>, high <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Muestras"</span>, y <span class="op">=</span> <span class="cn">NULL</span>, fill <span class="op">=</span> <span class="st">"z-score"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>, panel.grid <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>        strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/heatmap-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
-<p>Las columnas rojas en <code>monocyte / SLE</code> son la
-<strong>firma de interferón</strong>: los 10 genes suben
-<strong>juntos</strong> en las mismas pacientes. También se ve que no
-todas las pacientes la tienen; volveremos a esto en el PCA.</p>
-</div>
-<div class="section level2">
-<h2 id="paso-8-análisis-de-componentes-principales-pca">11. <strong>Paso 8:</strong> análisis de componentes principales
-(PCA)<a class="anchor" aria-label="anchor" href="#paso-8-an%C3%A1lisis-de-componentes-principales-pca"></a>
-</h2>
-<div class="section level3">
-<h3 id="qué-es-un-pca">11.1 ¿Qué es un PCA?<a class="anchor" aria-label="anchor" href="#qu%C3%A9-es-un-pca"></a>
-</h3>
-<p>Cada muestra está descrita por miles de genes, y no podemos graficar
-miles de dimensiones. El PCA busca las <strong>direcciones en las que
-las muestras se diferencian más</strong> y las resume en unos pocos
-ejes:</p>
-<ul>
-<li>
-<strong>PC1</strong> es el eje que captura la mayor parte de la
-variación.</li>
-<li>
-<strong>PC2</strong> captura la mayor parte de la variación que
-queda, y así sucesivamente.</li>
-</ul>
-<p>Es como tomar una foto de un objeto en 3D desde el ángulo que mejor
-muestra su forma. Si dos muestras quedan cerca en el PCA, sus perfiles
-de expresión se parecen.</p>
-</div>
-<div class="section level3">
-<h3 id="calcular-el-pca">11.2 Calcular el PCA<a class="anchor" aria-label="anchor" href="#calcular-el-pca"></a>
-</h3>
-<p>Usamos <strong>todos los genes</strong> que pasaron el filtro. Como
-vamos a repetir el cálculo, lo guardamos en una función:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">calc_pca</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">vsd_obj</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html" class="external-link">prcomp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">vsd_obj</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># prcomp() quiere muestras en filas, genes en columnas</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    data     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">vsd_obj</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    variance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">100</span> <span class="op">*</span> <span class="va">pca</span><span class="op">$</span><span class="va">sdev</span><span class="op">^</span><span class="fl">2</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pca</span><span class="op">$</span><span class="va">sdev</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># % de varianza por PC</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">pca_all</span> <span class="op">&lt;-</span> <span class="fu">calc_pca</span><span class="op">(</span><span class="va">vsd</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 63.44  9.51  3.71  2.62  2.05  1.94</span></span></code></pre></div>
-<p>¿Cuánta información guarda cada componente? Lo vemos en un <em>scree
-plot</em>:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">scree_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  component <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">)</span>,</span>
-<span>  variance  <span class="op">=</span> <span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span>,</span>
-<span>  label     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"PC"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">)</span>, <span class="st">": "</span>, <span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span>, <span class="st">"%"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">scree_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">component</span>, y <span class="op">=</span> <span class="va">variance</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"steelblue"</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">scree_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="op">]</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">label</span><span class="op">)</span>, <span class="co"># etiquetas solo en PC1-PC4</span></span>
-<span>                  size <span class="op">=</span> <span class="fl">5</span>, box.padding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.35</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
-<span>                  point.padding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
-<span>                  color <span class="op">=</span> <span class="st">"darkred"</span>, fontface <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Scree plot: varianza explicada por PCA"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Componente principal"</span>,</span>
-<span>       y <span class="op">=</span> <span class="st">"Porcentaje de varianza explicada"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/scree-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<p>PC1 y PC2 juntos explican casi tres cuartas partes de la variación; a
-partir de PC3 cada componente aporta muy poco. Bastará con graficar los
-dos primeros.</p>
-</div>
-<div class="section level3">
-<h3 id="graficar-el-pca">11.3 Graficar el PCA<a class="anchor" aria-label="anchor" href="#graficar-el-pca"></a>
-</h3>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">pca_all</span><span class="op">$</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, color <span class="op">=</span> <span class="va">Cell_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_ellipse.html" class="external-link">stat_ellipse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">Group</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">cell_color</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="fl">1</span>, SLE <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"PC1 ("</span>, <span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">"%)"</span><span class="op">)</span>,</span>
-<span>       y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"PC2 ("</span>, <span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="st">"%)"</span><span class="op">)</span>,</span>
-<span>       color <span class="op">=</span> <span class="st">"Tipo celular"</span>, shape <span class="op">=</span> <span class="st">"Grupo"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/pca_all-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<p><strong>¿Qué nos dice?</strong></p>
-<ul>
-<li>
-<strong>PC1</strong> separa a los monocitos de las células
-dendríticas: la diferenciación cambia por completo el perfil de
-expresión.</li>
-<li>
-<strong>PC2</strong> separa a las moDC de las tolDC.</li>
-<li>Controles y pacientes <strong>se mezclan</strong> dentro de cada
-tipo celular.</li>
-</ul>
-<p>Conclusión: <strong>el tipo celular es, por mucho, la mayor fuente de
-variación.</strong> El efecto del lupus es más sutil y queda
-“tapado”.</p>
-<div class="alert alert-info">
-<p><strong>¿Todos los genes o solo los más variables?</strong> Muchos
-tutoriales calculan el PCA solo con los 500 genes más variables. Esa
-elección cambia el resultado: con 500 genes, PC1 explica alrededor del
-80% de la variación; con todos, alrededor del 63%. Usamos todos los
-genes porque así se hizo en el artículo original (PC1 = 62.23%, PC2 =
-9.33%; la pequeña diferencia viene del filtrado de genes y de usar las
-longitudes de <code>tximport</code>). <strong>Siempre reporta cuántos
-genes usaste.</strong></p>
-</div>
-</div>
-<div class="section level3">
-<h3 id="mirar-dentro-de-un-solo-tipo-celular">11.4 Mirar dentro de un solo tipo celular<a class="anchor" aria-label="anchor" href="#mirar-dentro-de-un-solo-tipo-celular"></a>
-</h3>
-<p>Para ver el efecto del lupus hay que <strong>quitar la variación del
-tipo celular</strong>. Repitamos el PCA solo con los monocitos, que es
-donde vimos la firma de interferón:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pca_mono</span> <span class="op">&lt;-</span> <span class="fu">calc_pca</span><span class="op">(</span><span class="va">vsd</span><span class="op">[</span>, <span class="va">vsd</span><span class="op">$</span><span class="va">Cell_type</span> <span class="op">==</span> <span class="st">"monocyte"</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">pca_mono</span><span class="op">$</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, color <span class="op">=</span> <span class="va">Group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_ellipse.html" class="external-link">stat_ellipse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">group_color</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"PC1 ("</span>, <span class="va">pca_mono</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">"%)"</span><span class="op">)</span>,</span>
-<span>       y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"PC2 ("</span>, <span class="va">pca_mono</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="st">"%)"</span><span class="op">)</span>,</span>
-<span>       color <span class="op">=</span> <span class="st">"Grupo"</span>, title <span class="op">=</span> <span class="st">"PCA: solo monocitos"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/pca_mono-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<p>Sorpresa: <strong>aun así, controles y pacientes se mezclan.</strong>
-¿Quiere decir que no hay diferencias? No. Recuerda que en la sección 9.2
-solo <em>una parte</em> de las pacientes tenía la firma de interferón
-elevada. Comprobémoslo resumiendo los 10 ISG del <em>heatmap</em> en un
-solo número por muestra, la <strong>puntuación de firma de
-interferón</strong> (el promedio de sus z-scores):</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pca_mono</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">ifn_score</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">zscore_mat</span><span class="op">[</span><span class="va">isg_extended</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">pca_mono</span><span class="op">$</span><span class="va">data</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">pca_mono</span><span class="op">$</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, color <span class="op">=</span> <span class="va">ifn_score</span>, shape <span class="op">=</span> <span class="va">Group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html" class="external-link">scale_color_gradient2</a></span><span class="op">(</span>low <span class="op">=</span> <span class="st">"steelblue"</span>, mid <span class="op">=</span> <span class="st">"grey85"</span>, high <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="fl">1</span>, SLE <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"PC1 ("</span>, <span class="va">pca_mono</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">"%)"</span><span class="op">)</span>,</span>
-<span>       y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"PC2 ("</span>, <span class="va">pca_mono</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="st">"%)"</span><span class="op">)</span>,</span>
-<span>       color <span class="op">=</span> <span class="st">"Firma de\ninterferón"</span>, shape <span class="op">=</span> <span class="st">"Grupo"</span>, title <span class="op">=</span> <span class="st">"PCA: solo monocitos"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/pca_mono_ifn-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<p>¡Ahora sí aparece un patrón! <strong>PC2 se relaciona con la firma de
-interferón</strong>: las pacientes con la firma más alta (rojo) tienden
-a quedar en la parte de abajo. Aprendimos tres cosas:</p>
-<ul>
-<li>El PCA muestra las <strong>mayores</strong> fuentes de variación,
-que no siempre coinciden con los grupos que nos interesan.</li>
-<li>El lupus es <strong>heterogéneo</strong>: algunas pacientes tienen
-una firma de interferón fuerte y otras se parecen a los controles.</li>
-<li>Que dos grupos no se separen en un PCA <strong>no significa</strong>
-que no tengan genes diferentes.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="retos-qué-otras-variables-explican-la-variación">11.5 Retos: ¿qué otras variables explican la variación?<a class="anchor" aria-label="anchor" href="#retos-qu%C3%A9-otras-variables-explican-la-variaci%C3%B3n"></a>
-</h3>
-<p>El PCA sirve para preguntarle a los datos <strong>qué variables se
-asocian con las diferencias entre muestras</strong>. Colorear los puntos
-por distintas variables es la forma más rápida de hacerlo. Ahora te toca
-a ti.</p>
-<div class="callout-note">
-<p><strong>Reto 3. Actividad de la enfermedad.</strong> Colorea el PCA
-de todas las muestras (<code>pca_all</code>) por
-<code>SLEDAI_category</code> (actividad del lupus según el índice
-SLEDAI) y dibuja una elipse para cada tipo celular. ¿Las muestras de
-pacientes con enfermedad activa se separan de las demás?</p>
-<p><em>Pistas:</em></p>
-<ol style="list-style-type: decimal">
-<li>
-<code>SLEDAI_category</code> ya está en <code>pca_all$data</code>,
-porque viene de los metadatos.</li>
-<li>Colorea los puntos con <code>aes(color = SLEDAI_category)</code> y
-agrega las elipses con
-<code>stat_ellipse(aes(color = Cell_type))</code>.</li>
-</ol>
-</div>
-<details class="callout-tip"><summary>
-Ver solución
-</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Colores: tipos celulares (elipses) y actividad (puntos)</span></span>
-<span><span class="va">sledai_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="va">cell_color</span>,</span>
-<span>  <span class="st">"Activity"</span>    <span class="op">=</span> <span class="st">"#FC8D62"</span>,</span>
-<span>  <span class="st">"No_activity"</span> <span class="op">=</span> <span class="st">"#8DA0CB"</span>,</span>
-<span>  <span class="st">"Zero"</span>        <span class="op">=</span> <span class="st">"#66C2A5"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">pca_all</span><span class="op">$</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, color <span class="op">=</span> <span class="va">SLEDAI_category</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">Group</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_ellipse.html" class="external-link">stat_ellipse</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">Cell_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="fl">0</span>, SLE <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">sledai_colors</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sledai_colors</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"PC1 (%.2f%%)"</span>, <span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>       y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"PC2 (%.2f%%)"</span>, <span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>       color <span class="op">=</span> <span class="st">"SLEDAI"</span>,</span>
-<span>       shape <span class="op">=</span> <span class="st">"Grupo"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span>
-<span>        text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        legend.key.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/reto3-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
-<p>Dentro de cada tipo celular, los colores aparecen mezclados: la
-actividad de la enfermedad no separa a las muestras tanto como el tipo
-celular. Observa también que los controles aparecen como
-<code>Zero</code>, porque no tienen lupus.</p>
-</details><div class="callout-note">
-<p><strong>Reto 4. Fecha de toma de muestra (efecto de lote).</strong>
-Las voluntarias se reclutaron a lo largo de nueve meses. Si en cada
-fecha cambió algo técnico (el lote de reactivos, la persona que procesó
-las células, la corrida de secuenciación), las muestras pueden parecerse
-<strong>por la fecha en que se tomaron</strong> y no por su biología. A
-esto se le llama <strong>efecto de lote</strong>.</p>
-<p>Colorea el PCA de todas las muestras (<code>pca_all</code>) por la
-fecha de toma de muestra (<code>Time_of_recruitment</code>) y dibuja una
-elipse para cada tipo celular.</p>
-<p><em>Pistas:</em></p>
-<ol style="list-style-type: decimal">
-<li>La fecha está en <code>volunteer_info</code> (una fila por
-voluntaria) y el PCA tiene una fila por muestra. Únelos con
-<code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join()</a></code> usando la columna llave
-<code>Volunteer_ID</code>.</li>
-<li>Colorea los puntos por fecha con <code>aes(color = ...)</code> y
-agrega las elipses con
-<code>stat_ellipse(aes(color = Cell_type))</code>.</li>
-</ol>
-</div>
-<details class="callout-tip"><summary>
-Ver solución
-</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># 1. Fecha de toma de muestra de cada voluntaria, como texto ("June 2022")</span></span>
-<span><span class="va">recruitment</span> <span class="op">&lt;-</span> <span class="va">volunteer_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Volunteer_ID</span>, <span class="va">Time_of_recruitment</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Date_sample <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">month.name</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">Time_of_recruitment</span>, <span class="st">"%m"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>,</span>
-<span>                             <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">Time_of_recruitment</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 2. Unir la fecha a cada muestra del PCA</span></span>
-<span><span class="va">pca_all_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">pca_all</span><span class="op">$</span><span class="va">data</span>, <span class="va">recruitment</span>, by <span class="op">=</span> <span class="st">"Volunteer_ID"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 3. Colores: tipos celulares (elipses) y fechas (puntos)</span></span>
-<span><span class="va">date_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="va">cell_color</span>,</span>
-<span>  <span class="st">"June 2022"</span>      <span class="op">=</span> <span class="st">"#66C2A5"</span>,</span>
-<span>  <span class="st">"July 2022"</span>      <span class="op">=</span> <span class="st">"#8DA0CB"</span>,</span>
-<span>  <span class="st">"August 2022"</span>    <span class="op">=</span> <span class="st">"#FC8D62"</span>,</span>
-<span>  <span class="st">"September 2022"</span> <span class="op">=</span> <span class="st">"#E78AC3"</span>,</span>
-<span>  <span class="st">"October 2022"</span>   <span class="op">=</span> <span class="st">"#A6D854"</span>,</span>
-<span>  <span class="st">"December 2022"</span>  <span class="op">=</span> <span class="st">"#FFD92F"</span>,</span>
-<span>  <span class="st">"January 2023"</span>   <span class="op">=</span> <span class="st">"#E5C494"</span>,</span>
-<span>  <span class="st">"February 2023"</span>  <span class="op">=</span> <span class="st">"#B3B3B3"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># 4. Gráfica</span></span>
-<span><span class="va">p_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">pca_all_date</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, color <span class="op">=</span> <span class="va">Date_sample</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">Group</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_ellipse.html" class="external-link">stat_ellipse</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">Cell_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="fl">0</span>, SLE <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">date_colors</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">date_colors</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"PC1 (%.2f%%)"</span>, <span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>       y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"PC2 (%.2f%%)"</span>, <span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>       color <span class="op">=</span> <span class="st">"Fecha de muestra"</span>,</span>
-<span>       shape <span class="op">=</span> <span class="st">"Grupo"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span>
-<span>        text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        legend.key.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">p_date</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/reto4-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
-<p><strong>Al planear un estudio</strong>, procura reclutar controles y
-pacientes en las mismas fechas. Así el lote y el grupo no se
-confunden.</p>
-</details>
-</div>
-<div class="section level3">
-<h3 id="para-terminar-la-figura-del-artículo">11.6 Para terminar: la figura del artículo<a class="anchor" aria-label="anchor" href="#para-terminar-la-figura-del-art%C3%ADculo"></a>
-</h3>
-<p>Juntemos los tres PCA en un solo panel, tal como aparecen en el
-artículo original. Ya tenemos el de fecha (<code>p_date</code>, del Reto
-4); construimos los otros dos con el mismo estilo:</p>
-<ul>
-<li>
-<strong>A.</strong> Tipo celular, el PCA de la sección 11.3.</li>
-<li>
-<strong>C.</strong> Actividad de la enfermedad. Usamos la columna
-<code>SLEDAI</code> de <code>volunteer_info</code>, codificada como en
-la Tabla 1 del artículo: <code>1</code> = con actividad (SLEDAI ≥ 6
-puntos), <code>0</code> = sin actividad o con actividad baja (0–5
-puntos) y <code>NA</code> = controles.</li>
-</ul>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Estilo común para los paneles</span></span>
-<span><span class="va">pca_theme</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>,</span>
-<span>        text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
-<span>        legend.key.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">pca_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"PC1 (%.2f%%)"</span>, <span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>                   y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"PC2 (%.2f%%)"</span>, <span class="va">pca_all</span><span class="op">$</span><span class="va">variance</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># A. Tipo celular</span></span>
-<span><span class="va">p_cell</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">pca_all</span><span class="op">$</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, color <span class="op">=</span> <span class="va">Cell_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">Group</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_ellipse.html" class="external-link">stat_ellipse</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="fl">0</span>, SLE <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">cell_color</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="va">pca_labels</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"Tipo celular"</span>, shape <span class="op">=</span> <span class="st">"Grupo"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="va">pca_theme</span></span>
-<span></span>
-<span><span class="co"># C. Actividad SLEDAI (1 / 0 / NA), unida desde volunteer_info</span></span>
-<span><span class="va">pca_all_sledai</span> <span class="op">&lt;-</span> <span class="va">pca_all</span><span class="op">$</span><span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">volunteer_info</span>, <span class="va">Volunteer_ID</span>, <span class="va">SLEDAI</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"Volunteer_ID"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>SLEDAI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">SLEDAI</span><span class="op">)</span>, <span class="st">"NA"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">SLEDAI</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">sledai_article_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">cell_color</span>, <span class="st">"1"</span> <span class="op">=</span> <span class="st">"#FC8D62"</span>, <span class="st">"0"</span> <span class="op">=</span> <span class="st">"#8DA0CB"</span>, <span class="st">"NA"</span> <span class="op">=</span> <span class="st">"#66C2A5"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p_sledai</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">pca_all_sledai</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, color <span class="op">=</span> <span class="va">SLEDAI</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">Group</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_ellipse.html" class="external-link">stat_ellipse</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">Cell_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="fl">0</span>, SLE <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">sledai_article_colors</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sledai_article_colors</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="va">pca_labels</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"SLEDAI"</span>, shape <span class="op">=</span> <span class="st">"Grupo"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html" class="external-link">guide_legend</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="co"># "Grupo" primero, como en A y B</span></span>
-<span>  <span class="va">pca_theme</span></span>
-<span></span>
-<span><span class="co"># Panel A, B, C</span></span>
-<span><span class="va">figure_s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid</a></span><span class="op">(</span><span class="va">p_cell</span>, <span class="va">p_date</span>, <span class="va">p_sledai</span>,</span>
-<span>                       labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>, label_size <span class="op">=</span> <span class="fl">18</span>,</span>
-<span>                       nrow <span class="op">=</span> <span class="fl">1</span>, align <span class="op">=</span> <span class="st">"h"</span>, axis <span class="op">=</span> <span class="st">"tb"</span><span class="op">)</span></span>
-<span><span class="va">figure_s2</span></span></code></pre></div>
-<p><img src="intro_es_files/figure-html/figura_s2-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<div class="caption-justify">
-<p><strong>Figura suplementaria S2.</strong> Análisis de componentes
-principales (PCA) de las cuentas de RNA-seq normalizadas.
-<strong>(A)</strong> PCA coloreado por tipo celular (monocitos, moDC y
-tolDC) y con forma según el grupo (SLE y Ctrl); muestra una separación
-clara, impulsada principalmente por la identidad celular.
-<strong>(B)</strong> PCA con las fechas de toma de muestra, para evaluar
-posibles efectos de lote entre colectas; no se observa una agrupación
-importante por fecha. <strong>(C)</strong> PCA coloreado por actividad
-de la enfermedad (SLEDAI): 1 indica actividad (puntaje SLEDAI ≥ 6), 0
-indica sin actividad o actividad baja (0–5 puntos) y los controles se
-marcan como NA. PC1 y PC2 explican el 62.23% y el 9.33% de la varianza
-total, respectivamente. Cada punto representa una muestra. Abreviaturas:
-SLE, lupus eritematoso sistémico; Ctrl, control sano; mo, monocitos;
-moDC, células dendríticas derivadas de monocitos; tolDC, células
-dendríticas tolerogénicas. Los datos de esta figura se encuentran en la
-Tabla suplementaria S1 y el Dataset S2.</p>
-<p>La figura suplementaria original se encuentra en el archivo <em>Data
-Sheet 1.docx</em> del <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial" class="external-link">material
-suplementario del artículo</a>.</p>
-</div>
-<div class="alert alert-info">
-<p>En esta lección, PC1 y PC2 explican el 63.44% y el 9.51% de la
-varianza, en lugar del 62.23% y 9.33% del artículo. La diferencia viene
-del filtrado de genes poco expresados y del uso de las longitudes de
-<code>tximport</code> (sección 11.2). Las conclusiones son las
-mismas.</p>
-<p>El pie publicado define el grupo 1 como “SLEDAI &gt; 0”; aquí usamos
-la definición de la Tabla 1 del artículo (≥ 6 puntos), que coincide con
-los datos: 10 pacientes con actividad y 13 sin ella o con actividad
-baja.</p>
-</div>
-<p>Para guardar la figura en alta resolución:</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"Figura_S2_PCA.png"</span>, <span class="va">figure_s2</span>, width <span class="op">=</span> <span class="fl">24</span>, height <span class="op">=</span> <span class="fl">7</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="guardar-tus-resultados-opcional">12. Guardar tus resultados (opcional)<a class="anchor" aria-label="anchor" href="#guardar-tus-resultados-opcional"></a>
-</h2>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">saveRDS</a></span><span class="op">(</span><span class="va">dds</span>, <span class="st">"dds.rds"</span><span class="op">)</span>             <span class="co"># objeto DESeq2 con cuentas filtradas</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">saveRDS</a></span><span class="op">(</span><span class="va">vsd</span>, <span class="st">"vsd.rds"</span><span class="op">)</span>             <span class="co"># datos transformados (VST)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">zscore_mat</span>, <span class="st">"zscore.csv"</span><span class="op">)</span> <span class="co"># z-scores para heatmaps en otros programas</span></span></code></pre></div>
-<p>Para volver a cargarlos:
-<code>dds &lt;- readRDS("dds.rds")</code>.</p>
-</div>
-<div class="section level2">
-<h2 id="resumen">13. Resumen<a class="anchor" aria-label="anchor" href="#resumen"></a>
-</h2>
+<p>El paquete incluye tres conjuntos de datos. Están disponibles en
+cuanto cargas el paquete; no hay que descargar nada más.</p>
 <table class="table">
 <colgroup>
 <col width="18%">
-<col width="45%">
-<col width="36%">
+<col width="31%">
+<col width="31%">
+<col width="18%">
 </colgroup>
 <thead><tr class="header">
-<th>Paso</th>
-<th>Función clave</th>
-<th>¿Para qué?</th>
+<th>Objeto</th>
+<th>Qué contiene</th>
+<th>Una fila por</th>
+<th>Tamaño</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>Conocer los datos</td>
-<td>
-<code><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">dplyr::count()</a></code>
+<td><code>filtered_txi</code></td>
+<td>Cuentas de RNA-seq cuantificadas con Salmon e importadas con
+<code>tximport</code>
 </td>
-<td>Entender qué tenemos antes de analizar</td>
+<td>gen</td>
+<td>21,718 genes × 99 muestras</td>
 </tr>
 <tr class="even">
-<td>Verificar el orden</td>
-<td><code>all(colnames(...) == ...)</code></td>
-<td>Evitar el error más peligroso</td>
+<td><code>metadata_cleaned</code></td>
+<td>Grupo, tipo celular y datos clínicos de cada muestra</td>
+<td>muestra</td>
+<td>99 muestras</td>
 </tr>
 <tr class="odd">
-<td>Crear el objeto</td>
-<td><code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromTximport()</a></code></td>
-<td>Juntar cuentas, metadatos y diseño</td>
-</tr>
-<tr class="even">
-<td>Filtrar</td>
-<td><code>rowSums(counts(dds) &gt;= 10) &gt;= 10</code></td>
-<td>Quitar genes con poca información</td>
-</tr>
-<tr class="odd">
-<td>Normalizar</td>
-<td><code>estimateSizeFactors()</code></td>
-<td>Corregir profundidad y longitud</td>
-</tr>
-<tr class="even">
-<td>Transformar</td>
-<td><code><a href="https://rdrr.io/pkg/DESeq2/man/vst.html" class="external-link">vst()</a></code></td>
-<td>Estabilizar la varianza para visualizar</td>
-</tr>
-<tr class="odd">
-<td>Explorar genes</td>
-<td>
-<code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code> + <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap()</a></code>
-</td>
-<td>Verificar la biología y generar hipótesis</td>
-</tr>
-<tr class="even">
-<td><em>Heatmap</em></td>
-<td>
-<code><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale()</a></code> (z-score)</td>
-<td>Ver patrones de muchos genes a la vez</td>
-</tr>
-<tr class="odd">
-<td>PCA</td>
-<td>
-<code><a href="https://rdrr.io/r/stats/prcomp.html" class="external-link">prcomp()</a></code> + <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code>
-</td>
-<td>Ver la estructura global de los datos</td>
-</tr>
-<tr class="even">
-<td>Panel de figuras</td>
-<td><code><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">cowplot::plot_grid()</a></code></td>
-<td>Combinar varias gráficas en una figura</td>
-</tr>
-<tr class="odd">
-<td>Unir tablas</td>
-<td><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join()</a></code></td>
-<td>Añadir a cada muestra la información de su voluntaria</td>
-</tr>
-<tr class="even">
-<td>Revisar lotes</td>
-<td>PCA coloreado por fecha (Reto 4)</td>
-<td>Detectar variación técnica antes de comparar grupos</td>
+<td><code>volunteer_info</code></td>
+<td>Edad, diagnóstico, tratamientos y fecha de reclutamiento</td>
+<td>voluntaria</td>
+<td>33 voluntarias</td>
 </tr>
 </tbody>
 </table>
+<p>Además, incluye <strong>checkpoints</strong>: objetos que se
+construyen en una lección y se guardan en el paquete para que la
+siguiente pueda empezar desde ahí, sin repetir los pasos.</p>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="35%">
+<col width="43%">
+</colgroup>
+<thead><tr class="header">
+<th>Objeto</th>
+<th>Qué contiene</th>
+<th>Se construye en</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>dds</code></td>
+<td>
+<code>DESeqDataSet</code> filtrado y normalizado (13,596 genes × 99
+muestras); requiere <code>DESeq2</code>
+</td>
+<td>Lección 2</td>
+</tr>
+<tr class="even">
+<td><code>zscore_mat</code></td>
+<td>Matriz de z-scores de la expresión VST, para <em>heatmaps</em>
+(13,596 genes × 99 muestras)</td>
+<td>Lección 2</td>
+</tr>
+<tr class="odd">
+<td><code>de_results</code></td>
+<td>Resultados de expresión diferencial SLE vs Ctrl de cada tipo celular
+(<code>DESeq2</code>)</td>
+<td>Lección 3</td>
+</tr>
+</tbody>
+</table>
+<p>Un vistazo rápido a cada uno:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span>       <span class="co"># genes x muestras</span></span>
+<span><span class="co">#&gt; [1] 21718    99</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sample_ID"</span>, <span class="st">"Group"</span>, <span class="st">"Cell_type"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         sample_ID Group Cell_type</span></span>
+<span><span class="co">#&gt; QR011_0   QR011_0  Ctrl  monocyte</span></span>
+<span><span class="co">#&gt; QR011_1   QR011_1  Ctrl      moDC</span></span>
+<span><span class="co">#&gt; QR011_3   QR011_3  Ctrl     tolDC</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">volunteer_info</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Volunteer_ID"</span>, <span class="st">"Group"</span>, <span class="st">"Age_years"</span>, <span class="st">"Time_of_recruitment"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Volunteer_ID Group Age_years Time_of_recruitment</span></span>
+<span><span class="co">#&gt; 1        QR011  Ctrl        25          2022-06-01</span></span>
+<span><span class="co">#&gt; 2        QR013  Ctrl        23          2022-06-01</span></span>
+<span><span class="co">#&gt; 3        QR014   SLE        32          2022-06-01</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="errores-comunes-de-principiante">Errores comunes de principiante<a class="anchor" aria-label="anchor" href="#errores-comunes-de-principiante"></a>
+<h3 id="cómo-se-relacionan">¿Cómo se relacionan?<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-se-relacionan"></a>
 </h3>
-<ul>
-<li>
-<strong>No verificar que las muestras coincidan</strong> entre
-cuentas y metadatos.</li>
-<li>
-<strong>Pasarle cuentas normalizadas a
-<code><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq()</a></code></strong>: usa siempre las crudas.</li>
-<li>
-<strong>Calcular z-scores o PCA con cuentas crudas</strong>: usa
-VST.</li>
-<li>
-<strong>Tratar como independientes</strong> las muestras de una
-misma paciente.</li>
-<li>
-<strong>Confundir “se ve diferente en la gráfica” con “es
-significativo”</strong>.</li>
-<li>
-<strong>No revisar efectos de lote</strong> antes de comparar
-grupos.</li>
-</ul>
+<p>Las tres tablas se conectan por sus identificadores. Cada muestra
+tiene un nombre como <code>QR011_1</code>: la primera parte
+(<code>QR011</code>) identifica a la voluntaria y el número final, al
+tipo celular (<code>_0</code> = monocito, <code>_1</code> = moDC,
+<code>_3</code> = tolDC).</p>
+<pre class="mermaid">
+flowchart LR
+  T["filtered_txi<br>cuentas por gen"] -- "columnas = sample_ID" --- M["metadata_cleaned<br>una fila por muestra"]
+  M -- "Volunteer_ID<br>(prefijo de sample_ID)" --- V["volunteer_info<br>una fila por voluntaria"]
+</pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Las columnas de las cuentas están en el mismo orden que las filas de los metadatos</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span> <span class="op">==</span> <span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">sample_ID</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span></span>
+<span><span class="co"># De muestra a voluntaria</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"_.*"</span>, <span class="st">""</span>, <span class="st">"QR011_1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "QR011"</span></span></code></pre></div>
+<p>Para conocer cada columna en detalle, consulta la ayuda:
+<code><a href="../reference/filtered_txi.html">?filtered_txi</a></code>, <code><a href="../reference/metadata_cleaned.html">?metadata_cleaned</a></code> y
+<code><a href="../reference/volunteer_info.html">?volunteer_info</a></code>.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="y-después">14. ¿Y después?<a class="anchor" aria-label="anchor" href="#y-despu%C3%A9s"></a>
+<h2 id="ruta-de-aprendizaje">Ruta de aprendizaje<a class="anchor" aria-label="anchor" href="#ruta-de-aprendizaje"></a>
 </h2>
-<p>El siguiente paso natural es el <strong>análisis de expresión
-diferencial</strong>: encontrar, con estadística, qué genes cambian
-entre pacientes y controles dentro de cada tipo celular. Con
-<code>DESeq2</code> se hace con <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq()</a></code> y
-<code><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results()</a></code>. Con lo que aprendiste aquí, un buen diseño
-tomaría en cuenta el tipo celular, el lote de toma de muestra y que las
-muestras de una misma voluntaria están pareadas.</p>
-<p>Para recursos de aprendizaje sobre esto, consulta:</p>
-<ul>
-<li>La <a href="https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html" class="external-link">viñeta
-oficial de DESeq2</a>.</li>
-<li>El flujo de trabajo <a href="https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html" class="external-link"><em>RNA-seq
-workflow</em></a> de Bioconductor.</li>
-</ul>
+<p>Las lecciones están pensadas para seguirse en orden, pero cada una
+puede leerse por separado.</p>
+<pre class="mermaid">
+flowchart LR
+  P["Primeros pasos<br>(esta página)"] --&gt; L1["1. Conociendo a las participantes:<br>estadística descriptiva"]
+  L1 --&gt; L2["2. De las cuentas de RNA-seq<br>a la exploración de datos"]
+  L2 --&gt; L3["3. Genes diferencialmente<br>expresados"]
+</pre>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true });
+</script><table class="table">
+<colgroup>
+<col width="23%">
+<col width="38%">
+<col width="17%">
+<col width="20%">
+</colgroup>
+<thead><tr class="header">
+<th>Lección</th>
+<th>Aprenderás a…</th>
+<th>Datos</th>
+<th>Tiempo</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><a href="clinical_es.html">1. Conociendo a las
+participantes</a></td>
+<td>Describir a la cohorte con estadística descriptiva, tablas, pruebas
+de normalidad y comparaciones entre grupos</td>
+<td><code>volunteer_info</code></td>
+<td>45 a 60 min</td>
+</tr>
+<tr class="even">
+<td><a href="intro_RNAseq_es.html">2. De las cuentas de RNA-seq a la
+exploración de datos</a></td>
+<td>Importar las cuentas, normalizarlas con <code>DESeq2</code>,
+explorar genes y hacer <em>heatmaps</em> y PCA</td>
+<td>
+<code>filtered_txi</code>, <code>metadata_cleaned</code>,
+<code>volunteer_info</code>
+</td>
+<td>1 a 1.5 h</td>
+</tr>
+<tr class="odd">
+<td><a href="l3_DEGs_es.html">3. Genes diferencialmente
+expresados</a></td>
+<td>Validar tipos celulares con biomarcadores, hacer expresión
+diferencial con <code>DESeq2</code> e interpretar volcano plots</td>
+<td>
+<code>filtered_txi</code>, <code>metadata_cleaned</code>,
+<code>zscore_mat</code>
+</td>
+<td>1.5 h</td>
+</tr>
+</tbody>
+</table>
+<p>Cada lección incluye <strong>retos</strong> con su solución para
+practicar, y termina reproduciendo una figura suplementaria del
+artículo.</p>
 </div>
 <div class="section level2">
-<h2 id="referencias">Referencias<a class="anchor" aria-label="anchor" href="#referencias"></a>
+<h2 id="cómo-citar">¿Cómo citar?<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-citar"></a>
 </h2>
-<ul>
-<li>Love MI, Huber W, Anders S (2014). Moderated estimation of fold
-change and dispersion for RNA-seq data with DESeq2. <em>Genome
-Biology</em> 15:550. <a href="https://doi.org/10.1186/s13059-014-0550-8" class="external-link">doi:10.1186/s13059-014-0550-8</a>
-</li>
-<li>Soneson C, Love MI, Robinson MD (2015). Differential analyses for
-RNA-seq: transcript-level estimates improve gene-level inferences.
-<em>F1000Research</em> 4:1521. <a href="https://doi.org/10.12688/f1000research.7563.2" class="external-link">doi:10.12688/f1000research.7563.2</a>
-</li>
-<li>Patro R, <em>et al.</em> (2017). Salmon provides fast and bias-aware
-quantification of transcript expression. <em>Nature Methods</em>
-14:417–419. <a href="https://doi.org/10.1038/nmeth.4197" class="external-link">doi:10.1038/nmeth.4197</a>
-</li>
-<li>Artículo original de los datos: <em>Frontiers in Immunology</em>
-(2026). <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:10.3389/fimmu.2026.1771959</a>
-</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>
-</h2>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R version 4.6.0 (2026-04-24)</span></span>
-<span><span class="co">#&gt; Platform: aarch64-apple-darwin23</span></span>
-<span><span class="co">#&gt; Running under: macOS Tahoe 26.6.2</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRblas.0.dylib </span></span>
-<span><span class="co">#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; locale:</span></span>
-<span><span class="co">#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; time zone: America/Mexico_City</span></span>
-<span><span class="co">#&gt; tzcode source: internal</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attached base packages:</span></span>
-<span><span class="co">#&gt; [1] stats4    stats     graphics  grDevices utils     datasets  methods  </span></span>
-<span><span class="co">#&gt; [8] base     </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] cowplot_1.2.0               ggrepel_0.9.8              </span></span>
-<span><span class="co">#&gt;  [3] lubridate_1.9.5             forcats_1.0.1              </span></span>
-<span><span class="co">#&gt;  [5] stringr_1.6.0               dplyr_1.2.1                </span></span>
-<span><span class="co">#&gt;  [7] purrr_1.2.2                 readr_2.2.0                </span></span>
-<span><span class="co">#&gt;  [9] tidyr_1.3.2                 tibble_3.3.1               </span></span>
-<span><span class="co">#&gt; [11] ggplot2_4.0.3               tidyverse_2.0.0            </span></span>
-<span><span class="co">#&gt; [13] DESeq2_1.52.0               SummarizedExperiment_1.42.0</span></span>
-<span><span class="co">#&gt; [15] Biobase_2.72.0              MatrixGenerics_1.24.0      </span></span>
-<span><span class="co">#&gt; [17] matrixStats_1.5.0           GenomicRanges_1.64.0       </span></span>
-<span><span class="co">#&gt; [19] Seqinfo_1.2.0               IRanges_2.46.0             </span></span>
-<span><span class="co">#&gt; [21] S4Vectors_0.50.1            BiocGenerics_0.58.1        </span></span>
-<span><span class="co">#&gt; [23] generics_0.1.4              GeneExprLupusMx_0.0.0.9000 </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] gtable_0.3.6        xfun_0.60           bslib_0.11.0       </span></span>
-<span><span class="co">#&gt;  [4] htmlwidgets_1.6.4   lattice_0.22-9      tzdb_0.5.0         </span></span>
-<span><span class="co">#&gt;  [7] vctrs_0.7.3         tools_4.6.0         parallel_4.6.0     </span></span>
-<span><span class="co">#&gt; [10] pkgconfig_2.0.3     Matrix_1.7-5        RColorBrewer_1.1-3 </span></span>
-<span><span class="co">#&gt; [13] S7_0.2.2            desc_1.4.3          lifecycle_1.0.5    </span></span>
-<span><span class="co">#&gt; [16] compiler_4.6.0      farver_2.1.2        textshaping_1.0.5  </span></span>
-<span><span class="co">#&gt; [19] codetools_0.2-20    htmltools_0.5.9     sass_0.4.10        </span></span>
-<span><span class="co">#&gt; [22] yaml_2.3.12         pkgdown_2.2.1       pillar_1.11.1      </span></span>
-<span><span class="co">#&gt; [25] jquerylib_0.1.4     MASS_7.3-66         BiocParallel_1.46.0</span></span>
-<span><span class="co">#&gt; [28] DelayedArray_0.38.2 cachem_1.1.0        abind_1.4-8        </span></span>
-<span><span class="co">#&gt; [31] nlme_3.1-170        tidyselect_1.2.1    locfit_1.5-9.12    </span></span>
-<span><span class="co">#&gt; [34] digest_0.6.39       stringi_1.8.9       splines_4.6.0      </span></span>
-<span><span class="co">#&gt; [37] labeling_0.4.3      fastmap_1.2.0       grid_4.6.0         </span></span>
-<span><span class="co">#&gt; [40] cli_3.6.6           SparseArray_1.12.2  magrittr_2.0.5     </span></span>
-<span><span class="co">#&gt; [43] S4Arrays_1.12.0     utf8_1.2.6          withr_3.0.3        </span></span>
-<span><span class="co">#&gt; [46] scales_1.4.0        timechange_0.4.0    rmarkdown_2.31     </span></span>
-<span><span class="co">#&gt; [49] XVector_0.52.0      otel_0.2.0          hms_1.1.4          </span></span>
-<span><span class="co">#&gt; [52] ragg_1.5.2          evaluate_1.0.5      knitr_1.51         </span></span>
-<span><span class="co">#&gt; [55] mgcv_1.9-4          rlang_1.3.0         Rcpp_1.1.2         </span></span>
-<span><span class="co">#&gt; [58] glue_1.8.1          rstudioapi_0.19.0   jsonlite_2.0.0     </span></span>
-<span><span class="co">#&gt; [61] R6_2.6.1            systemfonts_1.3.2   fs_2.1.0</span></span></code></pre></div>
+<p>Si usas estos datos, cita el artículo original: <em>Frontiers in
+Immunology</em> (2026), <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
+10.3389/fimmu.2026.1771959</a>.</p>
+<nav class="lesson-nav"><a class="lesson-next" href="clinical_es.html">Siguiente lección: Conociendo a las participantes →</a>
+</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Índice de contenidos"><h2>En esta página</h2>
     </nav></aside>

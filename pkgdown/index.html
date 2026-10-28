@@ -45,11 +45,10 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
 <li><h6 class="dropdown-header" data-toc-skip>ES - Tutoriales en español</h6></li>
-    <li><a class="dropdown-item" href="articles/clinical_es.html">Conociendo a las participantes: estadística descriptiva</a></li>
-    <li><a class="dropdown-item" href="articles/intro_es.html">1 - De las cuentas de RNA-seq a la exploración de datos</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>2 - Conociendo a Karel</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>3 - Descomposición</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>4 - Estructuras de control</h6></li>
+    <li><a class="dropdown-item" href="articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
+    <li><a class="dropdown-item" href="articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
+    <li><a class="dropdown-item" href="articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
+    <li><a class="dropdown-item" href="articles/l4_GOterms_es.html">4 - Obtener GOterms</a></li>
     <li><h6 class="dropdown-header" data-toc-skip>5 - Ejemplos</h6></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
@@ -107,6 +106,8 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span></span>
+<span></span>
+<span></span>
 <span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -117,11 +118,15 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span></span>
+<span></span>
+<span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span></span>
 <span><span class="co">## basic example code</span></span></code></pre></div>
 <p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
+<span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    sample_ID   Group     GC      Dose    Dose_category      Age    </span></span>
@@ -151,6 +156,8 @@
 <p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <a href="https://devtools.r-lib.org/reference/build_readme.html" class="external-link"><code>devtools::build_readme()</code></a> is handy for this.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
+<span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 4</span></span>

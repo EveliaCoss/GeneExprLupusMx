@@ -1,0 +1,37 @@
+#' Differential expression results checkpoint (SLE vs Ctrl by cell type)
+#'
+#' \pkg{DESeq2} results of the comparison between SLE patients and healthy
+#' controls within each cell type, generated in the lesson "Genes
+#' diferencialmente expresados entre pacientes y controles"
+#' (\code{vignette("l3_DEGs_es")}). Starting point of the functional
+#' enrichment lesson.
+#'
+#' For each cell type: \code{DESeqDataSetFromTximport()} with all genes of
+#' \code{filtered_txi}, design \code{~ Group} (reference \code{Ctrl}),
+#' \code{DESeq()} and \code{results(name = "Group_SLE_vs_Ctrl")} (Wald test,
+#' Benjamini-Hochberg adjustment).
+#'
+#' @format A named list with three data frames (\code{monocyte}, \code{moDC},
+#'   \code{tolDC}), each with 21,718 rows (genes) and 7 columns:
+#' \describe{
+#'   \item{gene}{Gene symbol.}
+#'   \item{baseMean}{Mean normalized expression across samples.}
+#'   \item{log2FoldChange}{Log2 fold change, SLE vs Ctrl.}
+#'   \item{lfcSE}{Standard error of the log2 fold change.}
+#'   \item{stat}{Wald statistic.}
+#'   \item{pvalue}{Wald test p-value.}
+#'   \item{padj}{Benjamini-Hochberg adjusted p-value (\code{NA} for genes
+#'     removed by independent filtering).}
+#' }
+#'
+#' @details With \code{|log2FoldChange| >= 1} and \code{padj < 0.05}:
+#'   37 up / 0 down in monocytes, 4 up / 40 down in moDC and 4 up / 12 down in
+#'   tolDC (94 distinct genes). The script that generates it is
+#'   \code{data-raw/lesson3_checkpoints.R}.
+#'
+#' @source Generated from \code{\link{filtered_txi}} and \code{\link{metadata_cleaned}}.
+#'
+#' @examples
+#' names(de_results)
+#' head(de_results$monocyte[order(de_results$monocyte$padj), ])
+"de_results"
