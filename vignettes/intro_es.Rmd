@@ -33,7 +33,7 @@ Los datos provienen del artículo:
 > Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full). *Front. Immunol.* 17:1771959. [doi: 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
 
 ```{r overview, echo = FALSE, out.width = "100%", fig.cap = "Resumen del estudio y del contenido del paquete."}
-knitr::include_graphics("img/overview.png")
+knitr::include_graphics("img/overview_promo.png")
 ```
 
 ## Instalación

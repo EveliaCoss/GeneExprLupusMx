@@ -82,6 +82,10 @@ These are the terms we will use. Come back here whenever you need to.
 - **ISG** (*interferon-stimulated genes*): genes that are switched on in response to interferon.
 - **SLEDAI** (*SLE Disease Activity Index*): lupus activity score; higher = more active disease.
 
+```{r lesson_overview, echo = FALSE, out.width = "100%", fig.cap = "Visual summary of lesson 2."}
+knitr::include_graphics("img/lesson2_overview_en.png")
+```
+
 ## 1. Biological context: what are we studying?
 
 **Systemic lupus erythematosus** (SLE) is an **autoimmune** disease: the immune system mistakenly attacks the body's own tissues. It mostly affects women (about 9 out of 10 cases). One of its best-known molecular features is the **interferon signature**: in patients, many genes that normally respond to viral infections, called *interferon-stimulated genes* (ISGs), are switched on.
@@ -91,10 +95,6 @@ In this study, three types of immune cells were analyzed:
 - **Monocytes** (`monocyte`): cells that circulate in the blood. They were obtained directly from each participant.
 - **Monocyte-derived dendritic cells** (`moDC`): obtained by culturing monocytes with GM-CSF and IL-4. They are "activating", because they present antigens and switch on the immune response.
 - **Tolerogenic dendritic cells** (`tolDC`): obtained by culturing monocytes with GM-CSF and IL-10. Their role is to "calm down" the immune response and promote tolerance.
-
-```{r overview, echo = FALSE, out.width = "100%", fig.cap = "Overview of the study and of the package contents."}
-knitr::include_graphics("img/overview.png")
-```
 
 **Study design:** 33 Mexican women took part, 10 healthy controls (`Ctrl`) and 23 patients with lupus (`SLE`). All three cell types were obtained from each one, giving **33 × 3 = 99 samples**. The volunteers were recruited between June 2022 and February 2023. The data come from the article:
 

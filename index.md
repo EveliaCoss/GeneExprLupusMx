@@ -35,7 +35,7 @@ reproduce, step by step, the figures of the original article.
 - **Open science:** makes biomedical data generated in Latin America
   visible and reusable.
 
-<img src="man/figures/overview.png" alt="Overview de GeneExprLupusMx" width="100%"/>
+<img src="man/figures/overview_promo_en.png" alt="GeneExprLupusMx overview: data, workflow, key findings and lessons" width="100%"/>
 
 ## Instalación / Installation
 

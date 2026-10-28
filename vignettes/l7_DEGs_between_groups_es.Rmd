@@ -73,6 +73,10 @@ Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
 - **Proceso específico**: entre todos los términos enriquecidos en los que aparece un gen, el que tiene **menos** genes; el más concreto.
 - **Trayectoria de expresión**: cómo cambia la expresión media de un gen a lo largo de las etapas de diferenciación (monocito → moDC → tolDC) en cada grupo.
 
+```{r lesson_overview, echo = FALSE, out.width = "100%", fig.cap = "Resumen visual de la lección 7."}
+knitr::include_graphics("img/lesson7_overview_es.png")
+```
+
 ## 1. Preparación
 
 ```{r setup}

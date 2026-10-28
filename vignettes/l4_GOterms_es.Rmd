@@ -80,6 +80,10 @@ Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
 - **SLEDAI** (*SLE Disease Activity Index*): puntaje de actividad del lupus; más alto = enfermedad más activa.
 - **Correlación de Spearman** (rho): mide si dos variables suben o bajan juntas comparando sus rangos; va de −1 a 1.
 
+```{r lesson_overview, echo = FALSE, out.width = "100%", fig.cap = "Resumen visual de la lección 4."}
+knitr::include_graphics("img/lesson4_overview_es.png")
+```
+
 ## 1. Preparación
 
 ```{r setup}
@@ -425,7 +429,8 @@ plot_gene_dots <- function(genes, x_label, gene_levels = sort(genes)) {
     theme_minimal(base_size = 12) +
     theme(legend.position = "top", legend.box = "vertical",
           strip.text.x = element_text(face = "bold"),
-          axis.text.x = element_text(angle = 45, hjust = 1))
+          axis.text.x = element_text(angle = 45, hjust = 1),
+          plot.margin = margin(5.5, 40, 5.5, 5.5)) # margen para que no se corte la última etiqueta
 }
 ```
 

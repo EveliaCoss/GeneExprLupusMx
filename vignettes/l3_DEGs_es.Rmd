@@ -79,6 +79,10 @@ Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
 - **Filtrado independiente**: `DESeq2` no calcula `padj` para genes con muy pocas lecturas, porque no tienen poder estadístico; quedan como `NA`.
 - **Volcano plot**: gráfica de LFC (eje x) contra significancia (eje y) de todos los genes.
 
+```{r lesson_overview, echo = FALSE, out.width = "100%", fig.cap = "Resumen visual de la lección 3."}
+knitr::include_graphics("img/lesson3_overview_es.png")
+```
+
 ## 1. Preparación
 
 ```{r setup}

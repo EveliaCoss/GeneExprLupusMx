@@ -82,6 +82,10 @@ Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
 - **Prueba de Wilcoxon (Mann–Whitney)**: compara dos grupos sin suponer normalidad.
 - **Prueba exacta de Fisher**: evalúa la asociación entre dos variables categóricas; funciona bien con pocos datos.
 
+```{r lesson_overview, echo = FALSE, out.width = "100%", fig.cap = "Resumen visual de la lección 1."}
+knitr::include_graphics("img/lesson1_overview_es.png")
+```
+
 ## 1. Preparación
 
 ```{r setup}
