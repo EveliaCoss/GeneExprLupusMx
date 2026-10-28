@@ -1,0 +1,311 @@
+---
+title: "How to use the package functions"
+subtitle: "get_heatmap_mat(), create_heatmap(), processGO() y Reduce_GOTerm()"
+output: rmarkdown::html_vignette
+date: "`r Sys.Date()`"
+package: "GeneExprLupusMx"
+vignette: >
+  %\VignetteIndexEntry{How to use the package functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5
+)
+# processGO() and Reduce_GOTerm() need rrvgo and org.Hs.eg.db (Bioconductor)
+has_go_pkgs <- requireNamespace("rrvgo", quietly = TRUE) && requireNamespace("org.Hs.eg.db", quietly = TRUE)
+```
+
+```{css, echo = FALSE, file = "lesson.css"}
+```
+
+## Welcome
+
+Besides the data, `GeneExprLupusMx` includes four functions used throughout the lessons. This guide shows **how to use them with your own data**, step by step and with examples you can copy.
+
+| Function | What is it for? | Used in |
+|---------|------------------|-----------|
+| `get_heatmap_mat()` | Turns a `DESeqDataSet` into a z-score matrix ready for a *heatmap* | Lesson 3 |
+| `create_heatmap()` | Draws a `ComplexHeatmap` *heatmap* with a color annotation; several can be stacked | Lesson 3 |
+| `processGO()` | Reduces the redundant GO terms of **one** enrichment file and plots the parent terms | — |
+| `Reduce_GOTerm()` | Applies `processGO()` to **all** the enrichment files in a folder | — |
+
+**What you need to know beforehand:** you should have completed the lessons [From RNA-seq counts to data exploration](intro_RNAseq_en.html) (VST and z-scores) and [Biological functions of differentially expressed genes](l4_GOterms_en.html) (functional enrichment).
+
+**Estimated time:** 45 minutes.
+
+## Glossary
+
+- **VST** (*variance stabilizing transformation*): `DESeq2` transformation that makes the variance independent of the mean expression.
+- **z-score**: how many standard deviations a value is from the gene mean; it allows comparing genes with different expression levels.
+- **Semantic similarity**: how similar two GO terms are according to their position in the Gene Ontology hierarchy.
+- **Parent term**: the term that represents a group of similar GO terms.
+- **Treemap**: plot of nested rectangles; here each rectangle is a term and the color indicates its parent term.
+
+## 1. Setup
+
+```{r setup}
+library(GeneExprLupusMx) # package data and functions
+library(DESeq2)          # DESeqDataSet object
+library(ComplexHeatmap)  # heatmaps
+library(dplyr)           # table manipulation
+```
+
+Colors (the same as in the lessons):
+
+```{r colores}
+cell_color  <- c(monocyte = "black", moDC = "palevioletred", tolDC = "gold1")
+group_color <- c(Ctrl = "#96d4ccff", SLE = "#b493b4ff")
+```
+
+## 2. `get_heatmap_mat()`: from the `DESeqDataSet` to z-scores
+
+`get_heatmap_mat()` takes a `DESeqDataSet` and does three things:
+
+1. Applies the **VST** transformation.
+2. Removes genes **without variation** across samples.
+3. Converts each gene to **z-scores** and orders the columns as you indicate.
+
+We use the `dds` checkpoint and keep the monocytes. Since the subset has a single cell type, we change the design to `~ Group`:
+
+```{r get_heatmap_mat}
+mo <- dds[, dds$Cell_type == "monocyte"]
+design(mo) <- ~ Group # a single cell type: compare groups only
+
+mo_order <- colnames(mo)[order(mo$Group)] # controls first, then patients
+mo_mat <- get_heatmap_mat(mo, sample_order = mo_order)
+
+dim(mo_mat)        # genes x samples
+round(mo_mat[1:3, 1:4], 2)
+```
+
+Each row has mean 0 and standard deviation 1:
+
+```{r zscore_check}
+summary(round(rowMeans(mo_mat), 10))
+summary(apply(mo_mat, 1, sd))
+```
+
+::: {.alert .alert-info}
+**With your data:** any `DESeqDataSet` works. The `sample_order` argument is optional; if you omit it, the columns keep the order of the object.
+:::
+
+## 3. `create_heatmap()`: a *heatmap* ready to combine
+
+`create_heatmap()` draws the matrix with `ComplexHeatmap`, adds a color bar on the right (for example, the cell type color) and lets you split the columns with `split`. We plot the interferon-stimulated genes (ISGs) from lesson 2 in monocytes, split by group:
+
+```{r create_heatmap, fig.width = 8, fig.height = 3.5}
+isg_extended <- c("IFI27", "IFI44L", "IFI44", "USP18", "IFI6", "ISG15", "MX1", "RSAD2", "IFIT1", "OAS1")
+
+ht_mo <- create_heatmap(mo_mat[isg_extended, ],
+                        color = cell_color[["monocyte"]],
+                        split = mo$Group[match(mo_order, colnames(mo))])
+draw(ht_mo)
+```
+
+The function does not show gene names, so it works the same with thousands of genes. Since it returns a `Heatmap` object, you can combine it with other `ComplexHeatmap` pieces; for example, add the names with a text annotation:
+
+```{r create_heatmap_names, fig.width = 8, fig.height = 3.5}
+draw(ht_mo + rowAnnotation(gene = anno_text(isg_extended)))
+```
+
+### 3.1 Stacking several *heatmaps*
+
+The advantage of `create_heatmap()` is that the *heatmaps* share the same format and can be **stacked** with `%v%`. For that, the columns must be the same in all of them: we use each volunteer identifier (the part of `sample_ID` before the underscore) and the same order in the three cell types.
+
+```{r stack_mats}
+volunteer_order <- unique(sub("_.*", "", mo_order)) # same volunteer order for all
+
+isg_mats <- lapply(c("monocyte", "moDC", "tolDC"), function(cell) {
+  sub_dds <- dds[, dds$Cell_type == cell]
+  design(sub_dds) <- ~ Group
+  mat <- get_heatmap_mat(sub_dds)
+  colnames(mat) <- sub("_.*", "", colnames(mat)) # QR011_0 -> QR011
+  mat[isg_extended, volunteer_order]
+})
+names(isg_mats) <- c("monocyte", "moDC", "tolDC")
+sapply(isg_mats, dim)
+```
+
+```{r stack_heatmaps, fig.width = 8, fig.height = 6}
+group_split <- volunteer_info$Group[match(volunteer_order, volunteer_info$Volunteer_ID)]
+
+ht_list <- create_heatmap(isg_mats$monocyte, cell_color[["monocyte"]], group_split) %v%
+  create_heatmap(isg_mats$moDC,  cell_color[["moDC"]],  group_split) %v%
+  create_heatmap(isg_mats$tolDC, cell_color[["tolDC"]], group_split)
+draw(ht_list)
+```
+
+ISGs are high mainly in the **monocytes of some patients** (black block, SLE columns), as we saw in lesson 2.
+
+::: {.callout-note}
+**Challenge 1.** Make a *heatmap* of tolDCs with the cholesterol synthesis genes from lesson 7 (`CYP51A1`, `MSMO1`, `MVD`, `IDI1`, `EBP`, `STARD4`), split by group.
+:::
+
+<details class="callout-tip">
+<summary>Show solution</summary>
+
+```{r reto1, fig.width = 8, fig.height = 3}
+chol_genes <- c("CYP51A1", "MSMO1", "MVD", "IDI1", "EBP", "STARD4")
+
+tol <- dds[, dds$Cell_type == "tolDC"]
+design(tol) <- ~ Group
+tol_order <- colnames(tol)[order(tol$Group)]
+tol_mat <- get_heatmap_mat(tol, sample_order = tol_order)
+
+ht_tol <- create_heatmap(tol_mat[chol_genes, ], color = cell_color[["tolDC"]],
+                         split = tol$Group[match(tol_order, colnames(tol))])
+draw(ht_tol + rowAnnotation(gene = anno_text(chol_genes)))
+```
+
+In the patients' tolDCs these genes tend to be lower: it is the weaker induction of cholesterol synthesis we found in lesson 7.
+
+</details>
+
+## 4. `processGO()`: reducing redundant GO terms
+
+An enrichment analysis usually returns **hundreds of GO terms**, many nearly identical ("response to virus", "defense response to virus"…). `processGO()` uses the `rrvgo` package to group them by **semantic similarity** and summarize them into **parent terms**.
+
+The function reads an `.RData` file containing **a single table** with three columns:
+
+| Column | Content |
+|---------|-----------|
+| `go_id` | Term identifier (`GO:0051607`) |
+| `term` | Term name |
+| `p.adjust` | Adjusted p-value |
+
+The file name must follow the pattern `UP_GO_<name>.RData` or `DOWN_GO_<name>.RData`. We prepare one with the GO:BP terms of the genes that go up in the patients' monocytes (`go_results` checkpoint from lesson 4):
+
+```{r prepare_go_file, eval = has_go_pkgs}
+go_dir  <- file.path(tempdir(), "go_input")   # input files
+out_dir <- file.path(tempdir(), "go_output")  # .RData results
+fig_dir <- file.path(tempdir(), "go_figures") # plots
+for (d in c(go_dir, out_dir, fig_dir)) dir.create(d, showWarnings = FALSE)
+
+go_table <- go_results %>%
+  filter(query == "SLE_UP_monocyte", source == "GO:BP") %>%
+  transmute(go_id = term_id, term = term_name, p.adjust = p_value)
+nrow(go_table)
+
+save(go_table, file = file.path(go_dir, "UP_GO_monocyte.RData"))
+```
+
+Now we run `processGO()`. It needs at least 40 distinct GO terms; with fewer, it skips the file:
+
+```{r processGO, eval = has_go_pkgs}
+processGO(f = file.path(go_dir, "UP_GO_monocyte.RData"),
+          direction = "UP", outdir = out_dir, figdir = fig_dir)
+```
+
+The function saves two `.RData` files and two plots:
+
+```{r processGO_files, eval = has_go_pkgs}
+list.files(out_dir)
+list.files(fig_dir)
+```
+
+`reducedTerms` contains each term with its **parent term**:
+
+```{r reduced_terms, eval = has_go_pkgs}
+load(file.path(out_dir, "reducedTerms_simMatrix_UP_monocyte.RData"))
+reducedTerms %>%
+  dplyr::count(parentTerm, sort = TRUE) %>%
+  head(5)
+```
+
+The `r if (has_go_pkgs) nrow(reducedTerms) else "hundreds of"` terms are summarized into `r if (has_go_pkgs) dplyr::n_distinct(reducedTerms$parentTerm) else "a few"` parent terms, led by **type I interferon production and response**: the interferon signature of the patients' monocytes.
+
+Besides saving them as PNG files in `figdir`, you can redraw the plots directly from `reducedTerms`. The *treemap* shows all the terms, colored by their parent term:
+
+```{r go_treemap, eval = has_go_pkgs, fig.width = 8, fig.height = 6}
+rrvgo::treemapPlot(reducedTerms)
+```
+
+The bar plot shows how many terms each parent term groups:
+
+```{r go_bars, eval = has_go_pkgs, fig.width = 8, fig.height = 6}
+library(ggplot2)
+reducedTerms %>%
+  dplyr::count(parentTerm, name = "count") %>%
+  ggplot(aes(x = reorder(parentTerm, count), y = count)) +
+  geom_col(fill = "firebrick") +
+  coord_flip() +
+  labs(x = "Parent term", y = "Number of similar terms") +
+  theme_minimal(base_size = 12)
+```
+
+## 5. `Reduce_GOTerm()`: many files at once
+
+If you have several lists (for example, one per cell type and direction), save one file per list in the same folder and use `Reduce_GOTerm()`. The function finds all the `UP_GO_*.RData` and `DOWN_GO_*.RData` files and applies `processGO()` to each one:
+
+```{r reduce_goterm_files, eval = has_go_pkgs}
+lists <- c(DOWN_GO_moDC = "SLE_DOWN_moDC", UP_GO_tolDC = "SLE_UP_tolDC")
+for (f in names(lists)) {
+  go_table <- go_results %>%
+    filter(query == lists[[f]], source == "GO:BP") %>%
+    transmute(go_id = term_id, term = term_name, p.adjust = p_value)
+  save(go_table, file = file.path(go_dir, paste0(f, ".RData")))
+}
+list.files(go_dir)
+```
+
+```{r reduce_goterm, eval = FALSE}
+Reduce_GOTerm(indir = go_dir, outdir = out_dir, figdir = fig_dir)
+```
+
+`Reduce_GOTerm()` processes the three files and saves their results in the same format as `processGO()`. Each file takes about a minute, because `rrvgo` computes the similarity between all terms.
+
+::: {.callout-note}
+**Challenge 2.** Run `processGO()` on the `DOWN_GO_moDC.RData` file. Which parent term groups the most terms?
+:::
+
+<details class="callout-tip">
+<summary>Show solution</summary>
+
+```{r reto2, eval = FALSE}
+processGO(f = file.path(go_dir, "DOWN_GO_moDC.RData"),
+          direction = "DOWN", outdir = out_dir, figdir = fig_dir)
+
+load(file.path(out_dir, "reducedTerms_simMatrix_DOWN_moDC.RData"))
+dplyr::count(reducedTerms, parentTerm, sort = TRUE) %>% head(3)
+```
+
+The most frequent parent term is **"T cell activation"**: the genes that go down in the patients' moDCs are mostly T lymphocyte genes (`CD28`, `CD40LG`, `ZAP70`), as we saw in lesson 4.
+
+</details>
+
+## 6. Summary
+
+| Function | Input | Output |
+|---------|---------|--------|
+| `get_heatmap_mat()` | `DESeqDataSet` | z-score matrix (genes × samples) |
+| `create_heatmap()` | Matrix, color and `split` | `Heatmap` object; stack it with `%v%` |
+| `processGO()` | One `UP_GO_*.RData` or `DOWN_GO_*.RData` file | Reduced terms (`.RData`), *treemap* and bars (`.png`) |
+| `Reduce_GOTerm()` | A folder with several files | The same as `processGO()`, for each file |
+
+### Common beginner mistakes
+
+- **Forgetting to change the design** when taking a single cell type: `~ Cell_type + Group` makes no sense with only one cell type.
+- **Stacking *heatmaps* with different columns**: `%v%` needs the same columns, in the same order.
+- **Misnaming the GO files**: `Reduce_GOTerm()` only finds `UP_GO_<name>.RData` and `DOWN_GO_<name>.RData` files.
+- **Saving more than one object in the `.RData`**: `processGO()` expects exactly one table per file.
+
+To go back to the lessons, see [Get started with GeneExprLupusMx](intro_en.html).
+
+```{=html}
+<a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Back to the top of the page">↑ Back to top</a>
+```
+
+## Session information
+
+```{r}
+sessionInfo()
+```

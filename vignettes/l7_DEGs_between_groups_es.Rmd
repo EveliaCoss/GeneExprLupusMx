@@ -618,7 +618,11 @@ ggsave("Figura_suplementaria_trayectorias.png", exp_mean_trajectory, width = 14,
 
 Con esta lección concluye la ruta de aprendizaje. Las células de las pacientes se diferencian casi igual que las de los controles; las diferencias se concentran en la **firma de interferón**, que las pacientes traen desde los monocitos y pierden al diferenciarse, y en el **metabolismo del colesterol** de las tolDC. Una pregunta natural para profundizar es qué factores de transcripción regulan estos genes.
 
-Para repasar el recorrido completo, regresa a [Primeros pasos con el paquete GeneExprLupusMx](intro_es.html) desde el menú *Artículos*, o da clic en el botón **Lección anterior** al final de esta página. Para trabajar con los datos fuera de R, consulta la página de [Descarga de datos](download_es.html).
+```{r lesson_final, echo = FALSE, out.width = "100%", fig.cap = "Figura ilustrativa que resume los hallazgos de la ruta de aprendizaje. Solo ilustra los resultados obtenidos en las lecciones con los datos del paquete; no es una figura del artículo."}
+knitr::include_graphics("img/lesson7_final_es.png")
+```
+
+Para repasar el recorrido completo, regresa a [Primeros pasos con el paquete GeneExprLupusMx](intro_es.html) desde el menú *Getting started*, o da clic en el botón **Lección anterior** al final de esta página. Para trabajar con los datos fuera de R, consulta la página de [Descarga de datos](download_es.html).
 
 ```{=html}
 <nav class="lesson-nav">

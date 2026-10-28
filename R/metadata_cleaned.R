@@ -28,9 +28,9 @@
 #'     immunosuppressants): \code{No} or \code{Si}; \code{NA} in controls.}
 #'   \item{Sledai_score}{SLEDAI disease activity score (0 to 62); \code{NA} in
 #'     controls.}
-#'   \item{Sledai_group}{SLEDAI activity group: \code{Without_activity}
-#'     (score 0), \code{Low} (1-4), \code{Moderate} (6), \code{High} (10-19)
-#'     or \code{Very_high} (27 or more); \code{NA} in controls.}
+#'   \item{Sledai_group}{SLEDAI activity group: \code{Without_activity},
+#'     \code{Low}, \code{Moderate}, \code{High} or \code{Very_high};
+#'     \code{NA} in controls.}
 #'   \item{SLEDAI_Md}{Yes/no indicator from the original clinical records
 #'     (\code{No}, \code{Si} or \code{Sí}); \code{NA} in controls.}
 #'   \item{SLEDAI_category}{Disease activity category: \code{Zero} (SLEDAI
@@ -48,11 +48,15 @@
 #'   \item The volunteer identifier (e.g., \code{"QR011"}) is the prefix of
 #'     \code{sample_ID}, \code{sub("_.*", "", sample_ID)}; it links this table
 #'     with \code{\link{volunteer_info}}.
-#'   \item Known inconsistencies of the original records: \code{SLEDAI_Md} has
-#'     the level \code{Si} written in two ways (\code{Si} and \code{Sí}); in
-#'     \code{Sledai_group}, one patient with score 0 is classified as \code{Low}
-#'     and one with score 10 as \code{High}. Some ages and treatments differ
-#'     from \code{\link{volunteer_info}}, which comes from the recruitment table.
+#'   \item In \code{SLEDAI_Md}, the "yes" level appears as \code{Si} and
+#'     \code{Sí}; combine them before counting, for example with
+#'     \code{sub("Sí", "Si", SLEDAI_Md)}.
+#'   \item \code{Sledai_score}, \code{Sledai_group} and
+#'     \code{SLEDAI_category} are groupings of disease activity used in the
+#'     exploratory analyses. To describe the volunteers as in Table 1 of the
+#'     article (age, treatments and active disease, SLEDAI 6 or more), use
+#'     \code{\link{volunteer_info}}, which has one row per volunteer, as in
+#'     the lessons.
 #' }
 #'
 #' @source Clinical records of the study, curated for the analysis.

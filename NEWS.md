@@ -15,6 +15,8 @@ Initial version of GeneExprLupusMx.
   - `l5_DEGs_monocytes_diff` (Lesson 5): differentiation of monocytes into dendritic cells; Figures 4 and 5.
   - `l6_DEGs_tolDcs` (Lesson 6): transcriptional signature of tolDCs; Figure 6, and genes concordant and divergent with the Robertson et al. signature.
   - `l7_DEGs_between_groups` (Lesson 7): interaction model `Group:Cell_type`; Figures 7A and 7B, and supplementary figure of expression trajectories of the interaction DEGs.
+- Guide on how to use the package functions (`functions_es`, `functions_en`), with real examples of `get_heatmap_mat()`, `create_heatmap()`, `processGO()` and `Reduce_GOTerm()`.
+- Lesson 7 ends with an illustrative figure summarizing the findings of the learning path.
 - Data download pages in Spanish and English (`download_es`, `download_en`).
 - Each lesson opens with an illustrative summary image (after the glossary), in Spanish and English: input data, the lesson steps with its real figures, key findings and checkpoints.
 - Each lesson includes a glossary, lesson map, challenges with solutions, figure and table captions with values computed in the code, and per-language navigation buttons.
@@ -37,4 +39,4 @@ Initial version of GeneExprLupusMx.
 - Bilingual README (Spanish and English).
 - Changelog in Spanish (`articles/news_es.html`) and English (this file).
 - `inst/CITATION` file: `citation("GeneExprLupusMx")` returns the original article.
-- pkgdown menus for Spanish and English lessons, data download and changelog.
+- pkgdown menus: Getting started, Tutorials (Spanish and English lessons), Functions, data download and changelog; navigation buttons with white text.

@@ -120,23 +120,6 @@ Para conocer cada columna en detalle, consulta la ayuda: `?filtered_txi`, `?meta
 
 Las lecciones están pensadas para seguirse en orden, pero cada una puede leerse por separado.
 
-```{=html}
-<pre class="mermaid">
-flowchart LR
-  P["Primeros pasos<br/>(esta página)"] --> L1["1. Conociendo a las participantes:<br/>estadística descriptiva"]
-  L1 --> L2["2. De las cuentas de RNA-seq<br/>a la exploración de datos"]
-  L2 --> L3["3. Genes diferencialmente<br/>expresados"]
-  L3 --> L4["4. Funciones biológicas<br/>de los DEG"]
-  L4 --> L5["5. Diferenciación de monocitos<br/>a células dendríticas"]
-  L5 --> L6["6. La firma de las células<br/>dendríticas tolerogénicas"]
-  L6 --> L7["7. ¿Se diferencian igual<br/>pacientes y controles?"]
-</pre>
-<script type="module">
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-  mermaid.initialize({ startOnLoad: true });
-</script>
-```
-
 | Lección | Aprenderás a… | Datos | Tiempo |
 |---------|---------------|-------|--------|
 | [1. Conociendo a las participantes](clinical_es.html) | Describir a la cohorte con estadística descriptiva, tablas, pruebas de normalidad y comparaciones entre grupos | `volunteer_info` | 45 a 60 min |
@@ -148,6 +131,8 @@ flowchart LR
 | [7. ¿Se diferencian igual las células de pacientes y controles?](l7_DEGs_between_groups_es.html) | Ajustar un modelo con interacción, interpretar una "diferencia de diferencias", resumir los genes con procesos de Reactome y graficar trayectorias de expresión | `de_interaction_results`, `go_interaction_results`, `zscore_mat`, `isg_genes` | 1.5 h |
 
 Cada lección incluye **retos** con su solución para practicar, y termina reproduciendo una figura o tabla del artículo.
+
+Además, la guía [Cómo usar las funciones del paquete](functions_es.html) muestra cómo aplicar `get_heatmap_mat()`, `create_heatmap()`, `processGO()` y `Reduce_GOTerm()` a tus propios datos.
 
 ## ¿Cómo citar?
 

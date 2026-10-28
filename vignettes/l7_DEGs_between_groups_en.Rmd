@@ -618,7 +618,11 @@ ggsave("Supplementary_figure_trajectories.png", exp_mean_trajectory, width = 14,
 
 This lesson completes the learning path. The patients' cells differentiate almost the same way as the controls'; the differences are concentrated in the **interferon signature**, which patients carry from the monocytes and lose upon differentiation, and in the **cholesterol metabolism** of tolDCs. A natural question to explore further is which transcription factors regulate these genes.
 
-To review the whole journey, go back to [Get started with GeneExprLupusMx](intro_en.html) from the *Articles* menu, or click the **Previous lesson** button at the bottom of this page. To work with the data outside R, see the [Data download](download_en.html) page.
+```{r lesson_final, echo = FALSE, out.width = "100%", fig.cap = "Illustrative figure summarizing the findings of the learning path. It only illustrates the results obtained in the lessons with the package data; it is not a figure from the article."}
+knitr::include_graphics("img/lesson7_final_en.png")
+```
+
+To review the whole journey, go back to [Get started with GeneExprLupusMx](intro_en.html) from the *Getting started* menu, or click the **Previous lesson** button at the bottom of this page. To work with the data outside R, see the [Data download](download_en.html) page.
 
 ```{=html}
 <nav class="lesson-nav">
