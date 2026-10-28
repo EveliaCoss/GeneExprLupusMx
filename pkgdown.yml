@@ -6,6 +6,8 @@ articles:
   clinical_es: clinical_es.html
   download_en: download_en.html
   download_es: download_es.html
+  functions_en: functions_en.html
+  functions_es: functions_es.html
   intro_en: intro_en.html
   intro_es: intro_es.html
   intro_RNAseq_en: intro_RNAseq_en.html
@@ -22,7 +24,7 @@ articles:
   l7_DEGs_between_groups_en: l7_DEGs_between_groups_en.html
   l7_DEGs_between_groups_es: l7_DEGs_between_groups_es.html
   articles/news_es: news_es.html
-last_built: 2026-10-28T17:19Z
+last_built: 2026-10-28T19:04Z
 urls:
   reference: https://eveliacoss.github.io/GeneExprLupusMx/reference
   article: https://eveliacoss.github.io/GeneExprLupusMx/articles
