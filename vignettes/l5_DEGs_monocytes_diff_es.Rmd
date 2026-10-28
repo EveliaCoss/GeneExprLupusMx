@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 
 En las lecciones anteriores comparamos **pacientes contra controles** dentro de cada tipo celular. Ahora cambiamos la pregunta: **¿qué cambia cuando un monocito se diferencia en célula dendrítica?**, y **¿ese proceso ocurre igual en las pacientes con lupus que en los controles?**
 
-**Lo que necesitas saber antes:** haber hecho las lecciones [Genes diferencialmente expresados](l3_DEGs_es.html) y [Funciones biológicas de los DEG](l4_GOterms_es.html).
+**Lo que necesitas saber antes:** haber hecho las lecciones [Genes diferencialmente expresados entre pacientes y controles](l3_DEGs_es.html) y [Funciones biológicas de los genes diferencialmente expresados](l4_GOterms_es.html).
 
 **Al terminar podrás:**
 
@@ -97,7 +97,7 @@ lfc_threshold  <- 1
 padj_threshold <- 0.05
 ```
 
-## 2. Paso 1: el experimento (Figura 4A)
+## 2. **Paso 1:** el experimento (Figura 4A)
 
 Los monocitos de cada voluntaria se cultivaron *in vitro* con distintas citocinas para obtener dos tipos de células dendríticas:
 
@@ -114,7 +114,7 @@ flowchart LR
 
 Como cada voluntaria aporta los tres tipos celulares, podemos preguntar qué genes **cambian al diferenciarse** comparando cada célula dendrítica contra los monocitos. Si la diferenciación funcionó, esperamos ver cambios grandes y genes conocidos encendiéndose o apagándose.
 
-## 3. Paso 2: el diseño del análisis
+## 3. **Paso 2:** el diseño del análisis
 
 Hacemos la comparación **dentro de cada grupo**: las células dendríticas de los controles contra los monocitos de los controles, y las de las pacientes contra los monocitos de las pacientes. Así, cada grupo tiene su propia referencia.
 
@@ -173,7 +173,7 @@ head(de_celltype_results$Ctrl_moDC[order(de_celltype_results$Ctrl_moDC$padj), ])
 
 Un LFC positivo significa que el gen está **más alto en la célula dendrítica** que en el monocito; uno negativo, que se **apaga** al diferenciarse.
 
-## 4. Paso 3: ¿cuántos genes cambian? (Figura 4B)
+## 4. **Paso 3:** ¿cuántos genes cambian? (Figura 4B)
 
 Con los mismos umbrales de las lecciones anteriores (|LFC| ≥ 1 y padj < 0.05), separamos los DEG de cada comparación por dirección:
 
@@ -310,7 +310,7 @@ plot_lfc_heatmap <- function(genes, process = NULL, process_levels = unique(proc
 }
 ```
 
-## 6. Paso 4: ¿cambian los genes que esperábamos? (Figura 4C)
+## 6. **Paso 4:** ¿cambian los genes que esperábamos? (Figura 4C)
 
 Si nuestras células se diferenciaron bien, los genes que la literatura describe para la diferenciación de monocito a moDC deberían cambiar en la misma dirección. La lista curada `moDC_genes` reúne 90 genes de este tipo, agrupados por proceso:
 
@@ -373,7 +373,7 @@ Las discrepancias pueden deberse a diferencias en el protocolo de cultivo o a qu
 
 </details>
 
-## 7. Paso 5: ¿qué procesos cambian? (Figura 4D)
+## 7. **Paso 5:** ¿qué procesos cambian? (Figura 4D)
 
 ### 7.1 Enriquecimiento funcional
 
@@ -495,7 +495,7 @@ Cada columna es una ruta padre de Reactome y cada círculo indica cuántos DEG d
 
 Recuerda que un círculo indica **enriquecimiento**, no un valor de expresión: para confirmar estas diferencias habría que comparar directamente las células dendríticas de pacientes y controles.
 
-## 8. Paso 6: metabolismo de ácidos grasos (Figura 5A)
+## 8. **Paso 6:** metabolismo de ácidos grasos (Figura 5A)
 
 Una célula dendrítica no solo cambia sus marcadores: también cambia su **metabolismo**. Tomamos los genes del término de Reactome "Fatty acid metabolism" en cualquiera de las listas:
 
@@ -524,7 +524,7 @@ draw(ht_fig5a, heatmap_legend_side = "right", annotation_legend_side = "right")
 
 La mayoría de estos genes **suben** en ambos tipos de células dendríticas y en ambos grupos: la diferenciación implica una **reprogramación metabólica** hacia la síntesis y el uso de lípidos. Recuerda que en la lección 4 encontramos genes del metabolismo de lípidos alterados en las tolDC de las pacientes; aquí vemos que ese metabolismo es central para estas células.
 
-## 9. Paso 7: rutas canónicas de las células dendríticas (Figura 5B)
+## 9. **Paso 7:** rutas canónicas de las células dendríticas (Figura 5B)
 
 Por último, revisamos genes asociados a la función de las células dendríticas según Gene Ontology (lista curada `dc_genes`): diferenciación, presentación de antígeno, migración, receptores de quimiocinas…
 

@@ -71,7 +71,7 @@ Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
 - **Fold change**: cuántas veces cambia la expresión. Un *fold change* de 2 significa el doble.
 - **log2 fold change (LFC)**: el *fold change* en escala log2. LFC = 1 es el doble; LFC = −1, la mitad; LFC = 0, sin cambio.
 - **Prueba de Wald**: prueba que usa `DESeq2` para evaluar si el LFC es distinto de cero.
-- **Valor p**: probabilidad de ver una diferencia así de grande si en realidad no hubiera diferencia.
+- **Valor p**: probabilidad de observar datos tan extremos como los nuestros si la hipótesis nula fuera cierta (aquí, si en realidad no hubiera diferencia).
 - **Comparaciones múltiples**: al probar miles de genes, algunos saldrán significativos por azar.
 - **FDR** (*false discovery rate*): proporción esperada de falsos positivos entre los genes que declaramos significativos.
 - **Benjamini–Hochberg (BH)**: método que corrige los valores p para controlar el FDR.

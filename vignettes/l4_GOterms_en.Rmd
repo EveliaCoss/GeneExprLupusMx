@@ -1,6 +1,6 @@
 ---
 title: "Lesson 4: Biological functions of differentially expressed genes"
-subtitle: "Functional enrichment analysis with g:Profiler2"
+subtitle: "Functional enrichment analysis with g:Profiler"
 output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 package: "GeneExprLupusMx"
@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 
 In the previous lesson we found **94 differentially expressed genes (DEGs)** between lupus patients and controls. A list of genes, on its own, says little: the question now is **what do these genes do, and do they take part in common biological processes?**
 
-**What you need to know beforehand:** you should have completed the lesson [Differentially expressed genes](l3_DEGs_en.html).
+**What you need to know beforehand:** you should have completed the lesson [Differentially expressed genes between patients and controls](l3_DEGs_en.html).
 
 **By the end you will be able to:**
 
@@ -38,6 +38,7 @@ In the previous lesson we found **94 differentially expressed genes (DEGs)** bet
 3. Recognize the main functional databases (Gene Ontology, Reactome, KEGG...).
 4. Identify lupus-associated genes and **interferon-stimulated genes** among the DEGs.
 5. Reproduce **Figure 3** of the article.
+6. Correlate ISG expression with disease activity (SLEDAI).
 
 **Estimated time:** 1.5 hours.
 
@@ -55,6 +56,7 @@ flowchart LR
   E --> H["Figure 3"]
   F --> H
   G --> H
+  D --> I["ISG vs SLEDAI:<br/>Spearman"]
 </pre>
 <script type="module">
   import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
@@ -75,6 +77,8 @@ These are the terms we will use. Come back here whenever you need to.
 - **TF**: transcription factor binding sites. **MIRNA**: microRNA targets. **HP**: human phenotypes. **CORUM**: protein complexes.
 - **Parent / specific term**: databases are organized in hierarchies; a general (parent) term contains more specific terms.
 - **ISG** (*interferon-stimulated genes*): genes that are switched on in response to interferon.
+- **SLEDAI** (*SLE Disease Activity Index*): lupus activity score; higher = more active disease.
+- **Spearman correlation** (rho): measures whether two variables go up or down together by comparing their ranks; it ranges from −1 to 1.
 
 ## 1. Setup
 
@@ -439,6 +443,62 @@ p_isg
 
 Almost all the lupus-associated genes we found are also **ISGs**, and they are highest in the **patients' monocytes** (row `SLE_monocyte`). `IFI27` is the exception that proves the rule: it goes up in all three cell types. In contrast, `LBH`, `AUTS2`, and `IL2RB` are DEGs that go **down** in the patients' moDCs. In the plot they stand out more for their high expression in monocytes, because the z-score compares each sample with all the others, across the three cell types.
 
+### 5.1 Are there more ISGs than expected by chance?
+
+`r length(isg_deg)` of the `r nrow(gene_info)` DEGs are ISGs. Is that a lot? We answer with the **hypergeometric test** from section 2: if we draw `r nrow(gene_info)` marbles (DEGs) from a bag with all the genes in the package, how likely is it that `r length(isg_deg)` or more are red (ISGs)?
+
+We need four numbers:
+
+```{r hyper_numbers}
+N <- nrow(de_results$monocyte) # universe: all genes in the package
+m <- nrow(isg_genes)           # ISGs in the reference list
+k <- nrow(gene_info)           # DEGs
+q <- length(isg_deg)           # DEGs that are ISGs
+
+c(N = N, m = m, k = k, q = q)
+k * m / N # ISGs expected among the DEGs by chance
+```
+
+By chance we would expect fewer than `r ceiling(k * m / N)` ISGs among the DEGs, and we found `r q`: a `r round(q / (k * m / N), 1)`-fold enrichment.
+
+`phyper()` gives the probability of drawing **more than** `q - 1` red marbles, that is, `q` or more. We use `lower.tail = FALSE` because we care about the upper tail (over-representation):
+
+```{r phyper}
+p_hyper <- phyper(q - 1, m, N - m, k, lower.tail = FALSE)
+p_hyper
+```
+
+**Fisher's exact test** asks the same question with a 2 × 2 table. With the one-sided alternative (`"greater"`) it is exactly the same test:
+
+```{r fisher}
+isg_table <- matrix(c(q, k - q, m - q, N - m - k + q), nrow = 2,
+                    dimnames = list(ISG = c("Yes", "No"), DEG = c("Yes", "No")))
+isg_table
+
+isg_fisher <- fisher.test(isg_table, alternative = "greater")
+isg_fisher
+isg_fisher$p.value
+```
+
+When printing the result, R shows `p-value < 2.2e-16`: that is the limit it uses to **display** p-values, not the actual value. The full value is in `isg_fisher$p.value` and matches `phyper()`: `r format(p_hyper, digits = 3)`. Both tests reach the same conclusion: **ISGs are strongly enriched among the DEGs** (odds ratio = `r round(isg_fisher$estimate, 1)`).
+
+::: {.callout-note}
+**Challenge 2.** `r m - sum(isg_genes$genes %in% de_results$monocyte$gene)` of the `r m` ISGs in the reference list are not among the `r format(N, big.mark = ",")` genes in the package. Repeat the test using as `m` only the ISGs that are in the universe. Does the conclusion change?
+:::
+
+<details class="callout-tip">
+<summary>Show solution</summary>
+
+```{r reto2_hyper}
+m_universe <- sum(isg_genes$genes %in% de_results$monocyte$gene)
+m_universe
+phyper(q - 1, m_universe, N - m_universe, k, lower.tail = FALSE)
+```
+
+The p-value is even smaller and the conclusion does not change. Using only the genes in the universe is the strictest option: a gene that was not measured cannot come out as a DEG.
+
+</details>
+
 ## 6. **Step 4:** which processes do the ISGs take part in? (Figure 3D)
 
 For each ISG we look up its **Reactome (REAC)** and **GO:BP** terms. Since each gene can be in many terms, we summarize with two:
@@ -556,7 +616,7 @@ draw(ht_fig3d, merge_legends = TRUE, annotation_legend_side = "top", heatmap_leg
 The monocyte ISGs are concentrated in the Reactome **immune system**, in specific antiviral processes: interferon alpha/beta signaling, the ISG15 antiviral mechanism, and the OAS antiviral response. **This is the molecular footprint of interferon in lupus.**
 
 ::: {.callout-note}
-**Challenge 2.** Which monocyte genes take part in the Reactome term "Interferon alpha/beta signaling"?
+**Challenge 3.** Which monocyte genes take part in the Reactome term "Interferon alpha/beta signaling"?
 
 *Hint:* filter `go_results` by `query`, `source`, and `term_name`, and look at the `intersection` column.
 :::
@@ -574,7 +634,7 @@ go_results %>%
 </details>
 
 ::: {.callout-note}
-**Challenge 3.** In which databases is `ABCA1` (up-regulated in tolDCs) annotated, and what is its specific process in Reactome?
+**Challenge 4.** In which databases is `ABCA1` (up-regulated in tolDCs) annotated, and what is its specific process in Reactome?
 
 *Hint:* use `gene_source` and `process_info`.
 :::
@@ -687,7 +747,108 @@ To save it in high resolution:
 ggsave("Figure_3.png", figure_3, width = 16, height = 30, dpi = 300)
 ```
 
-## 9. Summary
+## 9. Going further: are ISGs related to disease activity?
+
+ISG expression clearly separates patients from controls. A natural question is whether, **among patients**, ISGs are higher when the disease is more active. To answer it we correlate the z-score of each of the `r length(isg_deg)` ISGs with the **SLEDAI** score using **Spearman correlation**, which compares ranks and does not assume a linear relationship or normal data.
+
+First we join the ISG z-scores with the SLEDAI of each patient sample. Each patient contributes three samples (monocyte, moDC and tolDC); the patient identifier is the part of `sample_ID` before the underscore:
+
+```{r isg_sledai}
+sle_info <- metadata_cleaned %>%
+  filter(Group == "SLE") %>%
+  mutate(sample_ID = as.character(sample_ID),
+         patient   = sub("_.*", "", sample_ID),                # QR011_0 → QR011
+         SLEDAI    = as.numeric(as.character(Sledai_score))) %>%
+  dplyr::select(sample_ID, patient, Cell_type, SLEDAI)
+
+isg_long <- zscore_mat[isg_deg, ] %>%
+  as.data.frame() %>%
+  rownames_to_column("gene") %>%
+  pivot_longer(-gene, names_to = "sample_ID", values_to = "zscore") %>%
+  inner_join(sle_info, by = "sample_ID")
+
+# disease activity, as in Table 1 (lesson 1):
+# 1 = active (SLEDAI ≥ 6), 0 = no or low activity (0-5)
+sle_activity <- volunteer_info %>% filter(Group == "SLE")
+dplyr::count(sle_activity, SLEDAI)
+```
+
+Only `r sum(sle_activity$SLEDAI == 1)` of the `r nrow(sle_activity)` patients (`r round(100 * mean(sle_activity$SLEDAI == 1), 1)`%) have active disease; the rest have no or low activity. With few active patients, the power to detect a correlation is limited.
+
+We save the test in a function. Since we test `r length(isg_deg)` genes at once, we correct the p-values for **multiple testing** with FDR, just as `DESeq2` does with `padj`:
+
+```{r spearman_fun}
+spearman <- function(df) {
+  test <- cor.test(df$zscore, df$SLEDAI, method = "spearman", exact = FALSE)
+  tibble(rho = unname(test$estimate), p_value = test$p.value)
+}
+```
+
+### 9.1 Without separating by cell type
+
+To avoid counting the same patient three times, we average the z-score of the patient's three cell types before correlating:
+
+```{r cor_overall}
+cor_overall <- isg_long %>%
+  group_by(gene, patient, SLEDAI) %>%
+  summarise(zscore = mean(zscore), .groups = "drop") %>%
+  group_by(gene) %>%
+  group_modify(~ spearman(.x)) %>%
+  ungroup() %>%
+  mutate(FDR = p.adjust(p_value, method = "fdr")) %>%
+  arrange(p_value)
+
+knitr::kable(cor_overall, digits = 3, col.names = c("Gene", "rho", "p", "FDR"))
+```
+
+::: {.caption-justify}
+**Supplementary Table (a).** Spearman correlation between the normalized expression (z-score) of the `r nrow(cor_overall)` differentially expressed ISGs and disease activity (SLEDAI) in `r dplyr::n_distinct(sle_info$patient)` SLE patients, without separating by cell type (mean z-score of each patient's monocytes, moDCs and tolDCs). The number of genes with p < 0.05 is `r sum(cor_overall$p_value < 0.05)`, and none is significant after correction for multiple testing (minimum FDR = `r sprintf("%.2f", min(cor_overall$FDR))`). rho, Spearman correlation coefficient; FDR, false discovery rate (Benjamini-Hochberg); ISG, interferon-stimulated genes; SLEDAI, SLE Disease Activity Index.
+:::
+
+### 9.2 By cell type
+
+Now we repeat the test within each cell type (`r dplyr::n_distinct(sle_info$patient)` samples per type) and correct by FDR within each one:
+
+```{r cor_celltype}
+cor_celltype <- isg_long %>%
+  group_by(Cell_type, gene) %>%
+  group_modify(~ spearman(.x)) %>%
+  group_by(Cell_type) %>%
+  mutate(FDR = p.adjust(p_value, method = "fdr")) %>%
+  ungroup() %>%
+  mutate(Cell_type = factor(Cell_type, levels = c("monocyte", "moDC", "tolDC")))
+
+cor_celltype %>%
+  pivot_wider(id_cols = gene, names_from = Cell_type, values_from = c(rho, p_value, FDR),
+              names_vary = "slowest", names_sort = TRUE) %>%
+  arrange(gene) %>%
+  knitr::kable(digits = 3,
+               col.names = c("Gene", paste(c("rho", "p", "FDR"), rep(levels(cor_celltype$Cell_type), each = 3))))
+```
+
+::: {.caption-justify}
+**Supplementary Table (b).** Spearman correlation between the normalized expression (z-score) of the `r dplyr::n_distinct(cor_celltype$gene)` differentially expressed ISGs and disease activity (SLEDAI) in each cell type (monocytes, moDCs and tolDCs; `r dplyr::n_distinct(sle_info$patient)` SLE patients per cell type). P-values were FDR-corrected within each cell type. `r sum(cor_celltype$p_value < 0.05)` of the `r nrow(cor_celltype)` tests has p < 0.05 and none is significant after correction (minimum FDR = `r sprintf("%.2f", min(cor_celltype$FDR))`). rho, Spearman correlation coefficient; FDR, false discovery rate (Benjamini-Hochberg); ISG, interferon-stimulated genes; moDC, monocyte-derived dendritic cells; tolDC, tolerogenic dendritic cells; SLEDAI, SLE Disease Activity Index.
+
+The original table (Supplementary Table 8) can be found in the [article's supplementary material](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial).
+:::
+
+**What do you notice?**
+
+- Some genes show nominal associations (p < 0.05) in one cell type, but **no correlation survives multiple-testing correction**.
+- ISGs separate patients from controls but, in this cohort, no individual ISG tracks disease activity.
+- Possible reasons: immunomodulatory treatments, the *in vitro* differentiation dampening the inflammatory signals the cells carried from the patient, and the fact that most patients have low activity.
+
+::: {.alert .alert-warning}
+**What can and cannot be concluded?**
+
+- **We can say** that, in this cohort, we did not detect a significant association between ISG expression and SLEDAI, either without separating by cell type or within each cell type.
+- **We cannot conclude** that ISGs are unrelated to lupus activity. A non-significant result is **absence of evidence, not evidence of absence**: with `r dplyr::n_distinct(sle_info$patient)` patients, a correlation needs |rho| above ~`r round(qt(0.975, dplyr::n_distinct(sle_info$patient) - 2) / sqrt(dplyr::n_distinct(sle_info$patient) - 2 + qt(0.975, dplyr::n_distinct(sle_info$patient) - 2)^2), 2)` to reach p < 0.05, and even more after FDR correction. Moderate correlations would go unnoticed.
+- **Nor can we treat as a finding** a nominal association (uncorrected p < 0.05): with `r nrow(cor_celltype)` tests, we would expect ~`r round(nrow(cor_celltype) * 0.05)` p-values < 0.05 by chance alone.
+- **It is consistent** with Challenge 3 of [lesson 2](intro_RNAseq_en.html): in the PCA, samples do not separate by disease activity either.
+- **To answer it** would require a larger cohort, with more active patients, and measuring ISGs directly in uncultured cells.
+:::
+
+## 10. Summary
 
 | Step | Key function | What for? |
 |------|--------------|-----------|
@@ -697,7 +858,9 @@ ggsave("Figure_3.png", figure_3, width = 16, height = 30, dpi = 300)
 | Explore terms | `slice_min(p_value)` | See the most significant processes |
 | Genes per term | `separate_rows()` | Go from "term → genes" to "gene → terms" |
 | Reference lists | `intersect()` | Find SLE genes and ISGs among the DEGs |
+| ISG enrichment | `phyper()`, `fisher.test()` | Test whether there are more ISGs than expected by chance |
 | Integrate | heatmaps with `+` | See expression, LFC, and annotations together |
+| Correlation | `cor.test(method = "spearman")`, `p.adjust()` | Relate expression to disease activity |
 
 ### Common beginner mistakes
 
@@ -707,7 +870,7 @@ ggsave("Figure_3.png", figure_3, width = 16, height = 30, dpi = 300)
 - **Mixing up- and down-regulated genes in a single list**: it can dilute opposing signals.
 - **Ignoring term size**: a term with 5,000 genes is very general; one with 20 is more informative.
 
-## 10. Next steps
+## 11. Next steps
 
 So far we have compared patients against controls within each cell type. The lesson [Differentiation of monocytes into dendritic cells](l5_DEGs_monocytes_diff_en.html) poses a different question: **what changes when a monocyte differentiates into a dendritic cell?**, and does it happen in the same way in patients and in controls?
 

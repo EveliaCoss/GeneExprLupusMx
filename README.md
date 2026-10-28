@@ -1,15 +1,25 @@
 
 <!-- README.md se genera a partir de README.Rmd. Edita este archivo. -->
 
+<!-- README.md is generated from README.Rmd. Please edit this file. -->
+
 # GeneExprLupusMx
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
+**[Español](#español) \| [English](#english)**
+
 Sitio web / Website: <https://eveliacoss.github.io/GeneExprLupusMx/>
 
-## Explorando el lupus en México: datos abiertos y análisis reproducibles en R
+<img src="man/figures/overview.png" alt="Overview de GeneExprLupusMx" width="100%"/>
+
+------------------------------------------------------------------------
+
+## Español
+
+### Explorando el lupus en México: datos abiertos y análisis reproducibles en R
 
 `GeneExprLupusMx` es un paquete de datos en R, bilingüe y reproducible,
 que integra perfiles transcriptómicos y metadatos clínicos de mujeres
@@ -27,7 +37,76 @@ original.
 - **Ciencia abierta:** hace visibles y reutilizables datos biomédicos
   generados en América Latina.
 
-## Exploring lupus in Mexico: open data and reproducible analysis in R
+### Instalación
+
+``` r
+# install.packages("remotes")
+remotes::install_github("EveliaCoss/GeneExprLupusMx")
+```
+
+Algunas lecciones usan paquetes de Bioconductor:
+
+``` r
+BiocManager::install(c("DESeq2", "ComplexHeatmap"))
+```
+
+### Lecciones
+
+- [Primeros pasos con el paquete
+  GeneExprLupusMx](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.html)
+- [1. Conociendo a las
+  participantes](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.html)
+- [2. De las cuentas de RNA-seq a la exploración de
+  datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.html)
+- [3. Genes diferencialmente expresados entre pacientes y
+  controles](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.html)
+- [4. Funciones biológicas de los genes diferencialmente
+  expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.html)
+- [5. Diferenciación de monocitos a células
+  dendríticas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_es.html)
+- [6. La firma transcripcional de las células dendríticas
+  tolerogénicas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.html)
+- [7. ¿Se diferencian igual las células de pacientes y
+  controles?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.html)
+- [Descarga de
+  datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/download_es.html)
+- [Registro de
+  cambios](https://eveliacoss.github.io/GeneExprLupusMx/articles/news_es.html)
+
+### Datos
+
+``` r
+library(GeneExprLupusMx)
+dim(filtered_txi$counts) # genes x muestras
+#> [1] 21718    99
+table(metadata_cleaned$Group, metadata_cleaned$Cell_type)
+#>       
+#>        moDC monocyte tolDC
+#>   Ctrl   10       10    10
+#>   SLE    23       23    23
+```
+
+Los datos crudos de secuenciación (FASTQ) están en el [European
+Genome-phenome Archive (EGA)](https://ega-archive.org/) con acceso
+controlado; los identificadores se encuentran en la Tabla suplementaria
+2 del artículo.
+
+### Cómo citar
+
+Si usas estos datos, cita el artículo original:
+
+> Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
+> expression profiling of dendritic cell tolerance dysfunction in women
+> with systemic lupus
+> erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+> *Front. Immunol.* 17:1771959. [doi:
+> 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
+
+------------------------------------------------------------------------
+
+## English
+
+### Exploring lupus in Mexico: open data and reproducible analysis in R
 
 `GeneExprLupusMx` is a bilingual, reproducible R data package that
 integrates transcriptomic profiles and clinical metadata from Mexican
@@ -44,41 +123,46 @@ reproduce, step by step, the figures of the original article.
 - **Open science:** makes biomedical data generated in Latin America
   visible and reusable.
 
-<img src="man/figures/overview.png" alt="Overview de GeneExprLupusMx" width="100%"/>
-
-## Instalación / Installation
+### Installation
 
 ``` r
 # install.packages("remotes")
 remotes::install_github("EveliaCoss/GeneExprLupusMx")
 ```
 
-Algunas lecciones usan paquetes de Bioconductor / Some lessons use
-Bioconductor packages:
+Some lessons use Bioconductor packages:
 
 ``` r
 BiocManager::install(c("DESeq2", "ComplexHeatmap"))
 ```
 
-## Lecciones / Lessons
+### Lessons
 
-| Español | English |
-|----|----|
-| [Primeros pasos con el paquete GeneExprLupusMx](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.html) | [Get started with GeneExprLupusMx](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_en.html) |
-| [1. Conociendo a las participantes](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.html) | [1. Meeting the participants](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_en.html) |
-| [2. De las cuentas de RNA-seq a la exploración de datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.html) | [2. From RNA-seq counts to data exploration](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_en.html) |
-| [3. Genes diferencialmente expresados entre pacientes y controles](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.html) | [3. Differentially expressed genes between patients and controls](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_en.html) |
-| [4. Funciones biológicas de los genes diferencialmente expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.html) | [4. Biological functions of differentially expressed genes](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_en.html) |
-| [5. Diferenciación de monocitos a células dendríticas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_es.html) | [5. Differentiation of monocytes into dendritic cells](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_en.html) |
-| [6. La firma transcripcional de las células dendríticas tolerogénicas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.html) | [6. The transcriptional signature of tolerogenic dendritic cells](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_en.html) |
-| [7. ¿Se diferencian igual las células de pacientes y controles?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.html) | [7. Do patient and control cells differentiate in the same way?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_en.html) |
-| [Descarga de datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/download_es.html) | [Data download](https://eveliacoss.github.io/GeneExprLupusMx/articles/download_en.html) |
+- [Get started with
+  GeneExprLupusMx](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_en.html)
+- [1. Meeting the
+  participants](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_en.html)
+- [2. From RNA-seq counts to data
+  exploration](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_en.html)
+- [3. Differentially expressed genes between patients and
+  controls](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_en.html)
+- [4. Biological functions of differentially expressed
+  genes](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_en.html)
+- [5. Differentiation of monocytes into dendritic
+  cells](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_en.html)
+- [6. The transcriptional signature of tolerogenic dendritic
+  cells](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_en.html)
+- [7. Do patient and control cells differentiate in the same
+  way?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_en.html)
+- [Data
+  download](https://eveliacoss.github.io/GeneExprLupusMx/articles/download_en.html)
+- [Changelog](https://eveliacoss.github.io/GeneExprLupusMx/news/index.html)
 
-## Datos / Data
+### Data
 
 ``` r
 library(GeneExprLupusMx)
-dim(filtered_txi$counts) # genes x muestras / genes x samples
+dim(filtered_txi$counts) # genes x samples
 #> [1] 21718    99
 table(metadata_cleaned$Group, metadata_cleaned$Cell_type)
 #>       
@@ -87,18 +171,14 @@ table(metadata_cleaned$Group, metadata_cleaned$Cell_type)
 #>   SLE    23       23    23
 ```
 
-Los datos crudos de secuenciación (FASTQ) están en el [European
-Genome-phenome Archive (EGA)](https://ega-archive.org/) con acceso
-controlado; los identificadores se encuentran en la Tabla suplementaria
-2 del artículo. **/** The raw sequencing data (FASTQ) are deposited in
-the [European Genome-phenome Archive (EGA)](https://ega-archive.org/)
-under controlled access; the identifiers are listed in Supplementary
-Table 2 of the article.
+The raw sequencing data (FASTQ) are deposited in the [European
+Genome-phenome Archive (EGA)](https://ega-archive.org/) under controlled
+access; the identifiers are listed in Supplementary Table 2 of the
+article.
 
-## Cómo citar / How to cite
+### How to cite
 
-Si usas estos datos, cita el artículo original. **/** If you use these
-data, please cite the original article:
+If you use these data, please cite the original article:
 
 > Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
 > expression profiling of dendritic cell tolerance dysfunction in women
