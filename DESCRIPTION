@@ -28,12 +28,20 @@ Language:
   es
 LazyDataCompression: xz
 Suggests:
+    circlize,
+    ComplexHeatmap,
     cowplot,
     DESeq2,
     dplyr,
+    ggh4x,
+    ggplot2,
     ggrepel,
     knitr,
+    org.Hs.eg.db,
     rmarkdown,
+    rrvgo,
+    scales,
+    SummarizedExperiment,
     testthat (>= 3.0.0),
     tidyverse
 biocViews:
