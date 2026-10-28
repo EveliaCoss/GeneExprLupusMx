@@ -154,16 +154,9 @@ Palmer Archipelago, Antarctica.
 
 ``` r
 library(tidyverse)
-#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.2.1     ✔ readr     2.2.0
-#> ✔ forcats   1.0.1     ✔ stringr   1.6.0
-#> ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
-#> ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
-#> ✔ purrr     1.2.2     
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
-#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+``` r
 metadata_cleaned %>% 
   count(Group, Cell_type)
 #>   Group Cell_type  n
@@ -201,19 +194,30 @@ citation("GeneExprLupusMx")
 #>   }
 ```
 
-## Additional data use information
+## Información complementaria / Additional data use information
 
-donde vive los datos crudos
+Los datos crudos de secuenciación (archivos FASTQ de RNA-seq)
+correspondientes a pacientes y controles están depositados en el
+[European Genome-phenome Archive (EGA)](https://ega-archive.org/) bajo
+estatus de acceso controlado. El acceso a estos archivos requiere una
+solicitud formal y aprobación por parte del comité de acceso a datos
+correspondiente. Los identificadores específicos de cada análisis se
+encuentran detallados en la [Tabla Suplementaria
+2](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#:~:text=Supplementary%20Table%C2%A02)
+del artículo. **/** The raw sequencing data (RNA-seq FASTQ files) from
+patients and controls are deposited in the [European Genome-phenome
+Archive (EGA)](https://ega-archive.org/) under controlled-access status.
+Access to these files requires a formal request and approval by the
+corresponding Data Access Committee. The specific identifiers for each
+analysis are provided in [Supplementary Table
+2](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#:~:text=Supplementary%20Table%C2%A02)
+of the article.
 
 ## References
 
 Data originally published in:
 
-- Hernández-Ledesma AL, Coss-Navarrete EL, Salazar-Magaña S,
-  Ramírez-Espinosa D, Tinajero-Nieto L, Torres-Valdez E, Peña-Ayala AH,
-  Félix-Rodriguez G, Frontana-Vázquez G, García Sotelo JS,
-  Thomas-Chollier M, Trynka G, Rosetti F, Fernandez-Valverde SL,
-  Gutiérrez-Arcelus M, Alpízar-Rodríguez D and Medina-Rivera A (2026)
-  Gene expression profiling of dendritic cell tolerance dysfunction in
-  women with systemic lupus erythematosus. Front. Immunol. 17:1771959.
-  doi: 10.3389/fimmu.2026.1771959
+- Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) Gene
+  expression profiling of dendritic cell tolerance dysfunction in women
+  with systemic lupus erythematosus. *Front. Immunol.* 17:1771959. [doi:
+  10.3389/fimmu.2026.1771959](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#:~:text=https%3A//doi.org/10.3389/fimmu.2026.1771959)
