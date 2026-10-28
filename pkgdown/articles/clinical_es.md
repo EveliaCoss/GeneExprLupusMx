@@ -419,6 +419,16 @@ table1 %>%
 | Azatioprina, n (%)                    | 0 (NaN%)     | 6 (26%)         |
 | Metotrexato, n (%)                    | 0 (NaN%)     | 1 (4%)          |
 
+**Tabla 1.** Características sociodemográficas y clínicas de las 33
+voluntarias: 10 controles sanas (Ctrl) y 23 pacientes con lupus
+eritematoso sistémico (SLE). Las variables continuas se resumen como
+media (DE) o mediana \[RIC\], y las categóricas como n (%). Se consideró
+enfermedad activa un puntaje SLEDAI ≥ 6. DE, desviación estándar; RIC,
+rango intercuartílico; SLEDAI, *SLE Disease Activity Index*.
+
+La tabla original se encuentra en el
+[artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+
 En los controles, las filas clínicas aparecen como `NA`, `NaN` o
 `0 (NaN%)` porque esas variables no aplican: no tienen diagnóstico ni
 tratamiento. En un artículo las escribiríamos como “—”.
@@ -753,21 +763,26 @@ ggsave("Figura_S3_normalidad.png", figure_s3, width = 20, height = 7, dpi = 300)
 - **Interpretar p ≥ 0.05 como “no hay diferencia”**: con muestras
   pequeñas, puede faltar poder estadístico.
 
-## 11. ¿Y después?
+## 11. Próximos pasos
 
-En la siguiente lección, [De las cuentas de RNA-seq a la exploración de
-datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md),
-explorarás la expresión génica de estas mismas participantes. Lo que
-aprendiste aquí ayuda a decidir qué variables clínicas incluir en el
-diseño (por ejemplo, la edad no difiere entre grupos, así que no es una
-fuente importante de confusión).
+Con la cohorte caracterizada, el siguiente paso es analizar la expresión
+génica de estas mismas participantes. En la lección [De las cuentas de
+RNA-seq a la exploración de
+datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md)
+importarás y normalizarás las cuentas, y explorarás la estructura de los
+datos con *heatmaps* y PCA. Lo aprendido aquí orienta el diseño de ese
+análisis: por ejemplo, la edad no difiere entre grupos, por lo que no
+representa una fuente importante de confusión.
+
+Para continuar, da clic en el botón **Siguiente lección: De las cuentas
+de RNA-seq a la exploración de datos** al final de esta página.
 
 [← Lección anterior: Primeros pasos con el
 paquete](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md)
 [Siguiente lección: De las cuentas de RNA-seq a la exploración de datos
 →](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md)
 
-[↑ Inicio](#top "Volver al inicio de la página")
+[↑ Volver a Inicio](#top "Volver al inicio de la página")
 
 ## Información de la sesión
 

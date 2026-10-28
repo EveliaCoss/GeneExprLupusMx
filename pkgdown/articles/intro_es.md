@@ -15,9 +15,14 @@ para aprender a analizarlos.
   (tolDC).
 - **99 muestras** en total (33 × 3).
 
-Los datos provienen del artículo publicado en *Frontiers in Immunology*
-([doi:
-10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959)).
+Los datos provienen del artículo:
+
+> Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
+> expression profiling of dendritic cell tolerance dysfunction in women
+> with systemic lupus
+> erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+> *Front. Immunol.* 17:1771959. [doi:
+> 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
 
 ![Resumen del estudio y del contenido del paquete.](img/overview.png)
 
@@ -164,22 +169,27 @@ pacientes y controles?"]
 |----|----|----|----|
 | [1. Conociendo a las participantes](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.md) | Describir a la cohorte con estadística descriptiva, tablas, pruebas de normalidad y comparaciones entre grupos | `volunteer_info` | 45 a 60 min |
 | [2. De las cuentas de RNA-seq a la exploración de datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md) | Importar las cuentas, normalizarlas con `DESeq2`, explorar genes y hacer *heatmaps* y PCA | `filtered_txi`, `metadata_cleaned`, `volunteer_info` | 1 a 1.5 h |
-| [3. Genes diferencialmente expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.md) | Validar tipos celulares con biomarcadores, hacer expresión diferencial con `DESeq2` e interpretar volcano plots | `filtered_txi`, `metadata_cleaned`, `zscore_mat` | 1.5 h |
-| [4. Funciones biológicas de los DEG](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md) | Hacer un análisis de enriquecimiento funcional con g:Profiler, identificar genes de SLE e ISG e interpretar procesos biológicos | `de_results`, `go_results`, `sle_genes`, `isg_genes`, `biotype_summary` | 1.5 h |
+| [3. Genes diferencialmente expresados entre pacientes y controles](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.md) | Validar tipos celulares con biomarcadores, hacer expresión diferencial con `DESeq2` e interpretar volcano plots | `filtered_txi`, `metadata_cleaned`, `zscore_mat` | 1.5 h |
+| [4. Funciones biológicas de los genes diferencialmente expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md) | Hacer un análisis de enriquecimiento funcional con g:Profiler, identificar genes de SLE e ISG, probar su enriquecimiento (hipergeométrica y Fisher) y correlacionar los ISG con la actividad de la enfermedad | `de_results`, `go_results`, `sle_genes`, `isg_genes`, `biotype_summary`, `zscore_mat`, `metadata_cleaned`, `volunteer_info` | 1.5 h |
 | [5. Diferenciación de monocitos a células dendríticas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_es.md) | Comparar células dendríticas contra monocitos, validar la diferenciación con genes conocidos y explorar rutas y metabolismo de lípidos | `de_celltype_results`, `go_celltype_results`, `moDC_genes`, `dc_genes` | 1.5 h |
-| [6. La firma de las células dendríticas tolerogénicas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.md) | Evaluar las tolDC con una firma publicada, combinar z-scores y LFC, y elegir la referencia correcta para comparar | `tolDC_genes`, `de_celltype_results`, `zscore_mat` | 1 h |
-| [7. ¿Se diferencian igual las células de pacientes y controles?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.md) | Ajustar un modelo con interacción, interpretar una “diferencia de diferencias” y resumir los genes con procesos de Reactome | `de_interaction_results`, `go_interaction_results`, `zscore_mat`, `isg_genes` | 1.5 h |
+| [6. La firma transcripcional de las células dendríticas tolerogénicas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.md) | Evaluar las tolDC con una firma publicada, combinar z-scores y LFC, elegir la referencia correcta para comparar e identificar los genes que concuerdan con la firma | `tolDC_genes`, `de_celltype_results`, `zscore_mat` | 1 h |
+| [7. ¿Se diferencian igual las células de pacientes y controles?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.md) | Ajustar un modelo con interacción, interpretar una “diferencia de diferencias”, resumir los genes con procesos de Reactome y graficar trayectorias de expresión | `de_interaction_results`, `go_interaction_results`, `zscore_mat`, `isg_genes` | 1.5 h |
 
 Cada lección incluye **retos** con su solución para practicar, y termina
-reproduciendo una figura suplementaria del artículo.
+reproduciendo una figura o tabla del artículo.
 
 ## ¿Cómo citar?
 
-Si usas estos datos, cita el artículo original: *Frontiers in
-Immunology* (2026), [doi:
-10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
+Si usas estos datos, cita el artículo original:
+
+> Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
+> expression profiling of dendritic cell tolerance dysfunction in women
+> with systemic lupus
+> erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+> *Front. Immunol.* 17:1771959. [doi:
+> 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
 
 [Siguiente lección: Conociendo a las participantes
 →](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.md)
 
-[↑ Inicio](#top "Volver al inicio de la página")
+[↑ Volver a Inicio](#top "Volver al inicio de la página")

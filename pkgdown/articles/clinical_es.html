@@ -41,30 +41,39 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
 <li><h6 class="dropdown-header" data-toc-skip>ES - Tutoriales en español</h6></li>
-    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
+    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes</a></li>
     <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
     <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
     <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Funciones biológicas de los genes diferencialmente expresados</a></li>
     <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_es.html">5 - Diferenciación de monocitos a células dendríticas</a></li>
-    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma de las células dendríticas tolerogénicas</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma transcripcional de las células dendríticas tolerogénicas</a></li>
     <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_es.html">7 - ¿Se diferencian igual las células de pacientes y controles?</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>1 - Introduction</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>2 - Meeting Karel</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>3 - Decomposition</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>4 - Control structures</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Examples</h6></li>
+    <li><a class="dropdown-item" href="../articles/clinical_en.html">1 - Meeting the participants</a></li>
+    <li><a class="dropdown-item" href="../articles/intro_RNAseq_en.html">2 - From RNA-seq counts to data exploration</a></li>
+    <li><a class="dropdown-item" href="../articles/l3_DEGs_en.html">3 - Differentially expressed genes between patients and controls</a></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_en.html">4 - Biological functions of differentially expressed genes</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_en.html">5 - Differentiation of monocytes into dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_en.html">6 - The transcriptional signature of tolerogenic dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_en.html">7 - Do patient and control cells differentiate in the same way?</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-descarga-de-datos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Descarga de datos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-descarga-de-datos">
-<li><a class="dropdown-item" href="../articles/download.html">Download raw data</a></li>
+<li><a class="dropdown-item" href="../articles/download_es.html">ES - Descarga de datos</a></li>
+    <li><a class="dropdown-item" href="../articles/download_en.html">EN - Data download</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Índice</a></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Registro de cambios</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-registro-de-cambios" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Registro de cambios</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-registro-de-cambios">
+<li><a class="dropdown-item" href="../articles/news_es.html">ES - Registro de cambios</a></li>
+    <li><a class="dropdown-item" href="../news/index.html">EN - Changelog</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -126,11 +135,17 @@ pre.mermaid { background: none; border: 0; text-align: center; }
 }
 .lesson-nav a {
   padding: .5rem 1rem;
-  border: 1px solid #0758E5;
+  border: 1px solid #000;
   border-radius: .25rem;
+  background: #000;
+  color: #4DA3FF !important; /* azul legible sobre negro */
   text-decoration: none;
 }
-.lesson-nav a:hover { background: rgba(7, 88, 229, .08); }
+.lesson-nav a:hover {
+  background: #6f42c1; /* morado */
+  border-color: #6f42c1;
+  color: #fff !important;
+}
 .lesson-nav .lesson-next { margin-left: auto; }
 
 /* Botón flotante para volver al inicio de la página */
@@ -679,6 +694,16 @@ legibles. Guardarlas en un vector aparte separa los
 </tr>
 </tbody>
 </table>
+<div class="caption-justify">
+<p><strong>Tabla 1.</strong> Características sociodemográficas y
+clínicas de las 33 voluntarias: 10 controles sanas (Ctrl) y 23 pacientes
+con lupus eritematoso sistémico (SLE). Las variables continuas se
+resumen como media (DE) o mediana [RIC], y las categóricas como n (%).
+Se consideró enfermedad activa un puntaje SLEDAI ≥ 6. DE, desviación
+estándar; RIC, rango intercuartílico; SLEDAI, <em>SLE Disease Activity
+Index</em>.</p>
+<p>La tabla original se encuentra en el <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">artículo</a>.</p>
+</div>
 <p>En los controles, las filas clínicas aparecen como <code>NA</code>,
 <code>NaN</code> o <code>0 (NaN%)</code> porque esas variables no
 aplican: no tienen diagnóstico ni tratamiento. En un artículo las
@@ -1159,17 +1184,20 @@ muestras pequeñas, puede faltar poder estadístico.</li>
 </div>
 </div>
 <div class="section level2">
-<h2 id="y-después">11. ¿Y después?<a class="anchor" aria-label="anchor" href="#y-despu%C3%A9s"></a>
+<h2 id="próximos-pasos">11. Próximos pasos<a class="anchor" aria-label="anchor" href="#pr%C3%B3ximos-pasos"></a>
 </h2>
-<p>En la siguiente lección, <a href="intro_RNAseq_es.html">De las
-cuentas de RNA-seq a la exploración de datos</a>, explorarás la
-expresión génica de estas mismas participantes. Lo que aprendiste aquí
-ayuda a decidir qué variables clínicas incluir en el diseño (por
-ejemplo, la edad no difiere entre grupos, así que no es una fuente
-importante de confusión).</p>
+<p>Con la cohorte caracterizada, el siguiente paso es analizar la
+expresión génica de estas mismas participantes. En la lección <a href="intro_RNAseq_es.html">De las cuentas de RNA-seq a la exploración
+de datos</a> importarás y normalizarás las cuentas, y explorarás la
+estructura de los datos con <em>heatmaps</em> y PCA. Lo aprendido aquí
+orienta el diseño de ese análisis: por ejemplo, la edad no difiere entre
+grupos, por lo que no representa una fuente importante de confusión.</p>
+<p>Para continuar, da clic en el botón <strong>Siguiente lección: De las
+cuentas de RNA-seq a la exploración de datos</strong> al final de esta
+página.</p>
 <nav class="lesson-nav"><a class="lesson-prev" href="intro_es.html">← Lección anterior: Primeros pasos con el paquete</a>
   <a class="lesson-next" href="intro_RNAseq_es.html">Siguiente lección: De las cuentas de RNA-seq a la exploración de datos →</a>
-</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
+</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
 </div>
 <div class="section level2">
 <h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>

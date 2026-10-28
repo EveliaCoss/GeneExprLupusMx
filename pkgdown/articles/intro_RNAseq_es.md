@@ -67,8 +67,10 @@ necesites.
   causadas por *cuándo* o *cómo* se procesaron, no por la biología.
 - **Columna llave**: columna que comparten dos tablas y que sirve para
   unirlas (aquí, `Volunteer_ID`).
-- **ISG**: gen estimulado por interferón.
-- **SLEDAI**: índice clínico de actividad del lupus.
+- **ISG** (*interferon-stimulated genes*): genes que se encienden en
+  respuesta al interferón.
+- **SLEDAI** (*SLE Disease Activity Index*): puntaje de actividad del
+  lupus; más alto = enfermedad más activa.
 
 ## 1. Contexto biológico: ¿qué estamos estudiando?
 
@@ -99,9 +101,14 @@ Resumen del estudio y del contenido del paquete.
 sanas (`Ctrl`) y 23 pacientes con lupus (`SLE`). De cada una se
 obtuvieron los tres tipos celulares, lo que da **33 × 3 = 99 muestras**.
 Las voluntarias se reclutaron entre junio de 2022 y febrero de 2023. Los
-datos provienen del artículo publicado en *Frontiers in Immunology*
-([doi:
-10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959)).
+datos provienen del artículo:
+
+> Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
+> expression profiling of dendritic cell tolerance dysfunction in women
+> with systemic lupus
+> erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+> *Front. Immunol.* 17:1771959. [doi:
+> 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
 
 > **Nuestra pregunta guía:** ¿cambia la expresión de los genes en estas
 > células cuando una persona tiene lupus?
@@ -1219,18 +1226,22 @@ nombres. En las siguientes lecciones bastará con cargar el paquete:
 - **Confundir “se ve diferente en la gráfica” con “es significativo”**.
 - **No revisar efectos de lote** antes de comparar grupos.
 
-## 14. ¿Y después?
+## 14. Próximos pasos
 
-El siguiente paso natural es el **análisis de expresión diferencial**:
-encontrar, con estadística, qué genes cambian entre pacientes y
-controles dentro de cada tipo celular. Con `DESeq2` se hace con
-[`DESeq()`](https://rdrr.io/pkg/DESeq2/man/DESeq.html) y
-[`results()`](https://rdrr.io/pkg/DESeq2/man/results.html). Con lo que
-aprendiste aquí, un buen diseño tomaría en cuenta el tipo celular, el
-lote de toma de muestra y que las muestras de una misma voluntaria están
-pareadas.
+El siguiente paso es el **análisis de expresión diferencial**:
+identificar, con un modelo estadístico, qué genes cambian entre
+pacientes y controles dentro de cada tipo celular. Lo abordamos en la
+lección [Genes diferencialmente expresados entre pacientes y
+controles](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.md)
+con las funciones [`DESeq()`](https://rdrr.io/pkg/DESeq2/man/DESeq.html)
+y [`results()`](https://rdrr.io/pkg/DESeq2/man/results.html) de
+`DESeq2`. Un buen diseño debe considerar el tipo celular, el lote de
+toma de muestra y el pareo de las muestras de una misma voluntaria.
 
-Para recursos de aprendizaje sobre esto, consulta:
+Para continuar, da clic en el botón **Siguiente lección: Genes
+diferencialmente expresados** al final de esta página.
+
+Recursos complementarios:
 
 - La [viñeta oficial de
   DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).
@@ -1250,15 +1261,19 @@ Para recursos de aprendizaje sobre esto, consulta:
 - Patro R, *et al.* (2017). Salmon provides fast and bias-aware
   quantification of transcript expression. *Nature Methods* 14:417–419.
   [doi:10.1038/nmeth.4197](https://doi.org/10.1038/nmeth.4197)
-- Artículo original de los datos: *Frontiers in Immunology* (2026).
-  [doi:10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959)
+- Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
+  expression profiling of dendritic cell tolerance dysfunction in women
+  with systemic lupus
+  erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+  *Front. Immunol.* 17:1771959. [doi:
+  10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
 
 [← Lección anterior: Conociendo a las
 participantes](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.md)
 [Siguiente lección: Genes diferencialmente expresados
 →](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.md)
 
-[↑ Inicio](#top "Volver al inicio de la página")
+[↑ Volver a Inicio](#top "Volver al inicio de la página")
 
 ## Información de la sesión
 

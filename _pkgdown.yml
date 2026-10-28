@@ -18,7 +18,7 @@ authors:
 
 navbar:
   structure:
-    left:  [home, intro, articles, download, reference, news]
+    left:  [home, intro, articles, download, reference, changelog]
     right: [search, github, lightswitch]
   components:
 
@@ -77,3 +77,11 @@ navbar:
         href: articles/download_es.html
       - text: "EN - Data download"
         href: articles/download_en.html
+
+    changelog:
+      text: "Registro de cambios"
+      menu:
+      - text: "ES - Registro de cambios"
+        href: articles/news_es.html
+      - text: "EN - Changelog"
+        href: news/index.html

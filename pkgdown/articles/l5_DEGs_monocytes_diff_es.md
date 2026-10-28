@@ -8,10 +8,10 @@ cuando un monocito se diferencia en célula dendrítica?**, y **¿ese
 proceso ocurre igual en las pacientes con lupus que en los controles?**
 
 **Lo que necesitas saber antes:** haber hecho las lecciones [Genes
-diferencialmente
-expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.md)
-y [Funciones biológicas de los
-DEG](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md).
+diferencialmente expresados entre pacientes y
+controles](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.md)
+y [Funciones biológicas de los genes diferencialmente
+expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md).
 
 **Al terminar podrás:**
 
@@ -97,7 +97,7 @@ lfc_threshold  <- 1
 padj_threshold <- 0.05
 ```
 
-## 2. Paso 1: el experimento (Figura 4A)
+## 2. **Paso 1:** el experimento (Figura 4A)
 
 Los monocitos de cada voluntaria se cultivaron *in vitro* con distintas
 citocinas para obtener dos tipos de células dendríticas:
@@ -119,7 +119,7 @@ qué genes **cambian al diferenciarse** comparando cada célula dendrítica
 contra los monocitos. Si la diferenciación funcionó, esperamos ver
 cambios grandes y genes conocidos encendiéndose o apagándose.
 
-## 3. Paso 2: el diseño del análisis
+## 3. **Paso 2:** el diseño del análisis
 
 Hacemos la comparación **dentro de cada grupo**: las células dendríticas
 de los controles contra los monocitos de los controles, y las de las
@@ -213,7 +213,7 @@ Un LFC positivo significa que el gen está **más alto en la célula
 dendrítica** que en el monocito; uno negativo, que se **apaga** al
 diferenciarse.
 
-## 4. Paso 3: ¿cuántos genes cambian? (Figura 4B)
+## 4. **Paso 3:** ¿cuántos genes cambian? (Figura 4B)
 
 Con los mismos umbrales de las lecciones anteriores (\|LFC\| ≥ 1 y padj
 \< 0.05), separamos los DEG de cada comparación por dirección:
@@ -384,7 +384,7 @@ plot_lfc_heatmap <- function(genes, process = NULL, process_levels = unique(proc
 }
 ```
 
-## 6. Paso 4: ¿cambian los genes que esperábamos? (Figura 4C)
+## 6. **Paso 4:** ¿cambian los genes que esperábamos? (Figura 4C)
 
 Si nuestras células se diferenciaron bien, los genes que la literatura
 describe para la diferenciación de monocito a moDC deberían cambiar en
@@ -501,7 +501,7 @@ Las discrepancias pueden deberse a diferencias en el protocolo de
 cultivo o a que los estudios de referencia usaron otras condiciones. Es
 normal que no todos los genes coincidan.
 
-## 7. Paso 5: ¿qué procesos cambian? (Figura 4D)
+## 7. **Paso 5:** ¿qué procesos cambian? (Figura 4D)
 
 ### 7.1 Enriquecimiento funcional
 
@@ -691,7 +691,7 @@ Recuerda que un círculo indica **enriquecimiento**, no un valor de
 expresión: para confirmar estas diferencias habría que comparar
 directamente las células dendríticas de pacientes y controles.
 
-## 8. Paso 6: metabolismo de ácidos grasos (Figura 5A)
+## 8. **Paso 6:** metabolismo de ácidos grasos (Figura 5A)
 
 Una célula dendrítica no solo cambia sus marcadores: también cambia su
 **metabolismo**. Tomamos los genes del término de Reactome “Fatty acid
@@ -734,7 +734,7 @@ Recuerda que en la lección 4 encontramos genes del metabolismo de
 lípidos alterados en las tolDC de las pacientes; aquí vemos que ese
 metabolismo es central para estas células.
 
-## 9. Paso 7: rutas canónicas de las células dendríticas (Figura 5B)
+## 9. **Paso 7:** rutas canónicas de las células dendríticas (Figura 5B)
 
 Por último, revisamos genes asociados a la función de las células
 dendríticas según Gene Ontology (lista curada `dc_genes`):
@@ -916,21 +916,25 @@ ggsave("Figura_5.png", figure_5, width = 18, height = 8, dpi = 300)
 - **Esperar que todos los genes de la literatura coincidan**: los
   protocolos de cultivo varían.
 
-## 12. ¿Y después?
+## 12. Próximos pasos
 
-Vimos que la diferenciación de monocitos a células dendríticas sigue un
-programa muy parecido en pacientes y controles, con cambios grandes en
-el sistema inmune y en el metabolismo de lípidos. En la [siguiente
-lección](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.md)
-nos enfocamos en las tolDC: ¿adquieren las de las pacientes la firma
-tolerogénica descrita en la literatura?
+La diferenciación de monocitos a células dendríticas sigue un programa
+muy similar en pacientes y controles, con cambios importantes en el
+sistema inmune y en el metabolismo de lípidos. La lección [La firma
+transcripcional de las células dendríticas
+tolerogénicas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.md)
+se enfoca en las tolDC y evalúa si las de las pacientes adquieren la
+firma tolerogénica descrita en la literatura.
+
+Para continuar, da clic en el botón **Siguiente lección: La firma de las
+tolDC** al final de esta página.
 
 [← Lección anterior: Funciones biológicas de los
 DEG](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md)
 [Siguiente lección: La firma de las tolDC
 →](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.md)
 
-[↑ Inicio](#top "Volver al inicio de la página")
+[↑ Volver a Inicio](#top "Volver al inicio de la página")
 
 ## Información de la sesión
 

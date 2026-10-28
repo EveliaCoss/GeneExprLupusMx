@@ -62,8 +62,9 @@ necesites.
   es el doble; LFC = −1, la mitad; LFC = 0, sin cambio.
 - **Prueba de Wald**: prueba que usa `DESeq2` para evaluar si el LFC es
   distinto de cero.
-- **Valor p**: probabilidad de ver una diferencia así de grande si en
-  realidad no hubiera diferencia.
+- **Valor p**: probabilidad de observar datos tan extremos como los
+  nuestros si la hipótesis nula fuera cierta (aquí, si en realidad no
+  hubiera diferencia).
 - **Comparaciones múltiples**: al probar miles de genes, algunos saldrán
   significativos por azar.
 - **FDR** (*false discovery rate*): proporción esperada de falsos
@@ -777,20 +778,24 @@ los tres tipos celulares). La siguiente lección empezará desde ahí.
 - **Pensar que “no es DEG” significa “no cambia”:** con 10 controles, el
   poder estadístico es limitado.
 
-## 10. ¿Y después?
+## 10. Próximos pasos
 
-Ya sabemos **qué** genes cambian. En la [siguiente
-lección](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md)
-averiguaremos **qué hacen**: buscaremos las funciones biológicas, rutas
-y procesos asociados a los 94 DEG en bases de datos como Gene Ontology y
-Reactome.
+Ya identificamos **qué** genes cambian entre pacientes y controles. La
+lección [Funciones biológicas de los genes diferencialmente
+expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md)
+aborda **qué funciones cumplen**: mediante un análisis de
+enriquecimiento funcional, asociaremos los 94 DEG con procesos
+biológicos y rutas de Gene Ontology y Reactome.
+
+Para continuar, da clic en el botón **Siguiente lección: Funciones
+biológicas de los DEG** al final de esta página.
 
 [← Lección anterior: De las cuentas de RNA-seq a la exploración de
 datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md)
 [Siguiente lección: Funciones biológicas de los DEG
 →](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md)
 
-[↑ Inicio](#top "Volver al inicio de la página")
+[↑ Volver a Inicio](#top "Volver al inicio de la página")
 
 ## Información de la sesión
 

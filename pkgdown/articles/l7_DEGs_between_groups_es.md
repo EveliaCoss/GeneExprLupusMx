@@ -23,6 +23,8 @@ dendríticas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_mono
 3.  Visualizar una interacción con una gráfica de líneas.
 4.  Resumir los genes con su **proceso específico** de Reactome.
 5.  Reproducir los paneles **A y B de la Figura 7** del artículo.
+6.  Interpretar una interacción con las **trayectorias de expresión** de
+    cada grupo.
 
 **Tiempo estimado:** 1.5 horas.
 
@@ -46,6 +48,8 @@ LFC de la interacción"]
   E --> F
   E --> G["Figura 7B
 procesos por lista"]
+  F --> H["Figura suplementaria
+trayectorias de expresión"]
 ```
 
 ## Glosario
@@ -65,6 +69,9 @@ necesites.
   con [`resultsNames()`](https://rdrr.io/pkg/DESeq2/man/results.html).
 - **Proceso específico**: entre todos los términos enriquecidos en los
   que aparece un gen, el que tiene **menos** genes; el más concreto.
+- **Trayectoria de expresión**: cómo cambia la expresión media de un gen
+  a lo largo de las etapas de diferenciación (monocito → moDC → tolDC)
+  en cada grupo.
 
 ## 1. Preparación
 
@@ -91,7 +98,7 @@ lfc_color        <- colorRamp2(c(-5, -1, 0, 1, 5), c("darkblue", "dodgerblue", "
 padj_threshold <- 0.05
 ```
 
-## 2. Paso 1: ¿qué es una interacción?
+## 2. **Paso 1:** ¿qué es una interacción?
 
 Tomemos un gen estimulado por interferón, `ISG15`. En la lección 5
 calculamos su LFC de monocito a célula dendrítica en cada grupo:
@@ -142,8 +149,8 @@ plot_interaction("ISG15")
 - Si las dos líneas fueran **paralelas**, el gen cambiaría igual en
   ambos grupos: no habría interacción.
 - Aquí **no son paralelas**: las pacientes parten de un valor mucho más
-  alto en los monocitos (la firma de interferón de la lección 3) y caen
-  más al diferenciarse.
+  alto en los monocitos (la firma de interferón de las lecciones 2 y 3)
+  y caen más al diferenciarse.
 
 **Una interacción negativa no significa “más bajo en las pacientes”.**
 Significa que el gen **baja más** (o sube menos) al diferenciarse en las
@@ -151,7 +158,7 @@ pacientes. En el caso de `ISG15`, las moDC de ambos grupos terminan con
 niveles parecidos; lo que cambia es la pendiente, porque las pacientes
 parten de un valor más alto.
 
-## 3. Paso 2: el modelo con interacción
+## 3. **Paso 2:** el modelo con interacción
 
 En la lección 5 ajustamos un modelo para cada grupo y comparamos sus LFC
 “a ojo”. Para obtener un **valor p** de la diferencia, hay que ajustar
@@ -235,7 +242,7 @@ restando. La pequeña diferencia viene de que en la lección 5 el modelo
 de las pacientes también se ajustó por actividad de la enfermedad y
 dosis de glucocorticoides.
 
-## 4. Paso 3: ¿qué genes cambian distinto?
+## 4. **Paso 3:** ¿qué genes cambian distinto?
 
 Un gen tiene una interacción significativa si su `padj < 0.05`. Lo
 clasificamos como `UP` o `DOWN` según el signo del LFC, y nombramos cada
@@ -308,7 +315,7 @@ plot_grid(plot_interaction("IL5RA"), plot_interaction("ABCG1"), nrow = 1)
   en los controles, pero sube un poco en las pacientes: las líneas se
   separan (interacción en tolDC, LFC ≈ 2.4).
 
-## 5. Paso 4: ¿en qué procesos participan?
+## 5. **Paso 4:** ¿en qué procesos participan?
 
 Como en las lecciones anteriores, buscamos términos enriquecidos en cada
 lista con g:Profiler (<GO:BP>, KEGG y Reactome):
@@ -368,7 +375,7 @@ dplyr::count(deg_reac, query = factor(query, levels = query_order))
 De los 57 genes con interacción significativa, 33 tienen un proceso de
 Reactome. Esos son los genes de la Figura 7A.
 
-## 6. Paso 5: genes compartidos y exclusivos (Figura 7A)
+## 6. **Paso 5:** genes compartidos y exclusivos (Figura 7A)
 
 Hacemos una matriz de genes × listas con el LFC de la interacción; queda
 vacía (`NA`) si el gen no está en esa lista:
@@ -511,7 +518,7 @@ table(gene_pattern[rownames(lfc_mat) %in% isg_genes$genes])
 Los ISG están en los genes compartidos y en los que bajan en cada tipo
 celular; ninguno está entre los que suben.
 
-## 7. Paso 6: procesos por lista (Figura 7B)
+## 7. **Paso 6:** procesos por lista (Figura 7B)
 
 Contamos cuántos genes de cada lista pertenecen a cada proceso
 específico, y dejamos vacías las celdas sin genes:
@@ -660,7 +667,178 @@ Para guardarla en alta resolución:
 ggsave("Figura_7AB.png", figure_7, width = 18, height = 12, dpi = 300)
 ```
 
-## 9. Resumen
+## 9. Para profundizar: trayectorias de expresión (Figura suplementaria)
+
+En la Figura 7A, 30 de los 33 genes tienen una interacción **negativa**.
+Si la interacción captura un efecto del lupus sobre la diferenciación,
+¿qué significa que casi todos bajen? Hay tres explicaciones posibles, y
+cada una deja una huella distinta en las líneas de Ctrl y SLE:
+
+| Explicación | ¿Qué veríamos? |
+|----|----|
+| **Diferencia basal que se pierde** | Las pacientes parten de monocitos con el gen más alto y, al diferenciarse, ambos grupos llegan a niveles parecidos. |
+| **Inducción atenuada** | Ambos grupos parten del mismo nivel; el gen sube al diferenciarse, pero sube menos en las pacientes. |
+| **Represión excesiva** | Ambos grupos parten del mismo nivel; el gen baja al diferenciarse, pero baja más en las pacientes. |
+
+Para distinguirlas graficamos la **trayectoria** de cada gen: el z-score
+medio de cada grupo en monocitos, moDC y tolDC. Primero seleccionamos
+los genes que bajan y calculamos las medias, como en
+`plot_interaction()`:
+
+``` r
+
+trajectory_genes <- tibble(gene = rownames(lfc_mat), classification = as.character(gene_pattern)) %>%
+  filter(startsWith(classification, "Downregulated"))
+nrow(trajectory_genes)
+#> [1] 30
+
+exp_mean_df <- zscore_mat[trajectory_genes$gene, as.character(metadata_cleaned$sample_ID)] %>%
+  as.data.frame() %>%
+  rownames_to_column("gene") %>%
+  pivot_longer(-gene, names_to = "sample_ID", values_to = "expression") %>%
+  left_join(metadata_cleaned %>%
+              mutate(sample_ID = as.character(sample_ID)) %>%
+              dplyr::select(sample_ID, Group, Cell_type),
+            by = "sample_ID") %>%
+  group_by(Group, Cell_type, gene) %>%
+  summarise(mean_expression = mean(expression), .groups = "drop") %>%
+  left_join(trajectory_genes, by = "gene") %>%
+  mutate(Cell_type = factor(Cell_type, levels = c("monocyte", "moDC", "tolDC")))
+head(exp_mean_df)
+#> # A tibble: 6 × 5
+#>   Group Cell_type gene    mean_expression classification           
+#>   <fct> <fct>     <chr>             <dbl> <chr>                    
+#> 1 Ctrl  moDC      AGRN              0.544 Downregulated - SLE moDC 
+#> 2 Ctrl  moDC      BST2             -0.390 Downregulated - SLE tolDC
+#> 3 Ctrl  moDC      CCL2              0.221 Downregulated - SLE both 
+#> 4 Ctrl  moDC      CYP51A1           0.901 Downregulated - SLE tolDC
+#> 5 Ctrl  moDC      DHX58            -0.862 Downregulated - SLE tolDC
+#> 6 Ctrl  moDC      EBP               0.500 Downregulated - SLE tolDC
+```
+
+Ahora graficamos un panel por gen, agrupados según su clasificación en
+la Figura 7A:
+
+``` r
+
+exp_mean_trajectory <- ggplot(exp_mean_df,
+                              aes(x = Cell_type, y = mean_expression, group = Group, color = Group)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 3) +
+  facet_wrap(classification ~ gene, scales = "free_y", ncol = 6) +
+  scale_color_manual(values = group_color) +
+  labs(title = "Expression trajectories of interaction DEGs",
+       x = "Differentiation stage", y = "Normalized expression (mean z-score)", color = "Group") +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "bottom")
+exp_mean_trajectory
+```
+
+![](l7_DEGs_between_groups_es_files/figure-html/trajectory_plot-1.png)
+
+**Figura suplementaria.** Trayectorias de expresión de los 30 DEG de
+interacción que bajan en las pacientes a lo largo de las etapas de
+diferenciación (monocito → moDC → tolDC) en controles (Ctrl) y pacientes
+(SLE). Las líneas representan la expresión normalizada media (z-score)
+de cada grupo, y los puntos indican cada etapa de diferenciación. Los
+genes se agrupan según su clasificación en la Figura 7A: bajan en ambos
+tipos celulares (Downregulated - SLE both, 9 genes), solo en las moDC
+(Downregulated - SLE moDC, 7 genes) o solo en las tolDC (Downregulated -
+SLE tolDC, 14 genes). Las trayectorias muestran que la interacción
+negativa refleja una modulación de la diferenciación de las células
+dendríticas propia de la enfermedad. SLE, lupus eritematoso sistémico;
+Ctrl, control sano; moDC, células dendríticas derivadas de monocitos;
+tolDC, células dendríticas tolerogénicas; DEG, genes diferencialmente
+expresados.
+
+Más detalles en el
+[artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+
+¿Cuál de las tres explicaciones domina? Para cada gen comparamos la
+diferencia SLE − Ctrl en los monocitos (**basal**) con la diferencia en
+la célula dendrítica donde la interacción es significativa (**final**;
+para los genes de ambos tipos celulares, el promedio de moDC y tolDC):
+
+- Si la diferencia basal es mayor que la final, es una **diferencia
+  basal que se pierde**.
+- Si no, y el gen sube al diferenciarse en los controles, es una
+  **inducción atenuada**; si baja, es una **represión excesiva**.
+
+``` r
+
+trajectory_type <- exp_mean_df %>%
+  pivot_wider(names_from = c(Group, Cell_type), values_from = mean_expression) %>%
+  mutate(
+    Ctrl_DC = case_when(endsWith(classification, "moDC")  ~ Ctrl_moDC,
+                        endsWith(classification, "tolDC") ~ Ctrl_tolDC,
+                        TRUE ~ (Ctrl_moDC + Ctrl_tolDC) / 2),
+    SLE_DC  = case_when(endsWith(classification, "moDC")  ~ SLE_moDC,
+                        endsWith(classification, "tolDC") ~ SLE_tolDC,
+                        TRUE ~ (SLE_moDC + SLE_tolDC) / 2),
+    baseline_diff = SLE_monocyte - Ctrl_monocyte,
+    final_diff    = SLE_DC - Ctrl_DC,
+    trajectory = case_when(abs(baseline_diff) >= abs(final_diff) ~ "Diferencia basal que se pierde",
+                           Ctrl_DC > Ctrl_monocyte              ~ "Inducción atenuada",
+                           TRUE                                 ~ "Represión excesiva"))
+
+dplyr::count(trajectory_type, trajectory)
+#> # A tibble: 3 × 2
+#>   trajectory                         n
+#>   <chr>                          <int>
+#> 1 Diferencia basal que se pierde    21
+#> 2 Inducción atenuada                 6
+#> 3 Represión excesiva                 3
+n_trajectory <- function(type) sum(trajectory_type$trajectory == type)
+n_isg_basal  <- sum(trajectory_type$gene[trajectory_type$trajectory == "Diferencia basal que se pierde"] %in% isg_genes$genes)
+```
+
+**¿Qué observas?**
+
+- En 21 genes, 17 de ellos ISG (`ISG15`, `IFI6`, `OAS2`, `RSAD2`…), la
+  diferencia **ya existe en los monocitos**: las pacientes parten con la
+  firma de interferón alta y, al diferenciarse, ambos grupos llegan a
+  niveles parecidos. La interacción negativa no indica que estos genes
+  se apaguen de más, sino que la diferencia basal se pierde.
+- En 6 genes, todos de las tolDC, ambos grupos parten de niveles
+  parecidos y el gen **se induce menos en las pacientes**.
+- En 3 genes, la caída al diferenciarse es mayor en las pacientes.
+
+Por eso una interacción negativa puede venir de lugares muy distintos:
+siempre conviene mirar las trayectorias antes de interpretarla.
+
+**Reto 5.** ¿Qué genes tienen una inducción atenuada? ¿A qué proceso
+específico de Reactome pertenecen?
+
+Ver solución
+
+``` r
+
+trajectory_type %>%
+  filter(trajectory == "Inducción atenuada") %>%
+  left_join(reac_specific, by = "gene") %>%
+  dplyr::select(gene, classification, specific_process)
+#> # A tibble: 6 × 3
+#>   gene    classification            specific_process        
+#>   <chr>   <chr>                     <chr>                   
+#> 1 CYP51A1 Downregulated - SLE tolDC Cholesterol biosynthesis
+#> 2 EBP     Downregulated - SLE tolDC Cholesterol biosynthesis
+#> 3 IDI1    Downregulated - SLE tolDC Cholesterol biosynthesis
+#> 4 MSMO1   Downregulated - SLE tolDC Cholesterol biosynthesis
+#> 5 MVD     Downregulated - SLE tolDC Cholesterol biosynthesis
+#> 6 STARD4  Downregulated - SLE tolDC Metabolism of steroids
+```
+
+Son genes de la **síntesis de colesterol** que las tolDC de los
+controles inducen al diferenciarse y las de las pacientes inducen menos.
+
+Para guardar la figura suplementaria:
+
+``` r
+
+ggsave("Figura_suplementaria_trayectorias.png", exp_mean_trajectory, width = 14, height = 13, dpi = 300)
+```
+
+## 10. Resumen
 
 | Paso | Función clave | ¿Para qué? |
 |----|----|----|
@@ -669,6 +847,7 @@ ggsave("Figura_7AB.png", figure_7, width = 18, height = 12, dpi = 300)
 | Leer coeficientes | [`resultsNames()`](https://rdrr.io/pkg/DESeq2/man/results.html), `results(name = ...)` | Elegir la pregunta correcta |
 | Seleccionar genes | `padj < 0.05` y signo del LFC | Separar listas UP y DOWN |
 | Resumir funciones | proceso específico de Reactome | Ver procesos en lugar de genes |
+| Interpretar una interacción | trayectorias con [`facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.html) | Distinguir diferencias basales, inducción atenuada y represión excesiva |
 
 ### Errores comunes de principiante
 
@@ -682,19 +861,27 @@ ggsave("Figura_7AB.png", figure_7, width = 18, height = 12, dpi = 300)
   (`Cell_type_moDC_vs_monocyte`) describen a los **controles**, no a
   todas las muestras.
 
-## 10. ¿Y después?
+## 11. Próximos pasos
 
-Las células de las pacientes se diferencian casi igual que las de los
-controles. Las pocas diferencias se concentran en dos programas: la
-**firma de interferón**, que las pacientes traen desde los monocitos y
-pierden al diferenciarse, y el **metabolismo del colesterol** en las
-tolDC. Si quieres profundizar, puedes preguntar: ¿qué factores de
-transcripción regulan estos genes?
+Con esta lección concluye la ruta de aprendizaje. Las células de las
+pacientes se diferencian casi igual que las de los controles; las
+diferencias se concentran en la **firma de interferón**, que las
+pacientes traen desde los monocitos y pierden al diferenciarse, y en el
+**metabolismo del colesterol** de las tolDC. Una pregunta natural para
+profundizar es qué factores de transcripción regulan estos genes.
+
+Para repasar el recorrido completo, regresa a [Primeros pasos con el
+paquete
+GeneExprLupusMx](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md)
+desde el menú *Artículos*, o da clic en el botón **Lección anterior** al
+final de esta página. Para trabajar con los datos fuera de R, consulta
+la página de [Descarga de
+datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/download_es.md).
 
 [← Lección anterior: La firma de las
 tolDC](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.md)
 
-[↑ Inicio](#top "Volver al inicio de la página")
+[↑ Volver a Inicio](#top "Volver al inicio de la página")
 
 ## Información de la sesión
 

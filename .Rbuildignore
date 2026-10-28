@@ -9,3 +9,4 @@
 ^README\.Rmd$
 ^index\.Rmd$
 ^index\.md$
+^vignettes/articles$

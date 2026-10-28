@@ -9,16 +9,20 @@
 ## Cita
 
 Código:
-[`DESCRIPTION`](https://github.com/EveliaCoss/GeneExprLupusMx/blob/HEAD/DESCRIPTION)
+[`inst/CITATION`](https://github.com/EveliaCoss/GeneExprLupusMx/blob/HEAD/inst/CITATION)
 
-Coss E (2026). *GeneExprLupusMx: GeneExprLupusMx: transcriptómica de
-lupus en mujeres mexicanas para investigación y enseñanza*. R package
-version 0.0.0.9000, <https://github.com/EveliaCoss/GeneExprLupusMx>.
+Hernández-Ledesma AL, Coss-Navarrete EL, et al (2026) Gene expression
+profiling of dendritic cell tolerance dysfunction in women with systemic
+lupus erythematosus. Front. Immunol. 17:1771959. doi:
+10.3389/fimmu.2026.1771959.
 
-    @Manual{,
-      title = {GeneExprLupusMx: GeneExprLupusMx: transcriptómica de lupus en mujeres mexicanas para investigación y enseñanza},
-      author = {Evelia Coss},
+    @Article{,
+      title = {Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus},
+      author = {A. L. Hernández-Ledesma and E. L. Coss-Navarrete and others},
+      journal = {Frontiers in Immunology},
       year = {2026},
-      note = {R package version 0.0.0.9000},
-      url = {https://github.com/EveliaCoss/GeneExprLupusMx},
+      volume = {17},
+      pages = {1771959},
+      doi = {10.3389/fimmu.2026.1771959},
+      url = {https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full},
     }

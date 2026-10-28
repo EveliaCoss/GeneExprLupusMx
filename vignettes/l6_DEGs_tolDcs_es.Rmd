@@ -38,6 +38,7 @@ Las **células dendríticas tolerogénicas (tolDC)** son una promesa terapéutic
 3. Explicar por qué **la elección de la referencia** cambia la interpretación de un LFC.
 4. Calcular el cambio entre dos tipos celulares a partir de dos comparaciones con la misma referencia.
 5. Reproducir la **Figura 6** del artículo.
+6. Contar genes concordantes y divergentes con una firma e identificar su núcleo común.
 
 **Tiempo estimado:** 1 hora.
 
@@ -65,7 +66,7 @@ flowchart LR
 Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
 
 - **Tolerancia inmunológica**: capacidad del sistema inmune de no atacar al propio cuerpo; en el lupus se pierde.
-- **tolDC**: células dendríticas tolerogénicas; promueven la tolerancia.
+- **tolDC**: células dendríticas tolerogénicas; promueven la tolerancia inmunológica.
 - **Firma transcripcional**: conjunto de genes cuya expresión caracteriza a un tipo o estado celular.
 - **Activado / reprimido**: gen que sube / baja en el estado celular de interés respecto a una referencia.
 - **IL-10, dexametasona (DXM)**: una citocina antiinflamatoria y un glucocorticoide que se usan para generar tolDC *in vitro*.
@@ -93,7 +94,7 @@ lfc_threshold  <- 1
 padj_threshold <- 0.05
 ```
 
-## 2. Paso 1: la firma de las tolDC
+## 2. **Paso 1:** la firma de las tolDC
 
 [Robertson et al. (2021)](https://doi.org/10.3389/fimmu.2021.733231) compararon tolDC generadas con distintos protocolos e identificaron los genes que distinguen a las tolDC. El paquete los incluye en `tolDC_genes`:
 
@@ -107,7 +108,7 @@ Cada categoría tiene dos partes:
 - **Dirección:** `Activated` (el gen sube en las tolDC) o `Repressed` (baja).
 - **Protocolo:** tolDC generadas con IL-10 (`IL10`), con IL-10 y dexametasona (`IL10+DXM`), o la firma de consenso de tolDC (`tolDC_signature`). Algunos genes aparecen en varios protocolos.
 
-## 3. Paso 2: ¿qué genes de la firma cambian en nuestros datos?
+## 3. **Paso 2:** ¿qué genes de la firma cambian en nuestros datos?
 
 Usamos los resultados de la lección anterior (`de_celltype_results`): cada célula dendrítica comparada contra los monocitos, en controles y pacientes. Nos quedamos con los genes de la firma que son DEG en **al menos una** de las cuatro comparaciones:
 
@@ -126,7 +127,7 @@ dplyr::count(signature_deg, biotype)
 
 **71 de los 86 genes de la firma cambian** durante la diferenciación de nuestras células. Casi todos codifican proteínas (PCG); dos son RNA largos no codificantes (lncRNA).
 
-## 4. Paso 3: la Figura 6
+## 4. **Paso 3:** la Figura 6
 
 La figura tiene dos *heatmaps* alineados por gen:
 
@@ -266,7 +267,7 @@ Solo dos genes, y con LFC pequeños: el programa tolerogénico es prácticamente
 
 </details>
 
-## 5. Paso 4: ¿cambian en la dirección de la firma? La importancia de la referencia
+## 5. **Paso 4:** ¿cambian en la dirección de la firma? La importancia de la referencia
 
 La firma dice qué genes están **activados** o **reprimidos** en las tolDC. ¿Coincide con nuestros LFC?
 
@@ -340,6 +341,99 @@ Son pocos genes, la mayoría con LFC cercanos a cero. Las diferencias de protoco
 
 </details>
 
+### 5.2 ¿Cuántos genes concuerdan y cuántos divergen?
+
+Una forma común de resumir la comparación con una firma es **contar**: para cada comparación contra los monocitos, cuántos DEG de la firma cambian en la dirección esperada (**concordantes**) y cuántos en la contraria (**divergentes**).
+
+```{r concordance}
+concordance_df <- imap_dfr(de_celltype_results, function(df, comparison) {
+  df %>%
+    filter(!is.na(padj), padj < padj_threshold, abs(log2FoldChange) >= lfc_threshold) %>%
+    inner_join(tolDC_genes, by = "gene") %>%
+    mutate(comparison = comparison,
+           Group      = sub("_.*", "", comparison),
+           status     = ifelse(sign(log2FoldChange) == ifelse(grepl("^Activated", tolDC_signature), 1, -1),
+                               "Concordant", "Divergent"))
+})
+
+# por comparación
+concordance_df %>%
+  dplyr::count(comparison, status) %>%
+  pivot_wider(names_from = status, values_from = n)
+
+# por grupo (suma de las comparaciones moDC y tolDC)
+concordance_counts <- concordance_df %>%
+  dplyr::count(Group, status) %>%
+  pivot_wider(names_from = status, values_from = n)
+concordance_counts
+```
+
+Sumando las dos comparaciones, en los controles `r concordance_counts$Concordant[concordance_counts$Group == "Ctrl"]` genes concuerdan con la firma y `r concordance_counts$Divergent[concordance_counts$Group == "Ctrl"]` divergen; en las pacientes, `r concordance_counts$Concordant[concordance_counts$Group == "SLE"]` concuerdan y `r concordance_counts$Divergent[concordance_counts$Group == "SLE"]` divergen. Ojo: aquí cada gen puede contarse dos veces (una en moDC y otra en tolDC).
+
+¿Qué genes concuerdan con la firma en las tolDC de **ambos** grupos?
+
+```{r core_genes}
+concordant_tolDC <- function(group) {
+  concordance_df$gene[concordance_df$comparison == paste0(group, "_tolDC") &
+                        concordance_df$status == "Concordant"]
+}
+core_genes <- sort(intersect(concordant_tolDC("Ctrl"), concordant_tolDC("SLE")))
+length(core_genes)
+core_genes
+```
+
+Estos `r length(core_genes)` genes forman un **núcleo tolerogénico** que el protocolo con IL-10 reproduce igual en controles y en pacientes; entre ellos están `CD163`, `MERTK`, `C1QA`, `C1QB` y `RNASE1`.
+
+Pero los conteos anteriores usan los **monocitos** como referencia, y la sección 5.1 mostró que con esa referencia la dirección engaña. Repitamos el conteo con la referencia de la firma, tolDC contra moDC, para los `r nrow(signature_deg)` genes de la firma que son DEG:
+
+```{r concordance_modc}
+tibble(Group      = colnames(tol_vs_modc),
+       Concordant = colSums(sign(tol_vs_modc) == expected),
+       Divergent  = colSums(sign(tol_vs_modc) != expected))
+```
+
+::: {.alert .alert-info}
+**Resultados**
+
+- **El protocolo con IL-10 reproduce un núcleo de la firma tolerogénica:** `r length(core_genes)` genes concuerdan con la firma en las tolDC de ambos grupos.
+- **La concordancia es igual en ambos grupos:** `r concordance_counts$Concordant[concordance_counts$Group == "Ctrl"]` genes concordantes en controles y `r concordance_counts$Concordant[concordance_counts$Group == "SLE"]` en pacientes.
+- **La divergencia depende de la referencia:** contra los monocitos muchos genes parecen ir en sentido contrario, pero contra las moDC, la referencia de la firma, casi todos concuerdan.
+:::
+
+::: {.callout-note}
+**Reto 3.** ¿Cuántos de los `r length(core_genes)` genes del núcleo tolerogénico están activados y cuántos reprimidos en la firma? ¿Siguen concordando con la firma cuando la referencia es la moDC (`tol_vs_modc`)?
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+```{r reto3_core}
+core_expected <- expected[match(core_genes, signature_deg$gene)]
+table(ifelse(core_expected == 1, "Activated", "Repressed"))
+
+colSums(sign(tol_vs_modc[core_genes, ]) == core_expected) # genes concordantes
+```
+
+Los `r length(core_genes)` genes concuerdan con la firma también contra la moDC, en controles y en pacientes: son el núcleo más robusto del programa tolerogénico.
+
+</details>
+
+::: {.callout-note}
+**Reto 4.** ¿Qué gen concuerda con la firma en las tolDC de los controles, pero no en las de las pacientes? ¿Y al revés?
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+```{r reto4}
+setdiff(concordant_tolDC("Ctrl"), concordant_tolDC("SLE"))
+setdiff(concordant_tolDC("SLE"), concordant_tolDC("Ctrl"))
+```
+
+Solo un gen en cada sentido: el programa tolerogénico de las tolDC es prácticamente el mismo en ambos grupos.
+
+</details>
+
 ## 6. Resumen
 
 | Paso | Función clave | ¿Para qué? |
@@ -349,6 +443,7 @@ Son pocos genes, la mayoría con LFC cercanos a cero. Las diferencias de protoco
 | Expresión por muestra | `zscore_mat` | Ver la variabilidad entre muestras |
 | Cambio por comparación | LFC de `de_celltype_results` | Resumir el cambio de cada grupo |
 | Cambiar de referencia | resta de LFC | Comparar dos tipos celulares sin repetir el análisis |
+| Contar concordancias | `imap_dfr()`, `intersect()` | Resumir cuántos genes siguen la firma en cada grupo |
 
 ### Errores comunes de principiante
 

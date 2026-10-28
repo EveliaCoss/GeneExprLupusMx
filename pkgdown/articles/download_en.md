@@ -1,0 +1,99 @@
+# Data download
+
+All `GeneExprLupusMx` data are distributed with the package: once it is
+loaded, they are available in R with no additional downloads. This page
+explains how to get them outside R and where the raw sequencing data are
+stored.
+
+## 1. Data included in the package
+
+| Object | Content | Size |
+|----|----|----|
+| `filtered_txi` | RNA-seq counts (Salmon + `tximport`): `counts`, `abundance` (TPM) and `length` | 21,718 genes × 99 samples |
+| `metadata_cleaned` | Group, cell type and clinical data of each sample | 99 samples |
+| `volunteer_info` | Age, diagnosis, treatments and recruitment date | 33 volunteers |
+| `biotype_summary` | Biotype of each gene | 1 row per gene |
+| `sle_genes`, `isg_genes` | Lupus-associated genes and interferon-stimulated genes | gene lists |
+| `moDC_genes`, `dc_genes`, `tolDC_genes` | Dendritic cell differentiation genes and the tolDC signature | gene lists |
+| `dds`, `zscore_mat` | Normalized `DESeqDataSet` and z-score matrix | 13,596 genes × 99 samples |
+| `de_results`, `de_celltype_results`, `de_interaction_results` | Differential expression results (`DESeq2`) | 1 row per gene |
+| `go_results`, `go_celltype_results`, `go_interaction_results` | Functional enrichment (g:Profiler) | 1 row per term |
+
+The full description of each object is in the
+[Reference](https://eveliacoss.github.io/GeneExprLupusMx/reference/index.md)
+section, or in R with `?object_name`. The scripts that generate each
+object are in the
+[`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw)
+folder of the repository.
+
+## 2. Load the data in R
+
+``` r
+
+# install.packages("remotes")
+remotes::install_github("EveliaCoss/GeneExprLupusMx")
+
+library(GeneExprLupusMx)
+data(package = "GeneExprLupusMx") # list of available objects
+head(metadata_cleaned)
+```
+
+## 3. Export to CSV files
+
+To work with other software (Excel, Python, etc.), export the objects as
+tables:
+
+``` r
+
+dir.create("GeneExprLupusMx_data", showWarnings = FALSE)
+
+# Metadata and volunteer information
+write.csv(metadata_cleaned, "GeneExprLupusMx_data/metadata_cleaned.csv", row.names = FALSE)
+write.csv(volunteer_info,   "GeneExprLupusMx_data/volunteer_info.csv",   row.names = FALSE)
+
+# Count and TPM matrices (genes in rows, samples in columns)
+write.csv(filtered_txi$counts,    "GeneExprLupusMx_data/counts.csv")
+write.csv(filtered_txi$abundance, "GeneExprLupusMx_data/tpm.csv")
+
+# Differential expression results: one file per cell type
+for (cell in names(de_results)) {
+  write.csv(de_results[[cell]], paste0("GeneExprLupusMx_data/de_SLEvsCtrl_", cell, ".csv"), row.names = FALSE)
+}
+```
+
+## 4. Direct download from GitHub
+
+Each object is also available as an `.rda` file in the
+[`data/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data)
+folder of the repository. You can load it without installing the
+package:
+
+``` r
+
+url <- "https://github.com/EveliaCoss/GeneExprLupusMx/raw/main/data/metadata_cleaned.rda"
+load(url(url))
+head(metadata_cleaned)
+```
+
+## 5. Raw sequencing data
+
+The raw data (RNA-seq FASTQ files) from patients and controls are
+deposited in the [European Genome-phenome Archive
+(EGA)](https://ega-archive.org/) under **controlled access**. Access
+requires a formal request and approval by the corresponding Data Access
+Committee. The identifiers of each analysis are listed in Supplementary
+Table 2 of the [article’s supplementary
+material](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial).
+
+## 6. How to cite
+
+If you use these data, please cite the original article:
+
+> Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
+> expression profiling of dendritic cell tolerance dysfunction in women
+> with systemic lupus
+> erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+> *Front. Immunol.* 17:1771959. [doi:
+> 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
+
+[↑ Back to top](#top "Back to the top of the page")

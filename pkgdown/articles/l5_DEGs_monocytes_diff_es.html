@@ -41,30 +41,39 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
 <li><h6 class="dropdown-header" data-toc-skip>ES - Tutoriales en español</h6></li>
-    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
+    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes</a></li>
     <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
     <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
     <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Funciones biológicas de los genes diferencialmente expresados</a></li>
     <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_es.html">5 - Diferenciación de monocitos a células dendríticas</a></li>
-    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma de las células dendríticas tolerogénicas</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma transcripcional de las células dendríticas tolerogénicas</a></li>
     <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_es.html">7 - ¿Se diferencian igual las células de pacientes y controles?</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>1 - Introduction</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>2 - Meeting Karel</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>3 - Decomposition</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>4 - Control structures</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Examples</h6></li>
+    <li><a class="dropdown-item" href="../articles/clinical_en.html">1 - Meeting the participants</a></li>
+    <li><a class="dropdown-item" href="../articles/intro_RNAseq_en.html">2 - From RNA-seq counts to data exploration</a></li>
+    <li><a class="dropdown-item" href="../articles/l3_DEGs_en.html">3 - Differentially expressed genes between patients and controls</a></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_en.html">4 - Biological functions of differentially expressed genes</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_en.html">5 - Differentiation of monocytes into dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_en.html">6 - The transcriptional signature of tolerogenic dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_en.html">7 - Do patient and control cells differentiate in the same way?</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-descarga-de-datos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Descarga de datos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-descarga-de-datos">
-<li><a class="dropdown-item" href="../articles/download.html">Download raw data</a></li>
+<li><a class="dropdown-item" href="../articles/download_es.html">ES - Descarga de datos</a></li>
+    <li><a class="dropdown-item" href="../articles/download_en.html">EN - Data download</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Índice</a></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Registro de cambios</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-registro-de-cambios" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Registro de cambios</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-registro-de-cambios">
+<li><a class="dropdown-item" href="../articles/news_es.html">ES - Registro de cambios</a></li>
+    <li><a class="dropdown-item" href="../news/index.html">EN - Changelog</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -126,11 +135,17 @@ pre.mermaid { background: none; border: 0; text-align: center; }
 }
 .lesson-nav a {
   padding: .5rem 1rem;
-  border: 1px solid #0758E5;
+  border: 1px solid #000;
   border-radius: .25rem;
+  background: #000;
+  color: #4DA3FF !important; /* azul legible sobre negro */
   text-decoration: none;
 }
-.lesson-nav a:hover { background: rgba(7, 88, 229, .08); }
+.lesson-nav a:hover {
+  background: #6f42c1; /* morado */
+  border-color: #6f42c1;
+  color: #fff !important;
+}
 .lesson-nav .lesson-next { margin-left: auto; }
 
 /* Botón flotante para volver al inicio de la página */
@@ -158,9 +173,9 @@ pregunta: <strong>¿qué cambia cuando un monocito se diferencia en célula
 dendrítica?</strong>, y <strong>¿ese proceso ocurre igual en las
 pacientes con lupus que en los controles?</strong></p>
 <p><strong>Lo que necesitas saber antes:</strong> haber hecho las
-lecciones <a href="l3_DEGs_es.html">Genes diferencialmente
-expresados</a> y <a href="l4_GOterms_es.html">Funciones biológicas de
-los DEG</a>.</p>
+lecciones <a href="l3_DEGs_es.html">Genes diferencialmente expresados
+entre pacientes y controles</a> y <a href="l4_GOterms_es.html">Funciones
+biológicas de los genes diferencialmente expresados</a>.</p>
 <p><strong>Al terminar podrás:</strong></p>
 <ol style="list-style-type: decimal">
 <li>Plantear una comparación <strong>entre tipos celulares</strong>
@@ -249,7 +264,7 @@ metabólicas que usa una célula al cambiar de función.</li>
 <span><span class="va">padj_threshold</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="paso-1-el-experimento-figura-4a">2. Paso 1: el experimento (Figura 4A)<a class="anchor" aria-label="anchor" href="#paso-1-el-experimento-figura-4a"></a>
+<h2 id="paso-1-el-experimento-figura-4a">2. <strong>Paso 1:</strong> el experimento (Figura 4A)<a class="anchor" aria-label="anchor" href="#paso-1-el-experimento-figura-4a"></a>
 </h2>
 <p>Los monocitos de cada voluntaria se cultivaron <em>in vitro</em> con
 distintas citocinas para obtener dos tipos de células dendríticas:</p>
@@ -268,7 +283,7 @@ funcionó, esperamos ver cambios grandes y genes conocidos encendiéndose
 o apagándose.</p>
 </div>
 <div class="section level2">
-<h2 id="paso-2-el-diseño-del-análisis">3. Paso 2: el diseño del análisis<a class="anchor" aria-label="anchor" href="#paso-2-el-dise%C3%B1o-del-an%C3%A1lisis"></a>
+<h2 id="paso-2-el-diseño-del-análisis">3. <strong>Paso 2:</strong> el diseño del análisis<a class="anchor" aria-label="anchor" href="#paso-2-el-dise%C3%B1o-del-an%C3%A1lisis"></a>
 </h2>
 <p>Hacemos la comparación <strong>dentro de cada grupo</strong>: las
 células dendríticas de los controles contra los monocitos de los
@@ -370,7 +385,7 @@ célula dendrítica</strong> que en el monocito; uno negativo, que se
 <strong>apaga</strong> al diferenciarse.</p>
 </div>
 <div class="section level2">
-<h2 id="paso-3-cuántos-genes-cambian-figura-4b">4. Paso 3: ¿cuántos genes cambian? (Figura 4B)<a class="anchor" aria-label="anchor" href="#paso-3-cu%C3%A1ntos-genes-cambian-figura-4b"></a>
+<h2 id="paso-3-cuántos-genes-cambian-figura-4b">4. <strong>Paso 3:</strong> ¿cuántos genes cambian? (Figura 4B)<a class="anchor" aria-label="anchor" href="#paso-3-cu%C3%A1ntos-genes-cambian-figura-4b"></a>
 </h2>
 <p>Con los mismos umbrales de las lecciones anteriores (|LFC| ≥ 1 y padj
 &lt; 0.05), separamos los DEG de cada comparación por dirección:</p>
@@ -523,7 +538,8 @@ por gen, agrupando los genes por proceso:</p>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="paso-4-cambian-los-genes-que-esperábamos-figura-4c">6. Paso 4: ¿cambian los genes que esperábamos? (Figura 4C)<a class="anchor" aria-label="anchor" href="#paso-4-cambian-los-genes-que-esper%C3%A1bamos-figura-4c"></a>
+<h2 id="paso-4-cambian-los-genes-que-esperábamos-figura-4c">6. <strong>Paso 4:</strong> ¿cambian los genes que esperábamos?
+(Figura 4C)<a class="anchor" aria-label="anchor" href="#paso-4-cambian-los-genes-que-esper%C3%A1bamos-figura-4c"></a>
 </h2>
 <p>Si nuestras células se diferenciaron bien, los genes que la
 literatura describe para la diferenciación de monocito a moDC deberían
@@ -625,7 +641,7 @@ normal que no todos los genes coincidan.</p>
 </details>
 </div>
 <div class="section level2">
-<h2 id="paso-5-qué-procesos-cambian-figura-4d">7. Paso 5: ¿qué procesos cambian? (Figura 4D)<a class="anchor" aria-label="anchor" href="#paso-5-qu%C3%A9-procesos-cambian-figura-4d"></a>
+<h2 id="paso-5-qué-procesos-cambian-figura-4d">7. <strong>Paso 5:</strong> ¿qué procesos cambian? (Figura 4D)<a class="anchor" aria-label="anchor" href="#paso-5-qu%C3%A9-procesos-cambian-figura-4d"></a>
 </h2>
 <div class="section level3">
 <h3 id="enriquecimiento-funcional">7.1 Enriquecimiento funcional<a class="anchor" aria-label="anchor" href="#enriquecimiento-funcional"></a>
@@ -806,7 +822,8 @@ controles.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="paso-6-metabolismo-de-ácidos-grasos-figura-5a">8. Paso 6: metabolismo de ácidos grasos (Figura 5A)<a class="anchor" aria-label="anchor" href="#paso-6-metabolismo-de-%C3%A1cidos-grasos-figura-5a"></a>
+<h2 id="paso-6-metabolismo-de-ácidos-grasos-figura-5a">8. <strong>Paso 6:</strong> metabolismo de ácidos grasos (Figura
+5A)<a class="anchor" aria-label="anchor" href="#paso-6-metabolismo-de-%C3%A1cidos-grasos-figura-5a"></a>
 </h2>
 <p>Una célula dendrítica no solo cambia sus marcadores: también cambia
 su <strong>metabolismo</strong>. Tomamos los genes del término de
@@ -842,8 +859,8 @@ de lípidos alterados en las tolDC de las pacientes; aquí vemos que ese
 metabolismo es central para estas células.</p>
 </div>
 <div class="section level2">
-<h2 id="paso-7-rutas-canónicas-de-las-células-dendríticas-figura-5b">9. Paso 7: rutas canónicas de las células dendríticas (Figura
-5B)<a class="anchor" aria-label="anchor" href="#paso-7-rutas-can%C3%B3nicas-de-las-c%C3%A9lulas-dendr%C3%ADticas-figura-5b"></a>
+<h2 id="paso-7-rutas-canónicas-de-las-células-dendríticas-figura-5b">9. <strong>Paso 7:</strong> rutas canónicas de las células
+dendríticas (Figura 5B)<a class="anchor" aria-label="anchor" href="#paso-7-rutas-can%C3%B3nicas-de-las-c%C3%A9lulas-dendr%C3%ADticas-figura-5b"></a>
 </h2>
 <p>Por último, revisamos genes asociados a la función de las células
 dendríticas según Gene Ontology (lista curada <code>dc_genes</code>):
@@ -1051,16 +1068,19 @@ coincidan</strong>: los protocolos de cultivo varían.</li>
 </div>
 </div>
 <div class="section level2">
-<h2 id="y-después">12. ¿Y después?<a class="anchor" aria-label="anchor" href="#y-despu%C3%A9s"></a>
+<h2 id="próximos-pasos">12. Próximos pasos<a class="anchor" aria-label="anchor" href="#pr%C3%B3ximos-pasos"></a>
 </h2>
-<p>Vimos que la diferenciación de monocitos a células dendríticas sigue
-un programa muy parecido en pacientes y controles, con cambios grandes
-en el sistema inmune y en el metabolismo de lípidos. En la <a href="l6_DEGs_tolDcs_es.html">siguiente lección</a> nos enfocamos en las
-tolDC: ¿adquieren las de las pacientes la firma tolerogénica descrita en
-la literatura?</p>
+<p>La diferenciación de monocitos a células dendríticas sigue un
+programa muy similar en pacientes y controles, con cambios importantes
+en el sistema inmune y en el metabolismo de lípidos. La lección <a href="l6_DEGs_tolDcs_es.html">La firma transcripcional de las células
+dendríticas tolerogénicas</a> se enfoca en las tolDC y evalúa si las de
+las pacientes adquieren la firma tolerogénica descrita en la
+literatura.</p>
+<p>Para continuar, da clic en el botón <strong>Siguiente lección: La
+firma de las tolDC</strong> al final de esta página.</p>
 <nav class="lesson-nav"><a class="lesson-prev" href="l4_GOterms_es.html">← Lección anterior: Funciones biológicas de los DEG</a>
   <a class="lesson-next" href="l6_DEGs_tolDcs_es.html">Siguiente lección: La firma de las tolDC →</a>
-</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
+</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
 </div>
 <div class="section level2">
 <h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>
