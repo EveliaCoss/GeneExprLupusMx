@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>GeneExprLupusMx: datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje • GeneExprLupusMx</title>
+<title>Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje • GeneExprLupusMx</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="GeneExprLupusMx: datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje">
 <meta name="description" content="Paquete de datos con lecciones de aprendizaje bilingües (español e inglés). Incluye los perfiles transcriptómicos (RNA-seq) de monocitos, células dendríticas derivadas de monocitos (moDC) y células dendríticas tolerogénicas (tolDC) de 33 mujeres mexicanas (10 controles sanas y 23 pacientes con lupus eritematoso sistémico; 99 muestras), sus metadatos clínicos y los resultados intermedios de cada análisis. Las lecciones reproducen paso a paso las figuras del artículo original, de la estadística descriptiva a la expresión diferencial, el enriquecimiento funcional y los modelos con interacción, y se acompañan de funciones auxiliares para heatmaps y la reducción de términos GO. Data package with bilingual learning lessons (Spanish and English) on the transcriptomics of lupus in Mexican women, designed for teaching and reproducible research.">
 <meta property="og:description" content="Paquete de datos con lecciones de aprendizaje bilingües (español e inglés). Incluye los perfiles transcriptómicos (RNA-seq) de monocitos, células dendríticas derivadas de monocitos (moDC) y células dendríticas tolerogénicas (tolDC) de 33 mujeres mexicanas (10 controles sanas y 23 pacientes con lupus eritematoso sistémico; 99 muestras), sus metadatos clínicos y los resultados intermedios de cada análisis. Las lecciones reproducen paso a paso las figuras del artículo original, de la estadística descriptiva a la expresión diferencial, el enriquecimiento funcional y los modelos con interacción, y se acompañan de funciones auxiliares para heatmaps y la reducción de términos GO. Data package with bilingual learning lessons (Spanish and English) on the transcriptomics of lupus in Mexican women, designed for teaching and reproducible research.">
 <meta property="og:image" content="https://eveliacoss.github.io/GeneExprLupusMx/reference/figures/overview_promo_en.png">
@@ -39,6 +39,10 @@
     color: #14164D;
   }
   main blockquote > :last-child { margin-bottom: 0; }
+  /* Recuadro rojo para pendientes (p. ej., DOI del paquete) */
+  main .callout-pending { border: 1px solid #E05252; border-left-width: 5px; border-radius: .25rem; padding: .75rem 1rem; margin: 1rem 0; background: #FDECEC; color: #14164D; }
+  main .callout-pending > :last-child { margin-bottom: 0; }
+  main .callout-pending strong:first-child { color: #B42318; }
 </style>
 </head>
 <body>
@@ -238,11 +242,27 @@
 <p>Los datos crudos de secuenciación (FASTQ) están en el <a href="https://ega-archive.org/" class="external-link">European Genome-phenome Archive (EGA)</a> con acceso controlado; los identificadores se encuentran en la Tabla suplementaria 2 del artículo. <strong>/</strong> The raw sequencing data (FASTQ) are deposited in the <a href="https://ega-archive.org/" class="external-link">European Genome-phenome Archive (EGA)</a> under controlled access; the identifiers are listed in Supplementary Table 2 of the article.</p>
 </div>
 <div class="section level2">
+<h2 id="origen-de-los-datos--data-sources">Origen de los datos / Data sources<a class="anchor" aria-label="anchor" href="#origen-de-los-datos--data-sources"></a>
+</h2>
+<p>Los datos de este paquete provienen del <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">artículo original</a>, del análisis depositado en <a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">Zenodo</a> y del repositorio de código <a href="https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic" class="external-link">NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic</a> (por ejemplo, las figuras de la <a href="https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic/tree/main/figures/fig2" class="external-link">Figura 2</a>). Aquí se reorganizaron en objetos de R listos para usar; los scripts de <code>data-raw/</code> documentan cada paso. <strong>/</strong> The data in this package come from the <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">original article</a>, the analysis deposited in <a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">Zenodo</a> and the code repository <a href="https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic" class="external-link">NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic</a> (for example, the <a href="https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic/tree/main/figures/fig2" class="external-link">Figure 2</a> figures). Here they were reorganized into ready-to-use R objects; the <code>data-raw/</code> scripts document each step.</p>
+</div>
+<div class="section level2">
 <h2 id="cómo-citar--how-to-cite">Cómo citar / How to cite<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-citar--how-to-cite"></a>
 </h2>
-<p>Si usas estos datos, cita el artículo original. <strong>/</strong> If you use these data, please cite the original article:</p>
+<p>Hay dos citas: una para el <strong>paquete</strong> y otra para los <strong>datos</strong>; si usas este recurso, por favor incluye ambas. <strong>/</strong> There are two citations: one for the <strong>package</strong> and one for the <strong>data</strong>; if you use this resource, please include both.</p>
+<p><strong>1) Cómo citar el paquete / How to cite the package</strong></p>
+<blockquote>
+<p>Coss E (2026) <em>GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje</em>. Paquete de R. <a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link uri">https://github.com/EveliaCoss/GeneExprLupusMx</a>.</p>
+</blockquote>
+<div class="callout-pending">
+<strong>Pendiente / Pending:</strong> El DOI de Zenodo del paquete se agregará próximamente; mientras tanto, cita el repositorio de GitHub y la versión que usaste (<code>packageVersion(“GeneExprLupusMx”)</code>). <strong>/</strong> The Zenodo DOI of the package will be added soon; in the meantime, cite the GitHub repository and the version you used (<code>packageVersion(“GeneExprLupusMx”)</code>).
+</div>
+<p><strong>2) Cómo citar los datos / How to cite the data</strong></p>
 <blockquote>
 <p>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus</a>. <em>Front. Immunol.</em> 17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi: 10.3389/fimmu.2026.1771959</a>.</p>
+</blockquote>
+<blockquote>
+<p>Coss-Navarrete EL, Hernández-Ledesma AL, <em>et al</em> (2025) <a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">Analysis of gene expression profiles during tolerance induction in dendritic cells from women with Systemic Lupus Erythematosus</a> [Data set]. <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">doi: 10.5281/zenodo.17742206</a>.</p>
 </blockquote>
 </div>
 <div class="section level2">

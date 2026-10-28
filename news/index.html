@@ -21,6 +21,10 @@
     color: #14164D;
   }
   main blockquote > :last-child { margin-bottom: 0; }
+  /* Recuadro rojo para pendientes (p. ej., DOI del paquete) */
+  main .callout-pending { border: 1px solid #E05252; border-left-width: 5px; border-radius: .25rem; padding: .75rem 1rem; margin: 1rem 0; background: #FDECEC; color: #14164D; }
+  main .callout-pending > :last-child { margin-bottom: 0; }
+  main .callout-pending strong:first-child { color: #B42318; }
 </style></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
@@ -144,7 +148,7 @@
 <li>Bilingual README (Spanish and English).</li>
 <li>Changelog in Spanish (<code>articles/news_es.html</code>) and English (this file).</li>
 <li>
-<code>inst/CITATION</code> file: <code>citation("GeneExprLupusMx")</code> returns the original article.</li>
+<code>inst/CITATION</code> file: <code>citation("GeneExprLupusMx")</code> returns the package citation; the data citations (article and Zenodo dataset) are listed in the citation sections of the website and README. The package Zenodo DOI is pending.</li>
 <li>pkgdown menus: Getting started, Tutorials (Spanish and English lessons), Functions, data download and changelog; navigation buttons with white text.</li>
 </ul></div>
 </div>

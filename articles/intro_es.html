@@ -35,6 +35,10 @@
     color: #14164D;
   }
   main blockquote > :last-child { margin-bottom: 0; }
+  /* Recuadro rojo para pendientes (p. ej., DOI del paquete) */
+  main .callout-pending { border: 1px solid #E05252; border-left-width: 5px; border-radius: .25rem; padding: .75rem 1rem; margin: 1rem 0; background: #FDECEC; color: #14164D; }
+  main .callout-pending > :last-child { margin-bottom: 0; }
+  main .callout-pending strong:first-child { color: #B42318; }
 </style>
 </head>
 <body>
@@ -275,6 +279,11 @@ main table.table > :not(caption) > * > th { background-color: #3D3F8F; color: wh
 main table.table > :not(caption) > * > th:hover { background-color: #7F62B3; }
 main table.table > tbody > tr:nth-child(even) > td { background-color: #ECEEFE; }
 main table.table > tbody > tr:hover > * { background: #E8F6F4; }
+
+/* Recuadro rojo para pendientes (p. ej., DOI del paquete) */
+.callout-pending { border: 1px solid #E05252; border-left-width: 5px; border-radius: .25rem; padding: .75rem 1rem; margin: 1rem 0; background: #FDECEC; color: #14164D; }
+.callout-pending > :last-child { margin-bottom: 0; }
+.callout-pending strong:first-child { color: #B42318; }
 </style>
 <div class="section level2">
 <h2 id="qué-es-geneexprlupusmx">¿Qué es GeneExprLupusMx?<a class="anchor" aria-label="anchor" href="#qu%C3%A9-es-geneexprlupusmx"></a>
@@ -504,7 +513,10 @@ flowchart LR
   T["filtered_txi<br>cuentas por gen"] -- "columnas = sample_ID" --- M["metadata_cleaned<br>una fila por muestra"]
   M -- "Volunteer_ID<br>(prefijo de sample_ID)" --- V["volunteer_info<br>una fila por voluntaria"]
 </pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true });
+</script><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Las columnas de las cuentas están en el mismo orden que las filas de los metadatos</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span> <span class="op">==</span> <span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">sample_ID</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
@@ -630,13 +642,35 @@ del paquete</a> muestra cómo aplicar <code><a href="../reference/get_heatmap_ma
 <div class="section level2">
 <h2 id="cómo-citar">¿Cómo citar?<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-citar"></a>
 </h2>
-<p>Si usas estos datos, cita el artículo original:</p>
+<p>Hay dos citas: una para el <strong>paquete</strong> y otra para los
+<strong>datos</strong>. Si usas este recurso, por favor incluye
+ambas.</p>
+<p><strong>1) Cómo citar el paquete</strong> (lecciones, funciones y
+objetos de R):</p>
+<blockquote>
+<p>Coss E (2026) <em>GeneExprLupusMx: Datos transcriptómicos de lupus en
+mujeres mexicanas con lecciones de aprendizaje</em>. Paquete de R. <a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link uri">https://github.com/EveliaCoss/GeneExprLupusMx</a>.</p>
+</blockquote>
+<div class="callout-pending">
+<p><strong>Pendiente:</strong> El DOI de Zenodo del paquete se agregará
+próximamente; mientras tanto, cita el repositorio de GitHub y la versión
+que usaste (<code>packageVersion("GeneExprLupusMx")</code>).</p>
+</div>
+<p><strong>2) Cómo citar los datos</strong> (artículo original y
+análisis en Zenodo):</p>
 <blockquote>
 <p>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene
 expression profiling of dendritic cell tolerance dysfunction in women
 with systemic lupus erythematosus</a>. <em>Front. Immunol.</em>
 17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
 10.3389/fimmu.2026.1771959</a>.</p>
+</blockquote>
+<blockquote>
+<p>Coss-Navarrete EL, Hernández-Ledesma AL, <em>et al</em> (2025) <a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">Analysis of gene
+expression profiles during tolerance induction in dendritic cells from
+women with Systemic Lupus Erythematosus</a> [Data set]. <em>Zenodo</em>.
+<a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">doi:
+10.5281/zenodo.17742206</a>.</p>
 </blockquote>
 <nav class="lesson-nav"><a class="lesson-next" href="clinical_es.html">Siguiente lección: Conociendo a las participantes →</a>
 </nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>

@@ -35,6 +35,10 @@
     color: #14164D;
   }
   main blockquote > :last-child { margin-bottom: 0; }
+  /* Recuadro rojo para pendientes (p. ej., DOI del paquete) */
+  main .callout-pending { border: 1px solid #E05252; border-left-width: 5px; border-radius: .25rem; padding: .75rem 1rem; margin: 1rem 0; background: #FDECEC; color: #14164D; }
+  main .callout-pending > :last-child { margin-bottom: 0; }
+  main .callout-pending strong:first-child { color: #B42318; }
 </style>
 </head>
 <body>
@@ -222,7 +226,51 @@ the <a href="https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw" c
 folder of the repository.</p>
 </div>
 <div class="section level2">
-<h2 id="load-the-data-in-r">2. Load the data in R<a class="anchor" aria-label="anchor" href="#load-the-data-in-r"></a>
+<h2 id="data-sources">2. Data sources<a class="anchor" aria-label="anchor" href="#data-sources"></a>
+</h2>
+<p>The data in this package come from the study published in
+<em>Frontiers in Immunology</em>. They were obtained from three sources
+and reorganized here into ready-to-use R objects:</p>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="74%">
+</colgroup>
+<thead><tr class="header">
+<th>Source</th>
+<th>What does it contain?</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Original
+article</a></td>
+<td>Study design, methods, figures and supplementary material (including
+Supplementary Table 2 with the EGA identifiers)</td>
+</tr>
+<tr class="even">
+<td><a href="https://zenodo.org/records/17742206" class="external-link">Zenodo: record
+17742206</a></td>
+<td>Gene expression analysis deposited by the authors: quantification
+with nf-core/rnaseq (Salmon) and analysis with <code>tximport</code> and
+<code>DESeq2</code>
+</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic" class="external-link">GitHub:
+NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic</a></td>
+<td>Code of the original analysis and its figures, for example those of
+<a href="https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic/tree/main/figures/fig2" class="external-link">Figure
+2</a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The scripts in the <a href="https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw" class="external-link"><code>data-raw/</code></a>
+folder document how each package object was generated from these
+sources.</p>
+</div>
+<div class="section level2">
+<h2 id="load-the-data-in-r">3. Load the data in R<a class="anchor" aria-label="anchor" href="#load-the-data-in-r"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
@@ -233,7 +281,7 @@ folder of the repository.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="export-to-csv-files">3. Export to CSV files<a class="anchor" aria-label="anchor" href="#export-to-csv-files"></a>
+<h2 id="export-to-csv-files">4. Export to CSV files<a class="anchor" aria-label="anchor" href="#export-to-csv-files"></a>
 </h2>
 <p>To work with other software (Excel, Python, etc.), export the objects
 as tables:</p>
@@ -254,7 +302,7 @@ as tables:</p>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="direct-download-from-github">4. Direct download from GitHub<a class="anchor" aria-label="anchor" href="#direct-download-from-github"></a>
+<h2 id="direct-download-from-github">5. Direct download from GitHub<a class="anchor" aria-label="anchor" href="#direct-download-from-github"></a>
 </h2>
 <p>Each object is also available as an <code>.rda</code> file in the <a href="https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data" class="external-link"><code>data/</code></a>
 folder of the repository. You can load it without installing the
@@ -265,7 +313,7 @@ package:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="raw-sequencing-data">5. Raw sequencing data<a class="anchor" aria-label="anchor" href="#raw-sequencing-data"></a>
+<h2 id="raw-sequencing-data">6. Raw sequencing data<a class="anchor" aria-label="anchor" href="#raw-sequencing-data"></a>
 </h2>
 <p>The raw data (RNA-seq FASTQ files) from patients and controls are
 deposited in the <a href="https://ega-archive.org/" class="external-link">European
@@ -276,9 +324,33 @@ are listed in Supplementary Table 2 of the <a href="https://www.frontiersin.org/
 supplementary material</a>.</p>
 </div>
 <div class="section level2">
-<h2 id="how-to-cite">6. How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a>
+<h2 id="how-to-cite">7. How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a>
 </h2>
-<p>If you use these data, please cite the original article:</p>
+<p>There are two kinds of citation: one for the <strong>package</strong>
+and one for the <strong>data</strong>. If you use this resource, please
+include both.</p>
+<div class="section level3">
+<h3 id="citing-the-package">7.1 Citing the package<a class="anchor" aria-label="anchor" href="#citing-the-package"></a>
+</h3>
+<p>If you use the lessons, functions or objects of the package, please
+also cite <code>GeneExprLupusMx</code>:</p>
+<blockquote>
+<p>Coss E (2026) <em>GeneExprLupusMx: Transcriptomic data of lupus in
+Mexican women with learning lessons</em>. R package. <a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link uri">https://github.com/EveliaCoss/GeneExprLupusMx</a>.</p>
+</blockquote>
+<div class="callout-pending">
+<p><strong>Pending:</strong> The Zenodo DOI of the package will be added
+soon; in the meantime, cite the GitHub repository and the version you
+used (<code>packageVersion("GeneExprLupusMx")</code>).</p>
+</div>
+<p>In R, <code>citation("GeneExprLupusMx")</code> shows the package
+citation.</p>
+</div>
+<div class="section level3">
+<h3 id="citing-the-data">7.2 Citing the data<a class="anchor" aria-label="anchor" href="#citing-the-data"></a>
+</h3>
+<p>The data come from the original article and the analysis deposited in
+Zenodo:</p>
 <blockquote>
 <p>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene
 expression profiling of dendritic cell tolerance dysfunction in women
@@ -286,7 +358,15 @@ with systemic lupus erythematosus</a>. <em>Front. Immunol.</em>
 17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
 10.3389/fimmu.2026.1771959</a>.</p>
 </blockquote>
+<blockquote>
+<p>Coss-Navarrete EL, Hernández-Ledesma AL, <em>et al</em> (2025) <a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">Analysis of gene
+expression profiles during tolerance induction in dendritic cells from
+women with Systemic Lupus Erythematosus</a> [Data set]. <em>Zenodo</em>.
+<a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">doi:
+10.5281/zenodo.17742206</a>.</p>
+</blockquote>
 <a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Back to the top of the page">↑ Back to top</a>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

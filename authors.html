@@ -21,6 +21,10 @@
     color: #14164D;
   }
   main blockquote > :last-child { margin-bottom: 0; }
+  /* Recuadro rojo para pendientes (p. ej., DOI del paquete) */
+  main .callout-pending { border: 1px solid #E05252; border-left-width: 5px; border-radius: .25rem; padding: .75rem 1rem; margin: 1rem 0; background: #FDECEC; color: #14164D; }
+  main .callout-pending > :last-child { margin-bottom: 0; }
+  main .callout-pending strong:first-child { color: #B42318; }
 </style></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
@@ -106,16 +110,13 @@
       <h2 id="citation">Citation</h2>
       <p><small class="dont-index">Source: <a href="https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/inst/CITATION" class="external-link"><code>inst/CITATION</code></a></small></p>
 
-      <p>Hernández-Ledesma AL, Coss-Navarrete EL, et al (2026) Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus. Front. Immunol. 17:1771959. doi: 10.3389/fimmu.2026.1771959.</p>
-      <pre>@Article{,
-  title = {Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus},
-  author = {A. L. Hernández-Ledesma and E. L. Coss-Navarrete and others},
-  journal = {Frontiers in Immunology},
+      <p>Coss E (2026) GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje. R package version 0.0.0.9000. https://github.com/EveliaCoss/GeneExprLupusMx</p>
+      <pre>@Manual{,
+  title = {GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje},
+  author = {Evelia Coss},
   year = {2026},
-  volume = {17},
-  pages = {1771959},
-  doi = {10.3389/fimmu.2026.1771959},
-  url = {https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full},
+  note = {R package version 0.0.0.9000},
+  url = {https://github.com/EveliaCoss/GeneExprLupusMx},
 }</pre>
     </div>
 
