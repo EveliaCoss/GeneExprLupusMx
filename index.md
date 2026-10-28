@@ -63,7 +63,9 @@ BiocManager::install(c("DESeq2", "ComplexHeatmap"))
 | [5. Diferenciación de monocitos a células dendríticas](articles/l5_DEGs_monocytes_diff_es.html) | [5. Differentiation of monocytes into dendritic cells](articles/l5_DEGs_monocytes_diff_en.html) |
 | [6. La firma transcripcional de las células dendríticas tolerogénicas](articles/l6_DEGs_tolDcs_es.html) | [6. The transcriptional signature of tolerogenic dendritic cells](articles/l6_DEGs_tolDcs_en.html) |
 | [7. ¿Se diferencian igual las células de pacientes y controles?](articles/l7_DEGs_between_groups_es.html) | [7. Do patient and control cells differentiate in the same way?](articles/l7_DEGs_between_groups_en.html) |
+| [Cómo usar las funciones del paquete](articles/functions_es.html) | [How to use the package functions](articles/functions_en.html) |
 | [Descarga de datos](articles/download_es.html) | [Data download](articles/download_en.html) |
+| [Registro de cambios](articles/news_es.html) | [Changelog](news/index.html) |
 
 ## Datos / Data
 

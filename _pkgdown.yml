@@ -41,8 +41,8 @@ template:
   #light-switch: true # boton de prender y apagar light/dark theme
   opengraph:
     image:
-      src: man/figures/overview.png
-      alt: "GeneExprLupusMx: transcriptómica de lupus en mujeres mexicanas"
+      src: man/figures/overview_promo_en.png
+      alt: "GeneExprLupusMx overview: data, workflow, key findings and lessons"
 destination: pkgdown
 llm-docs: false # no generar copias .md del sitio: pkgdown/index.md tapaba a index.md como fuente de la página de inicio
 

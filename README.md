@@ -13,7 +13,7 @@
 
 Sitio web / Website: <https://eveliacoss.github.io/GeneExprLupusMx/>
 
-<img src="man/figures/overview.png" alt="Overview de GeneExprLupusMx" width="100%"/>
+<img src="man/figures/overview_promo_en.png" alt="GeneExprLupusMx overview: data, workflow, key findings and lessons" width="100%"/>
 
 ------------------------------------------------------------------------
 
@@ -68,6 +68,8 @@ BiocManager::install(c("DESeq2", "ComplexHeatmap"))
   tolerogénicas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.html)
 - [7. ¿Se diferencian igual las células de pacientes y
   controles?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.html)
+- [Cómo usar las funciones del
+  paquete](https://eveliacoss.github.io/GeneExprLupusMx/articles/functions_es.html)
 - [Descarga de
   datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/download_es.html)
 - [Registro de
@@ -210,6 +212,8 @@ BiocManager::install(c("DESeq2", "ComplexHeatmap"))
   cells](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_en.html)
 - [7. Do patient and control cells differentiate in the same
   way?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_en.html)
+- [How to use the package
+  functions](https://eveliacoss.github.io/GeneExprLupusMx/articles/functions_en.html)
 - [Data
   download](https://eveliacoss.github.io/GeneExprLupusMx/articles/download_en.html)
 - [Changelog](https://eveliacoss.github.io/GeneExprLupusMx/news/index.html)
