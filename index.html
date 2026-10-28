@@ -94,121 +94,116 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="geneexprlupusmx">GeneExprLupusMx<a class="anchor" aria-label="anchor" href="#geneexprlupusmx"></a>
 </h1></div>
-<p>The goal of GeneExprLupusMx is to provide a bilingual, reproducible R data package that integrates transcriptomic profiles and clinical metadata from Mexican women with systemic lupus erythematosus and healthy controls. By combining gene expression data from monocytes, monocyte-derived dendritic cells (moDCs), and tolerogenic dendritic cells (tolDCs), the package enables:</p>
-<ul>
-<li><p><strong>Educational use:</strong> serving as a teaching resource in bioinformatics, immunology, and biomedical sciences.</p></li>
-<li><p><strong>Comparative analysis:</strong> supporting exploration of gene regulation networks and differential expression studies.</p></li>
-<li><p><strong>Reproducible workflows:</strong> offering auxiliary functions and scripts to replicate figures and analyses from the original study.</p></li>
-<li><p><strong>Global integration:</strong> making locally generated datasets visible and usable in international research contexts.</p></li>
-<li><p><strong>Scientific outreach:</strong> promoting open science and the dissemination of biomedical data from Latin America.</p></li>
-</ul>
 <div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+<h2 id="explorando-el-lupus-en-méxico-datos-abiertos-y-análisis-reproducibles-en-r">Explorando el lupus en México: datos abiertos y análisis reproducibles en R<a class="anchor" aria-label="anchor" href="#explorando-el-lupus-en-m%C3%A9xico-datos-abiertos-y-an%C3%A1lisis-reproducibles-en-r"></a>
 </h2>
-<p>You can install the development version of GeneExprLupusMx from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span><span class="op">)</span></span></code></pre></div>
+<p><code>GeneExprLupusMx</code> es un paquete de datos en R, bilingüe y reproducible, que integra perfiles transcriptómicos y metadatos clínicos de mujeres mexicanas con <strong>lupus eritematoso sistémico (SLE)</strong> y controles sanas. Incluye la expresión génica de <em>monocitos, células dendríticas derivadas de monocitos (moDC) y células dendríticas tolerogénicas (tolDC)</em> de 33 voluntarias (10 controles y 23 pacientes; 99 muestras), junto con lecciones que reproducen, paso a paso, las figuras del artículo original.</p>
+<ul>
+<li>
+<strong>Uso educativo:</strong> recurso didáctico en bioinformática, inmunología y ciencias biomédicas.</li>
+<li>
+<strong>Análisis reproducibles:</strong> datos, <em>checkpoints</em> y scripts (<code>data-raw/</code>) para replicar las figuras y análisis del estudio.</li>
+<li>
+<strong>Ciencia abierta:</strong> hace visibles y reutilizables datos biomédicos generados en América Latina.</li>
+</ul>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="exploring-lupus-in-mexico-open-data-and-reproducible-analysis-in-r">Exploring lupus in Mexico: open data and reproducible analysis in R<a class="anchor" aria-label="anchor" href="#exploring-lupus-in-mexico-open-data-and-reproducible-analysis-in-r"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<p><code>GeneExprLupusMx</code> is a bilingual, reproducible R data package that integrates transcriptomic profiles and clinical metadata from Mexican women with <strong>systemic lupus erythematosus (SLE)</strong> and healthy controls. It includes gene expression from <em>monocytes, monocyte-derived dendritic cells (moDCs) and tolerogenic dendritic cells (tolDCs)</em> of 33 volunteers (10 controls and 23 patients; 99 samples), together with lessons that reproduce, step by step, the figures of the original article.</p>
+<ul>
+<li>
+<strong>Educational use:</strong> a teaching resource in bioinformatics, immunology and biomedical sciences.</li>
+<li>
+<strong>Reproducible analyses:</strong> data, checkpoints and scripts (<code>data-raw/</code>) to replicate the figures and analyses of the study.</li>
+<li>
+<strong>Open science:</strong> makes biomedical data generated in Latin America visible and reusable.</li>
+</ul>
+<p><img src="reference/figures/overview.png" alt="Overview de GeneExprLupusMx" width="100%"></p>
+</div>
+<div class="section level2">
+<h2 id="instalación--installation">Instalación / Installation<a class="anchor" aria-label="anchor" href="#instalaci%C3%B3n--installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span><span class="op">)</span></span></code></pre></div>
+<p>Algunas lecciones usan paquetes de Bioconductor / Some lessons use Bioconductor packages:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
-<p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
+<code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DESeq2"</span>, <span class="st">"ComplexHeatmap"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="lecciones--lessons">Lecciones / Lessons<a class="anchor" aria-label="anchor" href="#lecciones--lessons"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>Español</th>
+<th>English</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><a href="articles/intro_es.html">Primeros pasos con el paquete GeneExprLupusMx</a></td>
+<td><a href="articles/intro_en.html">Get started with GeneExprLupusMx</a></td>
+</tr>
+<tr>
+<td><a href="articles/clinical_es.html">1. Conociendo a las participantes</a></td>
+<td><a href="articles/clinical_en.html">1. Meeting the participants</a></td>
+</tr>
+<tr>
+<td><a href="articles/intro_RNAseq_es.html">2. De las cuentas de RNA-seq a la exploración de datos</a></td>
+<td><a href="articles/intro_RNAseq_en.html">2. From RNA-seq counts to data exploration</a></td>
+</tr>
+<tr>
+<td><a href="articles/l3_DEGs_es.html">3. Genes diferencialmente expresados entre pacientes y controles</a></td>
+<td><a href="articles/l3_DEGs_en.html">3. Differentially expressed genes between patients and controls</a></td>
+</tr>
+<tr>
+<td><a href="articles/l4_GOterms_es.html">4. Funciones biológicas de los genes diferencialmente expresados</a></td>
+<td><a href="articles/l4_GOterms_en.html">4. Biological functions of differentially expressed genes</a></td>
+</tr>
+<tr>
+<td><a href="articles/l5_DEGs_monocytes_diff_es.html">5. Diferenciación de monocitos a células dendríticas</a></td>
+<td><a href="articles/l5_DEGs_monocytes_diff_en.html">5. Differentiation of monocytes into dendritic cells</a></td>
+</tr>
+<tr>
+<td><a href="articles/l6_DEGs_tolDcs_es.html">6. La firma transcripcional de las células dendríticas tolerogénicas</a></td>
+<td><a href="articles/l6_DEGs_tolDcs_en.html">6. The transcriptional signature of tolerogenic dendritic cells</a></td>
+</tr>
+<tr>
+<td><a href="articles/l7_DEGs_between_groups_es.html">7. ¿Se diferencian igual las células de pacientes y controles?</a></td>
+<td><a href="articles/l7_DEGs_between_groups_en.html">7. Do patient and control cells differentiate in the same way?</a></td>
+</tr>
+<tr>
+<td><a href="articles/download_es.html">Descarga de datos</a></td>
+<td><a href="articles/download_en.html">Data download</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="datos--data">Datos / Data<a class="anchor" aria-label="anchor" href="#datos--data"></a>
+</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    sample_ID   Group     GC      Dose    Dose_category      Age    </span></span>
-<span><span class="co">#&gt;  QR011_0: 1   Ctrl:30   No:57   0  :57   0:57          19     : 9  </span></span>
-<span><span class="co">#&gt;  QR011_1: 1   SLE :69   Si:42   2.5: 6   1:42          27     : 9  </span></span>
-<span><span class="co">#&gt;  QR011_3: 1                     3  : 3                 35     : 9  </span></span>
-<span><span class="co">#&gt;  QR013_0: 1                     5  :30                 23     : 6  </span></span>
-<span><span class="co">#&gt;  QR013_1: 1                     8  : 3                 25     : 6  </span></span>
-<span><span class="co">#&gt;  QR013_3: 1                                            32     : 6  </span></span>
-<span><span class="co">#&gt;  (Other):93                                            (Other):54  </span></span>
-<span><span class="co">#&gt;     Cell_type   Group_age  Nephritis Other_tx  Sledai_score</span></span>
-<span><span class="co">#&gt;  moDC    :33   less30:39   No :60    No :12   0      :18   </span></span>
-<span><span class="co">#&gt;  monocyte:33   more30:60   Si : 9    Si :57   2      : 6   </span></span>
-<span><span class="co">#&gt;  tolDC   :33               NAs:30    NAs:30   4      : 6   </span></span>
-<span><span class="co">#&gt;                                               6      : 6   </span></span>
-<span><span class="co">#&gt;                                               14     : 6   </span></span>
-<span><span class="co">#&gt;                                               (Other):27   </span></span>
-<span><span class="co">#&gt;                                               NAs    :30   </span></span>
-<span><span class="co">#&gt;            Sledai_group SLEDAI_Md    SLEDAI_category</span></span>
-<span><span class="co">#&gt;  High            :12    No :30    Activity   :39    </span></span>
-<span><span class="co">#&gt;  Low             :21    Si :36    No_activity:12    </span></span>
-<span><span class="co">#&gt;  Moderate        : 6    Sí : 3    Zero       :48    </span></span>
-<span><span class="co">#&gt;  Very_high       :15    NAs:30                      </span></span>
-<span><span class="co">#&gt;  Without_activity:15                                </span></span>
-<span><span class="co">#&gt;  NAs             :30                                </span></span>
-<span><span class="co">#&gt; </span></span></code></pre></div>
-<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <a href="https://devtools.r-lib.org/reference/build_readme.html" class="external-link"><code>devtools::build_readme()</code></a> is handy for this.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">)</span></span>
-<span><span class="co">#&gt; List of 4</span></span>
-<span><span class="co">#&gt;  $ abundance          : num [1:21718, 1:99] 7.504 2.357 0 0.228 0.36 ...</span></span>
-<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
-<span><span class="co">#&gt;   .. ..$ : chr [1:21718] "A1BG" "A1BG-AS1" "A1CF" "A2M" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ : chr [1:99] "QR011_0" "QR011_1" "QR011_3" "QR013_0" ...</span></span>
-<span><span class="co">#&gt;  $ counts             : num [1:21718, 1:99] 179 70 0 16 11 ...</span></span>
-<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
-<span><span class="co">#&gt;   .. ..$ : chr [1:21718] "A1BG" "A1BG-AS1" "A1CF" "A2M" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ : chr [1:99] "QR011_0" "QR011_1" "QR011_3" "QR013_0" ...</span></span>
-<span><span class="co">#&gt;  $ length             : num [1:21718, 1:99] 1489 1853 8956 4376 1910 ...</span></span>
-<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
-<span><span class="co">#&gt;   .. ..$ : chr [1:21718] "A1BG" "A1BG-AS1" "A1CF" "A2M" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ : chr [1:99] "QR011_0" "QR011_1" "QR011_3" "QR013_0" ...</span></span>
-<span><span class="co">#&gt;  $ countsFromAbundance: chr "no"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span> <span class="co"># genes x muestras / genes x samples</span></span>
+<span><span class="co">#&gt; [1] 21718    99</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Group</span>, <span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Cell_type</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       </span></span>
+<span><span class="co">#&gt;        moDC monocyte tolDC</span></span>
+<span><span class="co">#&gt;   Ctrl   10       10    10</span></span>
+<span><span class="co">#&gt;   SLE    23       23    23</span></span></code></pre></div>
+<p>Los datos crudos de secuenciación (FASTQ) están en el <a href="https://ega-archive.org/" class="external-link">European Genome-phenome Archive (EGA)</a> con acceso controlado; los identificadores se encuentran en la Tabla suplementaria 2 del artículo. <strong>/</strong> The raw sequencing data (FASTQ) are deposited in the <a href="https://ega-archive.org/" class="external-link">European Genome-phenome Archive (EGA)</a> under controlled access; the identifiers are listed in Supplementary Table 2 of the article.</p>
+</div>
+<div class="section level2">
+<h2 id="cómo-citar--how-to-cite">Cómo citar / How to cite<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-citar--how-to-cite"></a>
+</h2>
+<p>Si usas estos datos, cita el artículo original. <strong>/</strong> If you use these data, please cite the original article:</p>
+<blockquote>
+<p>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus</a>. <em>Front. Immunol.</em> 17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi: 10.3389/fimmu.2026.1771959</a>.</p>
+</blockquote>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
