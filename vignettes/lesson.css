@@ -1,0 +1,18 @@
+.callout-note, .callout-tip {
+  border: 1px solid;
+  border-left-width: 5px;
+  border-radius: .25rem;
+  padding: .75rem 1rem;
+  margin: 1rem 0;
+}
+.callout-note { border-color: #0758E5; background: rgba(7, 88, 229, .06); }
+.callout-tip  { border-color: #00A047; background: rgba(0, 160, 71, .06); }
+.callout-note > :last-child { margin-bottom: 0; }
+.callout-tip > summary { cursor: pointer; font-weight: bold; color: #00A047; }
+.callout-tip[open] > summary { margin-bottom: .75rem; }
+
+/* Diagrama mermaid sin el fondo gris de los bloques de código */
+pre.mermaid { background: none; border: 0; text-align: center; }
+
+/* Pie de figura justificado */
+.caption-justify { text-align: justify; }

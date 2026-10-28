@@ -39,8 +39,10 @@ navbar:
       text: "Artículos"
       menu:
         - text: "ES - Tutoriales en español"
-        - text: "1 - Introducción"
-        # href: articles/a_intro_progrbasics_es.html
+        - text: "Conociendo a las participantes: estadística descriptiva"
+          href: articles/clinical_es.html
+        - text: "1 - De las cuentas de RNA-seq a la exploración de datos"
+          href: articles/intro_es.html
         - text: "2 - Conociendo a Karel"
         # href: articles/b_meetingkarel_es.html
         - text: "3 - Descomposición"

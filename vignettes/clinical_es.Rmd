@@ -1,0 +1,532 @@
+---
+title: "Conociendo a las participantes"
+subtitle: "Lección: estadística descriptiva, tablas y normalidad de los datos clínicos"
+output: rmarkdown::html_vignette
+date: "`r Sys.Date()`"
+package: "GeneExprLupusMx"
+vignette: >
+  %\VignetteIndexEntry{Conociendo a las participantes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5
+)
+```
+
+```{css, echo = FALSE, file = "lesson.css"}
+```
+
+## Bienvenida
+
+Antes de analizar la expresión de miles de genes conviene conocer a **las personas** detrás de las muestras: ¿qué edad tienen?, ¿cuánto tiempo llevan con el diagnóstico?, ¿qué tratamientos reciben? En esta lección describimos a las 33 participantes del estudio con estadística descriptiva, tablas y gráficas.
+
+**Lo que necesitas saber antes:** lo básico de R y de `dplyr`/`ggplot2`. No necesitas haber hecho la lección [Primeros pasos](intro_es.html), aunque te ayudará.
+
+**Al terminar podrás:**
+
+1. Distinguir variables **continuas** y **categóricas**, y saber cómo resumir cada una.
+2. Calcular media, mediana, desviación estándar y rango intercuartílico.
+3. Construir tablas de frecuencias y una **Tabla 1** que describa a la cohorte.
+4. Evaluar si una variable sigue una **distribución normal** con histogramas, gráficas Q–Q y la prueba de Shapiro–Wilk.
+5. Elegir una prueba adecuada para comparar dos grupos.
+
+**Tiempo estimado:** 45 a 60 minutos.
+
+### Mapa de la lección
+
+```{=html}
+<pre class="mermaid">
+flowchart LR
+  A["volunteer_info<br/>una fila por voluntaria"] --> B["Tipos de<br/>variables"]
+  B --> C["Resúmenes<br/>numéricos"]
+  B --> D["Tablas de<br/>frecuencias"]
+  C --> E["Tabla 1"]
+  D --> E
+  C --> F["Distribución:<br/>histograma y Q–Q"]
+  F --> G["Normalidad:<br/>Shapiro–Wilk"]
+  G --> H["Comparar<br/>grupos"]
+  G --> I["Figura S3"]
+</pre>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true });
+</script>
+```
+
+## Glosario
+
+Estos son los términos que usaremos. Vuelve aquí cada vez que lo necesites.
+
+- **Variable continua**: puede tomar cualquier valor numérico dentro de un rango (edad, dosis).
+- **Variable categórica**: clasifica en grupos (grupo, nefritis sí/no).
+- **Media**: el promedio. Es sensible a valores extremos.
+- **Mediana**: el valor del centro al ordenar los datos. Es robusta a valores extremos.
+- **Desviación estándar (DE)**: qué tanto se alejan los datos de la media, en promedio.
+- **Rango intercuartílico (RIC)**: intervalo entre el percentil 25 (Q1) y el 75 (Q3); contiene a la mitad central de los datos.
+- **Distribución normal**: distribución simétrica en forma de campana.
+- **Histograma**: gráfica de barras que muestra cuántos datos caen en cada intervalo.
+- **Densidad**: versión suavizada del histograma.
+- **Gráfica Q–Q**: compara los cuantiles de los datos con los de una distribución normal teórica.
+- **Prueba de Shapiro–Wilk**: prueba estadística de normalidad.
+- **Valor p**: probabilidad de observar datos tan extremos como los nuestros si la hipótesis nula fuera cierta.
+- **Prueba t**: compara las medias de dos grupos; supone normalidad.
+- **Prueba de Wilcoxon (Mann–Whitney)**: compara dos grupos sin suponer normalidad.
+- **Prueba exacta de Fisher**: evalúa la asociación entre dos variables categóricas; funciona bien con pocos datos.
+
+## 1. Preparación
+
+```{r setup}
+library(GeneExprLupusMx) # nuestros datos
+library(tidyverse)       # manipulación de tablas (dplyr) y gráficas (ggplot2)
+library(cowplot)         # unir varias gráficas en un panel
+```
+
+Usamos los mismos colores que en la lección [Primeros pasos](intro_es.html):
+
+```{r colores}
+group_color <- c(Ctrl = "#5BBFB5", SLE = "#8E5A8C")
+```
+
+## 2. Los datos: `volunteer_info`
+
+`volunteer_info` tiene **una fila por voluntaria** (no por muestra), con su información clínica y de reclutamiento:
+
+```{r}
+dim(volunteer_info)
+glimpse(volunteer_info)
+```
+
+Muchas columnas solo tienen sentido para las pacientes (por ejemplo, los años con diagnóstico), así que en los controles valen `NA`. Guardamos a las pacientes en un objeto aparte, porque lo usaremos seguido:
+
+```{r}
+patients <- filter(volunteer_info, Group == "SLE")
+nrow(patients)
+```
+
+## 3. **Paso 1:** identificar el tipo de cada variable
+
+El tipo de variable decide **cómo resumirla, cómo graficarla y qué prueba usar**:
+
+| Tipo | Variables en `volunteer_info` | Se resume con | Se grafica con |
+|------|-------------------------------|---------------|----------------|
+| Continua | `Age_years`, `Age_at_diagnosis_years`, `Years_with_diagnosis`, `GCC_dose_mg` | media (DE) o mediana [RIC] | histograma, cajas, Q–Q |
+| Categórica | `Group`, `Nephritis`, `SLEDAI` (0/1), `GCC_drug` | n (%) | barras |
+| Lógica (sí/no) | `Treatment_GCC`, `Treatment_AM`, `Treatment_MMF`, `Treatment_AZT`, `Treatment_MTT` | n (%) | barras |
+| Fecha | `Time_of_recruitment` | rango, conteo por mes | barras por fecha |
+
+::: {.alert .alert-info}
+`SLEDAI` está guardada como número (0 o 1), pero es **categórica**: 1 indica enfermedad activa (puntaje SLEDAI ≥ 6) y 0, sin actividad o con actividad baja (0–5 puntos). Promediarla no tendría mucho sentido; conviene contarla.
+:::
+
+## 4. **Paso 2:** resumir variables continuas
+
+### 4.1 Media, mediana y dispersión
+
+Empecemos con la edad, comparando controles y pacientes:
+
+```{r}
+volunteer_info %>%
+  group_by(Group) %>%
+  summarise(n      = n(),
+            mean   = mean(Age_years),
+            sd     = sd(Age_years),
+            median = median(Age_years),
+            q1     = quantile(Age_years, 0.25),
+            q3     = quantile(Age_years, 0.75),
+            min    = min(Age_years),
+            max    = max(Age_years))
+```
+
+Las pacientes tienen, en promedio, unos 4 años más que los controles. En la sección 8 veremos si esa diferencia es mayor de lo que esperaríamos por azar.
+
+### 4.2 Resumir varias variables a la vez
+
+Para las variables que solo existen en las pacientes, pasamos la tabla a formato largo y resumimos cada variable. `na.rm = TRUE` ignora los valores faltantes:
+
+```{r}
+continuous_vars <- c("Age_at_diagnosis_years", "Years_with_diagnosis", "GCC_dose_mg")
+
+patients %>%
+  pivot_longer(all_of(continuous_vars), names_to = "variable", values_to = "value") %>%
+  group_by(variable) %>%
+  summarise(n      = sum(!is.na(value)),
+            mean   = mean(value, na.rm = TRUE),
+            sd     = sd(value, na.rm = TRUE),
+            median = median(value, na.rm = TRUE),
+            min    = min(value, na.rm = TRUE),
+            max    = max(value, na.rm = TRUE))
+```
+
+Observa que `GCC_dose_mg` tiene **n = 13**, aunque 15 pacientes reciben glucocorticoides: en dos casos no se registró la dosis.
+
+::: {.alert .alert-warning}
+**¿Media o mediana?** Si los datos son simétricos, media y mediana se parecen y la media (con su DE) es un buen resumen. Si hay valores extremos o la distribución está sesgada, usa la mediana y el RIC. En `Years_with_diagnosis`, la mediana (4 años) es menor que la media: unas pocas pacientes con muchos años de diagnóstico "jalan" la media hacia arriba.
+:::
+
+## 5. **Paso 3:** tablas de variables categóricas
+
+### 5.1 Frecuencias y porcentajes
+
+¿Cuántas pacientes tienen nefritis?
+
+```{r}
+patients %>%
+  dplyr::count(Nephritis) %>%
+  mutate(percent = round(100 * n / sum(n), 1))
+```
+
+### 5.2 Tratamientos
+
+Cada tratamiento está en su propia columna (`TRUE`/`FALSE`). Para contarlos todos juntos, los pasamos a formato largo. Al sumar `TRUE`/`FALSE`, R cuenta los `TRUE`:
+
+```{r}
+treatments <- patients %>%
+  pivot_longer(starts_with("Treatment_"), names_to = "treatment", values_to = "receives") %>%
+  group_by(treatment) %>%
+  summarise(n = sum(receives), percent = round(100 * mean(receives), 1)) %>%
+  arrange(desc(n))
+
+knitr::kable(treatments, col.names = c("Tratamiento", "n", "%"))
+```
+
+`knitr::kable()` convierte cualquier tabla de R en una tabla con formato para documentos como este.
+
+```{r treat_plot, fig.height = 3.5}
+ggplot(treatments, aes(x = reorder(treatment, n), y = n)) +
+  geom_col(fill = group_color["SLE"]) +
+  geom_text(aes(label = paste0(percent, "%")), hjust = -0.2) +
+  coord_flip() +
+  scale_y_continuous(limits = c(0, 23)) +
+  labs(x = NULL, y = "Número de pacientes (de 23)", title = "Tratamientos de las pacientes") +
+  theme_minimal()
+```
+
+Los antimaláricos (`AM`) y los glucocorticoides (`GCC`) son los tratamientos más frecuentes.
+
+### 5.3 Tablas de contingencia
+
+Una **tabla de contingencia** cruza dos variables categóricas. ¿Qué glucocorticoide y qué dosis recibe cada paciente?
+
+```{r}
+table(drug = patients$GCC_drug, dose_mg = patients$GCC_dose_mg, useNA = "ifany")
+```
+
+`useNA = "ifany"` muestra también los faltantes: 8 pacientes no reciben glucocorticoides (`<NA>` en ambas) y 2 reciben PDS sin dosis registrada.
+
+::: {.callout-note}
+**Reto 1.** ¿Cuántas pacientes reciben 0, 1, 2 o 3 tratamientos inmunosupresores distintos de los glucocorticoides (`AM`, `MMF`, `AZT`, `MTT`)?
+
+*Pista:* `rowSums()` suma columnas fila por fila; los `TRUE` cuentan como 1.
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+```{r}
+patients %>%
+  mutate(n_treatments = rowSums(across(c(Treatment_AM, Treatment_MMF,
+                                         Treatment_AZT, Treatment_MTT)))) %>%
+  dplyr::count(n_treatments)
+```
+
+La mayoría de las pacientes recibe uno o dos de estos tratamientos; 6 no reciben ninguno.
+
+</details>
+
+## 6. **Paso 4:** la Tabla 1
+
+Casi todos los artículos clínicos incluyen una **Tabla 1** que describe a los participantes por grupo. La construiremos con tres funciones pequeñas que convierten una columna en texto con el formato habitual:
+
+```{r}
+mean_sd    <- function(x) sprintf("%.1f (%.1f)", mean(x, na.rm = TRUE), sd(x, na.rm = TRUE))
+median_iqr <- function(x) sprintf("%.1f [%.1f–%.1f]", median(x, na.rm = TRUE),
+                                  quantile(x, 0.25, na.rm = TRUE), quantile(x, 0.75, na.rm = TRUE))
+n_pct      <- function(x) sprintf("%d (%.0f%%)", sum(x, na.rm = TRUE), 100 * mean(x, na.rm = TRUE))
+
+mean_sd(volunteer_info$Age_years)
+```
+
+Ahora aplicamos cada función a cada grupo. `summarise()` crea una columna por característica (con nombres cortos en inglés) y luego "giramos" la tabla para que los grupos queden como columnas:
+
+```{r}
+table1 <- volunteer_info %>%
+  group_by(Group) %>%
+  summarise(
+    n                    = as.character(n()),
+    age                  = mean_sd(Age_years),
+    age_at_diagnosis     = mean_sd(Age_at_diagnosis_years),
+    years_with_diagnosis = median_iqr(Years_with_diagnosis),
+    sledai_active        = n_pct(SLEDAI == 1),
+    nephritis            = n_pct(Nephritis == "Yes"),
+    gcc                  = n_pct(Treatment_GCC),
+    am                   = n_pct(Treatment_AM),
+    mmf                  = n_pct(Treatment_MMF),
+    azt                  = n_pct(Treatment_AZT),
+    mtt                  = n_pct(Treatment_MTT)
+  ) %>%
+  pivot_longer(-Group, names_to = "characteristic") %>%
+  pivot_wider(names_from = Group, values_from = value)
+
+table1
+```
+
+Para presentarla, cambiamos los nombres cortos por etiquetas legibles. Guardarlas en un vector aparte separa los **datos** de su **presentación**:
+
+```{r}
+table1_labels <- c(
+  n                    = "n",
+  age                  = "Edad, años, media (DE)",
+  age_at_diagnosis     = "Edad al diagnóstico, media (DE)",
+  years_with_diagnosis = "Años con diagnóstico, mediana [RIC]",
+  sledai_active        = "SLEDAI activo (≥ 6), n (%)",
+  nephritis            = "Nefritis, n (%)",
+  gcc                  = "Glucocorticoides, n (%)",
+  am                   = "Antimaláricos, n (%)",
+  mmf                  = "Micofenolato, n (%)",
+  azt                  = "Azatioprina, n (%)",
+  mtt                  = "Metotrexato, n (%)"
+)
+
+table1 %>%
+  mutate(characteristic = table1_labels[characteristic]) %>%
+  knitr::kable(col.names = c("Característica", "Ctrl", "SLE"))
+```
+
+En los controles, las filas clínicas aparecen como `NA`, `NaN` o `0 (NaN%)` porque esas variables no aplican: no tienen diagnóstico ni tratamiento. En un artículo las escribiríamos como "—".
+
+::: {.callout-note}
+**Reto 2.** Reemplaza los valores sin sentido de los controles por `"—"`.
+
+*Pista:* `grepl("NA|NaN", Ctrl)` detecta esos valores.
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+```{r}
+table1 %>%
+  mutate(Ctrl = ifelse(grepl("NA|NaN", Ctrl), "—", Ctrl),
+         characteristic = table1_labels[characteristic]) %>%
+  knitr::kable(col.names = c("Característica", "Ctrl", "SLE"))
+```
+
+</details>
+
+## 7. **Paso 5:** ¿siguen una distribución normal?
+
+Muchas pruebas estadísticas (como la prueba t) suponen que los datos siguen una **distribución normal**. Antes de usarlas hay que revisarlo. Lo haremos de tres formas complementarias.
+
+### 7.1 Histograma con curva de densidad
+
+El histograma muestra la forma de los datos; la curva de densidad la suaviza. Una distribución normal se ve como una campana simétrica.
+
+```{r hist_age, fig.height = 3.5}
+ggplot(volunteer_info, aes(x = Age_years)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 2,
+                 fill = "grey85", color = "grey30") +
+  geom_density(color = "blue3", linewidth = 1) +
+  labs(x = "Edad (años)", y = "Densidad", title = "Edad de las 33 participantes") +
+  theme_minimal()
+```
+
+`after_stat(density)` pone el histograma en la misma escala que la curva de densidad.
+
+### 7.2 Gráfica Q–Q
+
+La gráfica Q–Q compara cada dato con el valor que tendría si la distribución fuera perfectamente normal. **Si los puntos siguen la línea roja, los datos son aproximadamente normales**; si se curvan o se separan en los extremos, no lo son.
+
+```{r qq_age, fig.height = 3.5}
+ggplot(volunteer_info, aes(sample = Age_years)) +
+  stat_qq(shape = 1, size = 2) +
+  stat_qq_line(color = "red3", linewidth = 1) +
+  labs(x = "Cuantiles teóricos", y = "Cuantiles de la muestra", title = "Q–Q de la edad") +
+  theme_minimal()
+```
+
+Los puntos de la edad siguen la línea bastante bien.
+
+### 7.3 Prueba de Shapiro–Wilk
+
+La prueba de Shapiro–Wilk pone un número a lo que vemos en las gráficas:
+
+- **Hipótesis nula:** los datos vienen de una distribución normal.
+- **p < 0.05:** hay evidencia de que **no** son normales.
+- **p ≥ 0.05:** no hay evidencia en contra de la normalidad.
+
+```{r}
+shapiro.test(volunteer_info$Age_years)
+```
+
+Apliquémosla a las cuatro variables continuas de una vez:
+
+```{r}
+normality <- tibble(variable = c("Age_years", continuous_vars)) %>%
+  mutate(
+    values  = map(variable, ~ na.omit(volunteer_info[[.x]])),
+    n       = map_int(values, length),
+    W       = map_dbl(values, ~ shapiro.test(.x)$statistic),
+    p_value = map_dbl(values, ~ shapiro.test(.x)$p.value),
+    normal  = p_value >= 0.05 # TRUE = compatible con normalidad
+  ) %>%
+  dplyr::select(-values)
+
+knitr::kable(normality, digits = 3)
+```
+
+La edad y la edad al diagnóstico son compatibles con una distribución normal; los años con diagnóstico y la dosis de glucocorticoides **no**.
+
+::: {.alert .alert-warning}
+**Cuidado con muestras pequeñas.** Con pocos datos (aquí, n = 13 para la dosis) la prueba tiene poco poder: puede no detectar desviaciones reales. Y que p ≥ 0.05 **no demuestra** normalidad; solo dice que no hay evidencia en contra. Por eso siempre se combina la prueba con las gráficas.
+:::
+
+## 8. **Paso 6:** comparar dos grupos
+
+La normalidad decide qué prueba usar:
+
+| Datos | Prueba | Función en R |
+|-------|--------|--------------|
+| Normales | prueba t | `t.test()` |
+| No normales o n pequeña | Wilcoxon (Mann–Whitney) | `wilcox.test()` |
+| Dos variables categóricas | exacta de Fisher | `fisher.test()` |
+
+### 8.1 ¿Difiere la edad entre controles y pacientes?
+
+La edad es aproximadamente normal, así que usamos la prueba t:
+
+```{r age_box, fig.height = 3.5}
+ggplot(volunteer_info, aes(x = Group, y = Age_years, fill = Group)) +
+  geom_boxplot(alpha = 0.8, outlier.shape = NA) +
+  geom_jitter(width = 0.15, size = 2) +
+  scale_fill_manual(values = group_color) +
+  labs(x = NULL, y = "Edad (años)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+t.test(Age_years ~ Group, data = volunteer_info)
+```
+
+p > 0.05: **no hay evidencia de que la edad difiera** entre controles y pacientes. Es una buena noticia: los grupos son comparables en edad, así que la edad no debería confundir las comparaciones de expresión génica.
+
+### 8.2 ¿Se asocia la nefritis con la actividad de la enfermedad?
+
+Ambas variables son categóricas y hay muy pocas pacientes con nefritis, así que usamos la prueba exacta de Fisher:
+
+```{r}
+table(SLEDAI = patients$SLEDAI, Nephritis = patients$Nephritis)
+fisher.test(table(patients$SLEDAI, patients$Nephritis))
+```
+
+Con solo 3 pacientes con nefritis no hay poder para detectar una asociación (p > 0.05). "No encontrar diferencia" **no es lo mismo** que "demostrar que no hay diferencia".
+
+::: {.callout-note}
+**Reto 3.** ¿Llevan más años con el diagnóstico las pacientes con enfermedad activa (`SLEDAI == 1`) que las que no tienen actividad o la tienen baja (`SLEDAI == 0`)? Elige la prueba según la sección 7.3.
+
+*Pista:* `Years_with_diagnosis` **no** es normal.
+:::
+
+<details class="callout-tip">
+<summary>Ver solución</summary>
+
+Como `Years_with_diagnosis` no es normal, usamos la prueba de Wilcoxon:
+
+```{r}
+patients %>%
+  group_by(SLEDAI) %>%
+  summarise(n = n(), median_years = median(Years_with_diagnosis))
+
+wilcox.test(Years_with_diagnosis ~ SLEDAI, data = patients, exact = FALSE)
+```
+
+Las medianas son casi iguales (4 y 4.5 años) y p > 0.05: no hay evidencia de diferencia. `exact = FALSE` evita un aviso cuando hay valores empatados.
+
+</details>
+
+## 9. Para terminar: la figura del artículo
+
+Reunamos lo aprendido en la **Figura suplementaria S3** del artículo: para cada variable continua, un histograma con su curva de densidad (arriba) y su gráfica Q–Q (abajo). Como repetiremos lo mismo cuatro veces, lo guardamos en una función:
+
+```{r}
+distribution_panel <- function(x, title, binwidth) {
+  df <- data.frame(value = na.omit(x))
+  p_value <- shapiro.test(df$value)$p.value
+
+  p_hist <- ggplot(df, aes(x = value)) +
+    geom_histogram(aes(y = after_stat(density)), binwidth = binwidth,
+                   fill = "grey85", color = "grey30") +
+    geom_density(color = "blue3", linewidth = 1) +
+    labs(x = NULL, y = "Densidad",
+         title = sprintf("%s (Shapiro–Wilk p = %.3f)", title, p_value)) +
+    theme_classic(base_size = 12)
+
+  p_qq <- ggplot(df, aes(sample = value)) +
+    stat_qq(shape = 1, size = 2) +
+    stat_qq_line(color = "red3", linewidth = 1) +
+    labs(x = "Cuantiles teóricos", y = "Cuantiles de la muestra") +
+    theme_classic(base_size = 12)
+
+  plot_grid(p_hist, p_qq, ncol = 1, align = "v")
+}
+```
+
+```{r figura_s3, fig.width = 20, fig.height = 7, out.width = "100%"}
+figure_s3 <- plot_grid(
+  distribution_panel(volunteer_info$Age_years,        "Edad",                 binwidth = 2),
+  distribution_panel(patients$Age_at_diagnosis_years, "Edad al diagnóstico",  binwidth = 2),
+  distribution_panel(patients$Years_with_diagnosis,   "Años con diagnóstico", binwidth = 2),
+  distribution_panel(patients$GCC_dose_mg,            "Dosis de GC, mg",      binwidth = 0.5),
+  labels = c("A", "B", "C", "D"), label_size = 18, nrow = 1
+)
+figure_s3
+```
+
+::: {.caption-justify}
+**Figura suplementaria S3.** Distribución y evaluación de la normalidad de las variables continuas. Cada panel muestra el histograma con la curva de densidad (arriba) y la gráfica Q–Q (abajo) de **(A)** la edad, **(B)** la edad al diagnóstico, **(C)** el tiempo desde el diagnóstico y **(D)** la dosis de glucocorticoides (GC). En las gráficas Q–Q, los cuantiles de la muestra se comparan con los cuantiles teóricos de una distribución normal (línea roja). Las figuras ilustran las propiedades de distribución de las variables y su desviación de la normalidad, evaluada con la prueba de Shapiro–Wilk.
+
+La figura suplementaria original se encuentra en el [material suplementario del artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial).
+:::
+
+Para guardarla en alta resolución:
+
+```{r save_figure, eval = FALSE}
+ggsave("Figura_S3_normalidad.png", figure_s3, width = 20, height = 7, dpi = 300)
+```
+
+## 10. Resumen
+
+| Paso | Función clave | ¿Para qué? |
+|------|---------------|------------|
+| Conocer los datos | `glimpse()` | Ver tipos y valores de cada columna |
+| Resumir continuas | `summarise()` con `mean()`, `sd()`, `median()`, `quantile()` | Describir centro y dispersión |
+| Contar categóricas | `dplyr::count()`, `table()` | Frecuencias y tablas de contingencia |
+| Tabla 1 | `summarise()` + `pivot_wider()` + `knitr::kable()` | Describir la cohorte por grupo |
+| Distribución | `geom_histogram()` + `geom_density()` | Ver la forma de los datos |
+| Normalidad | `stat_qq()`, `shapiro.test()` | Decidir qué prueba usar |
+| Comparar grupos | `t.test()`, `wilcox.test()`, `fisher.test()` | Evaluar diferencias entre grupos |
+| Figura | `cowplot::plot_grid()` | Combinar gráficas en un panel |
+
+### Errores comunes de principiante
+
+- **Promediar variables categóricas** codificadas como números (como `SLEDAI` 0/1).
+- **Reportar la media de datos sesgados**: usa la mediana [RIC].
+- **Olvidar los `NA`**: usa `na.rm = TRUE` y reporta la n real de cada variable.
+- **Usar la prueba t sin revisar la normalidad**.
+- **Interpretar p ≥ 0.05 como "no hay diferencia"**: con muestras pequeñas, puede faltar poder estadístico.
+
+## 11. ¿Y después?
+
+Con las participantes descritas, puedes pasar al análisis de expresión génica en la lección [Primeros pasos](intro_es.html). Lo que aprendiste aquí ayuda a decidir qué variables clínicas incluir en el diseño (por ejemplo, la edad no difiere entre grupos, así que no es una fuente importante de confusión).
+
+## Información de la sesión
+
+```{r}
+sessionInfo()
+```

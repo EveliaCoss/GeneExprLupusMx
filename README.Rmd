@@ -86,8 +86,13 @@ Both datasets contain data for 344 penguins. There are 3 different species of pe
 
 ## Ejemplos / Examples
 
-```{r}
+```{r LoadPackage, warning=FALSE, message=FALSE}
 library(tidyverse)
+```
+
+
+
+```{r}
 metadata_cleaned %>% 
   count(Group, Cell_type)
 ```
@@ -104,12 +109,12 @@ To cite the palmerpenguins package, please use:
 citation("GeneExprLupusMx")
 ```
 
-## Additional data use information
+## Información complementaria / Additional data use information
 
-donde vive los datos crudos
+Los datos crudos de secuenciación (archivos FASTQ de RNA-seq) correspondientes a pacientes y controles están depositados en el [European Genome-phenome Archive (EGA)](https://ega-archive.org/) bajo estatus de acceso controlado. El acceso a estos archivos requiere una solicitud formal y aprobación por parte del comité de acceso a datos correspondiente. Los identificadores específicos de cada análisis se encuentran detallados en la [Tabla Suplementaria 2](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#:~:text=Supplementary%20Table%C2%A02) del artículo. **/** The raw sequencing data (RNA-seq FASTQ files) from patients and controls are deposited in the [European Genome-phenome Archive (EGA)](https://ega-archive.org/) under controlled-access status. Access to these files requires a formal request and approval by the corresponding Data Access Committee. The specific identifiers for each analysis are provided in [Supplementary Table 2](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#:~:text=Supplementary%20Table%C2%A02) of the article.
 
 ## References
 
 Data originally published in:
 
-- Hernández-Ledesma AL, Coss-Navarrete EL, Salazar-Magaña S, Ramírez-Espinosa D, Tinajero-Nieto L, Torres-Valdez E, Peña-Ayala AH, Félix-Rodriguez G, Frontana-Vázquez G, García Sotelo JS, Thomas-Chollier M, Trynka G, Rosetti F, Fernandez-Valverde SL, Gutiérrez-Arcelus M, Alpízar-Rodríguez D and Medina-Rivera A (2026) Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus. Front. Immunol. 17:1771959. doi: 10.3389/fimmu.2026.1771959
+- Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus. *Front. Immunol.* 17:1771959. [doi: 10.3389/fimmu.2026.1771959](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#:~:text=https%3A//doi.org/10.3389/fimmu.2026.1771959)
