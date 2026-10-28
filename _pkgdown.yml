@@ -9,6 +9,7 @@ template:
       src: man/figures/overview.png
       alt: "GeneExprLupusMx: transcriptómica de lupus en mujeres mexicanas"
 destination: pkgdown
+llm-docs: false # no generar copias .md del sitio: pkgdown/index.md tapaba a index.md como fuente de la página de inicio
 
 lang: es # Lenguaje de Español por default
 
