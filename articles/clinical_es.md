@@ -91,7 +91,7 @@ Usamos los mismos colores para cada grupo en todas las lecciones:
 
 ``` r
 
-group_color <- c(Ctrl = "#5BBFB5", SLE = "#8E5A8C")
+group_color <- c(Ctrl = "#96d4ccff", SLE = "#b493b4ff")
 ```
 
 ## 2. Los datos: `volunteer_info`
@@ -708,13 +708,15 @@ figure_s3
 
 **Figura suplementaria S3.** Distribución y evaluación de la normalidad
 de las variables continuas. Cada panel muestra el histograma con la
-curva de densidad (arriba) y la gráfica Q–Q (abajo) de **(A)** la edad,
-**(B)** la edad al diagnóstico, **(C)** el tiempo desde el diagnóstico y
-**(D)** la dosis de glucocorticoides (GC). En las gráficas Q–Q, los
-cuantiles de la muestra se comparan con los cuantiles teóricos de una
-distribución normal (línea roja). Las figuras ilustran las propiedades
-de distribución de las variables y su desviación de la normalidad,
-evaluada con la prueba de Shapiro–Wilk.
+curva de densidad (arriba) y la gráfica Q–Q (abajo) de **(A)** la edad
+de todas las voluntarias (n = 33) y, en las pacientes (n = 23), **(B)**
+la edad al diagnóstico, **(C)** el tiempo desde el diagnóstico y **(D)**
+la dosis de glucocorticoides (GC). El título de cada panel incluye el
+valor p de la prueba de Shapiro–Wilk. En las gráficas Q–Q, los cuantiles
+de la muestra se comparan con los cuantiles teóricos de una distribución
+normal (línea roja). Las figuras ilustran las propiedades de
+distribución de las variables y su desviación de la normalidad, evaluada
+con la prueba de Shapiro–Wilk.
 
 La figura suplementaria original se encuentra en el [material
 suplementario del
@@ -751,21 +753,26 @@ ggsave("Figura_S3_normalidad.png", figure_s3, width = 20, height = 7, dpi = 300)
 - **Interpretar p ≥ 0.05 como “no hay diferencia”**: con muestras
   pequeñas, puede faltar poder estadístico.
 
-## 11. ¿Y después?
+## 11. Próximos pasos
 
-En la siguiente lección, [De las cuentas de RNA-seq a la exploración de
-datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md),
-explorarás la expresión génica de estas mismas participantes. Lo que
-aprendiste aquí ayuda a decidir qué variables clínicas incluir en el
-diseño (por ejemplo, la edad no difiere entre grupos, así que no es una
-fuente importante de confusión).
+Con la cohorte caracterizada, el siguiente paso es analizar la expresión
+génica de estas mismas participantes. En la lección [De las cuentas de
+RNA-seq a la exploración de
+datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md)
+importarás y normalizarás las cuentas, y explorarás la estructura de los
+datos con *heatmaps* y PCA. Lo aprendido aquí orienta el diseño de ese
+análisis: por ejemplo, la edad no difiere entre grupos, por lo que no
+representa una fuente importante de confusión.
+
+Para continuar, da clic en el botón **Siguiente lección: De las cuentas
+de RNA-seq a la exploración de datos** al final de esta página.
 
 [← Lección anterior: Primeros pasos con el
 paquete](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md)
 [Siguiente lección: De las cuentas de RNA-seq a la exploración de datos
 →](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md)
 
-[↑ Inicio](#top "Volver al inicio de la página")
+[↑ Volver a Inicio](#top "Volver al inicio de la página")
 
 ## Información de la sesión
 

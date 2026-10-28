@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lección 2: De las cuentas de RNA-seq a la exploración de datos • GeneExprLupusMx</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">GeneExprLupusMx</a>
 
@@ -41,24 +41,29 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
 <li><h6 class="dropdown-header" data-toc-skip>ES - Tutoriales en español</h6></li>
-    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
+    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes</a></li>
     <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
     <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
-    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Obtener GOterms</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Ejemplos</h6></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Funciones biológicas de los genes diferencialmente expresados</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_es.html">5 - Diferenciación de monocitos a células dendríticas</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma transcripcional de las células dendríticas tolerogénicas</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_es.html">7 - ¿Se diferencian igual las células de pacientes y controles?</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>1 - Introduction</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>2 - Meeting Karel</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>3 - Decomposition</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>4 - Control structures</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Examples</h6></li>
+    <li><a class="dropdown-item" href="../articles/clinical_en.html">1 - Meeting the participants</a></li>
+    <li><a class="dropdown-item" href="../articles/intro_RNAseq_en.html">2 - From RNA-seq counts to data exploration</a></li>
+    <li><a class="dropdown-item" href="../articles/l3_DEGs_en.html">3 - Differentially expressed genes between patients and controls</a></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_en.html">4 - Biological functions of differentially expressed genes</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_en.html">5 - Differentiation of monocytes into dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_en.html">6 - The transcriptional signature of tolerogenic dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_en.html">7 - Do patient and control cells differentiate in the same way?</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-descarga-de-datos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Descarga de datos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-descarga-de-datos">
-<li><a class="dropdown-item" href="../articles/download.html">Download raw data</a></li>
+<li><a class="dropdown-item" href="../articles/download_es.html">ES - Descarga de datos</a></li>
+    <li><a class="dropdown-item" href="../articles/download_en.html">EN - Data download</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -69,14 +74,6 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/EveliaCoss/GeneExprLupusMx/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
       </ul>
 </div>
 
@@ -132,11 +129,17 @@ pre.mermaid { background: none; border: 0; text-align: center; }
 }
 .lesson-nav a {
   padding: .5rem 1rem;
-  border: 1px solid #0758E5;
+  border: 1px solid #000;
   border-radius: .25rem;
+  background: #000;
+  color: #4DA3FF !important; /* azul legible sobre negro */
   text-decoration: none;
 }
-.lesson-nav a:hover { background: rgba(7, 88, 229, .08); }
+.lesson-nav a:hover {
+  background: #6f42c1; /* morado */
+  border-color: #6f42c1;
+  color: #fff !important;
+}
 .lesson-nav .lesson-next { margin-left: auto; }
 
 /* Botón flotante para volver al inicio de la página */
@@ -289,9 +292,14 @@ mexicanas, 10 controles sanas (<code>Ctrl</code>) y 23 pacientes con
 lupus (<code>SLE</code>). De cada una se obtuvieron los tres tipos
 celulares, lo que da <strong>33 × 3 = 99 muestras</strong>. Las
 voluntarias se reclutaron entre junio de 2022 y febrero de 2023. Los
-datos provienen del artículo publicado en <em>Frontiers in
-Immunology</em> (<a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
-10.3389/fimmu.2026.1771959</a>).</p>
+datos provienen del artículo:</p>
+<blockquote>
+<p>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene
+expression profiling of dendritic cell tolerance dysfunction in women
+with systemic lupus erythematosus</a>. <em>Front. Immunol.</em>
+17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
+10.3389/fimmu.2026.1771959</a>.</p>
+</blockquote>
 <blockquote>
 <p><strong>Nuestra pregunta guía:</strong> ¿cambia la expresión de los
 genes en estas células cuando una persona tiene lupus?</p>
@@ -353,7 +361,7 @@ tienes dudas, escribe el paquete explícitamente:
 cada tipo celular y cada grupo tengan siempre el mismo color:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cell_color</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>monocyte <span class="op">=</span> <span class="st">"black"</span>, moDC <span class="op">=</span> <span class="st">"palevioletred"</span>, tolDC <span class="op">=</span> <span class="st">"gold1"</span><span class="op">)</span></span>
-<span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#5BBFB5"</span>, SLE <span class="op">=</span> <span class="st">"#8E5A8C"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#96d4ccff"</span>, SLE <span class="op">=</span> <span class="st">"#b493b4ff"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -866,12 +874,13 @@ USP18 e IFI6</strong>.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="intro_RNAseq_es_files/figure-html/isg_genes-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p><strong>¿Qué observas?</strong> En los <strong>monocitos</strong>,
-las pacientes con lupus (morado) expresan más estos genes que los
-controles (verde). Fíjate también en que los puntos morados están muy
-dispersos: algunas pacientes tienen valores muy altos y otras, valores
-parecidos a los controles. En moDC y tolDC la diferencia es mucho menor:
-al diferenciarse <em>in vitro</em>, lejos del ambiente inflamatorio del
-cuerpo, las células “olvidan” en parte la señal de interferón.</p>
+las pacientes con lupus (lila) expresan más estos genes que los
+controles (verde agua). Fíjate también en que los puntos de las
+pacientes están muy dispersos: algunas pacientes tienen valores muy
+altos y otras, valores parecidos a los controles. En moDC y tolDC la
+diferencia es mucho menor: al diferenciarse <em>in vitro</em>, lejos del
+ambiente inflamatorio del cuerpo, las células “olvidan” en parte la
+señal de interferón.</p>
 <div class="alert alert-warning">
 <p><strong>Esto todavía no es una prueba estadística.</strong> Una
 gráfica sugiere diferencias; para afirmarlas se necesita un análisis de
@@ -1049,11 +1058,8 @@ variación.</strong> El efecto del lupus es más sutil y queda
 <p><strong>¿Todos los genes o solo los más variables?</strong> Muchos
 tutoriales calculan el PCA solo con los 500 genes más variables. Esa
 elección cambia el resultado: con 500 genes, PC1 explica alrededor del
-80% de la variación; con todos, alrededor del 63%. Usamos todos los
-genes porque así se hizo en el artículo original (PC1 = 62.23%, PC2 =
-9.33%; la pequeña diferencia viene del filtrado de genes y de usar las
-longitudes de <code>tximport</code>). <strong>Siempre reporta cuántos
-genes usaste.</strong></p>
+80% de la variación; con todos, alrededor del 63%. Aquí usamos todos los
+genes. <strong>Siempre reporta cuántos genes usaste.</strong></p>
 </div>
 </div>
 <div class="section level3">
@@ -1240,10 +1246,10 @@ artículo original. Ya tenemos el de fecha (<code>p_date</code>, del Reto
 <strong>A.</strong> Tipo celular, el PCA de la sección 11.3.</li>
 <li>
 <strong>C.</strong> Actividad de la enfermedad. Usamos la columna
-<code>SLEDAI</code> de <code>volunteer_info</code>, codificada como en
-la Tabla 1 del artículo: <code>1</code> = con actividad (SLEDAI ≥ 6
-puntos), <code>0</code> = sin actividad o con actividad baja (0–5
-puntos) y <code>NA</code> = controles.</li>
+<code>SLEDAI</code> de <code>volunteer_info</code>, codificada así:
+<code>1</code> = con actividad (SLEDAI ≥ 6 puntos), <code>0</code> = sin
+actividad o con actividad baja (0–5 puntos) y <code>NA</code> =
+controles.</li>
 </ul>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Estilo común para los paneles</span></span>
@@ -1302,7 +1308,7 @@ posibles efectos de lote entre colectas; no se observa una agrupación
 importante por fecha. <strong>(C)</strong> PCA coloreado por actividad
 de la enfermedad (SLEDAI): 1 indica actividad (puntaje SLEDAI ≥ 6), 0
 indica sin actividad o actividad baja (0–5 puntos) y los controles se
-marcan como NA. PC1 y PC2 explican el 62.23% y el 9.33% de la varianza
+marcan como NA. PC1 y PC2 explican el 63.44% y el 9.51% de la varianza
 total, respectivamente. Cada punto representa una muestra. Abreviaturas:
 SLE, lupus eritematoso sistémico; Ctrl, control sano; mo, monocitos;
 moDC, células dendríticas derivadas de monocitos; tolDC, células
@@ -1311,17 +1317,6 @@ Tabla suplementaria S1 y el Dataset S2.</p>
 <p>La figura suplementaria original se encuentra en el archivo <em>Data
 Sheet 1.docx</em> del <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial" class="external-link">material
 suplementario del artículo</a>.</p>
-</div>
-<div class="alert alert-info">
-<p>En esta lección, PC1 y PC2 explican el 63.44% y el 9.51% de la
-varianza, en lugar del 62.23% y 9.33% del artículo. La diferencia viene
-del filtrado de genes poco expresados y del uso de las longitudes de
-<code>tximport</code> (sección 11.2). Las conclusiones son las
-mismas.</p>
-<p>El pie publicado define el grupo 1 como “SLEDAI &gt; 0”; aquí usamos
-la definición de la Tabla 1 del artículo (≥ 6 puntos), que coincide con
-los datos: 10 pacientes con actividad y 13 sin ella o con actividad
-baja.</p>
 </div>
 <p>Para guardar la figura en alta resolución:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
@@ -1461,16 +1456,19 @@ grupos.</li>
 </div>
 </div>
 <div class="section level2">
-<h2 id="y-después">14. ¿Y después?<a class="anchor" aria-label="anchor" href="#y-despu%C3%A9s"></a>
+<h2 id="próximos-pasos">14. Próximos pasos<a class="anchor" aria-label="anchor" href="#pr%C3%B3ximos-pasos"></a>
 </h2>
-<p>El siguiente paso natural es el <strong>análisis de expresión
-diferencial</strong>: encontrar, con estadística, qué genes cambian
-entre pacientes y controles dentro de cada tipo celular. Con
-<code>DESeq2</code> se hace con <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq()</a></code> y
-<code><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results()</a></code>. Con lo que aprendiste aquí, un buen diseño
-tomaría en cuenta el tipo celular, el lote de toma de muestra y que las
-muestras de una misma voluntaria están pareadas.</p>
-<p>Para recursos de aprendizaje sobre esto, consulta:</p>
+<p>El siguiente paso es el <strong>análisis de expresión
+diferencial</strong>: identificar, con un modelo estadístico, qué genes
+cambian entre pacientes y controles dentro de cada tipo celular. Lo
+abordamos en la lección <a href="l3_DEGs_es.html">Genes diferencialmente
+expresados entre pacientes y controles</a> con las funciones
+<code><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq()</a></code> y <code><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results()</a></code> de <code>DESeq2</code>. Un
+buen diseño debe considerar el tipo celular, el lote de toma de muestra
+y el pareo de las muestras de una misma voluntaria.</p>
+<p>Para continuar, da clic en el botón <strong>Siguiente lección: Genes
+diferencialmente expresados</strong> al final de esta página.</p>
+<p>Recursos complementarios:</p>
 <ul>
 <li>La <a href="https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html" class="external-link">viñeta
 oficial de DESeq2</a>.</li>
@@ -1494,13 +1492,15 @@ RNA-seq: transcript-level estimates improve gene-level inferences.
 quantification of transcript expression. <em>Nature Methods</em>
 14:417–419. <a href="https://doi.org/10.1038/nmeth.4197" class="external-link">doi:10.1038/nmeth.4197</a>
 </li>
-<li>Artículo original de los datos: <em>Frontiers in Immunology</em>
-(2026). <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:10.3389/fimmu.2026.1771959</a>
-</li>
+<li>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene
+expression profiling of dendritic cell tolerance dysfunction in women
+with systemic lupus erythematosus</a>. <em>Front. Immunol.</em>
+17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
+10.3389/fimmu.2026.1771959</a>.</li>
 </ul>
 <nav class="lesson-nav"><a class="lesson-prev" href="clinical_es.html">← Lección anterior: Conociendo a las participantes</a>
   <a class="lesson-next" href="l3_DEGs_es.html">Siguiente lección: Genes diferencialmente expresados →</a>
-</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
+</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
 </div>
 <div class="section level2">
 <h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>

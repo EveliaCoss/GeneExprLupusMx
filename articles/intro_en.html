@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Get started with GeneExprLupusMx • GeneExprLupusMx</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">GeneExprLupusMx</a>
 
@@ -41,24 +41,29 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
 <li><h6 class="dropdown-header" data-toc-skip>ES - Tutoriales en español</h6></li>
-    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
+    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes</a></li>
     <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
     <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
-    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Obtener GOterms</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Ejemplos</h6></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Funciones biológicas de los genes diferencialmente expresados</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_es.html">5 - Diferenciación de monocitos a células dendríticas</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma transcripcional de las células dendríticas tolerogénicas</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_es.html">7 - ¿Se diferencian igual las células de pacientes y controles?</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>1 - Introduction</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>2 - Meeting Karel</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>3 - Decomposition</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>4 - Control structures</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Examples</h6></li>
+    <li><a class="dropdown-item" href="../articles/clinical_en.html">1 - Meeting the participants</a></li>
+    <li><a class="dropdown-item" href="../articles/intro_RNAseq_en.html">2 - From RNA-seq counts to data exploration</a></li>
+    <li><a class="dropdown-item" href="../articles/l3_DEGs_en.html">3 - Differentially expressed genes between patients and controls</a></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_en.html">4 - Biological functions of differentially expressed genes</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_en.html">5 - Differentiation of monocytes into dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_en.html">6 - The transcriptional signature of tolerogenic dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_en.html">7 - Do patient and control cells differentiate in the same way?</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-descarga-de-datos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Descarga de datos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-descarga-de-datos">
-<li><a class="dropdown-item" href="../articles/download.html">Download raw data</a></li>
+<li><a class="dropdown-item" href="../articles/download_es.html">ES - Descarga de datos</a></li>
+    <li><a class="dropdown-item" href="../articles/download_en.html">EN - Data download</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -69,14 +74,6 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/EveliaCoss/GeneExprLupusMx/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
       </ul>
 </div>
 
@@ -91,6 +88,8 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Get started with GeneExprLupusMx</h1>
+            <h3 data-toc-skip class="subtitle">What the package contains
+and where to start</h3>
             
             <h4 data-toc-skip class="date">2026-10-28</h4>
       
@@ -100,30 +99,431 @@
 
     
     
+<style type="text/css">
+.callout-note, .callout-tip {
+  border: 1px solid;
+  border-left-width: 5px;
+  border-radius: .25rem;
+  padding: .75rem 1rem;
+  margin: 1rem 0;
+}
+.callout-note { border-color: #0758E5; background: rgba(7, 88, 229, .06); }
+.callout-tip  { border-color: #00A047; background: rgba(0, 160, 71, .06); }
+.callout-note > :last-child { margin-bottom: 0; }
+.callout-tip > summary { cursor: pointer; font-weight: bold; color: #00A047; }
+.callout-tip[open] > summary { margin-bottom: .75rem; }
+
+/* Diagrama mermaid sin el fondo gris de los bloques de código */
+pre.mermaid { background: none; border: 0; text-align: center; }
+
+/* Pie de figura justificado */
+.caption-justify { text-align: justify; }
+
+/* Navegación entre lecciones */
+.lesson-nav {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(128, 128, 128, .4);
+}
+.lesson-nav a {
+  padding: .5rem 1rem;
+  border: 1px solid #000;
+  border-radius: .25rem;
+  background: #000;
+  color: #4DA3FF !important; /* azul legible sobre negro */
+  text-decoration: none;
+}
+.lesson-nav a:hover {
+  background: #6f42c1; /* morado */
+  border-color: #6f42c1;
+  color: #fff !important;
+}
+.lesson-nav .lesson-next { margin-left: auto; }
+
+/* Botón flotante para volver al inicio de la página */
+.back-to-top {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1000;
+  padding: .4rem .9rem;
+  border-radius: 2rem;
+  background: #0758E5;
+  color: #fff !important;
+  text-decoration: none;
+  font-size: .9rem;
+  opacity: .85;
+}
+.back-to-top:hover { opacity: 1; }
+</style>
 <div class="section level2">
-<h2 id="general-information">General information<a class="anchor" aria-label="anchor" href="#general-information"></a>
+<h2 id="what-is-geneexprlupusmx">What is GeneExprLupusMx?<a class="anchor" aria-label="anchor" href="#what-is-geneexprlupusmx"></a>
 </h2>
+<p><code>GeneExprLupusMx</code> is an R package with
+<strong>transcriptomic (RNA-seq) data from Mexican women with systemic
+lupus erythematosus (SLE) and from healthy controls</strong>. It is
+designed for research and teaching: besides the data, it includes
+step-by-step lessons to learn how to analyze them.</p>
+<ul>
+<li>
+<strong>33 participants:</strong> 10 healthy controls
+(<code>Ctrl</code>) and 23 patients with lupus (<code>SLE</code>).</li>
+<li>
+<strong>3 cell types per participant:</strong> monocytes,
+monocyte-derived dendritic cells (moDC), and tolerogenic dendritic cells
+(tolDC).</li>
+<li>
+<strong>99 samples</strong> in total (33 × 3).</li>
+</ul>
+<p>The data come from the article:</p>
+<blockquote>
+<p>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene
+expression profiling of dendritic cell tolerance dysfunction in women
+with systemic lupus erythematosus</a>. <em>Front. Immunol.</em>
+17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
+10.3389/fimmu.2026.1771959</a>.</p>
+</blockquote>
+<div class="figure">
+<img src="img/overview.png" class="r-plt" alt="Overview of the study and of the package contents." width="100%"><p class="caption">
+Overview of the study and of the package contents.
+</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/" class="external-link">CRAN</a>.</p>
+<p>Install the package from <a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GitHub</a>. Some
+lessons also use <code>DESeq2</code>, available on <a href="https://bioconductor.org/packages/DESeq2" class="external-link">Bioconductor</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"GeneExprLupusMx"</span><span class="op">)</span></span></code></pre></div>
-<p>To install the development version from <a href="https://github.com/EveliaCoss/GeneExprLupusMx/" class="external-link">Github</a>
-use:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"remotes"</span>, <span class="st">"BiocManager"</span>, <span class="st">"tidyverse"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"DESeq2"</span><span class="op">)</span></span></code></pre></div>
+<p>Once installed, load it:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"remotes"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="examples">Examples:<a class="anchor" aria-label="anchor" href="#examples"></a>
+<h2 id="what-data-does-it-contain">What data does it contain?<a class="anchor" aria-label="anchor" href="#what-data-does-it-contain"></a>
 </h2>
+<p>The package includes three main datasets. They are available as soon
+as you load the package; there is nothing else to download.</p>
+<table class="table">
+<colgroup>
+<col width="17%">
+<col width="40%">
+<col width="28%">
+<col width="13%">
+</colgroup>
+<thead><tr class="header">
+<th>Object</th>
+<th>What it contains</th>
+<th>One row per</th>
+<th>Size</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>filtered_txi</code></td>
+<td>RNA-seq counts quantified with Salmon and imported with
+<code>tximport</code>
+</td>
+<td>gene</td>
+<td>21,718 genes × 99 samples</td>
+</tr>
+<tr class="even">
+<td><code>metadata_cleaned</code></td>
+<td>Group, cell type, and clinical data for each sample</td>
+<td>sample</td>
+<td>99 samples</td>
+</tr>
+<tr class="odd">
+<td><code>volunteer_info</code></td>
+<td>Age, diagnosis, treatments, and recruitment date</td>
+<td>volunteer</td>
+<td>33 volunteers</td>
+</tr>
+</tbody>
+</table>
+<p>It also includes <strong>reference gene lists</strong> used by some
+lessons:</p>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="22%">
+<col width="51%">
+<col width="25%">
+</colgroup>
+<thead><tr class="header">
+<th>Object</th>
+<th>What it contains</th>
+<th>Used in</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>biotype_summary</code></td>
+<td>Biotype of each gene (protein-coding, lncRNA…)</td>
+<td>Lesson 4</td>
+</tr>
+<tr class="even">
+<td><code>sle_genes</code></td>
+<td>Genes associated with lupus in the literature</td>
+<td>Lesson 4</td>
+</tr>
+<tr class="odd">
+<td><code>isg_genes</code></td>
+<td>Interferon-stimulated genes (Yu et al., 2025)</td>
+<td>Lesson 4</td>
+</tr>
+<tr class="even">
+<td><code>moDC_genes</code></td>
+<td>Genes described in the differentiation from monocyte to moDC</td>
+<td>Lesson 5</td>
+</tr>
+<tr class="odd">
+<td><code>dc_genes</code></td>
+<td>Genes associated with dendritic cell differentiation</td>
+<td>Lesson 5</td>
+</tr>
+<tr class="even">
+<td><code>tolDC_genes</code></td>
+<td>Transcriptional signature of tolerogenic dendritic cells (Robertson
+et al., 2021)</td>
+<td>Lesson 6</td>
+</tr>
+</tbody>
+</table>
+<p>It also includes <strong>checkpoints</strong>: objects that are built
+in one lesson and saved in the package so that the next lesson can start
+from there, without repeating the steps.</p>
+<table class="table">
+<colgroup>
+<col width="22%">
+<col width="50%">
+<col width="27%">
+</colgroup>
+<thead><tr class="header">
+<th>Object</th>
+<th>What it contains</th>
+<th>Built in</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>dds</code></td>
+<td>Filtered and normalized <code>DESeqDataSet</code> (13,596 genes × 99
+samples); requires <code>DESeq2</code>
+</td>
+<td>Lesson 2</td>
+</tr>
+<tr class="even">
+<td><code>zscore_mat</code></td>
+<td>Matrix of z-scores of VST expression, for <em>heatmaps</em> (13,596
+genes × 99 samples)</td>
+<td>Lesson 2</td>
+</tr>
+<tr class="odd">
+<td><code>de_results</code></td>
+<td>SLE vs Ctrl differential expression results for each cell type
+(<code>DESeq2</code>)</td>
+<td>Lesson 3</td>
+</tr>
+<tr class="even">
+<td><code>go_results</code></td>
+<td>Enriched functional terms of the DEGs (g:Profiler, version
+e113)</td>
+<td>Lesson 4</td>
+</tr>
+<tr class="odd">
+<td><code>de_celltype_results</code></td>
+<td>Differential expression of moDC and tolDC against monocytes, in
+controls and patients (<code>DESeq2</code>)</td>
+<td>Lesson 5</td>
+</tr>
+<tr class="even">
+<td><code>go_celltype_results</code></td>
+<td>Enriched functional terms of those DEGs (g:Profiler)</td>
+<td>Lesson 5</td>
+</tr>
+<tr class="odd">
+<td><code>de_interaction_results</code></td>
+<td>
+<code>Group:Cell_type</code> interaction: genes whose change from
+monocyte to dendritic cell is different in patients
+(<code>DESeq2</code>)</td>
+<td>Lesson 7</td>
+</tr>
+<tr class="even">
+<td><code>go_interaction_results</code></td>
+<td>Enriched functional terms of those genes (g:Profiler)</td>
+<td>Lesson 7</td>
+</tr>
+</tbody>
+</table>
+<p>A quick look at each one:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span>       <span class="co"># genes x samples</span></span>
+<span><span class="co">#&gt; [1] 21718    99</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sample_ID"</span>, <span class="st">"Group"</span>, <span class="st">"Cell_type"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         sample_ID Group Cell_type</span></span>
+<span><span class="co">#&gt; QR011_0   QR011_0  Ctrl  monocyte</span></span>
+<span><span class="co">#&gt; QR011_1   QR011_1  Ctrl      moDC</span></span>
+<span><span class="co">#&gt; QR011_3   QR011_3  Ctrl     tolDC</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">volunteer_info</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Volunteer_ID"</span>, <span class="st">"Group"</span>, <span class="st">"Age_years"</span>, <span class="st">"Time_of_recruitment"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Volunteer_ID Group Age_years Time_of_recruitment</span></span>
+<span><span class="co">#&gt; 1        QR011  Ctrl        25          2022-06-01</span></span>
+<span><span class="co">#&gt; 2        QR013  Ctrl        23          2022-06-01</span></span>
+<span><span class="co">#&gt; 3        QR014   SLE        32          2022-06-01</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="how-are-they-related">How are they related?<a class="anchor" aria-label="anchor" href="#how-are-they-related"></a>
+</h3>
+<p>The three tables are connected through their identifiers. Each sample
+has a name such as <code>QR011_1</code>: the first part
+(<code>QR011</code>) identifies the volunteer and the final number
+identifies the cell type (<code>_0</code> = monocyte, <code>_1</code> =
+moDC, <code>_3</code> = tolDC).</p>
+<pre class="mermaid">
+flowchart LR
+  T["filtered_txi<br>counts per gene"] -- "columns = sample_ID" --- M["metadata_cleaned<br>one row per sample"]
+  M -- "Volunteer_ID<br>(prefix of sample_ID)" --- V["volunteer_info<br>one row per volunteer"]
+</pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># The count columns are in the same order as the metadata rows</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span> <span class="op">==</span> <span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">sample_ID</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span></span>
+<span><span class="co"># From sample to volunteer</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"_.*"</span>, <span class="st">""</span>, <span class="st">"QR011_1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "QR011"</span></span></code></pre></div>
+<p>To learn about each column in detail, see the help pages:
+<code><a href="../reference/filtered_txi.html">?filtered_txi</a></code>, <code><a href="../reference/metadata_cleaned.html">?metadata_cleaned</a></code>, and
+<code><a href="../reference/volunteer_info.html">?volunteer_info</a></code>.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="learning-path">Learning path<a class="anchor" aria-label="anchor" href="#learning-path"></a>
+</h2>
+<p>The lessons are designed to be followed in order, but each one can be
+read on its own.</p>
+<pre class="mermaid">
+flowchart LR
+  P["Get started<br>(this page)"] --&gt; L1["1. Meeting the participants:<br>descriptive statistics"]
+  L1 --&gt; L2["2. From RNA-seq counts<br>to data exploration"]
+  L2 --&gt; L3["3. Differentially<br>expressed genes"]
+  L3 --&gt; L4["4. Biological functions<br>of DEGs"]
+  L4 --&gt; L5["5. Differentiation of monocytes<br>into dendritic cells"]
+  L5 --&gt; L6["6. The signature of tolerogenic<br>dendritic cells"]
+  L6 --&gt; L7["7. Do patient and control cells<br>differentiate in the same way?"]
+</pre>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true });
+</script><table class="table">
+<colgroup>
+<col width="23%">
+<col width="38%">
+<col width="17%">
+<col width="20%">
+</colgroup>
+<thead><tr class="header">
+<th>Lesson</th>
+<th>You will learn to…</th>
+<th>Data</th>
+<th>Time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><a href="clinical_en.html">1. Meeting the participants</a></td>
+<td>Describe the cohort with descriptive statistics, tables, normality
+tests, and comparisons between groups</td>
+<td><code>volunteer_info</code></td>
+<td>45 to 60 min</td>
+</tr>
+<tr class="even">
+<td><a href="intro_RNAseq_en.html">2. From RNA-seq counts to data
+exploration</a></td>
+<td>Import the counts, normalize them with <code>DESeq2</code>, explore
+genes, and make <em>heatmaps</em> and PCA</td>
+<td>
+<code>filtered_txi</code>, <code>metadata_cleaned</code>,
+<code>volunteer_info</code>
+</td>
+<td>1 to 1.5 h</td>
+</tr>
+<tr class="odd">
+<td><a href="l3_DEGs_en.html">3. Differentially expressed genes between
+patients and controls</a></td>
+<td>Validate cell types with biomarkers, run differential expression
+with <code>DESeq2</code>, and interpret volcano plots</td>
+<td>
+<code>filtered_txi</code>, <code>metadata_cleaned</code>,
+<code>zscore_mat</code>
+</td>
+<td>1.5 h</td>
+</tr>
+<tr class="even">
+<td><a href="l4_GOterms_en.html">4. Biological functions of
+differentially expressed genes</a></td>
+<td>Run a functional enrichment analysis with g:Profiler, identify SLE
+and ISG genes, and interpret biological processes</td>
+<td>
+<code>de_results</code>, <code>go_results</code>,
+<code>sle_genes</code>, <code>isg_genes</code>,
+<code>biotype_summary</code>
+</td>
+<td>1.5 h</td>
+</tr>
+<tr class="odd">
+<td><a href="l5_DEGs_monocytes_diff_en.html">5. Differentiation of
+monocytes into dendritic cells</a></td>
+<td>Compare dendritic cells against monocytes, validate differentiation
+with known genes, and explore pathways and lipid metabolism</td>
+<td>
+<code>de_celltype_results</code>, <code>go_celltype_results</code>,
+<code>moDC_genes</code>, <code>dc_genes</code>
+</td>
+<td>1.5 h</td>
+</tr>
+<tr class="even">
+<td><a href="l6_DEGs_tolDcs_en.html">6. The transcriptional signature of
+tolerogenic dendritic cells</a></td>
+<td>Evaluate tolDC with a published signature, combine z-scores and LFC,
+and choose the right reference for comparison</td>
+<td>
+<code>tolDC_genes</code>, <code>de_celltype_results</code>,
+<code>zscore_mat</code>
+</td>
+<td>1 h</td>
+</tr>
+<tr class="odd">
+<td><a href="l7_DEGs_between_groups_en.html">7. Do patient and control
+cells differentiate in the same way?</a></td>
+<td>Fit a model with an interaction, interpret a “difference of
+differences”, and summarize the genes with Reactome processes</td>
+<td>
+<code>de_interaction_results</code>,
+<code>go_interaction_results</code>, <code>zscore_mat</code>,
+<code>isg_genes</code>
+</td>
+<td>1.5 h</td>
+</tr>
+</tbody>
+</table>
+<p>Each lesson includes <strong>challenges</strong> with their solutions
+for practice, and ends by reproducing a supplementary figure from the
+article.</p>
+</div>
+<div class="section level2">
+<h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a>
+</h2>
+<p>If you use these data, cite the original article:</p>
+<blockquote>
+<p>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene
+expression profiling of dendritic cell tolerance dysfunction in women
+with systemic lupus erythematosus</a>. <em>Front. Immunol.</em>
+17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
+10.3389/fimmu.2026.1771959</a>.</p>
+</blockquote>
+<nav class="lesson-nav"><a class="lesson-next" href="clinical_en.html">Next lesson: Meeting the participants →</a>
+</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Back to the top of the page">↑ Back to top</a>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

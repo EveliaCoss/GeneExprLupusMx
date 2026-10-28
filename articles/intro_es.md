@@ -15,9 +15,14 @@ para aprender a analizarlos.
   (tolDC).
 - **99 muestras** en total (33 × 3).
 
-Los datos provienen del artículo publicado en *Frontiers in Immunology*
-([doi:
-10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959)).
+Los datos provienen del artículo:
+
+> Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
+> expression profiling of dendritic cell tolerance dysfunction in women
+> with systemic lupus
+> erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+> *Front. Immunol.* 17:1771959. [doi:
+> 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
 
 ![Resumen del estudio y del contenido del paquete.](img/overview.png)
 
@@ -46,14 +51,26 @@ library(GeneExprLupusMx)
 
 ## ¿Qué datos contiene?
 
-El paquete incluye tres conjuntos de datos. Están disponibles en cuanto
-cargas el paquete; no hay que descargar nada más.
+El paquete incluye tres conjuntos de datos principales. Están
+disponibles en cuanto cargas el paquete; no hay que descargar nada más.
 
 | Objeto | Qué contiene | Una fila por | Tamaño |
 |----|----|----|----|
 | `filtered_txi` | Cuentas de RNA-seq cuantificadas con Salmon e importadas con `tximport` | gen | 21,718 genes × 99 muestras |
 | `metadata_cleaned` | Grupo, tipo celular y datos clínicos de cada muestra | muestra | 99 muestras |
 | `volunteer_info` | Edad, diagnóstico, tratamientos y fecha de reclutamiento | voluntaria | 33 voluntarias |
+
+También incluye **listas de genes de referencia** que usan algunas
+lecciones:
+
+| Objeto | Qué contiene | Se usa en |
+|----|----|----|
+| `biotype_summary` | Biotipo de cada gen (codificante, lncRNA…) | Lección 4 |
+| `sle_genes` | Genes asociados al lupus en la literatura | Lección 4 |
+| `isg_genes` | Genes estimulados por interferón (Yu et al., 2025) | Lección 4 |
+| `moDC_genes` | Genes descritos en la diferenciación de monocito a moDC | Lección 5 |
+| `dc_genes` | Genes asociados a la diferenciación de células dendríticas | Lección 5 |
+| `tolDC_genes` | Firma transcripcional de las células dendríticas tolerogénicas (Robertson et al., 2021) | Lección 6 |
 
 Además, incluye **checkpoints**: objetos que se construyen en una
 lección y se guardan en el paquete para que la siguiente pueda empezar
@@ -65,6 +82,10 @@ desde ahí, sin repetir los pasos.
 | `zscore_mat` | Matriz de z-scores de la expresión VST, para *heatmaps* (13,596 genes × 99 muestras) | Lección 2 |
 | `de_results` | Resultados de expresión diferencial SLE vs Ctrl de cada tipo celular (`DESeq2`) | Lección 3 |
 | `go_results` | Términos funcionales enriquecidos de los DEG (g:Profiler, versión e113) | Lección 4 |
+| `de_celltype_results` | Expresión diferencial de moDC y tolDC contra monocitos, en controles y pacientes (`DESeq2`) | Lección 5 |
+| `go_celltype_results` | Términos funcionales enriquecidos de esos DEG (g:Profiler) | Lección 5 |
+| `de_interaction_results` | Interacción `Group:Cell_type`: genes cuyo cambio de monocito a célula dendrítica es distinto en las pacientes (`DESeq2`) | Lección 7 |
+| `go_interaction_results` | Términos funcionales enriquecidos de esos genes (g:Profiler) | Lección 7 |
 
 Un vistazo rápido a cada uno:
 
@@ -136,6 +157,12 @@ a la exploración de datos"]
 expresados"]
   L3 --> L4["4. Funciones biológicas
 de los DEG"]
+  L4 --> L5["5. Diferenciación de monocitos
+a células dendríticas"]
+  L5 --> L6["6. La firma de las células
+dendríticas tolerogénicas"]
+  L6 --> L7["7. ¿Se diferencian igual
+pacientes y controles?"]
 ```
 
 | Lección | Aprenderás a… | Datos | Tiempo |
@@ -144,17 +171,25 @@ de los DEG"]
 | [2. De las cuentas de RNA-seq a la exploración de datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.md) | Importar las cuentas, normalizarlas con `DESeq2`, explorar genes y hacer *heatmaps* y PCA | `filtered_txi`, `metadata_cleaned`, `volunteer_info` | 1 a 1.5 h |
 | [3. Genes diferencialmente expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.md) | Validar tipos celulares con biomarcadores, hacer expresión diferencial con `DESeq2` e interpretar volcano plots | `filtered_txi`, `metadata_cleaned`, `zscore_mat` | 1.5 h |
 | [4. Funciones biológicas de los DEG](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.md) | Hacer un análisis de enriquecimiento funcional con g:Profiler, identificar genes de SLE e ISG e interpretar procesos biológicos | `de_results`, `go_results`, `sle_genes`, `isg_genes`, `biotype_summary` | 1.5 h |
+| [5. Diferenciación de monocitos a células dendríticas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_es.md) | Comparar células dendríticas contra monocitos, validar la diferenciación con genes conocidos y explorar rutas y metabolismo de lípidos | `de_celltype_results`, `go_celltype_results`, `moDC_genes`, `dc_genes` | 1.5 h |
+| [6. La firma transcripcional de las células dendríticas tolerogénicas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.md) | Evaluar las tolDC con una firma publicada, combinar z-scores y LFC, y elegir la referencia correcta para comparar | `tolDC_genes`, `de_celltype_results`, `zscore_mat` | 1 h |
+| [7. ¿Se diferencian igual las células de pacientes y controles?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.md) | Ajustar un modelo con interacción, interpretar una “diferencia de diferencias” y resumir los genes con procesos de Reactome | `de_interaction_results`, `go_interaction_results`, `zscore_mat`, `isg_genes` | 1.5 h |
 
 Cada lección incluye **retos** con su solución para practicar, y termina
 reproduciendo una figura suplementaria del artículo.
 
 ## ¿Cómo citar?
 
-Si usas estos datos, cita el artículo original: *Frontiers in
-Immunology* (2026), [doi:
-10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
+Si usas estos datos, cita el artículo original:
+
+> Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
+> expression profiling of dendritic cell tolerance dysfunction in women
+> with systemic lupus
+> erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+> *Front. Immunol.* 17:1771959. [doi:
+> 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
 
 [Siguiente lección: Conociendo a las participantes
 →](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.md)
 
-[↑ Inicio](#top "Volver al inicio de la página")
+[↑ Volver a Inicio](#top "Volver al inicio de la página")

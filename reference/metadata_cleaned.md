@@ -1,8 +1,10 @@
-# Cleaned metadata with patient and cell type annotations
+# Sample metadata: group, cell type and clinical information
 
-This dataset includes patient-level information along with cell type
-annotations for monocytes (`mo`), monocyte-derived dendritic cells
-(`moDC`), and tolerogenic dendritic cells (`tolDC`).
+Metadata of the 99 RNA-seq samples: 33 volunteers (10 healthy controls
+and 23 women with systemic lupus erythematosus, SLE), each contributing
+three cell types: monocytes (`monocyte`), monocyte-derived dendritic
+cells (`moDC`) and tolerogenic dendritic cells (`tolDC`). Clinical
+variables are repeated in the three samples of each volunteer.
 
 ## Usage
 
@@ -12,77 +14,106 @@ metadata_cleaned
 
 ## Format
 
-A data frame with multiple rows (samples) and 13 columns:
+A data frame with 99 rows (samples) and 14 columns. All columns are
+factors.
 
 - sample_ID:
 
-  Unique identifier for each sample.
+  Sample identifier: volunteer ID plus cell type suffix (`_0` =
+  monocyte, `_1` = moDC, `_3` = tolDC; e.g., `"QR011_1"`). Also used as
+  row names.
 
 - Group:
 
-  Disease group (e.g., SLE patient or control).
+  `Ctrl` (healthy control) or `SLE` (patient).
 
 - GC:
 
-  Glucocorticoid treatment status.
+  Glucocorticoid treatment: `No` or `Si`.
 
 - Dose:
 
-  Numeric dose of treatment.
+  Glucocorticoid dose in mg (`0`, `2.5`, `3`, `5` or `8`); `0` for
+  controls and untreated patients.
 
 - Dose_category:
 
-  Categorical dose classification.
+  Glucocorticoid treatment coded as `0` (no) or `1` (yes); equivalent to
+  `GC`.
 
 - Age:
 
-  Age of the patient.
+  Age in years.
 
 - Cell_type:
 
-  Annotated cell type (mo, moDC, tolDC).
+  Cell type: `monocyte`, `moDC` or `tolDC`.
 
 - Group_age:
 
-  Combined group and age category.
+  Age group: `less30` (younger than 30 years) or `more30` (30 years or
+  older).
 
 - Nephritis:
 
-  Presence of nephritis (yes/no).
+  Lupus nephritis: `No` or `Si`; `NA` in controls.
 
 - Other_tx:
 
-  Other treatments received.
+  Treatment other than glucocorticoids (e.g., antimalarials,
+  immunosuppressants): `No` or `Si`; `NA` in controls.
 
 - Sledai_score:
 
-  SLEDAI disease activity score.
+  SLEDAI disease activity score (0 to 62); `NA` in controls.
 
 - Sledai_group:
 
-  Grouped SLEDAI classification.
+  SLEDAI activity group: `Without_activity` (score 0), `Low` (1-4),
+  `Moderate` (6), `High` (10-19) or `Very_high` (27 or more); `NA` in
+  controls.
 
 - SLEDAI_Md:
 
-  Median SLEDAI score.
+  Yes/no indicator from the original clinical records (`No`, `Si` or
+  `Sí`); `NA` in controls.
 
 - SLEDAI_category:
 
-  Categorical SLEDAI classification.
+  Disease activity category: `Zero` (SLEDAI score 0, and all controls),
+  `No_activity` (score 1-3) or `Activity` (score 4 or more).
 
 ## Source
 
-Patient metadata curated and cleaned for downstream analysis.
+Clinical records of the study, curated for the analysis.
 
 ## Details
 
-This dataset is useful for linking transcriptomic data with clinical and
-cell type annotations in systemic lupus erythematosus (SLE).
+- Rows are in the same order as the columns of the count matrices of
+  [`filtered_txi`](https://eveliacoss.github.io/GeneExprLupusMx/reference/filtered_txi.md).
+
+- `Age`, `Dose` and `Sledai_score` are stored as factors; convert them
+  with `as.numeric(as.character(x))` before doing calculations.
+
+- The volunteer identifier (e.g., `"QR011"`) is the prefix of
+  `sample_ID`, `sub("_.*", "", sample_ID)`; it links this table with
+  [`volunteer_info`](https://eveliacoss.github.io/GeneExprLupusMx/reference/volunteer_info.md).
+
+- Known inconsistencies of the original records: `SLEDAI_Md` has the
+  level `Si` written in two ways (`Si` and `Sí`); in `Sledai_group`, one
+  patient with score 0 is classified as `Low` and one with score 10 as
+  `High`. Some ages and treatments differ from
+  [`volunteer_info`](https://eveliacoss.github.io/GeneExprLupusMx/reference/volunteer_info.md),
+  which comes from the recruitment table.
+
+## See also
+
+[`filtered_txi`](https://eveliacoss.github.io/GeneExprLupusMx/reference/filtered_txi.md),
+[`volunteer_info`](https://eveliacoss.github.io/GeneExprLupusMx/reference/volunteer_info.md)
 
 ## Examples
 
 ``` r
-data(metadata_cleaned)
 head(metadata_cleaned)
 #>         sample_ID Group GC Dose Dose_category Age Cell_type Group_age Nephritis
 #> QR011_0   QR011_0  Ctrl No    0             0  25  monocyte    less30      <NA>
@@ -98,8 +129,14 @@ head(metadata_cleaned)
 #> QR013_0     <NA>         <NA>         <NA>      <NA>            Zero
 #> QR013_1     <NA>         <NA>         <NA>      <NA>            Zero
 #> QR013_3     <NA>         <NA>         <NA>      <NA>            Zero
-table(metadata_cleaned$Cell_type)
-#> 
-#>     moDC monocyte    tolDC 
-#>       33       33       33 
+table(metadata_cleaned$Group, metadata_cleaned$Cell_type)
+#>       
+#>        moDC monocyte tolDC
+#>   Ctrl   10       10    10
+#>   SLE    23       23    23
+
+# Age as a number
+summary(as.numeric(as.character(metadata_cleaned$Age)))
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>   19.00   25.00   34.00   32.21   38.00   47.00 
 ```

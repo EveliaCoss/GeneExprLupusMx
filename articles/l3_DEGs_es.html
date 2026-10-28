@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lección 3: Genes diferencialmente expresados entre pacientes y controles • GeneExprLupusMx</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">GeneExprLupusMx</a>
 
@@ -41,24 +41,29 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
 <li><h6 class="dropdown-header" data-toc-skip>ES - Tutoriales en español</h6></li>
-    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
+    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes</a></li>
     <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
     <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
-    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Obtener GOterms</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Ejemplos</h6></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Funciones biológicas de los genes diferencialmente expresados</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_es.html">5 - Diferenciación de monocitos a células dendríticas</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma transcripcional de las células dendríticas tolerogénicas</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_es.html">7 - ¿Se diferencian igual las células de pacientes y controles?</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>1 - Introduction</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>2 - Meeting Karel</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>3 - Decomposition</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>4 - Control structures</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Examples</h6></li>
+    <li><a class="dropdown-item" href="../articles/clinical_en.html">1 - Meeting the participants</a></li>
+    <li><a class="dropdown-item" href="../articles/intro_RNAseq_en.html">2 - From RNA-seq counts to data exploration</a></li>
+    <li><a class="dropdown-item" href="../articles/l3_DEGs_en.html">3 - Differentially expressed genes between patients and controls</a></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_en.html">4 - Biological functions of differentially expressed genes</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_en.html">5 - Differentiation of monocytes into dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_en.html">6 - The transcriptional signature of tolerogenic dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_en.html">7 - Do patient and control cells differentiate in the same way?</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-descarga-de-datos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Descarga de datos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-descarga-de-datos">
-<li><a class="dropdown-item" href="../articles/download.html">Download raw data</a></li>
+<li><a class="dropdown-item" href="../articles/download_es.html">ES - Descarga de datos</a></li>
+    <li><a class="dropdown-item" href="../articles/download_en.html">EN - Data download</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -69,14 +74,6 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/EveliaCoss/GeneExprLupusMx/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
       </ul>
 </div>
 
@@ -132,11 +129,17 @@ pre.mermaid { background: none; border: 0; text-align: center; }
 }
 .lesson-nav a {
   padding: .5rem 1rem;
-  border: 1px solid #0758E5;
+  border: 1px solid #000;
   border-radius: .25rem;
+  background: #000;
+  color: #4DA3FF !important; /* azul legible sobre negro */
   text-decoration: none;
 }
-.lesson-nav a:hover { background: rgba(7, 88, 229, .08); }
+.lesson-nav a:hover {
+  background: #6f42c1; /* morado */
+  border-color: #6f42c1;
+  color: #fff !important;
+}
 .lesson-nav .lesson-next { margin-left: auto; }
 
 /* Botón flotante para volver al inicio de la página */
@@ -263,7 +266,7 @@ significancia (eje y) de todos los genes.</li>
 <p>Colores y umbrales que usaremos en toda la lección:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cell_color</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>monocyte <span class="op">=</span> <span class="st">"black"</span>, moDC <span class="op">=</span> <span class="st">"palevioletred"</span>, tolDC <span class="op">=</span> <span class="st">"gold1"</span><span class="op">)</span></span>
-<span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#5BBFB5"</span>, SLE <span class="op">=</span> <span class="st">"#8E5A8C"</span><span class="op">)</span></span>
+<span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#96d4ccff"</span>, SLE <span class="op">=</span> <span class="st">"#b493b4ff"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">lfc_threshold</span>  <span class="op">&lt;-</span> <span class="fl">1</span>    <span class="co"># |log2 fold change| mínimo</span></span>
 <span><span class="va">padj_threshold</span> <span class="op">&lt;-</span> <span class="fl">0.05</span> <span class="co"># valor p ajustado máximo</span></span></code></pre></div>
@@ -276,10 +279,9 @@ significancia (eje y) de todos los genes.</li>
 (<code>volunteer_info</code>) y el checkpoint <code>zscore_mat</code> de
 la lección anterior.</p>
 <p>Para el análisis de expresión diferencial partimos de las
-<strong>cuentas crudas de todos los genes</strong>, igual que en el
-artículo. Creamos un objeto <code>DESeqDataSet</code> con el diseño
-<code>~ Group</code> (SLE contra Ctrl), que después dividiremos por tipo
-celular:</p>
+<strong>cuentas crudas de todos los genes</strong>. Creamos un objeto
+<code>DESeqDataSet</code> con el diseño <code>~ Group</code> (SLE contra
+Ctrl), que después dividiremos por tipo celular:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Group</span>, ref <span class="op">=</span> <span class="st">"Ctrl"</span><span class="op">)</span></span>
 <span></span>
@@ -301,8 +303,8 @@ En la lección anterior filtramos los genes poco expresados para
 visualizar. Para la expresión diferencial no hace falta:
 <code>DESeq2</code> aplica su propio <strong>filtrado
 independiente</strong> y deja <code>padj = NA</code> en los genes sin
-información. Partir de todas las cuentas nos permite reproducir
-exactamente los resultados del artículo.</p>
+información. Partir de todas las cuentas deja que <code>DESeq2</code>
+decida qué genes tienen información suficiente para probarse.</p>
 </div>
 </div>
 </div>
@@ -522,8 +524,8 @@ la referencia, Ctrl):</p>
 <span><span class="co">#&gt; OTOF      725.570        5.08949  0.819047   6.21392 5.16796e-10 1.80439e-06</span></span>
 <span><span class="co">#&gt; SIGLEC1  8360.445        3.11093  0.521640   5.96375 2.46508e-09 5.73787e-06</span></span>
 <span><span class="co">#&gt; USP18     758.460        3.12316  0.541137   5.77148 7.85805e-09 1.37182e-05</span></span>
-<span><span class="co">#&gt; GMPR      403.561        1.64509  0.301470   5.45691 4.84500e-08 6.76652e-05</span></span>
-<span><span class="co">#&gt; IFI44L   6547.050        2.82422  0.550876   5.12678 2.94735e-07 2.72543e-04</span></span></code></pre></div>
+<span><span class="co">#&gt; GMPR      403.561        1.64509  0.301470   5.45691 4.84499e-08 6.76651e-05</span></span>
+<span><span class="co">#&gt; IFI44L   6547.050        2.82422  0.550876   5.12678 2.94735e-07 2.72542e-04</span></span></code></pre></div>
 <p>¿Qué significa cada columna?</p>
 <table class="table">
 <colgroup>
@@ -673,13 +675,6 @@ de forma poco confiable.</p>
 <p>En los monocitos todos los cambios son <strong>aumentos</strong>; en
 las células dendríticas diferenciadas <em>in vitro</em>, predominan las
 <strong>disminuciones</strong>.</p>
-<div class="alert alert-info">
-<p><strong>Sobre el umbral de LFC.</strong> El pie de la Figura 2 del
-artículo menciona LFC ≥ 0.5, pero los números de los volcano plots
-publicados (37; 4 y 40; 4 y 12) se obtienen con <strong>|LFC| ≥
-1</strong>, que es el umbral que usamos aquí. En el Reto 1 verás qué
-pasa con 0.5.</p>
-</div>
 <div class="callout-note">
 <p><strong>Reto 1.</strong> ¿Cuántos genes suben y bajan en cada tipo
 celular si usas <code>|LFC| ≥ 0.5</code> en lugar de 1?</p>
@@ -903,6 +898,11 @@ demás:</p>
 <span>                      nrow <span class="op">=</span> <span class="fl">1</span>, rel_widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">figure_2</span></span></code></pre></div>
 <p><img src="l3_DEGs_es_files/figure-html/figura_2-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Número de DEG por tipo celular, para el pie de figura</span></span>
+<span><span class="va">up_n</span>   <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cell</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">de_classified</span><span class="op">[[</span><span class="va">cell</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="st">"Up-regulated"</span><span class="op">)</span></span>
+<span><span class="va">down_n</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cell</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">de_classified</span><span class="op">[[</span><span class="va">cell</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="st">"Down-regulated"</span><span class="op">)</span></span></code></pre></div>
 <div class="caption-justify">
 <p><strong>Figura 2.</strong> Validación de los tipos celulares y perfil
 transcriptómico integrado entre grupos. <strong>(A)</strong>
@@ -916,14 +916,15 @@ indica la expresión media por grupo (z-score) y el tamaño del punto, el
 porcentaje de muestras por encima del promedio de cada gen. Cada columna
 es un biomarcador del tipo celular indicado arriba.
 <strong>(C–E)</strong> Volcano plots de los genes diferencialmente
-expresados entre grupos en <strong>(C)</strong> monocitos,
-<strong>(D)</strong> moDC y <strong>(E)</strong> tolDC. Los DEG se
+expresados entre grupos en <strong>(C)</strong> monocitos (37 suben y 0
+bajan en SLE), <strong>(D)</strong> moDC (4 suben y 40 bajan) y
+<strong>(E)</strong> tolDC (4 suben y 12 bajan). Los DEG se
 seleccionaron con |LFC| ≥ 1 y padj &lt; 0.05, usando la prueba de Wald
 con corrección de Benjamini–Hochberg (FDR).</p>
 <p>La figura original se encuentra en el <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">artículo</a>.</p>
 </div>
 <p>Para guardarla en alta resolución:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"Figura_2.png"</span>, <span class="va">figure_2</span>, width <span class="op">=</span> <span class="fl">20</span>, height <span class="op">=</span> <span class="fl">11</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -1013,20 +1014,24 @@ de ellos.</li>
 </div>
 </div>
 <div class="section level2">
-<h2 id="y-después">10. ¿Y después?<a class="anchor" aria-label="anchor" href="#y-despu%C3%A9s"></a>
+<h2 id="próximos-pasos">10. Próximos pasos<a class="anchor" aria-label="anchor" href="#pr%C3%B3ximos-pasos"></a>
 </h2>
-<p>Ya sabemos <strong>qué</strong> genes cambian. En la <a href="l4_GOterms_es.html">siguiente lección</a> averiguaremos
-<strong>qué hacen</strong>: buscaremos las funciones biológicas, rutas y
-procesos asociados a los 94 DEG en bases de datos como Gene Ontology y
-Reactome.</p>
+<p>Ya identificamos <strong>qué</strong> genes cambian entre pacientes y
+controles. La lección <a href="l4_GOterms_es.html">Funciones biológicas
+de los genes diferencialmente expresados</a> aborda <strong>qué
+funciones cumplen</strong>: mediante un análisis de enriquecimiento
+funcional, asociaremos los 94 DEG con procesos biológicos y rutas de
+Gene Ontology y Reactome.</p>
+<p>Para continuar, da clic en el botón <strong>Siguiente lección:
+Funciones biológicas de los DEG</strong> al final de esta página.</p>
 <nav class="lesson-nav"><a class="lesson-prev" href="intro_RNAseq_es.html">← Lección anterior: De las cuentas de RNA-seq a la exploración de datos</a>
   <a class="lesson-next" href="l4_GOterms_es.html">Siguiente lección: Funciones biológicas de los DEG →</a>
-</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
+</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
 </div>
 <div class="section level2">
 <h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>
 </h2>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.6.1 (2026-06-24)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>

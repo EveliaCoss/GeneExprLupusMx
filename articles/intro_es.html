@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Primeros pasos con el paquete GeneExprLupusMx • GeneExprLupusMx</title>
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">GeneExprLupusMx</a>
 
@@ -41,24 +41,29 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
 <li><h6 class="dropdown-header" data-toc-skip>ES - Tutoriales en español</h6></li>
-    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes: estadística descriptiva</a></li>
+    <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes</a></li>
     <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
     <li><a class="dropdown-item" href="../articles/l3_DEGs_es.html">3 - Genes diferencialmente expresados entre pacientes y controles</a></li>
-    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Obtener GOterms</a></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Ejemplos</h6></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_es.html">4 - Funciones biológicas de los genes diferencialmente expresados</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_es.html">5 - Diferenciación de monocitos a células dendríticas</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_es.html">6 - La firma transcripcional de las células dendríticas tolerogénicas</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_es.html">7 - ¿Se diferencian igual las células de pacientes y controles?</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>EN - Tutorials in English</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>1 - Introduction</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>2 - Meeting Karel</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>3 - Decomposition</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>4 - Control structures</h6></li>
-    <li><h6 class="dropdown-header" data-toc-skip>5 - Examples</h6></li>
+    <li><a class="dropdown-item" href="../articles/clinical_en.html">1 - Meeting the participants</a></li>
+    <li><a class="dropdown-item" href="../articles/intro_RNAseq_en.html">2 - From RNA-seq counts to data exploration</a></li>
+    <li><a class="dropdown-item" href="../articles/l3_DEGs_en.html">3 - Differentially expressed genes between patients and controls</a></li>
+    <li><a class="dropdown-item" href="../articles/l4_GOterms_en.html">4 - Biological functions of differentially expressed genes</a></li>
+    <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_en.html">5 - Differentiation of monocytes into dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_en.html">6 - The transcriptional signature of tolerogenic dendritic cells</a></li>
+    <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_en.html">7 - Do patient and control cells differentiate in the same way?</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-descarga-de-datos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Descarga de datos</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-descarga-de-datos">
-<li><a class="dropdown-item" href="../articles/download.html">Download raw data</a></li>
+<li><a class="dropdown-item" href="../articles/download_es.html">ES - Descarga de datos</a></li>
+    <li><a class="dropdown-item" href="../articles/download_en.html">EN - Data download</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -69,14 +74,6 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/EveliaCoss/GeneExprLupusMx/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
-<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
-    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
-  </ul>
-</li>
       </ul>
 </div>
 
@@ -132,11 +129,17 @@ pre.mermaid { background: none; border: 0; text-align: center; }
 }
 .lesson-nav a {
   padding: .5rem 1rem;
-  border: 1px solid #0758E5;
+  border: 1px solid #000;
   border-radius: .25rem;
+  background: #000;
+  color: #4DA3FF !important; /* azul legible sobre negro */
   text-decoration: none;
 }
-.lesson-nav a:hover { background: rgba(7, 88, 229, .08); }
+.lesson-nav a:hover {
+  background: #6f42c1; /* morado */
+  border-color: #6f42c1;
+  color: #fff !important;
+}
 .lesson-nav .lesson-next { margin-left: auto; }
 
 /* Botón flotante para volver al inicio de la página */
@@ -174,9 +177,14 @@ tolerogénicas (tolDC).</li>
 <li>
 <strong>99 muestras</strong> en total (33 × 3).</li>
 </ul>
-<p>Los datos provienen del artículo publicado en <em>Frontiers in
-Immunology</em> (<a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
-10.3389/fimmu.2026.1771959</a>).</p>
+<p>Los datos provienen del artículo:</p>
+<blockquote>
+<p>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene
+expression profiling of dendritic cell tolerance dysfunction in women
+with systemic lupus erythematosus</a>. <em>Front. Immunol.</em>
+17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
+10.3389/fimmu.2026.1771959</a>.</p>
+</blockquote>
 <div class="figure">
 <img src="img/overview.png" class="r-plt" alt="Resumen del estudio y del contenido del paquete." width="100%"><p class="caption">
 Resumen del estudio y del contenido del paquete.
@@ -199,8 +207,9 @@ lecciones usan además <code>DESeq2</code>, disponible en <a href="https://bioco
 <div class="section level2">
 <h2 id="qué-datos-contiene">¿Qué datos contiene?<a class="anchor" aria-label="anchor" href="#qu%C3%A9-datos-contiene"></a>
 </h2>
-<p>El paquete incluye tres conjuntos de datos. Están disponibles en
-cuanto cargas el paquete; no hay que descargar nada más.</p>
+<p>El paquete incluye tres conjuntos de datos principales. Están
+disponibles en cuanto cargas el paquete; no hay que descargar nada
+más.</p>
 <table class="table">
 <colgroup>
 <col width="18%">
@@ -234,6 +243,53 @@ cuanto cargas el paquete; no hay que descargar nada más.</p>
 <td>Edad, diagnóstico, tratamientos y fecha de reclutamiento</td>
 <td>voluntaria</td>
 <td>33 voluntarias</td>
+</tr>
+</tbody>
+</table>
+<p>También incluye <strong>listas de genes de referencia</strong> que
+usan algunas lecciones:</p>
+<table class="table">
+<colgroup>
+<col width="24%">
+<col width="42%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th>Objeto</th>
+<th>Qué contiene</th>
+<th>Se usa en</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>biotype_summary</code></td>
+<td>Biotipo de cada gen (codificante, lncRNA…)</td>
+<td>Lección 4</td>
+</tr>
+<tr class="even">
+<td><code>sle_genes</code></td>
+<td>Genes asociados al lupus en la literatura</td>
+<td>Lección 4</td>
+</tr>
+<tr class="odd">
+<td><code>isg_genes</code></td>
+<td>Genes estimulados por interferón (Yu et al., 2025)</td>
+<td>Lección 4</td>
+</tr>
+<tr class="even">
+<td><code>moDC_genes</code></td>
+<td>Genes descritos en la diferenciación de monocito a moDC</td>
+<td>Lección 5</td>
+</tr>
+<tr class="odd">
+<td><code>dc_genes</code></td>
+<td>Genes asociados a la diferenciación de células dendríticas</td>
+<td>Lección 5</td>
+</tr>
+<tr class="even">
+<td><code>tolDC_genes</code></td>
+<td>Firma transcripcional de las células dendríticas tolerogénicas
+(Robertson et al., 2021)</td>
+<td>Lección 6</td>
 </tr>
 </tbody>
 </table>
@@ -277,6 +333,29 @@ muestras); requiere <code>DESeq2</code>
 <td>Términos funcionales enriquecidos de los DEG (g:Profiler, versión
 e113)</td>
 <td>Lección 4</td>
+</tr>
+<tr class="odd">
+<td><code>de_celltype_results</code></td>
+<td>Expresión diferencial de moDC y tolDC contra monocitos, en controles
+y pacientes (<code>DESeq2</code>)</td>
+<td>Lección 5</td>
+</tr>
+<tr class="even">
+<td><code>go_celltype_results</code></td>
+<td>Términos funcionales enriquecidos de esos DEG (g:Profiler)</td>
+<td>Lección 5</td>
+</tr>
+<tr class="odd">
+<td><code>de_interaction_results</code></td>
+<td>Interacción <code>Group:Cell_type</code>: genes cuyo cambio de
+monocito a célula dendrítica es distinto en las pacientes
+(<code>DESeq2</code>)</td>
+<td>Lección 7</td>
+</tr>
+<tr class="even">
+<td><code>go_interaction_results</code></td>
+<td>Términos funcionales enriquecidos de esos genes (g:Profiler)</td>
+<td>Lección 7</td>
 </tr>
 </tbody>
 </table>
@@ -331,6 +410,9 @@ flowchart LR
   L1 --&gt; L2["2. De las cuentas de RNA-seq<br>a la exploración de datos"]
   L2 --&gt; L3["3. Genes diferencialmente<br>expresados"]
   L3 --&gt; L4["4. Funciones biológicas<br>de los DEG"]
+  L4 --&gt; L5["5. Diferenciación de monocitos<br>a células dendríticas"]
+  L5 --&gt; L6["6. La firma de las células<br>dendríticas tolerogénicas"]
+  L6 --&gt; L7["7. ¿Se diferencian igual<br>pacientes y controles?"]
 </pre>
 <script type="module">
   import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
@@ -391,6 +473,41 @@ identificar genes de SLE e ISG e interpretar procesos biológicos</td>
 </td>
 <td>1.5 h</td>
 </tr>
+<tr class="odd">
+<td><a href="l5_DEGs_monocytes_diff_es.html">5. Diferenciación de
+monocitos a células dendríticas</a></td>
+<td>Comparar células dendríticas contra monocitos, validar la
+diferenciación con genes conocidos y explorar rutas y metabolismo de
+lípidos</td>
+<td>
+<code>de_celltype_results</code>, <code>go_celltype_results</code>,
+<code>moDC_genes</code>, <code>dc_genes</code>
+</td>
+<td>1.5 h</td>
+</tr>
+<tr class="even">
+<td><a href="l6_DEGs_tolDcs_es.html">6. La firma transcripcional de las
+células dendríticas tolerogénicas</a></td>
+<td>Evaluar las tolDC con una firma publicada, combinar z-scores y LFC,
+y elegir la referencia correcta para comparar</td>
+<td>
+<code>tolDC_genes</code>, <code>de_celltype_results</code>,
+<code>zscore_mat</code>
+</td>
+<td>1 h</td>
+</tr>
+<tr class="odd">
+<td><a href="l7_DEGs_between_groups_es.html">7. ¿Se diferencian igual
+las células de pacientes y controles?</a></td>
+<td>Ajustar un modelo con interacción, interpretar una “diferencia de
+diferencias” y resumir los genes con procesos de Reactome</td>
+<td>
+<code>de_interaction_results</code>,
+<code>go_interaction_results</code>, <code>zscore_mat</code>,
+<code>isg_genes</code>
+</td>
+<td>1.5 h</td>
+</tr>
 </tbody>
 </table>
 <p>Cada lección incluye <strong>retos</strong> con su solución para
@@ -400,11 +517,16 @@ artículo.</p>
 <div class="section level2">
 <h2 id="cómo-citar">¿Cómo citar?<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-citar"></a>
 </h2>
-<p>Si usas estos datos, cita el artículo original: <em>Frontiers in
-Immunology</em> (2026), <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
+<p>Si usas estos datos, cita el artículo original:</p>
+<blockquote>
+<p>Hernández-Ledesma AL, Coss-Navarrete EL, <em>et al</em> (2026) <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">Gene
+expression profiling of dendritic cell tolerance dysfunction in women
+with systemic lupus erythematosus</a>. <em>Front. Immunol.</em>
+17:1771959. <a href="https://doi.org/10.3389/fimmu.2026.1771959" class="external-link">doi:
 10.3389/fimmu.2026.1771959</a>.</p>
+</blockquote>
 <nav class="lesson-nav"><a class="lesson-next" href="clinical_es.html">Siguiente lección: Conociendo a las participantes →</a>
-</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Inicio</a>
+</nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
