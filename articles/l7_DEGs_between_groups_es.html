@@ -67,7 +67,13 @@
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-registro-de-cambios" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Registro de cambios</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-registro-de-cambios">
+<li><a class="dropdown-item" href="../articles/news_es.html">ES - Registro de cambios</a></li>
+    <li><a class="dropdown-item" href="../news/index.html">EN - Changelog</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -183,6 +189,8 @@ con <code>DESeq2</code> e interpretar sus coeficientes.</li>
 Reactome.</li>
 <li>Reproducir los paneles <strong>A y B de la Figura 7</strong> del
 artículo.</li>
+<li>Interpretar una interacción con las <strong>trayectorias de
+expresión</strong> de cada grupo.</li>
 </ol>
 <p><strong>Tiempo estimado:</strong> 1.5 horas.</p>
 <div class="section level3">
@@ -197,6 +205,7 @@ flowchart LR
   C --&gt; F["Figura 7A<br>LFC de la interacción"]
   E --&gt; F
   E --&gt; G["Figura 7B<br>procesos por lista"]
+  F --&gt; H["Figura suplementaria<br>trayectorias de expresión"]
 </pre>
 <script type="module">
   import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
@@ -229,6 +238,10 @@ controles.</li>
 <strong>Proceso específico</strong>: entre todos los términos
 enriquecidos en los que aparece un gen, el que tiene
 <strong>menos</strong> genes; el más concreto.</li>
+<li>
+<strong>Trayectoria de expresión</strong>: cómo cambia la expresión
+media de un gen a lo largo de las etapas de diferenciación (monocito →
+moDC → tolDC) en cada grupo.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -252,7 +265,7 @@ las listas de esta lección):</p>
 <span><span class="va">padj_threshold</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="paso-1-qué-es-una-interacción">2. Paso 1: ¿qué es una interacción?<a class="anchor" aria-label="anchor" href="#paso-1-qu%C3%A9-es-una-interacci%C3%B3n"></a>
+<h2 id="paso-1-qué-es-una-interacción">2. <strong>Paso 1:</strong> ¿qué es una interacción?<a class="anchor" aria-label="anchor" href="#paso-1-qu%C3%A9-es-una-interacci%C3%B3n"></a>
 </h2>
 <p>Tomemos un gen estimulado por interferón, <code>ISG15</code>. En la
 lección 5 calculamos su LFC de monocito a célula dendrítica en cada
@@ -291,8 +304,8 @@ de cada grupo en cada tipo celular, usando el checkpoint
 <li>Si las dos líneas fueran <strong>paralelas</strong>, el gen
 cambiaría igual en ambos grupos: no habría interacción.</li>
 <li>Aquí <strong>no son paralelas</strong>: las pacientes parten de un
-valor mucho más alto en los monocitos (la firma de interferón de la
-lección 3) y caen más al diferenciarse.</li>
+valor mucho más alto en los monocitos (la firma de interferón de las
+lecciones 2 y 3) y caen más al diferenciarse.</li>
 </ul>
 <div class="alert alert-warning">
 <p><strong>Una interacción negativa no significa “más bajo en las
@@ -304,7 +317,7 @@ un valor más alto.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="paso-2-el-modelo-con-interacción">3. Paso 2: el modelo con interacción<a class="anchor" aria-label="anchor" href="#paso-2-el-modelo-con-interacci%C3%B3n"></a>
+<h2 id="paso-2-el-modelo-con-interacción">3. <strong>Paso 2:</strong> el modelo con interacción<a class="anchor" aria-label="anchor" href="#paso-2-el-modelo-con-interacci%C3%B3n"></a>
 </h2>
 <p>En la lección 5 ajustamos un modelo para cada grupo y comparamos sus
 LFC “a ojo”. Para obtener un <strong>valor p</strong> de la diferencia,
@@ -406,7 +419,7 @@ de las pacientes también se ajustó por actividad de la enfermedad y
 dosis de glucocorticoides.</p>
 </div>
 <div class="section level2">
-<h2 id="paso-3-qué-genes-cambian-distinto">4. Paso 3: ¿qué genes cambian distinto?<a class="anchor" aria-label="anchor" href="#paso-3-qu%C3%A9-genes-cambian-distinto"></a>
+<h2 id="paso-3-qué-genes-cambian-distinto">4. <strong>Paso 3:</strong> ¿qué genes cambian distinto?<a class="anchor" aria-label="anchor" href="#paso-3-qu%C3%A9-genes-cambian-distinto"></a>
 </h2>
 <p>Un gen tiene una interacción significativa si su
 <code>padj &lt; 0.05</code>. Lo clasificamos como <code>UP</code> o
@@ -476,7 +489,7 @@ pacientes: las líneas se separan (interacción en tolDC, LFC ≈ 2.4).</li>
 </ul></details>
 </div>
 <div class="section level2">
-<h2 id="paso-4-en-qué-procesos-participan">5. Paso 4: ¿en qué procesos participan?<a class="anchor" aria-label="anchor" href="#paso-4-en-qu%C3%A9-procesos-participan"></a>
+<h2 id="paso-4-en-qué-procesos-participan">5. <strong>Paso 4:</strong> ¿en qué procesos participan?<a class="anchor" aria-label="anchor" href="#paso-4-en-qu%C3%A9-procesos-participan"></a>
 </h2>
 <p>Como en las lecciones anteriores, buscamos términos enriquecidos en
 cada lista con g:Profiler (<a href="GO:BP" class="uri">GO:BP</a>, KEGG y
@@ -527,7 +540,8 @@ Reactome con menos genes en el que aparece (como en la lección 4):</p>
 de Reactome. Esos son los genes de la Figura 7A.</p>
 </div>
 <div class="section level2">
-<h2 id="paso-5-genes-compartidos-y-exclusivos-figura-7a">6. Paso 5: genes compartidos y exclusivos (Figura 7A)<a class="anchor" aria-label="anchor" href="#paso-5-genes-compartidos-y-exclusivos-figura-7a"></a>
+<h2 id="paso-5-genes-compartidos-y-exclusivos-figura-7a">6. <strong>Paso 5:</strong> genes compartidos y exclusivos (Figura
+7A)<a class="anchor" aria-label="anchor" href="#paso-5-genes-compartidos-y-exclusivos-figura-7a"></a>
 </h2>
 <p>Hacemos una matriz de genes × listas con el LFC de la interacción;
 queda vacía (<code>NA</code>) si el gen no está en esa lista:</p>
@@ -657,7 +671,7 @@ tipo celular; ninguno está entre los que suben.</p>
 </details>
 </div>
 <div class="section level2">
-<h2 id="paso-6-procesos-por-lista-figura-7b">7. Paso 6: procesos por lista (Figura 7B)<a class="anchor" aria-label="anchor" href="#paso-6-procesos-por-lista-figura-7b"></a>
+<h2 id="paso-6-procesos-por-lista-figura-7b">7. <strong>Paso 6:</strong> procesos por lista (Figura 7B)<a class="anchor" aria-label="anchor" href="#paso-6-procesos-por-lista-figura-7b"></a>
 </h2>
 <p>Contamos cuántos genes de cada lista pertenecen a cada proceso
 específico, y dejamos vacías las celdas sin genes:</p>
@@ -794,7 +808,188 @@ expresados; LFC, log2 fold change.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"Figura_7AB.png"</span>, <span class="va">figure_7</span>, width <span class="op">=</span> <span class="fl">18</span>, height <span class="op">=</span> <span class="fl">12</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="resumen">9. Resumen<a class="anchor" aria-label="anchor" href="#resumen"></a>
+<h2 id="para-profundizar-trayectorias-de-expresión-figura-suplementaria">9. Para profundizar: trayectorias de expresión (Figura
+suplementaria)<a class="anchor" aria-label="anchor" href="#para-profundizar-trayectorias-de-expresi%C3%B3n-figura-suplementaria"></a>
+</h2>
+<p>En la Figura 7A, 30 de los 33 genes tienen una interacción
+<strong>negativa</strong>. Si la interacción captura un efecto del lupus
+sobre la diferenciación, ¿qué significa que casi todos bajen? Hay tres
+explicaciones posibles, y cada una deja una huella distinta en las
+líneas de Ctrl y SLE:</p>
+<table class="table">
+<colgroup>
+<col width="44%">
+<col width="55%">
+</colgroup>
+<thead><tr class="header">
+<th>Explicación</th>
+<th>¿Qué veríamos?</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Diferencia basal que se pierde</strong></td>
+<td>Las pacientes parten de monocitos con el gen más alto y, al
+diferenciarse, ambos grupos llegan a niveles parecidos.</td>
+</tr>
+<tr class="even">
+<td><strong>Inducción atenuada</strong></td>
+<td>Ambos grupos parten del mismo nivel; el gen sube al diferenciarse,
+pero sube menos en las pacientes.</td>
+</tr>
+<tr class="odd">
+<td><strong>Represión excesiva</strong></td>
+<td>Ambos grupos parten del mismo nivel; el gen baja al diferenciarse,
+pero baja más en las pacientes.</td>
+</tr>
+</tbody>
+</table>
+<p>Para distinguirlas graficamos la <strong>trayectoria</strong> de cada
+gen: el z-score medio de cada grupo en monocitos, moDC y tolDC. Primero
+seleccionamos los genes que bajan y calculamos las medias, como en
+<code>plot_interaction()</code>:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">trajectory_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lfc_mat</span><span class="op">)</span>, classification <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">gene_pattern</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">startsWith</a></span><span class="op">(</span><span class="va">classification</span>, <span class="st">"Downregulated"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">trajectory_genes</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 30</span></span>
+<span></span>
+<span><span class="va">exp_mean_df</span> <span class="op">&lt;-</span> <span class="va">zscore_mat</span><span class="op">[</span><span class="va">trajectory_genes</span><span class="op">$</span><span class="va">gene</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">sample_ID</span><span class="op">)</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">gene</span>, names_to <span class="op">=</span> <span class="st">"sample_ID"</span>, values_to <span class="op">=</span> <span class="st">"expression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">metadata_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sample_ID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">sample_ID</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>              <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">sample_ID</span>, <span class="va">Group</span>, <span class="va">Cell_type</span><span class="op">)</span>,</span>
+<span>            by <span class="op">=</span> <span class="st">"sample_ID"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Group</span>, <span class="va">Cell_type</span>, <span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>mean_expression <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">expression</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">trajectory_genes</span>, by <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Cell_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Cell_type</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monocyte"</span>, <span class="st">"moDC"</span>, <span class="st">"tolDC"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">exp_mean_df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">#&gt;   Group Cell_type gene    mean_expression classification           </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ctrl  moDC      AGRN              0.544 Downregulated - SLE moDC </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ctrl  moDC      BST2             -<span style="color: #BB0000;">0.390</span> Downregulated - SLE tolDC</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ctrl  moDC      CCL2              0.221 Downregulated - SLE both </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ctrl  moDC      CYP51A1           0.901 Downregulated - SLE tolDC</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ctrl  moDC      DHX58            -<span style="color: #BB0000;">0.862</span> Downregulated - SLE tolDC</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ctrl  moDC      EBP               0.500 Downregulated - SLE tolDC</span></span></code></pre></div>
+<p>Ahora graficamos un panel por gen, agrupados según su clasificación
+en la Figura 7A:</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">exp_mean_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">exp_mean_df</span>,</span>
+<span>                              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Cell_type</span>, y <span class="op">=</span> <span class="va">mean_expression</span>, group <span class="op">=</span> <span class="va">Group</span>, color <span class="op">=</span> <span class="va">Group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="va">classification</span> <span class="op">~</span> <span class="va">gene</span>, scales <span class="op">=</span> <span class="st">"free_y"</span>, ncol <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">group_color</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Expression trajectories of interaction DEGs"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Differentiation stage"</span>, y <span class="op">=</span> <span class="st">"Normalized expression (mean z-score)"</span>, color <span class="op">=</span> <span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span>
+<span><span class="va">exp_mean_trajectory</span></span></code></pre></div>
+<p><img src="l7_DEGs_between_groups_es_files/figure-html/trajectory_plot-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<div class="caption-justify">
+<p><strong>Figura suplementaria.</strong> Trayectorias de expresión de
+los 30 DEG de interacción que bajan en las pacientes a lo largo de las
+etapas de diferenciación (monocito → moDC → tolDC) en controles (Ctrl) y
+pacientes (SLE). Las líneas representan la expresión normalizada media
+(z-score) de cada grupo, y los puntos indican cada etapa de
+diferenciación. Los genes se agrupan según su clasificación en la Figura
+7A: bajan en ambos tipos celulares (Downregulated - SLE both, 9 genes),
+solo en las moDC (Downregulated - SLE moDC, 7 genes) o solo en las tolDC
+(Downregulated - SLE tolDC, 14 genes). Las trayectorias muestran que la
+interacción negativa refleja una modulación de la diferenciación de las
+células dendríticas propia de la enfermedad. SLE, lupus eritematoso
+sistémico; Ctrl, control sano; moDC, células dendríticas derivadas de
+monocitos; tolDC, células dendríticas tolerogénicas; DEG, genes
+diferencialmente expresados.</p>
+<p>Más detalles en el <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">artículo</a>.</p>
+</div>
+<p>¿Cuál de las tres explicaciones domina? Para cada gen comparamos la
+diferencia SLE − Ctrl en los monocitos (<strong>basal</strong>) con la
+diferencia en la célula dendrítica donde la interacción es significativa
+(<strong>final</strong>; para los genes de ambos tipos celulares, el
+promedio de moDC y tolDC):</p>
+<ul>
+<li>Si la diferencia basal es mayor que la final, es una
+<strong>diferencia basal que se pierde</strong>.</li>
+<li>Si no, y el gen sube al diferenciarse en los controles, es una
+<strong>inducción atenuada</strong>; si baja, es una <strong>represión
+excesiva</strong>.</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">trajectory_type</span> <span class="op">&lt;-</span> <span class="va">exp_mean_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Group</span>, <span class="va">Cell_type</span><span class="op">)</span>, values_from <span class="op">=</span> <span class="va">mean_expression</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    Ctrl_DC <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">endsWith</a></span><span class="op">(</span><span class="va">classification</span>, <span class="st">"moDC"</span><span class="op">)</span>  <span class="op">~</span> <span class="va">Ctrl_moDC</span>,</span>
+<span>                        <span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">endsWith</a></span><span class="op">(</span><span class="va">classification</span>, <span class="st">"tolDC"</span><span class="op">)</span> <span class="op">~</span> <span class="va">Ctrl_tolDC</span>,</span>
+<span>                        <span class="cn">TRUE</span> <span class="op">~</span> <span class="op">(</span><span class="va">Ctrl_moDC</span> <span class="op">+</span> <span class="va">Ctrl_tolDC</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    SLE_DC  <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">endsWith</a></span><span class="op">(</span><span class="va">classification</span>, <span class="st">"moDC"</span><span class="op">)</span>  <span class="op">~</span> <span class="va">SLE_moDC</span>,</span>
+<span>                        <span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">endsWith</a></span><span class="op">(</span><span class="va">classification</span>, <span class="st">"tolDC"</span><span class="op">)</span> <span class="op">~</span> <span class="va">SLE_tolDC</span>,</span>
+<span>                        <span class="cn">TRUE</span> <span class="op">~</span> <span class="op">(</span><span class="va">SLE_moDC</span> <span class="op">+</span> <span class="va">SLE_tolDC</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    baseline_diff <span class="op">=</span> <span class="va">SLE_monocyte</span> <span class="op">-</span> <span class="va">Ctrl_monocyte</span>,</span>
+<span>    final_diff    <span class="op">=</span> <span class="va">SLE_DC</span> <span class="op">-</span> <span class="va">Ctrl_DC</span>,</span>
+<span>    trajectory <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html" class="external-link">case_when</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">baseline_diff</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">final_diff</span><span class="op">)</span> <span class="op">~</span> <span class="st">"Diferencia basal que se pierde"</span>,</span>
+<span>                           <span class="va">Ctrl_DC</span> <span class="op">&gt;</span> <span class="va">Ctrl_monocyte</span>              <span class="op">~</span> <span class="st">"Inducción atenuada"</span>,</span>
+<span>                           <span class="cn">TRUE</span>                                 <span class="op">~</span> <span class="st">"Represión excesiva"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">trajectory_type</span>, <span class="va">trajectory</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
+<span><span class="co">#&gt;   trajectory                         n</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Diferencia basal que se pierde    21</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Inducción atenuada                 6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Represión excesiva                 3</span></span>
+<span><span class="va">n_trajectory</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">type</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">trajectory_type</span><span class="op">$</span><span class="va">trajectory</span> <span class="op">==</span> <span class="va">type</span><span class="op">)</span></span>
+<span><span class="va">n_isg_basal</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">trajectory_type</span><span class="op">$</span><span class="va">gene</span><span class="op">[</span><span class="va">trajectory_type</span><span class="op">$</span><span class="va">trajectory</span> <span class="op">==</span> <span class="st">"Diferencia basal que se pierde"</span><span class="op">]</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">isg_genes</span><span class="op">$</span><span class="va">genes</span><span class="op">)</span></span></code></pre></div>
+<p><strong>¿Qué observas?</strong></p>
+<ul>
+<li>En 21 genes, 17 de ellos ISG (<code>ISG15</code>, <code>IFI6</code>,
+<code>OAS2</code>, <code>RSAD2</code>…), la diferencia <strong>ya existe
+en los monocitos</strong>: las pacientes parten con la firma de
+interferón alta y, al diferenciarse, ambos grupos llegan a niveles
+parecidos. La interacción negativa no indica que estos genes se apaguen
+de más, sino que la diferencia basal se pierde.</li>
+<li>En 6 genes, todos de las tolDC, ambos grupos parten de niveles
+parecidos y el gen <strong>se induce menos en las
+pacientes</strong>.</li>
+<li>En 3 genes, la caída al diferenciarse es mayor en las
+pacientes.</li>
+</ul>
+<p>Por eso una interacción negativa puede venir de lugares muy
+distintos: siempre conviene mirar las trayectorias antes de
+interpretarla.</p>
+<div class="callout-note">
+<p><strong>Reto 5.</strong> ¿Qué genes tienen una inducción atenuada? ¿A
+qué proceso específico de Reactome pertenecen?</p>
+</div>
+<details class="callout-tip"><summary>
+Ver solución
+</summary><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">trajectory_type</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">trajectory</span> <span class="op">==</span> <span class="st">"Inducción atenuada"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">reac_specific</span>, by <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">classification</span>, <span class="va">specific_process</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
+<span><span class="co">#&gt;   gene    classification            specific_process        </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> CYP51A1 Downregulated - SLE tolDC Cholesterol biosynthesis</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> EBP     Downregulated - SLE tolDC Cholesterol biosynthesis</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> IDI1    Downregulated - SLE tolDC Cholesterol biosynthesis</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> MSMO1   Downregulated - SLE tolDC Cholesterol biosynthesis</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> MVD     Downregulated - SLE tolDC Cholesterol biosynthesis</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> STARD4  Downregulated - SLE tolDC Metabolism of steroids</span></span></code></pre></div>
+<p>Son genes de la <strong>síntesis de colesterol</strong> que las tolDC
+de los controles inducen al diferenciarse y las de las pacientes inducen
+menos.</p>
+</details><p>Para guardar la figura suplementaria:</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"Figura_suplementaria_trayectorias.png"</span>, <span class="va">exp_mean_trajectory</span>, width <span class="op">=</span> <span class="fl">14</span>, height <span class="op">=</span> <span class="fl">13</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="resumen">10. Resumen<a class="anchor" aria-label="anchor" href="#resumen"></a>
 </h2>
 <table class="table">
 <colgroup>
@@ -836,6 +1031,13 @@ expresados; LFC, log2 fold change.</p>
 <td>proceso específico de Reactome</td>
 <td>Ver procesos en lugar de genes</td>
 </tr>
+<tr class="even">
+<td>Interpretar una interacción</td>
+<td>trayectorias con <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap()</a></code>
+</td>
+<td>Distinguir diferencias basales, inducción atenuada y represión
+excesiva</td>
+</tr>
 </tbody>
 </table>
 <div class="section level3">
@@ -858,7 +1060,7 @@ principales (<code>Cell_type_moDC_vs_monocyte</code>) describen a los
 </div>
 </div>
 <div class="section level2">
-<h2 id="próximos-pasos">10. Próximos pasos<a class="anchor" aria-label="anchor" href="#pr%C3%B3ximos-pasos"></a>
+<h2 id="próximos-pasos">11. Próximos pasos<a class="anchor" aria-label="anchor" href="#pr%C3%B3ximos-pasos"></a>
 </h2>
 <p>Con esta lección concluye la ruta de aprendizaje. Las células de las
 pacientes se diferencian casi igual que las de los controles; las
@@ -878,7 +1080,7 @@ datos</a>.</p>
 <div class="section level2">
 <h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>
 </h2>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.6.1 (2026-06-24)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>

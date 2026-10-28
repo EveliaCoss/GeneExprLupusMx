@@ -67,7 +67,13 @@
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-registro-de-cambios" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Registro de cambios</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-registro-de-cambios">
+<li><a class="dropdown-item" href="../articles/news_es.html">ES - Registro de cambios</a></li>
+    <li><a class="dropdown-item" href="../news/index.html">EN - Changelog</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -168,8 +174,8 @@ cell?</strong>, and <strong>does this process happen in the same way in
 lupus patients as in controls?</strong></p>
 <p><strong>What you need to know beforehand:</strong> you should have
 completed the lessons <a href="l3_DEGs_en.html">Differentially expressed
-genes</a> and <a href="l4_GOterms_en.html">Biological functions of
-DEGs</a>.</p>
+genes between patients and controls</a> and <a href="l4_GOterms_en.html">Biological functions of differentially
+expressed genes</a>.</p>
 <p><strong>By the end you will be able to:</strong></p>
 <ol style="list-style-type: decimal">
 <li>Set up a comparison <strong>between cell types</strong> using a
@@ -257,7 +263,7 @@ pathways a cell uses when it changes function.</li>
 <span><span class="va">padj_threshold</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="step-1-the-experiment-figure-4a">2. Step 1: the experiment (Figure 4A)<a class="anchor" aria-label="anchor" href="#step-1-the-experiment-figure-4a"></a>
+<h2 id="step-1-the-experiment-figure-4a">2. <strong>Step 1:</strong> the experiment (Figure 4A)<a class="anchor" aria-label="anchor" href="#step-1-the-experiment-figure-4a"></a>
 </h2>
 <p>Each volunteer’s monocytes were cultured <em>in vitro</em> with
 different cytokines to obtain two types of dendritic cells:</p>
@@ -276,7 +282,7 @@ worked, we expect to see large changes and known genes switching on or
 off.</p>
 </div>
 <div class="section level2">
-<h2 id="step-2-the-analysis-design">3. Step 2: the analysis design<a class="anchor" aria-label="anchor" href="#step-2-the-analysis-design"></a>
+<h2 id="step-2-the-analysis-design">3. <strong>Step 2:</strong> the analysis design<a class="anchor" aria-label="anchor" href="#step-2-the-analysis-design"></a>
 </h2>
 <p>We make the comparison <strong>within each group</strong>: the
 controls’ dendritic cells against the controls’ monocytes, and the
@@ -379,7 +385,7 @@ cell</strong> than in the monocyte; a negative one means it is
 <strong>switched off</strong> upon differentiation.</p>
 </div>
 <div class="section level2">
-<h2 id="step-3-how-many-genes-change-figure-4b">4. Step 3: how many genes change? (Figure 4B)<a class="anchor" aria-label="anchor" href="#step-3-how-many-genes-change-figure-4b"></a>
+<h2 id="step-3-how-many-genes-change-figure-4b">4. <strong>Step 3:</strong> how many genes change? (Figure 4B)<a class="anchor" aria-label="anchor" href="#step-3-how-many-genes-change-figure-4b"></a>
 </h2>
 <p>With the same thresholds as in the previous lessons (|LFC| ≥ 1 and
 padj &lt; 0.05), we split the DEGs of each comparison by direction:</p>
@@ -532,7 +538,8 @@ gene, grouping the genes by process:</p>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="step-4-do-the-genes-we-expected-change-figure-4c">6. Step 4: do the genes we expected change? (Figure 4C)<a class="anchor" aria-label="anchor" href="#step-4-do-the-genes-we-expected-change-figure-4c"></a>
+<h2 id="step-4-do-the-genes-we-expected-change-figure-4c">6. <strong>Step 4:</strong> do the genes we expected change? (Figure
+4C)<a class="anchor" aria-label="anchor" href="#step-4-do-the-genes-we-expected-change-figure-4c"></a>
 </h2>
 <p>If our cells differentiated properly, the genes that the literature
 describes for monocyte-to-moDC differentiation should change in the same
@@ -634,7 +641,7 @@ for not all genes to match.</p>
 </details>
 </div>
 <div class="section level2">
-<h2 id="step-5-which-processes-change-figure-4d">7. Step 5: which processes change? (Figure 4D)<a class="anchor" aria-label="anchor" href="#step-5-which-processes-change-figure-4d"></a>
+<h2 id="step-5-which-processes-change-figure-4d">7. <strong>Step 5:</strong> which processes change? (Figure 4D)<a class="anchor" aria-label="anchor" href="#step-5-which-processes-change-figure-4d"></a>
 </h2>
 <div class="section level3">
 <h3 id="functional-enrichment">7.1 Functional enrichment<a class="anchor" aria-label="anchor" href="#functional-enrichment"></a>
@@ -813,7 +820,7 @@ compare the dendritic cells of patients and controls.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="step-6-fatty-acid-metabolism-figure-5a">8. Step 6: fatty acid metabolism (Figure 5A)<a class="anchor" aria-label="anchor" href="#step-6-fatty-acid-metabolism-figure-5a"></a>
+<h2 id="step-6-fatty-acid-metabolism-figure-5a">8. <strong>Step 6:</strong> fatty acid metabolism (Figure 5A)<a class="anchor" aria-label="anchor" href="#step-6-fatty-acid-metabolism-figure-5a"></a>
 </h2>
 <p>A dendritic cell does not only change its markers: it also changes
 its <strong>metabolism</strong>. We take the genes of the Reactome term
@@ -848,7 +855,8 @@ lesson 4 we found lipid metabolism genes altered in the patients’
 tolDCs; here we see that this metabolism is central for these cells.</p>
 </div>
 <div class="section level2">
-<h2 id="step-7-canonical-dendritic-cell-pathways-figure-5b">9. Step 7: canonical dendritic cell pathways (Figure 5B)<a class="anchor" aria-label="anchor" href="#step-7-canonical-dendritic-cell-pathways-figure-5b"></a>
+<h2 id="step-7-canonical-dendritic-cell-pathways-figure-5b">9. <strong>Step 7:</strong> canonical dendritic cell pathways
+(Figure 5B)<a class="anchor" aria-label="anchor" href="#step-7-canonical-dendritic-cell-pathways-figure-5b"></a>
 </h2>
 <p>Finally, we review genes associated with dendritic cell function
 according to Gene Ontology (curated list <code>dc_genes</code>):

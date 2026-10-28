@@ -4,71 +4,67 @@
 
 ### GeneExprLupusMx 0.0.0.9000
 
-#### Lecciones / Lessons
+Initial version of GeneExprLupusMx.
 
-- Ruta de aprendizaje en español con siete lecciones que reproducen las
-  figuras del artículo, más una guía de primeros pasos / Spanish
-  learning path with seven lessons that reproduce the article’s figures,
-  plus a getting-started guide:
-  - `intro_es`: primeros pasos con el paquete / getting started.
-  - `clinical_es` (Lección 1): estadística descriptiva, Tabla 1 y Figura
+#### Lessons
+
+- Learning path with seven lessons that reproduce the article’s figures,
+  plus a getting-started guide, in Spanish (`*_es`) and English
+  (`*_en`):
+  - `intro`: getting started with the package.
+  - `clinical` (Lesson 1): descriptive statistics, Table 1 and Figure
     S3.
-  - `intro_RNAseq_es` (Lección 2): importación, normalización,
-    *heatmaps* y PCA; Figura S2.
-  - `l3_DEGs_es` (Lección 3): expresión diferencial SLE vs Ctrl; Figura
-    2.
-  - `l4_GOterms_es` (Lección 4): enriquecimiento funcional con
-    g:Profiler; Figuras 3 y S4.
-  - `l5_DEGs_monocytes_diff_es` (Lección 5): diferenciación de monocitos
-    a células dendríticas; Figuras 4 y 5.
-  - `l6_DEGs_tolDcs_es` (Lección 6): firma transcripcional de las tolDC;
-    Figura 6.
-  - `l7_DEGs_between_groups_es` (Lección 7): modelo con interacción
-    `Group:Cell_type`; Figura 7A y 7B.
-- Versión en inglés de todas las lecciones (`*_en`) / English version of
-  all lessons (`*_en`).
-- Páginas de descarga de datos en español e inglés (`download_es`,
-  `download_en`) / Data download pages in Spanish and English.
-- Cada lección incluye glosario, mapa de la lección, retos con solución,
-  pies de figura con valores calculados en el código y botones de
-  navegación por idioma / Each lesson includes a glossary, lesson map,
-  challenges with solutions, figure captions with values computed in the
-  code, and per-language navigation buttons.
+  - `intro_RNAseq` (Lesson 2): import, normalization, *heatmaps* and
+    PCA; Figure S2.
+  - `l3_DEGs` (Lesson 3): differential expression SLE vs Ctrl; Figure 2.
+  - `l4_GOterms` (Lesson 4): functional enrichment with g:Profiler;
+    Figures 3 and S4, hypergeometric and Fisher’s exact tests of ISG
+    enrichment, and Spearman correlation between ISGs and SLEDAI
+    (supplementary tables).
+  - `l5_DEGs_monocytes_diff` (Lesson 5): differentiation of monocytes
+    into dendritic cells; Figures 4 and 5.
+  - `l6_DEGs_tolDcs` (Lesson 6): transcriptional signature of tolDCs;
+    Figure 6, and genes concordant and divergent with the Robertson et
+    al. signature.
+  - `l7_DEGs_between_groups` (Lesson 7): interaction model
+    `Group:Cell_type`; Figures 7A and 7B, and supplementary figure of
+    expression trajectories of the interaction DEGs.
+- Data download pages in Spanish and English (`download_es`,
+  `download_en`).
+- Each lesson includes a glossary, lesson map, challenges with
+  solutions, figure and table captions with values computed in the code,
+  and per-language navigation buttons.
+- Lessons harmonized: same step format, unified glossary, prerequisites
+  with full titles, and captions for every figure and table (including
+  Table 1).
 
-#### Datos / Data
+#### Data
 
-- Nuevos datos de referencia / New reference data: `volunteer_info`,
-  `biotype_summary`, `sle_genes`, `isg_genes`, `moDC_genes`, `dc_genes`,
-  `tolDC_genes`.
-- Nuevos *checkpoints* entre lecciones / New checkpoints between
-  lessons: `dds`, `zscore_mat`, `de_results`, `go_results`,
-  `de_celltype_results`, `go_celltype_results`,
+- New reference data: `volunteer_info`, `biotype_summary`, `sle_genes`,
+  `isg_genes`, `moDC_genes`, `dc_genes`, `tolDC_genes`.
+- New checkpoints between lessons: `dds`, `zscore_mat`, `de_results`,
+  `go_results`, `de_celltype_results`, `go_celltype_results`,
   `de_interaction_results`, `go_interaction_results`.
-- Scripts en `data-raw/` para regenerar cada objeto (g:Profiler
-  archivado, versión e113) / Scripts in `data-raw/` to regenerate each
-  object (archived g:Profiler, version e113).
-- Documentación corregida de `filtered_txi` y `metadata_cleaned` /
-  Corrected documentation of `filtered_txi` and `metadata_cleaned`.
+- Scripts in `data-raw/` to regenerate each object (archived g:Profiler,
+  version e113).
+- Corrected documentation of `filtered_txi` and `metadata_cleaned`.
 
-#### Funciones / Functions
+#### Functions
 
 - [`get_heatmap_mat()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/get_heatmap_mat.md),
   [`create_heatmap()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/create_heatmap.md)
-  (rasterización desactivada por defecto / rasterization off by
-  default),
+  (rasterization off by default),
   [`processGO()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/processGO.md)
-  y
+  and
   [`Reduce_GOTerm()`](https://eveliacoss.github.io/GeneExprLupusMx/reference/Reduce_GOTerm.md).
 
-#### Sitio web y documentación / Website and documentation
+#### Website and documentation
 
-- Nueva página de inicio (`index.Rmd`) con la imagen *Overview* y la
-  tabla de lecciones; README actualizado / New home page (`index.Rmd`)
-  with the Overview image and lesson table; updated README.
-- Archivo `inst/CITATION`: `citation("GeneExprLupusMx")` devuelve el
-  artículo original / `citation("GeneExprLupusMx")` returns the original
-  article.
-- Menús de pkgdown para lecciones en español e inglés y descarga de
-  datos / pkgdown menus for Spanish and English lessons and data
-  download.
-- Initial version of GeneExprLupusMx.
+- New home page (`index.Rmd`) with the Overview image and lesson table.
+- Bilingual README (Spanish and English).
+- Changelog in Spanish (`articles/news_es.html`) and English (this
+  file).
+- `inst/CITATION` file: `citation("GeneExprLupusMx")` returns the
+  original article.
+- pkgdown menus for Spanish and English lessons, data download and
+  changelog.

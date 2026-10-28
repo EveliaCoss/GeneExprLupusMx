@@ -65,8 +65,10 @@ These are the terms we will use. Come back here whenever you need to.
   *how* they were processed, not by biology.
 - **Key column**: column shared by two tables that is used to join them
   (here, `Volunteer_ID`).
-- **ISG**: interferon-stimulated gene.
-- **SLEDAI**: clinical index of lupus disease activity.
+- **ISG** (*interferon-stimulated genes*): genes that are switched on in
+  response to interferon.
+- **SLEDAI** (*SLE Disease Activity Index*): lupus activity score;
+  higher = more active disease.
 
 ## 1. Biological context: what are we studying?
 

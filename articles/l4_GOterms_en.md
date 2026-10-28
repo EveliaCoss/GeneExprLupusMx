@@ -8,8 +8,8 @@ own, says little: the question now is **what do these genes do, and do
 they take part in common biological processes?**
 
 **What you need to know beforehand:** you should have completed the
-lesson [Differentially expressed
-genes](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_en.md).
+lesson [Differentially expressed genes between patients and
+controls](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_en.md).
 
 **By the end you will be able to:**
 
@@ -22,6 +22,7 @@ genes](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_en.md).
 4.  Identify lupus-associated genes and **interferon-stimulated genes**
     among the DEGs.
 5.  Reproduce **Figure 3** of the article.
+6.  Correlate ISG expression with disease activity (SLEDAI).
 
 **Estimated time:** 1.5 hours.
 
@@ -44,6 +45,8 @@ LFC and annotations"]
   E --> H["Figure 3"]
   F --> H
   G --> H
+  D --> I["ISG vs SLEDAI:
+Spearman"]
 ```
 
 ## Glossary
@@ -69,6 +72,10 @@ These are the terms we will use. Come back here whenever you need to.
   general (parent) term contains more specific terms.
 - **ISG** (*interferon-stimulated genes*): genes that are switched on in
   response to interferon.
+- **SLEDAI** (*SLE Disease Activity Index*): lupus activity score;
+  higher = more active disease.
+- **Spearman correlation** (rho): measures whether two variables go up
+  or down together by comparing their ranks; it ranges from −1 to 1.
 
 ## 1. Setup
 
@@ -563,6 +570,100 @@ cell types. In contrast, `LBH`, `AUTS2`, and `IL2RB` are DEGs that go
 their high expression in monocytes, because the z-score compares each
 sample with all the others, across the three cell types.
 
+### 5.1 Are there more ISGs than expected by chance?
+
+32 of the 94 DEGs are ISGs. Is that a lot? We answer with the
+**hypergeometric test** from section 2: if we draw 94 marbles (DEGs)
+from a bag with all the genes in the package, how likely is it that 32
+or more are red (ISGs)?
+
+We need four numbers:
+
+``` r
+
+N <- nrow(de_results$monocyte) # universe: all genes in the package
+m <- nrow(isg_genes)           # ISGs in the reference list
+k <- nrow(gene_info)           # DEGs
+q <- length(isg_deg)           # DEGs that are ISGs
+
+c(N = N, m = m, k = k, q = q)
+#>     N     m     k     q 
+#> 21718   423    94    32
+k * m / N # ISGs expected among the DEGs by chance
+#> [1] 1.830832
+```
+
+By chance we would expect fewer than 2 ISGs among the DEGs, and we found
+32: a 17.5-fold enrichment.
+
+[`phyper()`](https://rdrr.io/r/stats/Hypergeometric.html) gives the
+probability of drawing **more than** `q - 1` red marbles, that is, `q`
+or more. We use `lower.tail = FALSE` because we care about the upper
+tail (over-representation):
+
+``` r
+
+p_hyper <- phyper(q - 1, m, N - m, k, lower.tail = FALSE)
+p_hyper
+#> [1] 2.484086e-31
+```
+
+**Fisher’s exact test** asks the same question with a 2 × 2 table. With
+the one-sided alternative (`"greater"`) it is exactly the same test:
+
+``` r
+
+isg_table <- matrix(c(q, k - q, m - q, N - m - k + q), nrow = 2,
+                    dimnames = list(ISG = c("Yes", "No"), DEG = c("Yes", "No")))
+isg_table
+#>      DEG
+#> ISG   Yes    No
+#>   Yes  32   391
+#>   No   62 21233
+
+isg_fisher <- fisher.test(isg_table, alternative = "greater")
+isg_fisher
+#> 
+#>  Fisher's Exact Test for Count Data
+#> 
+#> data:  isg_table
+#> p-value < 2.2e-16
+#> alternative hypothesis: true odds ratio is greater than 1
+#> 95 percent confidence interval:
+#>  18.80807      Inf
+#> sample estimates:
+#> odds ratio 
+#>   27.98511
+isg_fisher$p.value
+#> [1] 2.484086e-31
+```
+
+When printing the result, R shows `p-value < 2.2e-16`: that is the limit
+it uses to **display** p-values, not the actual value. The full value is
+in `isg_fisher$p.value` and matches
+[`phyper()`](https://rdrr.io/r/stats/Hypergeometric.html): 2.48e-31.
+Both tests reach the same conclusion: **ISGs are strongly enriched among
+the DEGs** (odds ratio = 28).
+
+**Challenge 2.** 19 of the 423 ISGs in the reference list are not among
+the 21,718 genes in the package. Repeat the test using as `m` only the
+ISGs that are in the universe. Does the conclusion change?
+
+Show solution
+
+``` r
+
+m_universe <- sum(isg_genes$genes %in% de_results$monocyte$gene)
+m_universe
+#> [1] 404
+phyper(q - 1, m_universe, N - m_universe, k, lower.tail = FALSE)
+#> [1] 5.682244e-32
+```
+
+The p-value is even smaller and the conclusion does not change. Using
+only the genes in the universe is the strictest option: a gene that was
+not measured cannot come out as a DEG.
+
 ## 6. **Step 4:** which processes do the ISGs take part in? (Figure 3D)
 
 For each ISG we look up its **Reactome (REAC)** and **<GO:BP>** terms.
@@ -704,7 +805,7 @@ specific antiviral processes: interferon alpha/beta signaling, the ISG15
 antiviral mechanism, and the OAS antiviral response. **This is the
 molecular footprint of interferon in lupus.**
 
-**Challenge 2.** Which monocyte genes take part in the Reactome term
+**Challenge 3.** Which monocyte genes take part in the Reactome term
 “Interferon alpha/beta signaling”?
 
 *Hint:* filter `go_results` by `query`, `source`, and `term_name`, and
@@ -724,7 +825,7 @@ go_results %>%
 #> 1 EIF2AK2,IFI27,IFI6,IFIT1,IFIT3,IFITM3,ISG15,MX1,MX2,OAS1,OAS2,OAS3,OASL,RSAD2,USP18,XAF1
 ```
 
-**Challenge 3.** In which databases is `ABCA1` (up-regulated in tolDCs)
+**Challenge 4.** In which databases is `ABCA1` (up-regulated in tolDCs)
 annotated, and what is its specific process in Reactome?
 
 *Hint:* use `gene_source` and `process_info`.
@@ -913,7 +1014,224 @@ To save it in high resolution:
 ggsave("Figure_3.png", figure_3, width = 16, height = 30, dpi = 300)
 ```
 
-## 9. Summary
+## 9. Going further: are ISGs related to disease activity?
+
+ISG expression clearly separates patients from controls. A natural
+question is whether, **among patients**, ISGs are higher when the
+disease is more active. To answer it we correlate the z-score of each of
+the 32 ISGs with the **SLEDAI** score using **Spearman correlation**,
+which compares ranks and does not assume a linear relationship or normal
+data.
+
+First we join the ISG z-scores with the SLEDAI of each patient sample.
+Each patient contributes three samples (monocyte, moDC and tolDC); the
+patient identifier is the part of `sample_ID` before the underscore:
+
+``` r
+
+sle_info <- metadata_cleaned %>%
+  filter(Group == "SLE") %>%
+  mutate(sample_ID = as.character(sample_ID),
+         patient   = sub("_.*", "", sample_ID),                # QR011_0 → QR011
+         SLEDAI    = as.numeric(as.character(Sledai_score))) %>%
+  dplyr::select(sample_ID, patient, Cell_type, SLEDAI)
+
+isg_long <- zscore_mat[isg_deg, ] %>%
+  as.data.frame() %>%
+  rownames_to_column("gene") %>%
+  pivot_longer(-gene, names_to = "sample_ID", values_to = "zscore") %>%
+  inner_join(sle_info, by = "sample_ID")
+
+# disease activity, as in Table 1 (lesson 1):
+# 1 = active (SLEDAI ≥ 6), 0 = no or low activity (0-5)
+sle_activity <- volunteer_info %>% filter(Group == "SLE")
+dplyr::count(sle_activity, SLEDAI)
+#>   SLEDAI  n
+#> 1      0 13
+#> 2      1 10
+```
+
+Only 10 of the 23 patients (43.5%) have active disease; the rest have no
+or low activity. With few active patients, the power to detect a
+correlation is limited.
+
+We save the test in a function. Since we test 32 genes at once, we
+correct the p-values for **multiple testing** with FDR, just as `DESeq2`
+does with `padj`:
+
+``` r
+
+spearman <- function(df) {
+  test <- cor.test(df$zscore, df$SLEDAI, method = "spearman", exact = FALSE)
+  tibble(rho = unname(test$estimate), p_value = test$p.value)
+}
+```
+
+### 9.1 Without separating by cell type
+
+To avoid counting the same patient three times, we average the z-score
+of the patient’s three cell types before correlating:
+
+``` r
+
+cor_overall <- isg_long %>%
+  group_by(gene, patient, SLEDAI) %>%
+  summarise(zscore = mean(zscore), .groups = "drop") %>%
+  group_by(gene) %>%
+  group_modify(~ spearman(.x)) %>%
+  ungroup() %>%
+  mutate(FDR = p.adjust(p_value, method = "fdr")) %>%
+  arrange(p_value)
+
+knitr::kable(cor_overall, digits = 3, col.names = c("Gene", "rho", "p", "FDR"))
+```
+
+| Gene     |    rho |     p |   FDR |
+|:---------|-------:|------:|------:|
+| OAS2     |  0.312 | 0.148 | 0.903 |
+| MX1      |  0.268 | 0.216 | 0.903 |
+| IFIT3    |  0.254 | 0.242 | 0.903 |
+| RSAD2    |  0.244 | 0.262 | 0.903 |
+| CMPK2    |  0.241 | 0.267 | 0.903 |
+| HERC6    |  0.237 | 0.275 | 0.903 |
+| DDX60    |  0.231 | 0.289 | 0.903 |
+| PARP9    |  0.231 | 0.289 | 0.903 |
+| IFI6     |  0.214 | 0.327 | 0.903 |
+| OASL     |  0.201 | 0.358 | 0.903 |
+| IL2RB    | -0.200 | 0.360 | 0.903 |
+| LGALS3BP |  0.179 | 0.414 | 0.903 |
+| EIF2AK2  |  0.164 | 0.454 | 0.903 |
+| XAF1     |  0.163 | 0.458 | 0.903 |
+| USP18    |  0.152 | 0.490 | 0.903 |
+| OAS3     |  0.149 | 0.497 | 0.903 |
+| LY6E     |  0.147 | 0.504 | 0.903 |
+| IFI44    |  0.136 | 0.537 | 0.903 |
+| IFI27    |  0.127 | 0.564 | 0.903 |
+| GMPR     |  0.112 | 0.612 | 0.903 |
+| EPSTI1   |  0.095 | 0.665 | 0.903 |
+| MX2      |  0.088 | 0.690 | 0.903 |
+| IFIT1    |  0.087 | 0.692 | 0.903 |
+| AUTS2    | -0.081 | 0.714 | 0.903 |
+| IFI44L   |  0.074 | 0.736 | 0.903 |
+| PARP14   |  0.070 | 0.751 | 0.903 |
+| ISG15    | -0.067 | 0.762 | 0.903 |
+| OAS1     |  0.052 | 0.812 | 0.928 |
+| IFITM3   | -0.030 | 0.890 | 0.958 |
+| HELZ2    | -0.022 | 0.921 | 0.958 |
+| SERPING1 |  0.020 | 0.928 | 0.958 |
+| HERC5    | -0.003 | 0.987 | 0.987 |
+
+**Supplementary Table (a).** Spearman correlation between the normalized
+expression (z-score) of the 32 differentially expressed ISGs and disease
+activity (SLEDAI) in 23 SLE patients, without separating by cell type
+(mean z-score of each patient’s monocytes, moDCs and tolDCs). The number
+of genes with p \< 0.05 is 0, and none is significant after correction
+for multiple testing (minimum FDR = 0.90). rho, Spearman correlation
+coefficient; FDR, false discovery rate (Benjamini-Hochberg); ISG,
+interferon-stimulated genes; SLEDAI, SLE Disease Activity Index.
+
+### 9.2 By cell type
+
+Now we repeat the test within each cell type (23 samples per type) and
+correct by FDR within each one:
+
+``` r
+
+cor_celltype <- isg_long %>%
+  group_by(Cell_type, gene) %>%
+  group_modify(~ spearman(.x)) %>%
+  group_by(Cell_type) %>%
+  mutate(FDR = p.adjust(p_value, method = "fdr")) %>%
+  ungroup() %>%
+  mutate(Cell_type = factor(Cell_type, levels = c("monocyte", "moDC", "tolDC")))
+
+cor_celltype %>%
+  pivot_wider(id_cols = gene, names_from = Cell_type, values_from = c(rho, p_value, FDR),
+              names_vary = "slowest", names_sort = TRUE) %>%
+  arrange(gene) %>%
+  knitr::kable(digits = 3,
+               col.names = c("Gene", paste(c("rho", "p", "FDR"), rep(levels(cor_celltype$Cell_type), each = 3))))
+```
+
+| Gene | rho monocyte | p monocyte | FDR monocyte | rho moDC | p moDC | FDR moDC | rho tolDC | p tolDC | FDR tolDC |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| AUTS2 | 0.010 | 0.962 | 0.962 | -0.276 | 0.203 | 0.726 | -0.149 | 0.498 | 0.948 |
+| CMPK2 | 0.191 | 0.382 | 0.582 | 0.141 | 0.522 | 0.726 | 0.258 | 0.234 | 0.948 |
+| DDX60 | 0.165 | 0.453 | 0.582 | 0.175 | 0.424 | 0.726 | 0.174 | 0.428 | 0.948 |
+| EIF2AK2 | 0.167 | 0.447 | 0.582 | 0.256 | 0.239 | 0.726 | 0.054 | 0.805 | 0.968 |
+| EPSTI1 | 0.168 | 0.445 | 0.582 | 0.113 | 0.608 | 0.775 | 0.029 | 0.894 | 0.968 |
+| GMPR | 0.280 | 0.196 | 0.582 | -0.262 | 0.227 | 0.726 | 0.175 | 0.426 | 0.948 |
+| HELZ2 | 0.162 | 0.460 | 0.582 | -0.238 | 0.273 | 0.726 | -0.127 | 0.563 | 0.948 |
+| HERC5 | 0.155 | 0.480 | 0.582 | 0.077 | 0.726 | 0.860 | -0.229 | 0.292 | 0.948 |
+| HERC6 | 0.185 | 0.399 | 0.582 | 0.415 | 0.049 | 0.726 | 0.139 | 0.528 | 0.948 |
+| IFI27 | 0.204 | 0.352 | 0.582 | 0.213 | 0.328 | 0.726 | 0.021 | 0.923 | 0.968 |
+| IFI44 | 0.173 | 0.430 | 0.582 | 0.161 | 0.464 | 0.726 | 0.099 | 0.652 | 0.968 |
+| IFI44L | 0.151 | 0.491 | 0.582 | 0.109 | 0.620 | 0.775 | -0.009 | 0.968 | 0.968 |
+| IFI6 | 0.262 | 0.227 | 0.582 | 0.213 | 0.330 | 0.726 | 0.246 | 0.257 | 0.948 |
+| IFIT1 | 0.154 | 0.482 | 0.582 | 0.036 | 0.871 | 0.912 | -0.011 | 0.959 | 0.968 |
+| IFIT3 | 0.174 | 0.428 | 0.582 | 0.385 | 0.070 | 0.726 | 0.091 | 0.679 | 0.968 |
+| IFITM3 | 0.248 | 0.254 | 0.582 | -0.219 | 0.316 | 0.726 | -0.245 | 0.260 | 0.948 |
+| IL2RB | -0.169 | 0.440 | 0.582 | -0.067 | 0.760 | 0.869 | -0.132 | 0.548 | 0.948 |
+| ISG15 | 0.116 | 0.597 | 0.628 | -0.266 | 0.219 | 0.726 | -0.173 | 0.430 | 0.948 |
+| LGALS3BP | 0.212 | 0.333 | 0.582 | 0.180 | 0.412 | 0.726 | 0.016 | 0.941 | 0.968 |
+| LY6E | 0.251 | 0.247 | 0.582 | 0.032 | 0.883 | 0.912 | 0.226 | 0.301 | 0.948 |
+| MX1 | 0.184 | 0.402 | 0.582 | 0.243 | 0.263 | 0.726 | 0.290 | 0.180 | 0.948 |
+| MX2 | 0.166 | 0.449 | 0.582 | 0.022 | 0.919 | 0.919 | -0.068 | 0.757 | 0.968 |
+| OAS1 | 0.196 | 0.371 | 0.582 | 0.052 | 0.812 | 0.896 | -0.200 | 0.361 | 0.948 |
+| OAS2 | 0.244 | 0.261 | 0.582 | 0.374 | 0.079 | 0.726 | 0.238 | 0.274 | 0.948 |
+| OAS3 | 0.174 | 0.427 | 0.582 | 0.142 | 0.519 | 0.726 | -0.165 | 0.451 | 0.948 |
+| OASL | 0.113 | 0.608 | 0.628 | 0.178 | 0.418 | 0.726 | 0.032 | 0.885 | 0.968 |
+| PARP14 | 0.136 | 0.537 | 0.614 | 0.175 | 0.424 | 0.726 | -0.009 | 0.966 | 0.968 |
+| PARP9 | 0.206 | 0.347 | 0.582 | 0.141 | 0.522 | 0.726 | -0.110 | 0.618 | 0.968 |
+| RSAD2 | 0.207 | 0.343 | 0.582 | 0.171 | 0.436 | 0.726 | 0.197 | 0.367 | 0.948 |
+| SERPING1 | 0.239 | 0.272 | 0.582 | -0.106 | 0.629 | 0.775 | -0.341 | 0.111 | 0.948 |
+| USP18 | 0.169 | 0.440 | 0.582 | 0.242 | 0.266 | 0.726 | 0.086 | 0.697 | 0.968 |
+| XAF1 | 0.128 | 0.561 | 0.619 | -0.196 | 0.371 | 0.726 | 0.200 | 0.360 | 0.948 |
+
+**Supplementary Table (b).** Spearman correlation between the normalized
+expression (z-score) of the 32 differentially expressed ISGs and disease
+activity (SLEDAI) in each cell type (monocytes, moDCs and tolDCs; 23 SLE
+patients per cell type). P-values were FDR-corrected within each cell
+type. 1 of the 96 tests has p \< 0.05 and none is significant after
+correction (minimum FDR = 0.58). rho, Spearman correlation coefficient;
+FDR, false discovery rate (Benjamini-Hochberg); ISG,
+interferon-stimulated genes; moDC, monocyte-derived dendritic cells;
+tolDC, tolerogenic dendritic cells; SLEDAI, SLE Disease Activity Index.
+
+The original table (Supplementary Table 8) can be found in the
+[article’s supplementary
+material](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial).
+
+**What do you notice?**
+
+- Some genes show nominal associations (p \< 0.05) in one cell type, but
+  **no correlation survives multiple-testing correction**.
+- ISGs separate patients from controls but, in this cohort, no
+  individual ISG tracks disease activity.
+- Possible reasons: immunomodulatory treatments, the *in vitro*
+  differentiation dampening the inflammatory signals the cells carried
+  from the patient, and the fact that most patients have low activity.
+
+**What can and cannot be concluded?**
+
+- **We can say** that, in this cohort, we did not detect a significant
+  association between ISG expression and SLEDAI, either without
+  separating by cell type or within each cell type.
+- **We cannot conclude** that ISGs are unrelated to lupus activity. A
+  non-significant result is **absence of evidence, not evidence of
+  absence**: with 23 patients, a correlation needs \|rho\| above ~0.41
+  to reach p \< 0.05, and even more after FDR correction. Moderate
+  correlations would go unnoticed.
+- **Nor can we treat as a finding** a nominal association (uncorrected p
+  \< 0.05): with 96 tests, we would expect ~5 p-values \< 0.05 by chance
+  alone.
+- **It is consistent** with Challenge 3 of [lesson
+  2](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_en.md):
+  in the PCA, samples do not separate by disease activity either.
+- **To answer it** would require a larger cohort, with more active
+  patients, and measuring ISGs directly in uncultured cells.
+
+## 10. Summary
 
 | Step | Key function | What for? |
 |----|----|----|
@@ -923,7 +1241,9 @@ ggsave("Figure_3.png", figure_3, width = 16, height = 30, dpi = 300)
 | Explore terms | `slice_min(p_value)` | See the most significant processes |
 | Genes per term | [`separate_rows()`](https://tidyr.tidyverse.org/reference/separate_rows.html) | Go from “term → genes” to “gene → terms” |
 | Reference lists | [`intersect()`](https://generics.r-lib.org/reference/setops.html) | Find SLE genes and ISGs among the DEGs |
+| ISG enrichment | [`phyper()`](https://rdrr.io/r/stats/Hypergeometric.html), [`fisher.test()`](https://rdrr.io/r/stats/fisher.test.html) | Test whether there are more ISGs than expected by chance |
 | Integrate | heatmaps with `+` | See expression, LFC, and annotations together |
+| Correlation | `cor.test(method = "spearman")`, [`p.adjust()`](https://rdrr.io/r/stats/p.adjust.html) | Relate expression to disease activity |
 
 ### Common beginner mistakes
 
@@ -937,7 +1257,7 @@ ggsave("Figure_3.png", figure_3, width = 16, height = 30, dpi = 300)
 - **Ignoring term size**: a term with 5,000 genes is very general; one
   with 20 is more informative.
 
-## 10. Next steps
+## 11. Next steps
 
 So far we have compared patients against controls within each cell type.
 The lesson [Differentiation of monocytes into dendritic

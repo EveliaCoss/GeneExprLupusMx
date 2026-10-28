@@ -419,6 +419,16 @@ table1 %>%
 | Azatioprina, n (%)                    | 0 (NaN%)     | 6 (26%)         |
 | Metotrexato, n (%)                    | 0 (NaN%)     | 1 (4%)          |
 
+**Tabla 1.** Características sociodemográficas y clínicas de las 33
+voluntarias: 10 controles sanas (Ctrl) y 23 pacientes con lupus
+eritematoso sistémico (SLE). Las variables continuas se resumen como
+media (DE) o mediana \[RIC\], y las categóricas como n (%). Se consideró
+enfermedad activa un puntaje SLEDAI ≥ 6. DE, desviación estándar; RIC,
+rango intercuartílico; SLEDAI, *SLE Disease Activity Index*.
+
+La tabla original se encuentra en el
+[artículo](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+
 En los controles, las filas clínicas aparecen como `NA`, `NaN` o
 `0 (NaN%)` porque esas variables no aplican: no tienen diagnóstico ni
 tratamiento. En un artículo las escribiríamos como “—”.

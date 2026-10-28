@@ -67,7 +67,13 @@
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-registro-de-cambios" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Registro de cambios</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-registro-de-cambios">
+<li><a class="dropdown-item" href="../articles/news_es.html">ES - Registro de cambios</a></li>
+    <li><a class="dropdown-item" href="../news/index.html">EN - Changelog</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -89,7 +95,7 @@
 
       <h1>Lección 4: Funciones biológicas de los genes diferencialmente expresados</h1>
             <h3 data-toc-skip class="subtitle">Análisis de
-enriquecimiento funcional con g:Profiler2</h3>
+enriquecimiento funcional con g:Profiler</h3>
             
             <h4 data-toc-skip class="date">2026-10-28</h4>
       
@@ -167,7 +173,8 @@ lista de genes, por sí sola, dice poco: la pregunta ahora es
 <strong>¿qué hacen esos genes?, ¿participan en procesos biológicos
 comunes?</strong></p>
 <p><strong>Lo que necesitas saber antes:</strong> haber hecho la lección
-<a href="l3_DEGs_es.html">Genes diferencialmente expresados</a>.</p>
+<a href="l3_DEGs_es.html">Genes diferencialmente expresados entre
+pacientes y controles</a>.</p>
 <p><strong>Al terminar podrás:</strong></p>
 <ol style="list-style-type: decimal">
 <li>Explicar qué es un <strong>análisis de enriquecimiento
@@ -179,6 +186,8 @@ Reactome, KEGG…).</li>
 <li>Identificar genes asociados al lupus y <strong>genes estimulados por
 interferón</strong> entre los DEG.</li>
 <li>Reproducir la <strong>Figura 3</strong> del artículo.</li>
+<li>Correlacionar la expresión de los ISG con la actividad de la
+enfermedad (SLEDAI).</li>
 </ol>
 <p><strong>Tiempo estimado:</strong> 1.5 horas.</p>
 <div class="section level3">
@@ -195,6 +204,7 @@ flowchart LR
   E --&gt; H["Figura 3"]
   F --&gt; H
   G --&gt; H
+  D --&gt; I["ISG vs SLEDAI:<br>Spearman"]
 </pre>
 <script type="module">
   import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
@@ -240,6 +250,12 @@ términos más específicos.</li>
 <li>
 <strong>ISG</strong> (<em>interferon-stimulated genes</em>): genes
 que se encienden en respuesta al interferón.</li>
+<li>
+<strong>SLEDAI</strong> (<em>SLE Disease Activity Index</em>):
+puntaje de actividad del lupus; más alto = enfermedad más activa.</li>
+<li>
+<strong>Correlación de Spearman</strong> (rho): mide si dos
+variables suben o bajan juntas comparando sus rangos; va de −1 a 1.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -725,6 +741,88 @@ tres tipos celulares. En cambio, <code>LBH</code>, <code>AUTS2</code> e
 pacientes. En la gráfica destacan más por su alta expresión en los
 monocitos, porque el z-score compara cada muestra con todas las demás,
 de los tres tipos celulares.</p>
+<div class="section level3">
+<h3 id="hay-más-isg-de-los-esperados-por-azar">5.1 ¿Hay más ISG de los esperados por azar?<a class="anchor" aria-label="anchor" href="#hay-m%C3%A1s-isg-de-los-esperados-por-azar"></a>
+</h3>
+<p>32 de los 94 DEG son ISG. ¿Es mucho? Lo resolvemos con la
+<strong>prueba hipergeométrica</strong> de la sección 2: si sacamos 94
+canicas (DEG) de una bolsa con todos los genes del paquete, ¿qué tan
+probable es que 32 o más sean rojas (ISG)?</p>
+<p>Necesitamos cuatro números:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">de_results</span><span class="op">$</span><span class="va">monocyte</span><span class="op">)</span> <span class="co"># universo: todos los genes del paquete</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">isg_genes</span><span class="op">)</span>           <span class="co"># ISG en la lista de referencia</span></span>
+<span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">gene_info</span><span class="op">)</span>           <span class="co"># DEG</span></span>
+<span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">isg_deg</span><span class="op">)</span>           <span class="co"># DEG que son ISG</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>N <span class="op">=</span> <span class="va">N</span>, m <span class="op">=</span> <span class="va">m</span>, k <span class="op">=</span> <span class="va">k</span>, q <span class="op">=</span> <span class="va">q</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     N     m     k     q </span></span>
+<span><span class="co">#&gt; 21718   423    94    32</span></span>
+<span><span class="va">k</span> <span class="op">*</span> <span class="va">m</span> <span class="op">/</span> <span class="va">N</span> <span class="co"># ISG esperados entre los DEG por azar</span></span>
+<span><span class="co">#&gt; [1] 1.830832</span></span></code></pre></div>
+<p>Por azar esperaríamos menos de 2 ISG entre los DEG, y encontramos 32:
+un enriquecimiento de 17.5 veces.</p>
+<p><code><a href="https://rdrr.io/r/stats/Hypergeometric.html" class="external-link">phyper()</a></code> da la probabilidad de sacar <strong>más
+de</strong> <code>q - 1</code> canicas rojas, es decir, <code>q</code> o
+más. Usamos <code>lower.tail = FALSE</code> porque nos interesa la cola
+superior (sobrerrepresentación):</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_hyper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Hypergeometric.html" class="external-link">phyper</a></span><span class="op">(</span><span class="va">q</span> <span class="op">-</span> <span class="fl">1</span>, <span class="va">m</span>, <span class="va">N</span> <span class="op">-</span> <span class="va">m</span>, <span class="va">k</span>, lower.tail <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">p_hyper</span></span>
+<span><span class="co">#&gt; [1] 2.484086e-31</span></span></code></pre></div>
+<p>La <strong>prueba exacta de Fisher</strong> hace la misma pregunta
+con una tabla de 2 × 2. Con la alternativa de una cola
+(<code>"greater"</code>) es exactamente la misma prueba:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">isg_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">q</span>, <span class="va">k</span> <span class="op">-</span> <span class="va">q</span>, <span class="va">m</span> <span class="op">-</span> <span class="va">q</span>, <span class="va">N</span> <span class="op">-</span> <span class="va">m</span> <span class="op">-</span> <span class="va">k</span> <span class="op">+</span> <span class="va">q</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>                    dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ISG <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sí"</span>, <span class="st">"No"</span><span class="op">)</span>, DEG <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sí"</span>, <span class="st">"No"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">isg_table</span></span>
+<span><span class="co">#&gt;     DEG</span></span>
+<span><span class="co">#&gt; ISG  Sí    No</span></span>
+<span><span class="co">#&gt;   Sí 32   391</span></span>
+<span><span class="co">#&gt;   No 62 21233</span></span>
+<span></span>
+<span><span class="va">isg_fisher</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">fisher.test</a></span><span class="op">(</span><span class="va">isg_table</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
+<span><span class="va">isg_fisher</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Fisher's Exact Test for Count Data</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  isg_table</span></span>
+<span><span class="co">#&gt; p-value &lt; 2.2e-16</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true odds ratio is greater than 1</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  18.80807      Inf</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; odds ratio </span></span>
+<span><span class="co">#&gt;   27.98511</span></span>
+<span><span class="va">isg_fisher</span><span class="op">$</span><span class="va">p.value</span></span>
+<span><span class="co">#&gt; [1] 2.484086e-31</span></span></code></pre></div>
+<p>Al imprimir el resultado, R muestra
+<code>p-value &lt; 2.2e-16</code>: es el límite que usa para
+<strong>mostrar</strong> valores p, no el valor real. El valor completo
+está en <code>isg_fisher$p.value</code> y coincide con
+<code><a href="https://rdrr.io/r/stats/Hypergeometric.html" class="external-link">phyper()</a></code>: 2.48e-31. Las dos pruebas llegan a la misma
+conclusión: <strong>los ISG están fuertemente enriquecidos entre los
+DEG</strong> (razón de momios = 28).</p>
+<div class="callout-note">
+<p><strong>Reto 2.</strong> 19 de los 423 ISG de la lista de referencia
+no están entre los 21,718 genes del paquete. Repite la prueba usando
+como <code>m</code> solo los ISG que están en el universo. ¿Cambia la
+conclusión?</p>
+</div>
+<details class="callout-tip"><summary>
+Ver solución
+</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">m_universe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">isg_genes</span><span class="op">$</span><span class="va">genes</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">de_results</span><span class="op">$</span><span class="va">monocyte</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="va">m_universe</span></span>
+<span><span class="co">#&gt; [1] 404</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Hypergeometric.html" class="external-link">phyper</a></span><span class="op">(</span><span class="va">q</span> <span class="op">-</span> <span class="fl">1</span>, <span class="va">m_universe</span>, <span class="va">N</span> <span class="op">-</span> <span class="va">m_universe</span>, <span class="va">k</span>, lower.tail <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 5.682244e-32</span></span></code></pre></div>
+<p>El valor p es aún más pequeño y la conclusión no cambia. Usar solo
+los genes del universo es lo más estricto: un gen que no se midió no
+puede salir como DEG.</p>
+</details>
+</div>
 </div>
 <div class="section level2">
 <h2 id="paso-4-en-qué-procesos-participan-los-isg-figura-3d">6. <strong>Paso 4:</strong> ¿en qué procesos participan los ISG?
@@ -742,7 +840,7 @@ concreto.</li>
 <strong>Proceso padre:</strong> el término con <strong>más</strong>
 genes (<code>term_size</code> máximo), el más general.</li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">process_info</span> <span class="op">&lt;-</span> <span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">source</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"REAC"</span>, <span class="st">"GO:BP"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_rows.html" class="external-link">separate_rows</a></span><span class="op">(</span><span class="va">intersection</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -764,7 +862,7 @@ genes (<code>term_size</code> máximo), el más general.</li>
 una columna por ISG. Cada celda lleva el <strong>padj de expresión
 diferencial</strong> del gen si el gen tiene anotación en esa base de
 datos, y queda vacía si no la tiene:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">isg_order</span> <span class="op">&lt;-</span> <span class="va">gene_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">isg_deg</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">pattern</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tri-lineage (UP)"</span>, <span class="st">"monocyte (UP)"</span>, <span class="st">"moDC (DOWN)"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -782,7 +880,7 @@ datos, y queda vacía si no la tiene:</p>
 <span><span class="co">#&gt; BP   1.137584e-07 0.0002735559 0.01576357 0.004584681     NA 6.766521e-05</span></span></code></pre></div>
 <p>Las anotaciones de arriba muestran el patrón de cada gen y sus
 procesos. Los genes sin anotación aparecen como “No information”:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># proceso de cada gen en una base de datos ("No information" si no tiene anotación)</span></span>
 <span><span class="va">process_of</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">src</span>, <span class="va">column</span>, <span class="va">genes</span> <span class="op">=</span> <span class="va">isg_order</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">process_info</span>, <span class="va">source</span> <span class="op">==</span> <span class="va">src</span><span class="op">)</span></span>
@@ -862,7 +960,7 @@ señalización por interferón alfa/beta, mecanismo antiviral de ISG15 y
 respuesta antiviral de OAS. <strong>Es la huella molecular del
 interferón en el lupus.</strong></p>
 <div class="callout-note">
-<p><strong>Reto 2.</strong> ¿Qué genes de los monocitos participan en el
+<p><strong>Reto 3.</strong> ¿Qué genes de los monocitos participan en el
 término de Reactome “Interferon alpha/beta signaling”?</p>
 <p><em>Pista:</em> filtra <code>go_results</code> por
 <code>query</code>, <code>source</code> y <code>term_name</code>, y mira
@@ -870,7 +968,7 @@ la columna <code>intersection</code>.</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">query</span> <span class="op">==</span> <span class="st">"SLE_UP_monocyte"</span>, <span class="va">source</span> <span class="op">==</span> <span class="st">"REAC"</span>,</span>
 <span>         <span class="va">term_name</span> <span class="op">==</span> <span class="st">"Interferon alpha/beta signaling"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -880,7 +978,7 @@ Ver solución
 <span><span class="co">#&gt;                                                                               intersection</span></span>
 <span><span class="co">#&gt; 1 EIF2AK2,IFI27,IFI6,IFIT1,IFIT3,IFITM3,ISG15,MX1,MX2,OAS1,OAS2,OAS3,OASL,RSAD2,USP18,XAF1</span></span></code></pre></div>
 </details><div class="callout-note">
-<p><strong>Reto 3.</strong> ¿En qué bases de datos tiene anotación
+<p><strong>Reto 4.</strong> ¿En qué bases de datos tiene anotación
 <code>ABCA1</code> (que sube en las tolDC) y cuál es su proceso
 específico en Reactome?</p>
 <p><em>Pista:</em> usa <code>gene_source</code> y
@@ -888,7 +986,7 @@ específico en Reactome?</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_source</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op">==</span> <span class="st">"ABCA1"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 2</span></span></span>
 <span><span class="co">#&gt;   gene  source</span></span>
@@ -918,7 +1016,7 @@ suplementaria S4)<a class="anchor" aria-label="anchor" href="#paso-5-procesos-de
 <p>La Figura 3D mostró solo los ISG. Repitamos el análisis con
 <strong>todos los DEG que tienen anotación</strong> en Reactome o <a href="GO:BP" class="uri">GO:BP</a>, agrupándolos por su proceso padre de
 Reactome:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">s4_info</span> <span class="op">&lt;-</span> <span class="va">gene_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">process_info</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>reac_parent   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu">process_of</span><span class="op">(</span><span class="st">"REAC"</span>, <span class="st">"parent_process"</span>, <span class="va">gene</span><span class="op">)</span>,</span>
@@ -940,7 +1038,7 @@ Reactome:</p>
 <span><span class="co">#&gt; 7                                No information 32</span></span></code></pre></div>
 <p>Como en la Figura 3D, cada celda lleva el padj de expresión
 diferencial del gen si tiene anotación en esa base de datos:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">s4_padj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>REAC <span class="op">=</span> <span class="st">"REAC"</span>, BP <span class="op">=</span> <span class="st">"GO:BP"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">src</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">annotated</span> <span class="op">&lt;-</span> <span class="va">s4_info</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">process_info</span><span class="op">$</span><span class="va">gene</span><span class="op">[</span><span class="va">process_info</span><span class="op">$</span><span class="va">source</span> <span class="op">==</span> <span class="va">src</span><span class="op">]</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">annotated</span>, <span class="va">s4_info</span><span class="op">$</span><span class="va">padj</span>, <span class="cn">NA</span><span class="op">)</span></span>
@@ -954,7 +1052,7 @@ diferencial del gen si tiene anotación en esa base de datos:</p>
 <span><span class="co">#&gt; CD96   0.01135195 0.01135195</span></span>
 <span><span class="co">#&gt; CFI    0.02067849 0.02067849</span></span>
 <span><span class="co">#&gt; DEFA1B 0.02095546 0.02095546</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ht_s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">s4_padj</span>, col <span class="op">=</span> <span class="va">padj_color</span>, na_col <span class="op">=</span> <span class="st">"#f0f0f0"</span>,</span>
 <span>  border <span class="op">=</span> <span class="cn">TRUE</span>, rect_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"white"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
@@ -1012,7 +1110,7 @@ suplementario del artículo</a>.</p>
 </h2>
 <p>Capturamos los <em>heatmaps</em> como objetos gráficos (como en la
 lección anterior) y los unimos con los <em>dot plots</em>:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grab</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">ht</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="va">ht</span>, merge_legends <span class="op">=</span> <span class="cn">TRUE</span>, heatmap_legend_side <span class="op">=</span> <span class="st">"top"</span>,</span>
 <span>                           annotation_legend_side <span class="op">=</span> <span class="st">"top"</span>, <span class="va">...</span><span class="op">)</span>, wrap.grobs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -1054,11 +1152,778 @@ tiene anotación en esa base de datos; su color representa el padj
 <p>La figura original se encuentra en el <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">artículo</a>.</p>
 </div>
 <p>Para guardarla en alta resolución:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"Figura_3.png"</span>, <span class="va">figure_3</span>, width <span class="op">=</span> <span class="fl">16</span>, height <span class="op">=</span> <span class="fl">30</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="resumen">9. Resumen<a class="anchor" aria-label="anchor" href="#resumen"></a>
+<h2 id="para-profundizar-se-relacionan-los-isg-con-la-actividad-de-la-enfermedad">9. Para profundizar: ¿se relacionan los ISG con la actividad de la
+enfermedad?<a class="anchor" aria-label="anchor" href="#para-profundizar-se-relacionan-los-isg-con-la-actividad-de-la-enfermedad"></a>
+</h2>
+<p>La expresión de los ISG separa claramente a las pacientes de los
+controles. Una pregunta natural es si, <strong>entre las
+pacientes</strong>, los ISG están más altos cuando la enfermedad está
+más activa. Para responderla correlacionamos el z-score de cada uno de
+los 32 ISG con el puntaje <strong>SLEDAI</strong> usando la
+<strong>correlación de Spearman</strong>, que compara rangos y no supone
+una relación lineal ni datos normales.</p>
+<p>Primero juntamos los z-scores de los ISG con el SLEDAI de cada
+muestra de las pacientes. Cada paciente aporta tres muestras (monocito,
+moDC y tolDC); el identificador de la paciente es la parte de
+<code>sample_ID</code> antes del guion bajo:</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sle_info</span> <span class="op">&lt;-</span> <span class="va">metadata_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Group</span> <span class="op">==</span> <span class="st">"SLE"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sample_ID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">sample_ID</span><span class="op">)</span>,</span>
+<span>         patient   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"_.*"</span>, <span class="st">""</span>, <span class="va">sample_ID</span><span class="op">)</span>,                <span class="co"># QR011_0 → QR011</span></span>
+<span>         SLEDAI    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">Sledai_score</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">sample_ID</span>, <span class="va">patient</span>, <span class="va">Cell_type</span>, <span class="va">SLEDAI</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">isg_long</span> <span class="op">&lt;-</span> <span class="va">zscore_mat</span><span class="op">[</span><span class="va">isg_deg</span>, <span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">gene</span>, names_to <span class="op">=</span> <span class="st">"sample_ID"</span>, values_to <span class="op">=</span> <span class="st">"zscore"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">sle_info</span>, by <span class="op">=</span> <span class="st">"sample_ID"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># actividad de la enfermedad, como en la Tabla 1 (lección 1):</span></span>
+<span><span class="co"># 1 = con actividad (SLEDAI ≥ 6), 0 = sin actividad o actividad baja (0-5)</span></span>
+<span><span class="va">sle_activity</span> <span class="op">&lt;-</span> <span class="va">volunteer_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Group</span> <span class="op">==</span> <span class="st">"SLE"</span><span class="op">)</span></span>
+<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">sle_activity</span>, <span class="va">SLEDAI</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   SLEDAI  n</span></span>
+<span><span class="co">#&gt; 1      0 13</span></span>
+<span><span class="co">#&gt; 2      1 10</span></span></code></pre></div>
+<p>Solo 10 de las 23 pacientes (43.5%) tienen enfermedad activa; el
+resto no tiene actividad o la tiene baja. Con pocas pacientes activas,
+el poder para detectar una correlación es limitado.</p>
+<p>Guardamos la prueba en una función. Como probamos 32 genes a la vez,
+corregimos los valores p por <strong>pruebas múltiples</strong> con FDR,
+igual que <code>DESeq2</code> con el <code>padj</code>:</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">spearman</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">zscore</span>, <span class="va">df</span><span class="op">$</span><span class="va">SLEDAI</span>, method <span class="op">=</span> <span class="st">"spearman"</span>, exact <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>rho <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">unname</a></span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="va">estimate</span><span class="op">)</span>, p_value <span class="op">=</span> <span class="va">test</span><span class="op">$</span><span class="va">p.value</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="sin-separar-por-tipo-celular">9.1 Sin separar por tipo celular<a class="anchor" aria-label="anchor" href="#sin-separar-por-tipo-celular"></a>
+</h3>
+<p>Para no contar tres veces a la misma paciente, promediamos el z-score
+de sus tres tipos celulares antes de correlacionar:</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cor_overall</span> <span class="op">&lt;-</span> <span class="va">isg_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">patient</span>, <span class="va">SLEDAI</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>zscore <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">zscore</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="fu">spearman</span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>FDR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></span><span class="op">(</span><span class="va">p_value</span>, method <span class="op">=</span> <span class="st">"fdr"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">p_value</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">cor_overall</span>, digits <span class="op">=</span> <span class="fl">3</span>, col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Gen"</span>, <span class="st">"rho"</span>, <span class="st">"p"</span>, <span class="st">"FDR"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Gen</th>
+<th align="right">rho</th>
+<th align="right">p</th>
+<th align="right">FDR</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">OAS2</td>
+<td align="right">0.312</td>
+<td align="right">0.148</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">MX1</td>
+<td align="right">0.268</td>
+<td align="right">0.216</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">IFIT3</td>
+<td align="right">0.254</td>
+<td align="right">0.242</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">RSAD2</td>
+<td align="right">0.244</td>
+<td align="right">0.262</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">CMPK2</td>
+<td align="right">0.241</td>
+<td align="right">0.267</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">HERC6</td>
+<td align="right">0.237</td>
+<td align="right">0.275</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">DDX60</td>
+<td align="right">0.231</td>
+<td align="right">0.289</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">PARP9</td>
+<td align="right">0.231</td>
+<td align="right">0.289</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">IFI6</td>
+<td align="right">0.214</td>
+<td align="right">0.327</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">OASL</td>
+<td align="right">0.201</td>
+<td align="right">0.358</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">IL2RB</td>
+<td align="right">-0.200</td>
+<td align="right">0.360</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">LGALS3BP</td>
+<td align="right">0.179</td>
+<td align="right">0.414</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">EIF2AK2</td>
+<td align="right">0.164</td>
+<td align="right">0.454</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">XAF1</td>
+<td align="right">0.163</td>
+<td align="right">0.458</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">USP18</td>
+<td align="right">0.152</td>
+<td align="right">0.490</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">OAS3</td>
+<td align="right">0.149</td>
+<td align="right">0.497</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">LY6E</td>
+<td align="right">0.147</td>
+<td align="right">0.504</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">IFI44</td>
+<td align="right">0.136</td>
+<td align="right">0.537</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">IFI27</td>
+<td align="right">0.127</td>
+<td align="right">0.564</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">GMPR</td>
+<td align="right">0.112</td>
+<td align="right">0.612</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">EPSTI1</td>
+<td align="right">0.095</td>
+<td align="right">0.665</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">MX2</td>
+<td align="right">0.088</td>
+<td align="right">0.690</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">IFIT1</td>
+<td align="right">0.087</td>
+<td align="right">0.692</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">AUTS2</td>
+<td align="right">-0.081</td>
+<td align="right">0.714</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">IFI44L</td>
+<td align="right">0.074</td>
+<td align="right">0.736</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">PARP14</td>
+<td align="right">0.070</td>
+<td align="right">0.751</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="odd">
+<td align="left">ISG15</td>
+<td align="right">-0.067</td>
+<td align="right">0.762</td>
+<td align="right">0.903</td>
+</tr>
+<tr class="even">
+<td align="left">OAS1</td>
+<td align="right">0.052</td>
+<td align="right">0.812</td>
+<td align="right">0.928</td>
+</tr>
+<tr class="odd">
+<td align="left">IFITM3</td>
+<td align="right">-0.030</td>
+<td align="right">0.890</td>
+<td align="right">0.958</td>
+</tr>
+<tr class="even">
+<td align="left">HELZ2</td>
+<td align="right">-0.022</td>
+<td align="right">0.921</td>
+<td align="right">0.958</td>
+</tr>
+<tr class="odd">
+<td align="left">SERPING1</td>
+<td align="right">0.020</td>
+<td align="right">0.928</td>
+<td align="right">0.958</td>
+</tr>
+<tr class="even">
+<td align="left">HERC5</td>
+<td align="right">-0.003</td>
+<td align="right">0.987</td>
+<td align="right">0.987</td>
+</tr>
+</tbody>
+</table>
+<div class="caption-justify">
+<p><strong>Tabla suplementaria (a).</strong> Correlación de Spearman
+entre la expresión normalizada (z-score) de los 32 ISG diferencialmente
+expresados y la actividad de la enfermedad (SLEDAI) en 23 pacientes con
+SLE, sin separar por tipo celular (z-score promedio de monocitos, moDC y
+tolDC de cada paciente). El número de genes con p &lt; 0.05 es 0, y
+ninguno es significativo tras la corrección por pruebas múltiples (FDR
+mínimo = 0.90). rho, coeficiente de correlación de Spearman; FDR,
+<em>false discovery rate</em> (Benjamini-Hochberg); ISG, genes
+estimulados por interferón; SLEDAI, <em>SLE Disease Activity
+Index</em>.</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="por-tipo-celular">9.2 Por tipo celular<a class="anchor" aria-label="anchor" href="#por-tipo-celular"></a>
+</h3>
+<p>Ahora repetimos la prueba dentro de cada tipo celular (23 muestras
+por tipo) y corregimos por FDR dentro de cada uno:</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cor_celltype</span> <span class="op">&lt;-</span> <span class="va">isg_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Cell_type</span>, <span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="fu">spearman</span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Cell_type</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>FDR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></span><span class="op">(</span><span class="va">p_value</span>, method <span class="op">=</span> <span class="st">"fdr"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Cell_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Cell_type</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monocyte"</span>, <span class="st">"moDC"</span>, <span class="st">"tolDC"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cor_celltype</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">gene</span>, names_from <span class="op">=</span> <span class="va">Cell_type</span>, values_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">rho</span>, <span class="va">p_value</span>, <span class="va">FDR</span><span class="op">)</span>,</span>
+<span>              names_vary <span class="op">=</span> <span class="st">"slowest"</span>, names_sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>               col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Gen"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rho"</span>, <span class="st">"p"</span>, <span class="st">"FDR"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Factor-class.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">cor_celltype</span><span class="op">$</span><span class="va">Cell_type</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="9%">
+<col width="13%">
+<col width="11%">
+<col width="13%">
+<col width="9%">
+<col width="7%">
+<col width="9%">
+<col width="10%">
+<col width="8%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Gen</th>
+<th align="right">rho monocyte</th>
+<th align="right">p monocyte</th>
+<th align="right">FDR monocyte</th>
+<th align="right">rho moDC</th>
+<th align="right">p moDC</th>
+<th align="right">FDR moDC</th>
+<th align="right">rho tolDC</th>
+<th align="right">p tolDC</th>
+<th align="right">FDR tolDC</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">AUTS2</td>
+<td align="right">0.010</td>
+<td align="right">0.962</td>
+<td align="right">0.962</td>
+<td align="right">-0.276</td>
+<td align="right">0.203</td>
+<td align="right">0.726</td>
+<td align="right">-0.149</td>
+<td align="right">0.498</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="even">
+<td align="left">CMPK2</td>
+<td align="right">0.191</td>
+<td align="right">0.382</td>
+<td align="right">0.582</td>
+<td align="right">0.141</td>
+<td align="right">0.522</td>
+<td align="right">0.726</td>
+<td align="right">0.258</td>
+<td align="right">0.234</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="odd">
+<td align="left">DDX60</td>
+<td align="right">0.165</td>
+<td align="right">0.453</td>
+<td align="right">0.582</td>
+<td align="right">0.175</td>
+<td align="right">0.424</td>
+<td align="right">0.726</td>
+<td align="right">0.174</td>
+<td align="right">0.428</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="even">
+<td align="left">EIF2AK2</td>
+<td align="right">0.167</td>
+<td align="right">0.447</td>
+<td align="right">0.582</td>
+<td align="right">0.256</td>
+<td align="right">0.239</td>
+<td align="right">0.726</td>
+<td align="right">0.054</td>
+<td align="right">0.805</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="odd">
+<td align="left">EPSTI1</td>
+<td align="right">0.168</td>
+<td align="right">0.445</td>
+<td align="right">0.582</td>
+<td align="right">0.113</td>
+<td align="right">0.608</td>
+<td align="right">0.775</td>
+<td align="right">0.029</td>
+<td align="right">0.894</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="even">
+<td align="left">GMPR</td>
+<td align="right">0.280</td>
+<td align="right">0.196</td>
+<td align="right">0.582</td>
+<td align="right">-0.262</td>
+<td align="right">0.227</td>
+<td align="right">0.726</td>
+<td align="right">0.175</td>
+<td align="right">0.426</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="odd">
+<td align="left">HELZ2</td>
+<td align="right">0.162</td>
+<td align="right">0.460</td>
+<td align="right">0.582</td>
+<td align="right">-0.238</td>
+<td align="right">0.273</td>
+<td align="right">0.726</td>
+<td align="right">-0.127</td>
+<td align="right">0.563</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="even">
+<td align="left">HERC5</td>
+<td align="right">0.155</td>
+<td align="right">0.480</td>
+<td align="right">0.582</td>
+<td align="right">0.077</td>
+<td align="right">0.726</td>
+<td align="right">0.860</td>
+<td align="right">-0.229</td>
+<td align="right">0.292</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="odd">
+<td align="left">HERC6</td>
+<td align="right">0.185</td>
+<td align="right">0.399</td>
+<td align="right">0.582</td>
+<td align="right">0.415</td>
+<td align="right">0.049</td>
+<td align="right">0.726</td>
+<td align="right">0.139</td>
+<td align="right">0.528</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="even">
+<td align="left">IFI27</td>
+<td align="right">0.204</td>
+<td align="right">0.352</td>
+<td align="right">0.582</td>
+<td align="right">0.213</td>
+<td align="right">0.328</td>
+<td align="right">0.726</td>
+<td align="right">0.021</td>
+<td align="right">0.923</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="odd">
+<td align="left">IFI44</td>
+<td align="right">0.173</td>
+<td align="right">0.430</td>
+<td align="right">0.582</td>
+<td align="right">0.161</td>
+<td align="right">0.464</td>
+<td align="right">0.726</td>
+<td align="right">0.099</td>
+<td align="right">0.652</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="even">
+<td align="left">IFI44L</td>
+<td align="right">0.151</td>
+<td align="right">0.491</td>
+<td align="right">0.582</td>
+<td align="right">0.109</td>
+<td align="right">0.620</td>
+<td align="right">0.775</td>
+<td align="right">-0.009</td>
+<td align="right">0.968</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="odd">
+<td align="left">IFI6</td>
+<td align="right">0.262</td>
+<td align="right">0.227</td>
+<td align="right">0.582</td>
+<td align="right">0.213</td>
+<td align="right">0.330</td>
+<td align="right">0.726</td>
+<td align="right">0.246</td>
+<td align="right">0.257</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="even">
+<td align="left">IFIT1</td>
+<td align="right">0.154</td>
+<td align="right">0.482</td>
+<td align="right">0.582</td>
+<td align="right">0.036</td>
+<td align="right">0.871</td>
+<td align="right">0.912</td>
+<td align="right">-0.011</td>
+<td align="right">0.959</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="odd">
+<td align="left">IFIT3</td>
+<td align="right">0.174</td>
+<td align="right">0.428</td>
+<td align="right">0.582</td>
+<td align="right">0.385</td>
+<td align="right">0.070</td>
+<td align="right">0.726</td>
+<td align="right">0.091</td>
+<td align="right">0.679</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="even">
+<td align="left">IFITM3</td>
+<td align="right">0.248</td>
+<td align="right">0.254</td>
+<td align="right">0.582</td>
+<td align="right">-0.219</td>
+<td align="right">0.316</td>
+<td align="right">0.726</td>
+<td align="right">-0.245</td>
+<td align="right">0.260</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="odd">
+<td align="left">IL2RB</td>
+<td align="right">-0.169</td>
+<td align="right">0.440</td>
+<td align="right">0.582</td>
+<td align="right">-0.067</td>
+<td align="right">0.760</td>
+<td align="right">0.869</td>
+<td align="right">-0.132</td>
+<td align="right">0.548</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="even">
+<td align="left">ISG15</td>
+<td align="right">0.116</td>
+<td align="right">0.597</td>
+<td align="right">0.628</td>
+<td align="right">-0.266</td>
+<td align="right">0.219</td>
+<td align="right">0.726</td>
+<td align="right">-0.173</td>
+<td align="right">0.430</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="odd">
+<td align="left">LGALS3BP</td>
+<td align="right">0.212</td>
+<td align="right">0.333</td>
+<td align="right">0.582</td>
+<td align="right">0.180</td>
+<td align="right">0.412</td>
+<td align="right">0.726</td>
+<td align="right">0.016</td>
+<td align="right">0.941</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="even">
+<td align="left">LY6E</td>
+<td align="right">0.251</td>
+<td align="right">0.247</td>
+<td align="right">0.582</td>
+<td align="right">0.032</td>
+<td align="right">0.883</td>
+<td align="right">0.912</td>
+<td align="right">0.226</td>
+<td align="right">0.301</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="odd">
+<td align="left">MX1</td>
+<td align="right">0.184</td>
+<td align="right">0.402</td>
+<td align="right">0.582</td>
+<td align="right">0.243</td>
+<td align="right">0.263</td>
+<td align="right">0.726</td>
+<td align="right">0.290</td>
+<td align="right">0.180</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="even">
+<td align="left">MX2</td>
+<td align="right">0.166</td>
+<td align="right">0.449</td>
+<td align="right">0.582</td>
+<td align="right">0.022</td>
+<td align="right">0.919</td>
+<td align="right">0.919</td>
+<td align="right">-0.068</td>
+<td align="right">0.757</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="odd">
+<td align="left">OAS1</td>
+<td align="right">0.196</td>
+<td align="right">0.371</td>
+<td align="right">0.582</td>
+<td align="right">0.052</td>
+<td align="right">0.812</td>
+<td align="right">0.896</td>
+<td align="right">-0.200</td>
+<td align="right">0.361</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="even">
+<td align="left">OAS2</td>
+<td align="right">0.244</td>
+<td align="right">0.261</td>
+<td align="right">0.582</td>
+<td align="right">0.374</td>
+<td align="right">0.079</td>
+<td align="right">0.726</td>
+<td align="right">0.238</td>
+<td align="right">0.274</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="odd">
+<td align="left">OAS3</td>
+<td align="right">0.174</td>
+<td align="right">0.427</td>
+<td align="right">0.582</td>
+<td align="right">0.142</td>
+<td align="right">0.519</td>
+<td align="right">0.726</td>
+<td align="right">-0.165</td>
+<td align="right">0.451</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="even">
+<td align="left">OASL</td>
+<td align="right">0.113</td>
+<td align="right">0.608</td>
+<td align="right">0.628</td>
+<td align="right">0.178</td>
+<td align="right">0.418</td>
+<td align="right">0.726</td>
+<td align="right">0.032</td>
+<td align="right">0.885</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="odd">
+<td align="left">PARP14</td>
+<td align="right">0.136</td>
+<td align="right">0.537</td>
+<td align="right">0.614</td>
+<td align="right">0.175</td>
+<td align="right">0.424</td>
+<td align="right">0.726</td>
+<td align="right">-0.009</td>
+<td align="right">0.966</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="even">
+<td align="left">PARP9</td>
+<td align="right">0.206</td>
+<td align="right">0.347</td>
+<td align="right">0.582</td>
+<td align="right">0.141</td>
+<td align="right">0.522</td>
+<td align="right">0.726</td>
+<td align="right">-0.110</td>
+<td align="right">0.618</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="odd">
+<td align="left">RSAD2</td>
+<td align="right">0.207</td>
+<td align="right">0.343</td>
+<td align="right">0.582</td>
+<td align="right">0.171</td>
+<td align="right">0.436</td>
+<td align="right">0.726</td>
+<td align="right">0.197</td>
+<td align="right">0.367</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="even">
+<td align="left">SERPING1</td>
+<td align="right">0.239</td>
+<td align="right">0.272</td>
+<td align="right">0.582</td>
+<td align="right">-0.106</td>
+<td align="right">0.629</td>
+<td align="right">0.775</td>
+<td align="right">-0.341</td>
+<td align="right">0.111</td>
+<td align="right">0.948</td>
+</tr>
+<tr class="odd">
+<td align="left">USP18</td>
+<td align="right">0.169</td>
+<td align="right">0.440</td>
+<td align="right">0.582</td>
+<td align="right">0.242</td>
+<td align="right">0.266</td>
+<td align="right">0.726</td>
+<td align="right">0.086</td>
+<td align="right">0.697</td>
+<td align="right">0.968</td>
+</tr>
+<tr class="even">
+<td align="left">XAF1</td>
+<td align="right">0.128</td>
+<td align="right">0.561</td>
+<td align="right">0.619</td>
+<td align="right">-0.196</td>
+<td align="right">0.371</td>
+<td align="right">0.726</td>
+<td align="right">0.200</td>
+<td align="right">0.360</td>
+<td align="right">0.948</td>
+</tr>
+</tbody>
+</table>
+<div class="caption-justify">
+<p><strong>Tabla suplementaria (b).</strong> Correlación de Spearman
+entre la expresión normalizada (z-score) de los 32 ISG diferencialmente
+expresados y la actividad de la enfermedad (SLEDAI) en cada tipo celular
+(monocitos, moDC y tolDC; 23 pacientes con SLE por tipo celular). Los
+valores p se corrigieron por FDR dentro de cada tipo celular. 1 de las
+96 pruebas tiene p &lt; 0.05 y ninguna es significativa tras la
+corrección (FDR mínimo = 0.58). rho, coeficiente de correlación de
+Spearman; FDR, <em>false discovery rate</em> (Benjamini-Hochberg); ISG,
+genes estimulados por interferón; moDC, células dendríticas derivadas de
+monocitos; tolDC, células dendríticas tolerogénicas; SLEDAI, <em>SLE
+Disease Activity Index</em>.</p>
+<p>La tabla original (Tabla suplementaria 8) se encuentra en el <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full#supplementaryMaterial" class="external-link">material
+suplementario del artículo</a>.</p>
+</div>
+<p><strong>¿Qué observas?</strong></p>
+<ul>
+<li>Algunos genes tienen asociaciones nominales (p &lt; 0.05) en un tipo
+celular, pero <strong>ninguna correlación sobrevive a la corrección por
+pruebas múltiples</strong>.</li>
+<li>Los ISG separan a pacientes de controles, pero, en esta cohorte,
+ningún ISG individual sigue la actividad de la enfermedad.</li>
+<li>Posibles razones: los tratamientos inmunomoduladores, que la
+diferenciación <em>in vitro</em> atenúa las señales inflamatorias que
+las células traían del paciente, y que la mayoría de las pacientes tiene
+actividad baja.</li>
+</ul>
+<div class="alert alert-warning">
+<p><strong>¿Qué podemos concluir y qué no?</strong></p>
+<ul>
+<li>
+<strong>Sí podemos decir</strong> que, en esta cohorte, no
+detectamos una asociación significativa entre la expresión de los ISG y
+el SLEDAI, ni sin separar por tipo celular ni dentro de cada tipo
+celular.</li>
+<li>
+<strong>No podemos concluir</strong> que los ISG no se relacionen
+con la actividad del lupus. Un resultado no significativo es
+<strong>ausencia de evidencia, no evidencia de ausencia</strong>: con 23
+pacientes, una correlación necesita |rho| mayor a ~0.41 para alcanzar p
+&lt; 0.05, y aún más tras la corrección por FDR. Correlaciones moderadas
+pasarían desapercibidas.</li>
+<li>
+<strong>Tampoco podemos tomar como hallazgo</strong> una asociación
+nominal (p &lt; 0.05 sin corregir): con 96 pruebas, esperaríamos ~5
+valores p &lt; 0.05 solo por azar.</li>
+<li>
+<strong>Es consistente</strong> con el Reto 3 de la <a href="intro_RNAseq_es.html">lección 2</a>: en el PCA, las muestras
+tampoco se separan según la actividad de la enfermedad.</li>
+<li>
+<strong>Para responderlo</strong> se necesitaría una cohorte más
+grande, con más pacientes activas, y medir los ISG directamente en
+células sin cultivar.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="resumen">10. Resumen<a class="anchor" aria-label="anchor" href="#resumen"></a>
 </h2>
 <table class="table">
 <colgroup>
@@ -1105,10 +1970,25 @@ tiene anotación en esa base de datos; su color representa el padj
 <td>Encontrar genes de SLE e ISG entre los DEG</td>
 </tr>
 <tr class="odd">
+<td>Enriquecimiento de ISG</td>
+<td>
+<code><a href="https://rdrr.io/r/stats/Hypergeometric.html" class="external-link">phyper()</a></code>, <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">fisher.test()</a></code>
+</td>
+<td>Probar si hay más ISG de los esperados por azar</td>
+</tr>
+<tr class="even">
 <td>Integrar</td>
 <td>heatmaps con <code>+</code>
 </td>
 <td>Ver expresión, LFC y anotaciones juntas</td>
+</tr>
+<tr class="odd">
+<td>Correlación</td>
+<td>
+<code>cor.test(method = "spearman")</code>,
+<code><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust()</a></code>
+</td>
+<td>Relacionar expresión y actividad de la enfermedad</td>
 </tr>
 </tbody>
 </table>
@@ -1136,7 +2016,7 @@ genes es muy general; uno con 20 es más informativo.</li>
 </div>
 </div>
 <div class="section level2">
-<h2 id="próximos-pasos">10. Próximos pasos<a class="anchor" aria-label="anchor" href="#pr%C3%B3ximos-pasos"></a>
+<h2 id="próximos-pasos">11. Próximos pasos<a class="anchor" aria-label="anchor" href="#pr%C3%B3ximos-pasos"></a>
 </h2>
 <p>Hasta aquí comparamos pacientes contra controles dentro de cada tipo
 celular. La lección <a href="l5_DEGs_monocytes_diff_es.html">Diferenciación de monocitos a
@@ -1152,7 +2032,7 @@ Diferenciación de monocitos</strong> al final de esta página.</p>
 <div class="section level2">
 <h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>
 </h2>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.6.1 (2026-06-24)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>

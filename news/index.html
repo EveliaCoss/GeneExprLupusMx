@@ -47,7 +47,11 @@
     <li><a class="dropdown-item" href="../articles/download_en.html">EN - Data download</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="active nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-registro-de-cambios" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Registro de cambios</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-registro-de-cambios"><li><a class="dropdown-item" href="../articles/news_es.html">ES - Registro de cambios</a></li>
+    <li><a class="dropdown-item" href="../news/index.html">EN - Changelog</a></li>
+  </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/EveliaCoss/GeneExprLupusMx/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -67,48 +71,51 @@
 <h2 class="pkg-version" data-toc-text="development version" id="geneexprlupusmx-development-version">GeneExprLupusMx (development version)<a class="anchor" aria-label="anchor" href="#geneexprlupusmx-development-version"></a></h2>
 <div class="section level3">
 <h3 id="geneexprlupusmx-development-version-1">GeneExprLupusMx 0.0.0.9000<a class="anchor" aria-label="anchor" href="#geneexprlupusmx-development-version-1"></a></h3>
+<p>Initial version of GeneExprLupusMx.</p>
 <div class="section level4">
-<h4 id="lecciones--lessons-development-version">Lecciones / Lessons<a class="anchor" aria-label="anchor" href="#lecciones--lessons-development-version"></a></h4>
-<ul><li>Ruta de aprendizaje en español con siete lecciones que reproducen las figuras del artículo, más una guía de primeros pasos / Spanish learning path with seven lessons that reproduce the article’s figures, plus a getting-started guide:
+<h4 id="lessons-development-version">Lessons<a class="anchor" aria-label="anchor" href="#lessons-development-version"></a></h4>
+<ul><li>Learning path with seven lessons that reproduce the article’s figures, plus a getting-started guide, in Spanish (<code>*_es</code>) and English (<code>*_en</code>):
 <ul><li>
-<code>intro_es</code>: primeros pasos con el paquete / getting started.</li>
+<code>intro</code>: getting started with the package.</li>
 <li>
-<code>clinical_es</code> (Lección 1): estadística descriptiva, Tabla 1 y Figura S3.</li>
+<code>clinical</code> (Lesson 1): descriptive statistics, Table 1 and Figure S3.</li>
 <li>
-<code>intro_RNAseq_es</code> (Lección 2): importación, normalización, <em>heatmaps</em> y PCA; Figura S2.</li>
+<code>intro_RNAseq</code> (Lesson 2): import, normalization, <em>heatmaps</em> and PCA; Figure S2.</li>
 <li>
-<code>l3_DEGs_es</code> (Lección 3): expresión diferencial SLE vs Ctrl; Figura 2.</li>
+<code>l3_DEGs</code> (Lesson 3): differential expression SLE vs Ctrl; Figure 2.</li>
 <li>
-<code>l4_GOterms_es</code> (Lección 4): enriquecimiento funcional con g:Profiler; Figuras 3 y S4.</li>
+<code>l4_GOterms</code> (Lesson 4): functional enrichment with g:Profiler; Figures 3 and S4, hypergeometric and Fisher’s exact tests of ISG enrichment, and Spearman correlation between ISGs and SLEDAI (supplementary tables).</li>
 <li>
-<code>l5_DEGs_monocytes_diff_es</code> (Lección 5): diferenciación de monocitos a células dendríticas; Figuras 4 y 5.</li>
+<code>l5_DEGs_monocytes_diff</code> (Lesson 5): differentiation of monocytes into dendritic cells; Figures 4 and 5.</li>
 <li>
-<code>l6_DEGs_tolDcs_es</code> (Lección 6): firma transcripcional de las tolDC; Figura 6.</li>
+<code>l6_DEGs_tolDcs</code> (Lesson 6): transcriptional signature of tolDCs; Figure 6, and genes concordant and divergent with the Robertson et al. signature.</li>
 <li>
-<code>l7_DEGs_between_groups_es</code> (Lección 7): modelo con interacción <code>Group:Cell_type</code>; Figura 7A y 7B.</li>
+<code>l7_DEGs_between_groups</code> (Lesson 7): interaction model <code>Group:Cell_type</code>; Figures 7A and 7B, and supplementary figure of expression trajectories of the interaction DEGs.</li>
 </ul></li>
-<li>Versión en inglés de todas las lecciones (<code>*_en</code>) / English version of all lessons (<code>*_en</code>).</li>
-<li>Páginas de descarga de datos en español e inglés (<code>download_es</code>, <code>download_en</code>) / Data download pages in Spanish and English.</li>
-<li>Cada lección incluye glosario, mapa de la lección, retos con solución, pies de figura con valores calculados en el código y botones de navegación por idioma / Each lesson includes a glossary, lesson map, challenges with solutions, figure captions with values computed in the code, and per-language navigation buttons.</li>
+<li>Data download pages in Spanish and English (<code>download_es</code>, <code>download_en</code>).</li>
+<li>Each lesson includes a glossary, lesson map, challenges with solutions, figure and table captions with values computed in the code, and per-language navigation buttons.</li>
+<li>Lessons harmonized: same step format, unified glossary, prerequisites with full titles, and captions for every figure and table (including Table 1).</li>
 </ul></div>
 <div class="section level4">
-<h4 id="datos--data-development-version">Datos / Data<a class="anchor" aria-label="anchor" href="#datos--data-development-version"></a></h4>
-<ul><li>Nuevos datos de referencia / New reference data: <code>volunteer_info</code>, <code>biotype_summary</code>, <code>sle_genes</code>, <code>isg_genes</code>, <code>moDC_genes</code>, <code>dc_genes</code>, <code>tolDC_genes</code>.</li>
-<li>Nuevos <em>checkpoints</em> entre lecciones / New checkpoints between lessons: <code>dds</code>, <code>zscore_mat</code>, <code>de_results</code>, <code>go_results</code>, <code>de_celltype_results</code>, <code>go_celltype_results</code>, <code>de_interaction_results</code>, <code>go_interaction_results</code>.</li>
-<li>Scripts en <code>data-raw/</code> para regenerar cada objeto (g:Profiler archivado, versión e113) / Scripts in <code>data-raw/</code> to regenerate each object (archived g:Profiler, version e113).</li>
-<li>Documentación corregida de <code>filtered_txi</code> y <code>metadata_cleaned</code> / Corrected documentation of <code>filtered_txi</code> and <code>metadata_cleaned</code>.</li>
+<h4 id="data-development-version">Data<a class="anchor" aria-label="anchor" href="#data-development-version"></a></h4>
+<ul><li>New reference data: <code>volunteer_info</code>, <code>biotype_summary</code>, <code>sle_genes</code>, <code>isg_genes</code>, <code>moDC_genes</code>, <code>dc_genes</code>, <code>tolDC_genes</code>.</li>
+<li>New checkpoints between lessons: <code>dds</code>, <code>zscore_mat</code>, <code>de_results</code>, <code>go_results</code>, <code>de_celltype_results</code>, <code>go_celltype_results</code>, <code>de_interaction_results</code>, <code>go_interaction_results</code>.</li>
+<li>Scripts in <code>data-raw/</code> to regenerate each object (archived g:Profiler, version e113).</li>
+<li>Corrected documentation of <code>filtered_txi</code> and <code>metadata_cleaned</code>.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="funciones--functions-development-version">Funciones / Functions<a class="anchor" aria-label="anchor" href="#funciones--functions-development-version"></a></h4>
+<h4 id="functions-development-version">Functions<a class="anchor" aria-label="anchor" href="#functions-development-version"></a></h4>
 <ul><li>
-<code><a href="../reference/get_heatmap_mat.html">get_heatmap_mat()</a></code>, <code><a href="../reference/create_heatmap.html">create_heatmap()</a></code> (rasterización desactivada por defecto / rasterization off by default), <code><a href="../reference/processGO.html">processGO()</a></code> y <code><a href="../reference/Reduce_GOTerm.html">Reduce_GOTerm()</a></code>.</li>
+<code><a href="../reference/get_heatmap_mat.html">get_heatmap_mat()</a></code>, <code><a href="../reference/create_heatmap.html">create_heatmap()</a></code> (rasterization off by default), <code><a href="../reference/processGO.html">processGO()</a></code> and <code><a href="../reference/Reduce_GOTerm.html">Reduce_GOTerm()</a></code>.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="sitio-web-y-documentación--website-and-documentation-development-version">Sitio web y documentación / Website and documentation<a class="anchor" aria-label="anchor" href="#sitio-web-y-documentaci%C3%B3n--website-and-documentation-development-version"></a></h4>
-<ul><li>Nueva página de inicio (<code>index.Rmd</code>) con la imagen <em>Overview</em> y la tabla de lecciones; README actualizado / New home page (<code>index.Rmd</code>) with the Overview image and lesson table; updated README.</li>
-<li>Archivo <code>inst/CITATION</code>: <code>citation("GeneExprLupusMx")</code> devuelve el artículo original / <code>citation("GeneExprLupusMx")</code> returns the original article.</li>
-<li>Menús de pkgdown para lecciones en español e inglés y descarga de datos / pkgdown menus for Spanish and English lessons and data download.</li>
-<li>Initial version of GeneExprLupusMx.</li>
+<h4 id="website-and-documentation-development-version">Website and documentation<a class="anchor" aria-label="anchor" href="#website-and-documentation-development-version"></a></h4>
+<ul><li>New home page (<code>index.Rmd</code>) with the Overview image and lesson table.</li>
+<li>Bilingual README (Spanish and English).</li>
+<li>Changelog in Spanish (<code>articles/news_es.html</code>) and English (this file).</li>
+<li>
+<code>inst/CITATION</code> file: <code>citation("GeneExprLupusMx")</code> returns the original article.</li>
+<li>pkgdown menus for Spanish and English lessons, data download and changelog.</li>
 </ul></div>
 </div>
 </div>

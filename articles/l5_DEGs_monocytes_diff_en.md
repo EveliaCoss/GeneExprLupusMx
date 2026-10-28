@@ -8,10 +8,10 @@ monocyte differentiates into a dendritic cell?**, and **does this
 process happen in the same way in lupus patients as in controls?**
 
 **What you need to know beforehand:** you should have completed the
-lessons [Differentially expressed
-genes](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_en.md)
-and [Biological functions of
-DEGs](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_en.md).
+lessons [Differentially expressed genes between patients and
+controls](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_en.md)
+and [Biological functions of differentially expressed
+genes](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_en.md).
 
 **By the end you will be able to:**
 
@@ -95,7 +95,7 @@ lfc_threshold  <- 1
 padj_threshold <- 0.05
 ```
 
-## 2. Step 1: the experiment (Figure 4A)
+## 2. **Step 1:** the experiment (Figure 4A)
 
 Each volunteer’s monocytes were cultured *in vitro* with different
 cytokines to obtain two types of dendritic cells:
@@ -117,7 +117,7 @@ which genes **change upon differentiation** by comparing each dendritic
 cell type against the monocytes. If differentiation worked, we expect to
 see large changes and known genes switching on or off.
 
-## 3. Step 2: the analysis design
+## 3. **Step 2:** the analysis design
 
 We make the comparison **within each group**: the controls’ dendritic
 cells against the controls’ monocytes, and the patients’ dendritic cells
@@ -211,7 +211,7 @@ A positive LFC means the gene is **higher in the dendritic cell** than
 in the monocyte; a negative one means it is **switched off** upon
 differentiation.
 
-## 4. Step 3: how many genes change? (Figure 4B)
+## 4. **Step 3:** how many genes change? (Figure 4B)
 
 With the same thresholds as in the previous lessons (\|LFC\| ≥ 1 and
 padj \< 0.05), we split the DEGs of each comparison by direction:
@@ -382,7 +382,7 @@ plot_lfc_heatmap <- function(genes, process = NULL, process_levels = unique(proc
 }
 ```
 
-## 6. Step 4: do the genes we expected change? (Figure 4C)
+## 6. **Step 4:** do the genes we expected change? (Figure 4C)
 
 If our cells differentiated properly, the genes that the literature
 describes for monocyte-to-moDC differentiation should change in the same
@@ -498,7 +498,7 @@ The discrepancies may be due to differences in the culture protocol or
 to the reference studies having used other conditions. It is normal for
 not all genes to match.
 
-## 7. Step 5: which processes change? (Figure 4D)
+## 7. **Step 5:** which processes change? (Figure 4D)
 
 ### 7.1 Functional enrichment
 
@@ -687,7 +687,7 @@ Remember that a circle indicates **enrichment**, not an expression
 value: to confirm these differences we would need to directly compare
 the dendritic cells of patients and controls.
 
-## 8. Step 6: fatty acid metabolism (Figure 5A)
+## 8. **Step 6:** fatty acid metabolism (Figure 5A)
 
 A dendritic cell does not only change its markers: it also changes its
 **metabolism**. We take the genes of the Reactome term “Fatty acid
@@ -729,7 +729,7 @@ toward lipid synthesis and use. Remember that in lesson 4 we found lipid
 metabolism genes altered in the patients’ tolDCs; here we see that this
 metabolism is central for these cells.
 
-## 9. Step 7: canonical dendritic cell pathways (Figure 5B)
+## 9. **Step 7:** canonical dendritic cell pathways (Figure 5B)
 
 Finally, we review genes associated with dendritic cell function
 according to Gene Ontology (curated list `dc_genes`): differentiation,

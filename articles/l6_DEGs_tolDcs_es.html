@@ -67,7 +67,13 @@
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-registro-de-cambios" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Registro de cambios</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-registro-de-cambios">
+<li><a class="dropdown-item" href="../articles/news_es.html">ES - Registro de cambios</a></li>
+    <li><a class="dropdown-item" href="../news/index.html">EN - Changelog</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -182,6 +188,8 @@ cambia la interpretación de un LFC.</li>
 <li>Calcular el cambio entre dos tipos celulares a partir de dos
 comparaciones con la misma referencia.</li>
 <li>Reproducir la <strong>Figura 6</strong> del artículo.</li>
+<li>Contar genes concordantes y divergentes con una firma e identificar
+su núcleo común.</li>
 </ol>
 <p><strong>Tiempo estimado:</strong> 1 hora.</p>
 <div class="section level3">
@@ -214,7 +222,7 @@ necesites.</p>
 inmune de no atacar al propio cuerpo; en el lupus se pierde.</li>
 <li>
 <strong>tolDC</strong>: células dendríticas tolerogénicas; promueven
-la tolerancia.</li>
+la tolerancia inmunológica.</li>
 <li>
 <strong>Firma transcripcional</strong>: conjunto de genes cuya
 expresión caracteriza a un tipo o estado celular.</li>
@@ -250,7 +258,7 @@ calcula un LFC; cambiarla cambia el signo y el tamaño del LFC.</li>
 <span><span class="va">padj_threshold</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="paso-1-la-firma-de-las-toldc">2. Paso 1: la firma de las tolDC<a class="anchor" aria-label="anchor" href="#paso-1-la-firma-de-las-toldc"></a>
+<h2 id="paso-1-la-firma-de-las-toldc">2. <strong>Paso 1:</strong> la firma de las tolDC<a class="anchor" aria-label="anchor" href="#paso-1-la-firma-de-las-toldc"></a>
 </h2>
 <p><a href="https://doi.org/10.3389/fimmu.2021.733231" class="external-link">Robertson et
 al. (2021)</a> compararon tolDC generadas con distintos protocolos e
@@ -297,7 +305,8 @@ genes aparecen en varios protocolos.</li>
 </ul>
 </div>
 <div class="section level2">
-<h2 id="paso-2-qué-genes-de-la-firma-cambian-en-nuestros-datos">3. Paso 2: ¿qué genes de la firma cambian en nuestros datos?<a class="anchor" aria-label="anchor" href="#paso-2-qu%C3%A9-genes-de-la-firma-cambian-en-nuestros-datos"></a>
+<h2 id="paso-2-qué-genes-de-la-firma-cambian-en-nuestros-datos">3. <strong>Paso 2:</strong> ¿qué genes de la firma cambian en
+nuestros datos?<a class="anchor" aria-label="anchor" href="#paso-2-qu%C3%A9-genes-de-la-firma-cambian-en-nuestros-datos"></a>
 </h2>
 <p>Usamos los resultados de la lección anterior
 (<code>de_celltype_results</code>): cada célula dendrítica comparada
@@ -324,7 +333,7 @@ diferenciación de nuestras células. Casi todos codifican proteínas
 (PCG); dos son RNA largos no codificantes (lncRNA).</p>
 </div>
 <div class="section level2">
-<h2 id="paso-3-la-figura-6">4. Paso 3: la Figura 6<a class="anchor" aria-label="anchor" href="#paso-3-la-figura-6"></a>
+<h2 id="paso-3-la-figura-6">4. <strong>Paso 3:</strong> la Figura 6<a class="anchor" aria-label="anchor" href="#paso-3-la-figura-6"></a>
 </h2>
 <p>La figura tiene dos <em>heatmaps</em> alineados por gen:</p>
 <ul>
@@ -488,8 +497,8 @@ prácticamente el mismo en ambos grupos.</p>
 </details>
 </div>
 <div class="section level2">
-<h2 id="paso-4-cambian-en-la-dirección-de-la-firma-la-importancia-de-la-referencia">5. Paso 4: ¿cambian en la dirección de la firma? La importancia de
-la referencia<a class="anchor" aria-label="anchor" href="#paso-4-cambian-en-la-direcci%C3%B3n-de-la-firma-la-importancia-de-la-referencia"></a>
+<h2 id="paso-4-cambian-en-la-dirección-de-la-firma-la-importancia-de-la-referencia">5. <strong>Paso 4:</strong> ¿cambian en la dirección de la firma? La
+importancia de la referencia<a class="anchor" aria-label="anchor" href="#paso-4-cambian-en-la-direcci%C3%B3n-de-la-firma-la-importancia-de-la-referencia"></a>
 </h2>
 <p>La firma dice qué genes están <strong>activados</strong> o
 <strong>reprimidos</strong> en las tolDC. ¿Coincide con nuestros
@@ -579,6 +588,136 @@ de protocolo entre estudios (citocinas, tiempos de cultivo) explican
 bien este nivel de discrepancia.</p>
 </details>
 </div>
+<div class="section level3">
+<h3 id="cuántos-genes-concuerdan-y-cuántos-divergen">5.2 ¿Cuántos genes concuerdan y cuántos divergen?<a class="anchor" aria-label="anchor" href="#cu%C3%A1ntos-genes-concuerdan-y-cu%C3%A1ntos-divergen"></a>
+</h3>
+<p>Una forma común de resumir la comparación con una firma es
+<strong>contar</strong>: para cada comparación contra los monocitos,
+cuántos DEG de la firma cambian en la dirección esperada
+(<strong>concordantes</strong>) y cuántos en la contraria
+(<strong>divergentes</strong>).</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">concordance_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">imap_dfr</a></span><span class="op">(</span><span class="va">de_celltype_results</span>, <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">comparison</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span>, <span class="va">padj</span> <span class="op">&lt;</span> <span class="va">padj_threshold</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">log2FoldChange</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="va">lfc_threshold</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">tolDC_genes</span>, by <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>comparison <span class="op">=</span> <span class="va">comparison</span>,</span>
+<span>           Group      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"_.*"</span>, <span class="st">""</span>, <span class="va">comparison</span><span class="op">)</span>,</span>
+<span>           status     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">log2FoldChange</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^Activated"</span>, <span class="va">tolDC_signature</span><span class="op">)</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>                               <span class="st">"Concordant"</span>, <span class="st">"Divergent"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># por comparación</span></span>
+<span><span class="va">concordance_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">comparison</span>, <span class="va">status</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">status</span>, values_from <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 3</span></span></span>
+<span><span class="co">#&gt;   comparison Concordant Divergent</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ctrl_moDC          17        47</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ctrl_tolDC         26        31</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> SLE_moDC           17        46</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> SLE_tolDC          26        33</span></span>
+<span></span>
+<span><span class="co"># por grupo (suma de las comparaciones moDC y tolDC)</span></span>
+<span><span class="va">concordance_counts</span> <span class="op">&lt;-</span> <span class="va">concordance_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Group</span>, <span class="va">status</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">status</span>, values_from <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">concordance_counts</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
+<span><span class="co">#&gt;   Group Concordant Divergent</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ctrl          43        78</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> SLE           43        79</span></span></code></pre></div>
+<p>Sumando las dos comparaciones, en los controles 43 genes concuerdan
+con la firma y 78 divergen; en las pacientes, 43 concuerdan y 79
+divergen. Ojo: aquí cada gen puede contarse dos veces (una en moDC y
+otra en tolDC).</p>
+<p>¿Qué genes concuerdan con la firma en las tolDC de
+<strong>ambos</strong> grupos?</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">concordant_tolDC</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">concordance_df</span><span class="op">$</span><span class="va">gene</span><span class="op">[</span><span class="va">concordance_df</span><span class="op">$</span><span class="va">comparison</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">group</span>, <span class="st">"_tolDC"</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>                        <span class="va">concordance_df</span><span class="op">$</span><span class="va">status</span> <span class="op">==</span> <span class="st">"Concordant"</span><span class="op">]</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">core_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect</a></span><span class="op">(</span><span class="fu">concordant_tolDC</span><span class="op">(</span><span class="st">"Ctrl"</span><span class="op">)</span>, <span class="fu">concordant_tolDC</span><span class="op">(</span><span class="st">"SLE"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">core_genes</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 25</span></span>
+<span><span class="va">core_genes</span></span>
+<span><span class="co">#&gt;  [1] "ADAMDEC1"  "C1QA"      "C1QB"      "C1S"       "CD163"     "CDH1"     </span></span>
+<span><span class="co">#&gt;  [7] "DRAM1"     "FAM20A"    "FCER1A"    "FCGR3A"    "HCAR2"     "HCAR3"    </span></span>
+<span><span class="co">#&gt; [13] "IGF2BP3"   "LINC01094" "MAFF"      "MAP4K1"    "MERTK"     "MS4A4A"   </span></span>
+<span><span class="co">#&gt; [19] "NRGN"      "PAPSS2"    "RNASE1"    "SCRN1"     "SEMA6B"    "TGFA"     </span></span>
+<span><span class="co">#&gt; [25] "VCL"</span></span></code></pre></div>
+<p>Estos 25 genes forman un <strong>núcleo tolerogénico</strong> que el
+protocolo con IL-10 reproduce igual en controles y en pacientes; entre
+ellos están <code>CD163</code>, <code>MERTK</code>, <code>C1QA</code>,
+<code>C1QB</code> y <code>RNASE1</code>.</p>
+<p>Pero los conteos anteriores usan los <strong>monocitos</strong> como
+referencia, y la sección 5.1 mostró que con esa referencia la dirección
+engaña. Repitamos el conteo con la referencia de la firma, tolDC contra
+moDC, para los 71 genes de la firma que son DEG:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Group      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">tol_vs_modc</span><span class="op">)</span>,</span>
+<span>       Concordant <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">tol_vs_modc</span><span class="op">)</span> <span class="op">==</span> <span class="va">expected</span><span class="op">)</span>,</span>
+<span>       Divergent  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">tol_vs_modc</span><span class="op">)</span> <span class="op">!=</span> <span class="va">expected</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
+<span><span class="co">#&gt;   Group Concordant Divergent</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ctrl          67         4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> SLE           65         6</span></span></code></pre></div>
+<div class="alert alert-info">
+<p><strong>Resultados</strong></p>
+<ul>
+<li>
+<strong>El protocolo con IL-10 reproduce un núcleo de la firma
+tolerogénica:</strong> 25 genes concuerdan con la firma en las tolDC de
+ambos grupos.</li>
+<li>
+<strong>La concordancia es igual en ambos grupos:</strong> 43 genes
+concordantes en controles y 43 en pacientes.</li>
+<li>
+<strong>La divergencia depende de la referencia:</strong> contra los
+monocitos muchos genes parecen ir en sentido contrario, pero contra las
+moDC, la referencia de la firma, casi todos concuerdan.</li>
+</ul>
+</div>
+<div class="callout-note">
+<p><strong>Reto 3.</strong> ¿Cuántos de los 25 genes del núcleo
+tolerogénico están activados y cuántos reprimidos en la firma? ¿Siguen
+concordando con la firma cuando la referencia es la moDC
+(<code>tol_vs_modc</code>)?</p>
+</div>
+<details class="callout-tip"><summary>
+Ver solución
+</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">core_expected</span> <span class="op">&lt;-</span> <span class="va">expected</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">core_genes</span>, <span class="va">signature_deg</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">core_expected</span> <span class="op">==</span> <span class="fl">1</span>, <span class="st">"Activated"</span>, <span class="st">"Repressed"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Activated Repressed </span></span>
+<span><span class="co">#&gt;        16         9</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></span><span class="op">(</span><span class="va">tol_vs_modc</span><span class="op">[</span><span class="va">core_genes</span>, <span class="op">]</span><span class="op">)</span> <span class="op">==</span> <span class="va">core_expected</span><span class="op">)</span> <span class="co"># genes concordantes</span></span>
+<span><span class="co">#&gt; Ctrl  SLE </span></span>
+<span><span class="co">#&gt;   25   25</span></span></code></pre></div>
+<p>Los 25 genes concuerdan con la firma también contra la moDC, en
+controles y en pacientes: son el núcleo más robusto del programa
+tolerogénico.</p>
+</details><div class="callout-note">
+<p><strong>Reto 4.</strong> ¿Qué gen concuerda con la firma en las tolDC
+de los controles, pero no en las de las pacientes? ¿Y al revés?</p>
+</div>
+<details class="callout-tip"><summary>
+Ver solución
+</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="fu">concordant_tolDC</span><span class="op">(</span><span class="st">"Ctrl"</span><span class="op">)</span>, <span class="fu">concordant_tolDC</span><span class="op">(</span><span class="st">"SLE"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "NDRG2"</span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="fu">concordant_tolDC</span><span class="op">(</span><span class="st">"SLE"</span><span class="op">)</span>, <span class="fu">concordant_tolDC</span><span class="op">(</span><span class="st">"Ctrl"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "C1orf115"</span></span></code></pre></div>
+<p>Solo un gen en cada sentido: el programa tolerogénico de las tolDC es
+prácticamente el mismo en ambos grupos.</p>
+</details>
+</div>
 </div>
 <div class="section level2">
 <h2 id="resumen">6. Resumen<a class="anchor" aria-label="anchor" href="#resumen"></a>
@@ -621,6 +760,13 @@ bien este nivel de discrepancia.</p>
 <td>resta de LFC</td>
 <td>Comparar dos tipos celulares sin repetir el análisis</td>
 </tr>
+<tr class="even">
+<td>Contar concordancias</td>
+<td>
+<code><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">imap_dfr()</a></code>, <code><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect()</a></code>
+</td>
+<td>Resumir cuántos genes siguen la firma en cada grupo</td>
+</tr>
 </tbody>
 </table>
 <div class="section level3">
@@ -659,7 +805,7 @@ página.</p>
 <div class="section level2">
 <h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>
 </h2>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.6.1 (2026-06-24)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>

@@ -62,8 +62,9 @@ necesites.
   es el doble; LFC = −1, la mitad; LFC = 0, sin cambio.
 - **Prueba de Wald**: prueba que usa `DESeq2` para evaluar si el LFC es
   distinto de cero.
-- **Valor p**: probabilidad de ver una diferencia así de grande si en
-  realidad no hubiera diferencia.
+- **Valor p**: probabilidad de observar datos tan extremos como los
+  nuestros si la hipótesis nula fuera cierta (aquí, si en realidad no
+  hubiera diferencia).
 - **Comparaciones múltiples**: al probar miles de genes, algunos saldrán
   significativos por azar.
 - **FDR** (*false discovery rate*): proporción esperada de falsos
@@ -373,8 +374,8 @@ head(res_mo[order(res_mo$padj), ])
 #> OTOF      725.570        5.08949  0.819047   6.21392 5.16796e-10 1.80439e-06
 #> SIGLEC1  8360.445        3.11093  0.521640   5.96375 2.46508e-09 5.73787e-06
 #> USP18     758.460        3.12316  0.541137   5.77148 7.85805e-09 1.37182e-05
-#> GMPR      403.561        1.64509  0.301470   5.45691 4.84499e-08 6.76651e-05
-#> IFI44L   6547.050        2.82422  0.550876   5.12678 2.94735e-07 2.72542e-04
+#> GMPR      403.561        1.64509  0.301470   5.45691 4.84500e-08 6.76652e-05
+#> IFI44L   6547.050        2.82422  0.550876   5.12678 2.94735e-07 2.72543e-04
 ```
 
 ¿Qué significa cada columna?

@@ -24,6 +24,8 @@ dendríticas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_mono
 4.  Calcular el cambio entre dos tipos celulares a partir de dos
     comparaciones con la misma referencia.
 5.  Reproducir la **Figura 6** del artículo.
+6.  Contar genes concordantes y divergentes con una firma e identificar
+    su núcleo común.
 
 **Tiempo estimado:** 1 hora.
 
@@ -54,7 +56,8 @@ necesites.
 
 - **Tolerancia inmunológica**: capacidad del sistema inmune de no atacar
   al propio cuerpo; en el lupus se pierde.
-- **tolDC**: células dendríticas tolerogénicas; promueven la tolerancia.
+- **tolDC**: células dendríticas tolerogénicas; promueven la tolerancia
+  inmunológica.
 - **Firma transcripcional**: conjunto de genes cuya expresión
   caracteriza a un tipo o estado celular.
 - **Activado / reprimido**: gen que sube / baja en el estado celular de
@@ -88,7 +91,7 @@ lfc_threshold  <- 1
 padj_threshold <- 0.05
 ```
 
-## 2. Paso 1: la firma de las tolDC
+## 2. **Paso 1:** la firma de las tolDC
 
 [Robertson et al. (2021)](https://doi.org/10.3389/fimmu.2021.733231)
 compararon tolDC generadas con distintos protocolos e identificaron los
@@ -134,7 +137,7 @@ Cada categoría tiene dos partes:
   dexametasona (`IL10+DXM`), o la firma de consenso de tolDC
   (`tolDC_signature`). Algunos genes aparecen en varios protocolos.
 
-## 3. Paso 2: ¿qué genes de la firma cambian en nuestros datos?
+## 3. **Paso 2:** ¿qué genes de la firma cambian en nuestros datos?
 
 Usamos los resultados de la lección anterior (`de_celltype_results`):
 cada célula dendrítica comparada contra los monocitos, en controles y
@@ -163,7 +166,7 @@ dplyr::count(signature_deg, biotype)
 nuestras células. Casi todos codifican proteínas (PCG); dos son RNA
 largos no codificantes (lncRNA).
 
-## 4. Paso 3: la Figura 6
+## 4. **Paso 3:** la Figura 6
 
 La figura tiene dos *heatmaps* alineados por gen:
 
@@ -343,7 +346,7 @@ lfc_sig[sign(lfc_sig[, "Ctrl_tolDC"]) != sign(lfc_sig[, "SLE_tolDC"]), ]
 Solo dos genes, y con LFC pequeños: el programa tolerogénico es
 prácticamente el mismo en ambos grupos.
 
-## 5. Paso 4: ¿cambian en la dirección de la firma? La importancia de la referencia
+## 5. **Paso 4:** ¿cambian en la dirección de la firma? La importancia de la referencia
 
 La firma dice qué genes están **activados** o **reprimidos** en las
 tolDC. ¿Coincide con nuestros LFC?
@@ -452,6 +455,144 @@ Son pocos genes, la mayoría con LFC cercanos a cero. Las diferencias de
 protocolo entre estudios (citocinas, tiempos de cultivo) explican bien
 este nivel de discrepancia.
 
+### 5.2 ¿Cuántos genes concuerdan y cuántos divergen?
+
+Una forma común de resumir la comparación con una firma es **contar**:
+para cada comparación contra los monocitos, cuántos DEG de la firma
+cambian en la dirección esperada (**concordantes**) y cuántos en la
+contraria (**divergentes**).
+
+``` r
+
+concordance_df <- imap_dfr(de_celltype_results, function(df, comparison) {
+  df %>%
+    filter(!is.na(padj), padj < padj_threshold, abs(log2FoldChange) >= lfc_threshold) %>%
+    inner_join(tolDC_genes, by = "gene") %>%
+    mutate(comparison = comparison,
+           Group      = sub("_.*", "", comparison),
+           status     = ifelse(sign(log2FoldChange) == ifelse(grepl("^Activated", tolDC_signature), 1, -1),
+                               "Concordant", "Divergent"))
+})
+
+# por comparación
+concordance_df %>%
+  dplyr::count(comparison, status) %>%
+  pivot_wider(names_from = status, values_from = n)
+#> # A tibble: 4 × 3
+#>   comparison Concordant Divergent
+#>   <chr>           <int>     <int>
+#> 1 Ctrl_moDC          17        47
+#> 2 Ctrl_tolDC         26        31
+#> 3 SLE_moDC           17        46
+#> 4 SLE_tolDC          26        33
+
+# por grupo (suma de las comparaciones moDC y tolDC)
+concordance_counts <- concordance_df %>%
+  dplyr::count(Group, status) %>%
+  pivot_wider(names_from = status, values_from = n)
+concordance_counts
+#> # A tibble: 2 × 3
+#>   Group Concordant Divergent
+#>   <chr>      <int>     <int>
+#> 1 Ctrl          43        78
+#> 2 SLE           43        79
+```
+
+Sumando las dos comparaciones, en los controles 43 genes concuerdan con
+la firma y 78 divergen; en las pacientes, 43 concuerdan y 79 divergen.
+Ojo: aquí cada gen puede contarse dos veces (una en moDC y otra en
+tolDC).
+
+¿Qué genes concuerdan con la firma en las tolDC de **ambos** grupos?
+
+``` r
+
+concordant_tolDC <- function(group) {
+  concordance_df$gene[concordance_df$comparison == paste0(group, "_tolDC") &
+                        concordance_df$status == "Concordant"]
+}
+core_genes <- sort(intersect(concordant_tolDC("Ctrl"), concordant_tolDC("SLE")))
+length(core_genes)
+#> [1] 25
+core_genes
+#>  [1] "ADAMDEC1"  "C1QA"      "C1QB"      "C1S"       "CD163"     "CDH1"     
+#>  [7] "DRAM1"     "FAM20A"    "FCER1A"    "FCGR3A"    "HCAR2"     "HCAR3"    
+#> [13] "IGF2BP3"   "LINC01094" "MAFF"      "MAP4K1"    "MERTK"     "MS4A4A"   
+#> [19] "NRGN"      "PAPSS2"    "RNASE1"    "SCRN1"     "SEMA6B"    "TGFA"     
+#> [25] "VCL"
+```
+
+Estos 25 genes forman un **núcleo tolerogénico** que el protocolo con
+IL-10 reproduce igual en controles y en pacientes; entre ellos están
+`CD163`, `MERTK`, `C1QA`, `C1QB` y `RNASE1`.
+
+Pero los conteos anteriores usan los **monocitos** como referencia, y la
+sección 5.1 mostró que con esa referencia la dirección engaña. Repitamos
+el conteo con la referencia de la firma, tolDC contra moDC, para los 71
+genes de la firma que son DEG:
+
+``` r
+
+tibble(Group      = colnames(tol_vs_modc),
+       Concordant = colSums(sign(tol_vs_modc) == expected),
+       Divergent  = colSums(sign(tol_vs_modc) != expected))
+#> # A tibble: 2 × 3
+#>   Group Concordant Divergent
+#>   <chr>      <dbl>     <dbl>
+#> 1 Ctrl          67         4
+#> 2 SLE           65         6
+```
+
+**Resultados**
+
+- **El protocolo con IL-10 reproduce un núcleo de la firma
+  tolerogénica:** 25 genes concuerdan con la firma en las tolDC de ambos
+  grupos.
+- **La concordancia es igual en ambos grupos:** 43 genes concordantes en
+  controles y 43 en pacientes.
+- **La divergencia depende de la referencia:** contra los monocitos
+  muchos genes parecen ir en sentido contrario, pero contra las moDC, la
+  referencia de la firma, casi todos concuerdan.
+
+**Reto 3.** ¿Cuántos de los 25 genes del núcleo tolerogénico están
+activados y cuántos reprimidos en la firma? ¿Siguen concordando con la
+firma cuando la referencia es la moDC (`tol_vs_modc`)?
+
+Ver solución
+
+``` r
+
+core_expected <- expected[match(core_genes, signature_deg$gene)]
+table(ifelse(core_expected == 1, "Activated", "Repressed"))
+#> 
+#> Activated Repressed 
+#>        16         9
+
+colSums(sign(tol_vs_modc[core_genes, ]) == core_expected) # genes concordantes
+#> Ctrl  SLE 
+#>   25   25
+```
+
+Los 25 genes concuerdan con la firma también contra la moDC, en
+controles y en pacientes: son el núcleo más robusto del programa
+tolerogénico.
+
+**Reto 4.** ¿Qué gen concuerda con la firma en las tolDC de los
+controles, pero no en las de las pacientes? ¿Y al revés?
+
+Ver solución
+
+``` r
+
+setdiff(concordant_tolDC("Ctrl"), concordant_tolDC("SLE"))
+#> [1] "NDRG2"
+setdiff(concordant_tolDC("SLE"), concordant_tolDC("Ctrl"))
+#> [1] "C1orf115"
+```
+
+Solo un gen en cada sentido: el programa tolerogénico de las tolDC es
+prácticamente el mismo en ambos grupos.
+
 ## 6. Resumen
 
 | Paso | Función clave | ¿Para qué? |
@@ -461,6 +602,7 @@ este nivel de discrepancia.
 | Expresión por muestra | `zscore_mat` | Ver la variabilidad entre muestras |
 | Cambio por comparación | LFC de `de_celltype_results` | Resumir el cambio de cada grupo |
 | Cambiar de referencia | resta de LFC | Comparar dos tipos celulares sin repetir el análisis |
+| Contar concordancias | [`imap_dfr()`](https://purrr.tidyverse.org/reference/map_dfr.html), [`intersect()`](https://generics.r-lib.org/reference/setops.html) | Resumir cuántos genes siguen la firma en cada grupo |
 
 ### Errores comunes de principiante
 

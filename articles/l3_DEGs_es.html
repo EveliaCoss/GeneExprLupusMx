@@ -67,7 +67,13 @@
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-registro-de-cambios" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Registro de cambios</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-registro-de-cambios">
+<li><a class="dropdown-item" href="../articles/news_es.html">ES - Registro de cambios</a></li>
+    <li><a class="dropdown-item" href="../news/index.html">EN - Changelog</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -228,8 +234,9 @@ cambio.</li>
 <strong>Prueba de Wald</strong>: prueba que usa <code>DESeq2</code>
 para evaluar si el LFC es distinto de cero.</li>
 <li>
-<strong>Valor p</strong>: probabilidad de ver una diferencia así de
-grande si en realidad no hubiera diferencia.</li>
+<strong>Valor p</strong>: probabilidad de observar datos tan
+extremos como los nuestros si la hipótesis nula fuera cierta (aquí, si
+en realidad no hubiera diferencia).</li>
 <li>
 <strong>Comparaciones múltiples</strong>: al probar miles de genes,
 algunos saldrán significativos por azar.</li>
@@ -524,8 +531,8 @@ la referencia, Ctrl):</p>
 <span><span class="co">#&gt; OTOF      725.570        5.08949  0.819047   6.21392 5.16796e-10 1.80439e-06</span></span>
 <span><span class="co">#&gt; SIGLEC1  8360.445        3.11093  0.521640   5.96375 2.46508e-09 5.73787e-06</span></span>
 <span><span class="co">#&gt; USP18     758.460        3.12316  0.541137   5.77148 7.85805e-09 1.37182e-05</span></span>
-<span><span class="co">#&gt; GMPR      403.561        1.64509  0.301470   5.45691 4.84499e-08 6.76651e-05</span></span>
-<span><span class="co">#&gt; IFI44L   6547.050        2.82422  0.550876   5.12678 2.94735e-07 2.72542e-04</span></span></code></pre></div>
+<span><span class="co">#&gt; GMPR      403.561        1.64509  0.301470   5.45691 4.84500e-08 6.76652e-05</span></span>
+<span><span class="co">#&gt; IFI44L   6547.050        2.82422  0.550876   5.12678 2.94735e-07 2.72543e-04</span></span></code></pre></div>
 <p>¿Qué significa cada columna?</p>
 <table class="table">
 <colgroup>

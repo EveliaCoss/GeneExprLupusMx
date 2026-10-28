@@ -67,8 +67,10 @@ necesites.
   causadas por *cuándo* o *cómo* se procesaron, no por la biología.
 - **Columna llave**: columna que comparten dos tablas y que sirve para
   unirlas (aquí, `Volunteer_ID`).
-- **ISG**: gen estimulado por interferón.
-- **SLEDAI**: índice clínico de actividad del lupus.
+- **ISG** (*interferon-stimulated genes*): genes que se encienden en
+  respuesta al interferón.
+- **SLEDAI** (*SLE Disease Activity Index*): puntaje de actividad del
+  lupus; más alto = enfermedad más activa.
 
 ## 1. Contexto biológico: ¿qué estamos estudiando?
 

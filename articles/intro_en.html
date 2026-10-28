@@ -67,7 +67,13 @@
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-registro-de-cambios" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Registro de cambios</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-registro-de-cambios">
+<li><a class="dropdown-item" href="../articles/news_es.html">ES - Registro de cambios</a></li>
+    <li><a class="dropdown-item" href="../news/index.html">EN - Changelog</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -463,11 +469,13 @@ with <code>DESeq2</code>, and interpret volcano plots</td>
 <td><a href="l4_GOterms_en.html">4. Biological functions of
 differentially expressed genes</a></td>
 <td>Run a functional enrichment analysis with g:Profiler, identify SLE
-and ISG genes, and interpret biological processes</td>
+and ISG genes, test their enrichment (hypergeometric and Fisher), and
+correlate ISGs with disease activity</td>
 <td>
 <code>de_results</code>, <code>go_results</code>,
 <code>sle_genes</code>, <code>isg_genes</code>,
-<code>biotype_summary</code>
+<code>biotype_summary</code>, <code>zscore_mat</code>,
+<code>metadata_cleaned</code>, <code>volunteer_info</code>
 </td>
 <td>1.5 h</td>
 </tr>
@@ -486,7 +494,8 @@ with known genes, and explore pathways and lipid metabolism</td>
 <td><a href="l6_DEGs_tolDcs_en.html">6. The transcriptional signature of
 tolerogenic dendritic cells</a></td>
 <td>Evaluate tolDC with a published signature, combine z-scores and LFC,
-and choose the right reference for comparison</td>
+choose the right reference for comparison, and identify the genes that
+agree with the signature</td>
 <td>
 <code>tolDC_genes</code>, <code>de_celltype_results</code>,
 <code>zscore_mat</code>
@@ -497,7 +506,8 @@ and choose the right reference for comparison</td>
 <td><a href="l7_DEGs_between_groups_en.html">7. Do patient and control
 cells differentiate in the same way?</a></td>
 <td>Fit a model with an interaction, interpret a “difference of
-differences”, and summarize the genes with Reactome processes</td>
+differences”, summarize the genes with Reactome processes, and plot
+expression trajectories</td>
 <td>
 <code>de_interaction_results</code>,
 <code>go_interaction_results</code>, <code>zscore_mat</code>,
@@ -508,7 +518,7 @@ differences”, and summarize the genes with Reactome processes</td>
 </tbody>
 </table>
 <p>Each lesson includes <strong>challenges</strong> with their solutions
-for practice, and ends by reproducing a supplementary figure from the
+for practice, and ends by reproducing a figure or table from the
 article.</p>
 </div>
 <div class="section level2">

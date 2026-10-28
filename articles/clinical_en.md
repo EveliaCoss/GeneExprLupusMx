@@ -419,6 +419,16 @@ table1 %>%
 | Azathioprine, n (%)                  | 0 (NaN%)     | 6 (26%)         |
 | Methotrexate, n (%)                  | 0 (NaN%)     | 1 (4%)          |
 
+**Table 1.** Sociodemographic and clinical characteristics of the 33
+volunteers: 10 healthy controls (Ctrl) and 23 patients with systemic
+lupus erythematosus (SLE). Continuous variables are summarized as mean
+(SD) or median \[IQR\], and categorical variables as n (%). Active
+disease was defined as a SLEDAI score ≥ 6. SD, standard deviation; IQR,
+interquartile range; SLEDAI, SLE Disease Activity Index.
+
+The original table can be found in the
+[article](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full).
+
 In controls, the clinical rows appear as `NA`, `NaN`, or `0 (NaN%)`
 because those variables do not apply: they have no diagnosis or
 treatment. In an article we would write them as “—”.
