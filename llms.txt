@@ -29,6 +29,9 @@ You can install the development version of GeneExprLupusMx from
 
 ``` r
 
+
+
+
 # install.packages("pak")
 pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
@@ -39,6 +42,9 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 
+
+
+
 library(GeneExprLupusMx)
 ## basic example code
 ```
@@ -47,6 +53,9 @@ What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
 
 ``` r
+
+
+
 
 summary(metadata_cleaned)
 #>    sample_ID   Group     GC      Dose    Dose_category      Age    
@@ -82,6 +91,9 @@ is handy for this.
 
 ``` r
 
+
+
+
 str(filtered_txi)
 #> List of 4
 #>  $ abundance          : num [1:21718, 1:99] 7.504 2.357 0 0.228 0.36 ...
@@ -107,13 +119,17 @@ str(filtered_txi)
   : Filtered transcript count data
 - [`metadata_cleaned`](https://eveliacoss.github.io/GeneExprLupusMx/reference/metadata_cleaned.md)
   : Cleaned metadata with patient and cell type annotations
+- [`volunteer_info`](https://eveliacoss.github.io/GeneExprLupusMx/reference/volunteer_info.md)
+  : Clinical information per volunteer
 
 # Articles
 
 ### All vignettes
 
+- [Conociendo a las
+  participantes](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.md):
 - [Get started with
   GeneExprLupusMx](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_en.md):
-- [Primeros pasos con el paquete
-  GeneExprLupusMx](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md):
+- [De las cuentas de RNA-seq a la exploración de
+  datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_es.md):
 - [intro](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro.md):
