@@ -11,6 +11,31 @@
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Lección 4: Funciones biológicas de los genes diferencialmente expresados">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+  /* Títulos del contenido (no afecta al menú ni a la barra lateral) */
+  main h1, main h2, main h3, main h4, main h5, main h6 {
+    font-family: "News Cycle", "Arial Narrow Bold", sans-serif !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+    color: #007f99;
+  }
+  /* Código dentro del texto (p. ej., dplyr/ggplot2) con el mismo color que el código de los enlaces */
+  main :not(pre) > code { color: #007f99; }
+  /* Línea al inicio de cada página (debajo del título y de "Código: ...") */
+  main .page-header { border-bottom: 6px solid #007f99; }
+  /* Citas (texto con >) en amarillo claro de la paleta */
+  main blockquote {
+    background: #FCF5D9;
+    border-left: 5px solid #F2D77A;
+    border-radius: .25rem;
+    padding: .75rem 1rem;
+    margin: 1rem 0;
+    color: #14164D;
+  }
+  main blockquote > :last-child { margin-bottom: 0; }
+</style>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Ir al contenido</a>
@@ -38,8 +63,8 @@
   </ul>
 </li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-art-culos" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Artículos</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-art-culos">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-tutoriales" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Tutoriales</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-tutoriales">
 <li><h6 class="dropdown-header" data-toc-skip>ES - Tutoriales en español</h6></li>
     <li><a class="dropdown-item" href="../articles/clinical_es.html">1 - Conociendo a las participantes</a></li>
     <li><a class="dropdown-item" href="../articles/intro_RNAseq_es.html">2 - De las cuentas de RNA-seq a la exploración de datos</a></li>
@@ -57,6 +82,13 @@
     <li><a class="dropdown-item" href="../articles/l5_DEGs_monocytes_diff_en.html">5 - Differentiation of monocytes into dendritic cells</a></li>
     <li><a class="dropdown-item" href="../articles/l6_DEGs_tolDcs_en.html">6 - The transcriptional signature of tolerogenic dendritic cells</a></li>
     <li><a class="dropdown-item" href="../articles/l7_DEGs_between_groups_en.html">7 - Do patient and control cells differentiate in the same way?</a></li>
+  </ul>
+</li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-funciones" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Funciones</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-funciones">
+<li><a class="dropdown-item" href="../articles/functions_es.html">ES - Cómo usar las funciones del paquete</a></li>
+    <li><a class="dropdown-item" href="../articles/functions_en.html">EN - How to use the package functions</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
@@ -113,11 +145,24 @@ enriquecimiento funcional con g:Profiler</h3>
   padding: .75rem 1rem;
   margin: 1rem 0;
 }
-.callout-note { border-color: #0758E5; background: rgba(7, 88, 229, .06); }
+.callout-note { border-color: #7F62B3; background: rgba(127, 98, 179, .07); } /* retos: morado de la paleta */
 .callout-tip  { border-color: #00A047; background: rgba(0, 160, 71, .06); }
 .callout-note > :last-child { margin-bottom: 0; }
 .callout-tip > summary { cursor: pointer; font-weight: bold; color: #00A047; }
 .callout-tip[open] > summary { margin-bottom: .75rem; }
+
+/* Notas con los colores del tema */
+.alert.alert-info, .alert.alert-warning {
+  border: 1px solid;
+  border-left-width: 5px;
+  border-radius: .25rem;
+  padding: .75rem 1rem;
+  margin: 1rem 0;
+  color: #14164D;
+}
+.alert.alert-info    { background-color: #E8F6F4; border-color: #96D4CC; } /* azul bajo: grupo control */
+.alert.alert-warning { background-color: #FCF5D9; border-color: #F2D77A; } /* amarillo bajo */
+.alert.alert-info > :last-child, .alert.alert-warning > :last-child { margin-bottom: 0; }
 
 /* Diagrama mermaid sin el fondo gris de los bloques de código */
 pre.mermaid { background: none; border: 0; text-align: center; }
@@ -135,15 +180,15 @@ pre.mermaid { background: none; border: 0; text-align: center; }
 }
 .lesson-nav a {
   padding: .5rem 1rem;
-  border: 1px solid #000;
+  border: 1px solid #7F62B3;
   border-radius: .25rem;
-  background: #000;
-  color: #4DA3FF !important; /* azul legible sobre negro */
+  background: #7F62B3; /* morado de la paleta */
+  color: #fff !important; /* letras blancas */
   text-decoration: none;
 }
 .lesson-nav a:hover {
-  background: #6f42c1; /* morado */
-  border-color: #6f42c1;
+  background: #3D3F8F; /* morado oscuro de la barra de navegación */
+  border-color: #3D3F8F;
   color: #fff !important;
 }
 .lesson-nav .lesson-next { margin-left: auto; }
@@ -156,13 +201,80 @@ pre.mermaid { background: none; border: 0; text-align: center; }
   z-index: 1000;
   padding: .4rem .9rem;
   border-radius: 2rem;
-  background: #0758E5;
-  color: #fff !important;
+  background: #96D4CC; /* color del grupo control */
+  color: #000 !important;
+  border: 1px solid #7CC3B9;
   text-decoration: none;
   font-size: .9rem;
-  opacity: .85;
+  opacity: .95;
 }
-.back-to-top:hover { opacity: 1; }
+.back-to-top:hover { background: #7CC3B9; opacity: 1; }
+
+/* ----------- Diseño en tablas -------------  */
+
+/* Variable de color de los bordes (lila claro de la paleta del tema) */
+:root { --border: #DFE2FB; }
+
+/* Estilo general para tablas */
+
+table {
+  width: 100%;                          /* La tabla ocupa todo el ancho disponible */
+  background: #FFFFFF;              /* Fondo blanco */
+  border-collapse: separate;            /* Mantiene los bordes separados (no colapsados) */
+  border-spacing: 0;                    /* Elimina el espacio entre celdas */
+  border: 1px solid var(--border);      /* Aplica un borde usando la variable CSS --border */
+  border-radius: 8px;                   /* Bordes redondeados en la tabla */
+  overflow: hidden;                     /* Oculta contenido que se salga del área de la tabla */
+  margin: 1rem 0;                       /* Espacio arriba y abajo de la tabla */
+  font-size: 0.96rem;                   /* Tamaño de fuente ligeramente más pequeño que el normal */
+  box-shadow:                           /* Sombra para dar efecto de “tarjeta flotante” */
+    0 10px 24px rgba(20, 22, 77, 0.10),  /* sombra difusa grande (azul marino) */
+    0 0 18px rgba(127, 98, 179, 0.10); /* sombra suave con tono morado */
+}
+
+/* Encabezados estáticos */
+table th {
+  background-color: #3D3F8F; /* morado oscuro de la barra de navegación */
+  color: white;              /* letras blancas */
+  padding: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Celdas, td: celdas */
+table td {
+  border: 1px solid #ddd;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 8px;
+}
+
+/* Filas alternas */
+table tr:nth-child(even) {
+  background-color: #ECEEFE; /* lila claro de la paleta */
+}
+
+/* ----- Hover en columnas completas ----- */
+table th:hover { /*  si pasas el mouse sobre un encabezado (th), también se aplica el color de fondo. */
+  background-color: #7F62B3; /* morado de la paleta al pasar el mouse */
+}
+
+/* ----- Hover en filas ----- */
+tbody tr:hover {
+  background: #E8F6F4;
+}
+
+tbody tr:hover > * {
+  background: #E8F6F4;
+}
+
+/* ----- Ajustes para que el estilo de tablas se aplique sobre Bootstrap (pkgdown) ----- */
+main table { display: table; }                                  /* pkgdown usa display: block; así las filas ocupan todo el ancho */
+main table.table { --bs-table-bg: transparent; }                /* Bootstrap pinta cada celda; sin esto tapa los colores */
+main table.table > :not(caption) > * > th { background-color: #3D3F8F; color: white; text-align: center; }
+main table.table > :not(caption) > * > th:hover { background-color: #7F62B3; }
+main table.table > tbody > tr:nth-child(even) > td { background-color: #ECEEFE; }
+main table.table > tbody > tr:hover > * { background: #E8F6F4; }
 </style>
 <div class="section level2">
 <h2 id="bienvenida">Bienvenida<a class="anchor" aria-label="anchor" href="#bienvenida"></a>

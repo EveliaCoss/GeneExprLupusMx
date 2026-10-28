@@ -19,6 +19,8 @@ Versión inicial de GeneExprLupusMx.
   - `l5_DEGs_monocytes_diff` (Lección 5): diferenciación de monocitos a células dendríticas; Figuras 4 y 5.
   - `l6_DEGs_tolDcs` (Lección 6): firma transcripcional de las tolDC; Figura 6, y genes concordantes y divergentes con la firma de Robertson et al.
   - `l7_DEGs_between_groups` (Lección 7): modelo con interacción `Group:Cell_type`; Figuras 7A y 7B, y figura suplementaria de trayectorias de expresión de los DEG de interacción.
+- Guía de cómo usar las funciones del paquete (`functions_es`, `functions_en`), con ejemplos reales de `get_heatmap_mat()`, `create_heatmap()`, `processGO()` y `Reduce_GOTerm()`.
+- La lección 7 termina con una figura ilustrativa que resume los hallazgos de la ruta de aprendizaje.
 - Páginas de descarga de datos en español e inglés (`download_es`, `download_en`).
 - Cada lección abre con una imagen ilustrativa de resumen (después del glosario), en español e inglés: datos de entrada, los pasos de la lección con sus figuras reales, hallazgos clave y *checkpoints*.
 - Cada lección incluye glosario, mapa de la lección, retos con solución, pies de figura y de tabla con valores calculados en el código y botones de navegación por idioma.
@@ -41,4 +43,4 @@ Versión inicial de GeneExprLupusMx.
 - README bilingüe (español e inglés).
 - Registro de cambios en español (esta página) e inglés (`NEWS.md`).
 - Archivo `inst/CITATION`: `citation("GeneExprLupusMx")` devuelve el artículo original.
-- Menús de pkgdown para las lecciones en español e inglés, la descarga de datos y el registro de cambios.
+- Menús de pkgdown: Getting started, Tutoriales (lecciones en español e inglés), Funciones, descarga de datos y registro de cambios; botones de navegación con letras blancas.

@@ -120,23 +120,6 @@ To learn about each column in detail, see the help pages: `?filtered_txi`, `?met
 
 The lessons are designed to be followed in order, but each one can be read on its own.
 
-```{=html}
-<pre class="mermaid">
-flowchart LR
-  P["Get started<br/>(this page)"] --> L1["1. Meeting the participants:<br/>descriptive statistics"]
-  L1 --> L2["2. From RNA-seq counts<br/>to data exploration"]
-  L2 --> L3["3. Differentially<br/>expressed genes"]
-  L3 --> L4["4. Biological functions<br/>of DEGs"]
-  L4 --> L5["5. Differentiation of monocytes<br/>into dendritic cells"]
-  L5 --> L6["6. The signature of tolerogenic<br/>dendritic cells"]
-  L6 --> L7["7. Do patient and control cells<br/>differentiate in the same way?"]
-</pre>
-<script type="module">
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-  mermaid.initialize({ startOnLoad: true });
-</script>
-```
-
 | Lesson | You will learn to… | Data | Time |
 |---------|---------------|-------|--------|
 | [1. Meeting the participants](clinical_en.html) | Describe the cohort with descriptive statistics, tables, normality tests, and comparisons between groups | `volunteer_info` | 45 to 60 min |
@@ -148,6 +131,8 @@ flowchart LR
 | [7. Do patient and control cells differentiate in the same way?](l7_DEGs_between_groups_en.html) | Fit a model with an interaction, interpret a "difference of differences", summarize the genes with Reactome processes, and plot expression trajectories | `de_interaction_results`, `go_interaction_results`, `zscore_mat`, `isg_genes` | 1.5 h |
 
 Each lesson includes **challenges** with their solutions for practice, and ends by reproducing a figure or table from the article.
+
+In addition, the guide [How to use the package functions](functions_en.html) shows how to apply `get_heatmap_mat()`, `create_heatmap()`, `processGO()` and `Reduce_GOTerm()` to your own data.
 
 ## How to cite
 
