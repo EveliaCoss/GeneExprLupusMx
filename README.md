@@ -7,6 +7,8 @@
 
 <!-- badges: start -->
 
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-3D3F8F.svg)](LICENSE.md)
 <!-- badges: end -->
 
 **[Español](#español) \| [English](#english)**
@@ -203,6 +205,14 @@ Ontology](https://geneontology.org/) y
 [Reactome](https://reactome.org/), y a las voluntarias que participaron
 en el estudio.
 
+### Licencia
+
+El código del paquete se distribuye bajo la [licencia MIT](LICENSE.md).
+Los datos originales provienen de las fuentes indicadas en [Origen de
+los datos](#origen-de-los-datos) (el registro de Zenodo usa la licencia
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)); si los usas,
+cita el artículo y el registro de Zenodo.
+
 ------------------------------------------------------------------------
 
 ## English
@@ -388,3 +398,11 @@ We also thank the open resources
 Ontology](https://geneontology.org/) and
 [Reactome](https://reactome.org/), and the volunteers who took part in
 the study.
+
+### License
+
+The package code is released under the [MIT license](LICENSE.md). The
+original data come from the sources listed in [Data
+sources](#data-sources) (the Zenodo record uses the [CC BY
+4.0](https://creativecommons.org/licenses/by/4.0/) license); if you use
+them, please cite the article and the Zenodo record.
