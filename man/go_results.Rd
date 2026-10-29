@@ -22,7 +22,7 @@ A data frame with 943 rows (significant terms) and 10 columns:
 }
 }
 \source{
-g:Profiler (\url{https://biit.cs.ut.ee/gprofiler}).
+g:Profiler (\url{https://biit.cs.ut.ee/gprofiler/}).
 }
 \usage{
 go_results

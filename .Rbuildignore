@@ -12,3 +12,4 @@
 ^vignettes/articles$
 ^CITATION\.cff$
 ^\.zenodo\.json$
+^\.lintr$

@@ -33,7 +33,7 @@
 #'   it is stored in \code{attr(go_results, "gprofiler_version")}. The script
 #'   that generates it is \code{data-raw/lesson4_checkpoints.R}.
 #'
-#' @source g:Profiler (\url{https://biit.cs.ut.ee/gprofiler}).
+#' @source g:Profiler (\url{https://biit.cs.ut.ee/gprofiler/}).
 #'
 #' @examples
 #' table(go_results$query)

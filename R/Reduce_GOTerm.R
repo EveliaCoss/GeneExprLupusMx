@@ -23,22 +23,32 @@
 #'   enrichment files.
 #'
 #' @examples
-#' \dontrun{
-#' # Analyze a specific UP-regulated dataset
-#' processGO(
-#'   f = "data/enrichment/UP_GO_MySample1.RData",
-#'   direction = "UP",
-#'   outdir = "results/GO_terms/",
-#'   figdir = "figures/GO_terms/"
-#' )
+#' \donttest{
+#' if (all(vapply(c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2"),
+#'                requireNamespace, logical(1), quietly = TRUE))) {
+#'   # Enrichment table with the columns go_id, term and p.adjust
+#'   go_bp <- go_celltype_results[go_celltype_results$query == "SLE_UP_moDC" &
+#'                                  go_celltype_results$source == "GO:BP", ]
+#'   go_bp <- head(go_bp[order(go_bp$p_value), ], 60)
+#'   go_table <- data.frame(go_id = go_bp$term_id, term = go_bp$term_name,
+#'                          p.adjust = go_bp$p_value)
+#'
+#'   go_dir <- file.path(tempdir(), "processGO_example")
+#'   dir.create(go_dir, showWarnings = FALSE)
+#'   f <- file.path(go_dir, "UP_GO_SLE_moDC.RData")
+#'   save(go_table, file = f)
+#'
+#'   processGO(f, direction = "UP", outdir = go_dir, figdir = go_dir)
+#'   list.files(go_dir)
+#' }
 #' }
 #'
 #' @export
 processGO <- function(f, direction = c("UP", "DOWN"), outdir, figdir) {
-  if (!requireNamespace("rrvgo", quietly = TRUE) ||
-      !requireNamespace("org.Hs.eg.db", quietly = TRUE)) {
-    stop("Install rrvgo and org.Hs.eg.db to use this function: ",
-         "BiocManager::install(c('rrvgo', 'org.Hs.eg.db'))")
+  pkgs <- c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2")
+  if (!all(vapply(pkgs, requireNamespace, logical(1), quietly = TRUE))) {
+    stop("Install rrvgo, org.Hs.eg.db, dplyr and ggplot2 to use this function: ",
+         "BiocManager::install(c('rrvgo', 'org.Hs.eg.db', 'dplyr', 'ggplot2'))")
   }
   direction <- match.arg(direction)
   plot_name <- gsub(paste0("^", direction, "_GO_(.+)\\.RData$"), "\\1", basename(f))
@@ -47,72 +57,100 @@ processGO <- function(f, direction = c("UP", "DOWN"), outdir, figdir) {
   message("Dataset: ", plot_name)
   message("------------------------------------")
 
-  # Cargar el archivo y detectar el nombre del objeto
+  bar_data <- read_go_file(f)
+  if (is.null(bar_data)) {
+    return(invisible(NULL))
+  }
+  reduced <- reduce_go_similarity(bar_data, plot_name)
+  if (is.null(reduced)) {
+    return(invisible(NULL))
+  }
+  save_reduced_go(bar_data, reduced, direction, plot_name, outdir)
+  plot_reduced_go(reduced$reducedTerms, direction, plot_name, figdir)
+  invisible(NULL)
+}
+
+# Carga un .RData con una sola tabla de enriquecimiento y quita los go_id
+# vacíos o repetidos. Regresa NULL (con un mensaje) si no se puede analizar.
+#' @noRd
+read_go_file <- function(f) {
   env <- new.env() # entorno aparte, sin contaminar el resto
   load(f, envir = env)
   obj_names <- ls(env)
-
   if (length(obj_names) != 1) {
     stop("El archivo debe contener exactamente un objeto. Se encontraron: ",
-         paste(obj_names, collapse = ", "))
+         toString(obj_names))
   }
 
-  bar_data <- env[[obj_names[1]]]
-
+  bar_data <- env[[obj_names]]
   if (!("go_id" %in% colnames(bar_data))) {
     message("No 'go_id' column found. Skipping file: ", f)
-    return(invisible(NULL))
+    return(NULL)
   }
 
-  bar_data <- bar_data[!is.na(bar_data$go_id), ]
-  bar_data <- bar_data[!duplicated(bar_data$go_id), ]
-
+  bar_data <- bar_data[!is.na(bar_data$go_id) & !duplicated(bar_data$go_id), ]
   if (nrow(bar_data) < 40) {
     message("Dataset has fewer than 40 unique GO terms. Skipping.")
-    return(invisible(NULL))
-  }
-
-  message("Create simMatrix")
-  simMatrix <- tryCatch({
-    rrvgo::calculateSimMatrix(bar_data$go_id, orgdb = "org.Hs.eg.db", ont = "BP", method = "Rel")
-  }, error = function(e) {
-    message("Failed to calculate simMatrix: ", e$message)
     return(NULL)
-  })
+  }
+  bar_data
+}
 
-  if (is.null(simMatrix) || !is.matrix(simMatrix) || length(dim(simMatrix)) != 2) {
+# Agrupa los términos GO por similitud semántica (rrvgo). Regresa
+# list(simMatrix, reducedTerms) o NULL (con un mensaje) si falla.
+#' @noRd
+reduce_go_similarity <- function(bar_data, plot_name) {
+  message("Create simMatrix")
+  simMatrix <- tryCatch(
+    rrvgo::calculateSimMatrix(bar_data$go_id, orgdb = "org.Hs.eg.db",
+                              ont = "BP", method = "Rel"),
+    error = function(e) {
+      message("Failed to calculate simMatrix: ", e$message)
+      NULL
+    }
+  )
+  if (!is.matrix(simMatrix)) {
     message("Invalid simMatrix structure. Skipping dataset: ", plot_name)
-    return(invisible(NULL))
+    return(NULL)
   }
 
   message("Reduce semantic similarity")
   scores <- stats::setNames(-log10(bar_data$p.adjust), bar_data$go_id)
-  reducedTerms <- tryCatch({
-    rrvgo::reduceSimMatrix(simMatrix, scores, threshold = 0.7, orgdb = "org.Hs.eg.db")
-  }, error = function(e) {
-    message("reduceSimMatrix() failed: ", e$message)
-    return(NULL)
-  })
-
+  reducedTerms <- tryCatch(
+    rrvgo::reduceSimMatrix(simMatrix, scores, threshold = 0.7, orgdb = "org.Hs.eg.db"),
+    error = function(e) {
+      message("reduceSimMatrix() failed: ", e$message)
+      NULL
+    }
+  )
   if (is.null(reducedTerms)) {
     message("No reduced terms could be computed.")
-    return(invisible(NULL))
+    return(NULL)
   }
+  list(simMatrix = simMatrix, reducedTerms = reducedTerms[reducedTerms$size != 0, ])
+}
 
-  reducedTerms <- reducedTerms[reducedTerms$size != 0, ]
+# Guarda los términos reducidos y su unión con la tabla original
+#' @noRd
+save_reduced_go <- function(bar_data, reduced, direction, plot_name, outdir) {
+  reducedTerms <- reduced$reducedTerms
+  simMatrix <- reduced$simMatrix
+  suffix <- paste0(direction, "_", plot_name, ".RData")
   save(reducedTerms, simMatrix,
-       file = file.path(outdir, paste0("reducedTerms_simMatrix_", direction, "_", plot_name, ".RData")))
+       file = file.path(outdir, paste0("reducedTerms_simMatrix_", suffix)))
 
   message("Merge metadata")
   joined_data <- dplyr::left_join(bar_data, reducedTerms, by = "term")
   joined_data <- joined_data[!is.na(joined_data$parentTerm), ]
-  save(joined_data,
-       file = file.path(outdir, paste0("geneListAndGOterms_", direction, "_", plot_name, ".RData")))
+  save(joined_data, file = file.path(outdir, paste0("geneListAndGOterms_", suffix)))
+}
 
+# Guarda el treemap y la gráfica de barras de los términos padre
+#' @noRd
+plot_reduced_go <- function(reducedTerms, direction, plot_name, figdir) {
   message("Save treemap plot")
-  grDevices::png(file = file.path(figdir, paste0("GOTerm_", direction, "_Treemap_", plot_name, ".png")))
-  rrvgo::treemapPlot(reducedTerms)
-  grDevices::dev.off()
+  save_treemap(reducedTerms,
+               file.path(figdir, paste0("GOTerm_", direction, "_Treemap_", plot_name, ".png")))
 
   df <- dplyr::summarise(dplyr::group_by(reducedTerms, parentTerm), count = dplyr::n())
   df <- dplyr::arrange(df, dplyr::desc(count))
@@ -128,7 +166,14 @@ processGO <- function(f, direction = c("UP", "DOWN"), outdir, figdir) {
 
   ggplot2::ggsave(filename = file.path(figdir, paste0("GOTerm_", direction, "_ReducedBar_", plot_name, ".png")),
                   plot = bar_plot, width = 30, height = 25, units = "cm", dpi = 300)
-  invisible(NULL)
+}
+
+# Dibuja el treemap de rrvgo en un PNG; el dispositivo se cierra aunque falle
+#' @noRd
+save_treemap <- function(reducedTerms, path) {
+  grDevices::png(filename = path)
+  on.exit(grDevices::dev.off(), add = TRUE)
+  rrvgo::treemapPlot(reducedTerms)
 }
 
 
@@ -174,13 +219,25 @@ processGO <- function(f, direction = c("UP", "DOWN"), outdir, figdir) {
 #' @seealso \code{\link{processGO}} for analyzing individual files.
 #'
 #' @examples
-#' \dontrun{
-#' # Batch process all GO enrichment results in the directory
-#' Reduce_GOTerm(
-#'   indir = "data/enrichment/",
-#'   outdir = "results/GO_reduced/",
-#'   figdir = "figures/GO_terms/"
-#' )
+#' \donttest{
+#' if (all(vapply(c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2"),
+#'                requireNamespace, logical(1), quietly = TRUE))) {
+#'   indir <- file.path(tempdir(), "Reduce_GOTerm_example")
+#'   dir.create(indir, showWarnings = FALSE)
+#'
+#'   # One file per enrichment result, named UP_GO_<name>.RData or DOWN_GO_<name>.RData
+#'   for (q in c("SLE_UP_moDC", "SLE_DOWN_moDC")) {
+#'     go_bp <- go_celltype_results[go_celltype_results$query == q &
+#'                                    go_celltype_results$source == "GO:BP", ]
+#'     go_bp <- head(go_bp[order(go_bp$p_value), ], 60)
+#'     go_table <- data.frame(go_id = go_bp$term_id, term = go_bp$term_name,
+#'                            p.adjust = go_bp$p_value)
+#'     direction <- if (grepl("_UP_", q, fixed = TRUE)) "UP" else "DOWN"
+#'     save(go_table, file = file.path(indir, paste0(direction, "_GO_moDC.RData")))
+#'   }
+#'
+#'   Reduce_GOTerm(indir = indir, outdir = tempdir(), figdir = tempdir())
+#' }
 #' }
 #'
 #' @export

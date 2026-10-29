@@ -21,7 +21,7 @@
 #'   used; it is stored in \code{attr(go_interaction_results, "gprofiler_version")}.
 #'   The script that generates it is \code{data-raw/lesson7_checkpoints.R}.
 #'
-#' @source g:Profiler (\url{https://biit.cs.ut.ee/gprofiler}).
+#' @source g:Profiler (\url{https://biit.cs.ut.ee/gprofiler/}).
 #'
 #' @seealso \code{\link{de_interaction_results}}, \code{\link{go_celltype_results}}
 #'

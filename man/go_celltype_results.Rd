@@ -12,7 +12,7 @@ columns as \code{\link{go_results}}: \code{query}, \code{source},
 \code{intersection}.
 }
 \source{
-g:Profiler (\url{https://biit.cs.ut.ee/gprofiler}).
+g:Profiler (\url{https://biit.cs.ut.ee/gprofiler/}).
 }
 \usage{
 go_celltype_results
