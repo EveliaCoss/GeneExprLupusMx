@@ -35,13 +35,12 @@ La descripción completa de cada objeto está en la [Referencia](https://eveliac
 
 ## 2. Origen de los datos
 
-Los datos de este paquete provienen del estudio publicado en *Frontiers in Immunology*. Se obtuvieron de tres fuentes, que aquí se reorganizaron en objetos de R listos para usar:
+Los datos de este paquete provienen del estudio publicado en *Frontiers in Immunology*. Los datos y el código se obtuvieron de dos fuentes, que aquí se reorganizaron en objetos de R listos para usar. Si usas los datos, cita ambas fuentes (ver la sección 7, "Cómo citar"):
 
 | Fuente | ¿Qué contiene? |
 |--------|----------------|
 | [Artículo original](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full) | Diseño del estudio, métodos, figuras y material suplementario (incluida la Tabla suplementaria 2 con los identificadores de EGA) |
-| [Zenodo: registro 17742206](https://zenodo.org/records/17742206) | Análisis de expresión génica depositado por las autoras: cuantificación con nf-core/rnaseq (Salmon) y análisis con `tximport` y `DESeq2` |
-| [GitHub: NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic) | Código del análisis original y sus figuras, por ejemplo las de la [Figura 2](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic/tree/main/figures/fig2) |
+| [Zenodo: registro 17742206](https://zenodo.org/records/17742206) | Datos y código del análisis de expresión génica depositados por las autoras: cuantificación con nf-core/rnaseq (Salmon) y análisis con `tximport` y `DESeq2` |
 
 Los scripts de la carpeta [`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw) documentan cómo se generó cada objeto del paquete a partir de estas fuentes.
 
@@ -107,7 +106,7 @@ En R, `citation("GeneExprLupusMx")` muestra la cita del paquete.
 
 ### 7.2 Citar los datos
 
-Los datos provienen del artículo original y del análisis depositado en Zenodo:
+Los datos y el código provienen del artículo original y del análisis depositado en Zenodo:
 
 > Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full). *Front. Immunol.* 17:1771959. [doi: 10.3389/fimmu.2026.1771959](https://doi.org/10.3389/fimmu.2026.1771959).
 

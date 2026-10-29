@@ -112,16 +112,13 @@ controlado; los identificadores se encuentran en la Tabla suplementaria
 
 ### Origen de los datos
 
-Los datos de este paquete provienen del [artículo
-original](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full),
-del análisis depositado en
-[Zenodo](https://doi.org/10.5281/zenodo.17742206) y del repositorio de
-código
-[NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic)
-(por ejemplo, las figuras de la [Figura
-2](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic/tree/main/figures/fig2)).
-Aquí se reorganizaron en objetos de R listos para usar; los scripts de
-`data-raw/` documentan cada paso.
+Los datos y el código en los que se basa este paquete provienen del
+[artículo
+original](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full)
+y del análisis depositado en
+[Zenodo](https://doi.org/10.5281/zenodo.17742206); por favor, cita ambas
+fuentes (ver “Cómo citar los datos”). Aquí se reorganizaron en objetos
+de R listos para usar; los scripts de `data-raw/` documentan cada paso.
 
 ### Cómo citar
 
@@ -149,8 +146,8 @@ citation("GeneExprLupusMx")
 
 #### 2) Cómo citar los datos
 
-Los datos provienen del artículo original y del análisis depositado en
-Zenodo:
+Los datos y el código provienen del artículo original y del análisis
+depositado en Zenodo:
 
 > Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
 > expression profiling of dendritic cell tolerance dysfunction in women
@@ -319,16 +316,12 @@ article.
 
 ### Data sources
 
-The data in this package come from the [original
-article](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full),
-the analysis deposited in
-[Zenodo](https://doi.org/10.5281/zenodo.17742206) and the code
-repository
-[NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic)
-(for example, the [Figure
-2](https://github.com/NeuroGenomicsMX/SLE_Transcriptomic_analysis_tolerogenic/tree/main/figures/fig2)
-figures). Here they were reorganized into ready-to-use R objects; the
-`data-raw/` scripts document each step.
+The data and code on which this package is based come from the [original
+article](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full)
+and the analysis deposited in
+[Zenodo](https://doi.org/10.5281/zenodo.17742206); please cite both
+sources (see “How to cite the data”). Here they were reorganized into
+ready-to-use R objects; the `data-raw/` scripts document each step.
 
 ### How to cite
 
@@ -356,8 +349,8 @@ citation("GeneExprLupusMx")
 
 #### 2) How to cite the data
 
-The data come from the original article and the analysis deposited in
-Zenodo:
+The data and code come from the original article and the analysis
+deposited in Zenodo:
 
 > Hernández-Ledesma AL, Coss-Navarrete EL, *et al* (2026) [Gene
 > expression profiling of dendritic cell tolerance dysfunction in women
