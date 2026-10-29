@@ -7,6 +7,7 @@
 
 <!-- badges: start -->
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23751369.svg)](https://doi.org/10.5281/zenodo.23751369)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-3D3F8F.svg)](LICENSE.md)
 <!-- badges: end -->
@@ -119,10 +120,12 @@ Si usas las lecciones, las funciones o los objetos de R del paquete:
 
 > Coss E (2026) *GeneExprLupusMx: Datos transcriptómicos de lupus en
 > mujeres mexicanas con lecciones de aprendizaje*. Paquete de R.
-> <https://github.com/EveliaCoss/GeneExprLupusMx>.
+> <https://github.com/EveliaCoss/GeneExprLupusMx> [doi:
+> 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
-> [!CAUTION]
-> **Pendiente:** El DOI de Zenodo del paquete se agregará próximamente; mientras tanto, cita el repositorio de GitHub y la versión que usaste (`packageVersion("GeneExprLupusMx")`).
+Este DOI siempre apunta a la versión más reciente; en
+[Zenodo](https://doi.org/10.5281/zenodo.23751369) encontrarás el DOI de
+cada versión.
 
 En R:
 
@@ -313,10 +316,12 @@ If you use the lessons, functions or R objects of the package:
 
 > Coss E (2026) *GeneExprLupusMx: Transcriptomic data of lupus in
 > Mexican women with learning lessons*. R package.
-> <https://github.com/EveliaCoss/GeneExprLupusMx>.
+> <https://github.com/EveliaCoss/GeneExprLupusMx> [doi:
+> 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
-> [!CAUTION]
-> **Pending:** The Zenodo DOI of the package will be added soon; in the meantime, cite the GitHub repository and the version you used (`packageVersion("GeneExprLupusMx")`).
+This DOI always points to the latest version; on
+[Zenodo](https://doi.org/10.5281/zenodo.23751369) you can find the DOI
+of each version.
 
 In R:
 
