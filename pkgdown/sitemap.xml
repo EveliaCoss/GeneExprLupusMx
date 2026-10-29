@@ -30,7 +30,7 @@
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/authors.html</loc></url>
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/index.html</loc></url>
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/news/index.html</loc></url>
-<url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/Reduce_GOTerm.html</loc></url>
+<url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/GeneExprLupusMx-deprecated.html</loc></url>
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/biotype_summary.html</loc></url>
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/create_heatmap.html</loc></url>
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/dc_genes.html</loc></url>
@@ -47,7 +47,8 @@
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/isg_genes.html</loc></url>
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/metadata_cleaned.html</loc></url>
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/moDC_genes.html</loc></url>
-<url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/processGO.html</loc></url>
+<url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/process_go.html</loc></url>
+<url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/reduce_go_terms.html</loc></url>
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/sle_genes.html</loc></url>
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/tolDC_genes.html</loc></url>
 <url><loc>https://eveliacoss.github.io/GeneExprLupusMx/reference/volunteer_info.html</loc></url>

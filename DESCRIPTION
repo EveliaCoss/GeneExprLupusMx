@@ -1,6 +1,6 @@
 Package: GeneExprLupusMx
 Title: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person(given = "Evelia", family = "Coss", 
       email = "ecossnav@gmail.com", 

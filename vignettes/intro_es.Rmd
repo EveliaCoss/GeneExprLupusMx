@@ -136,7 +136,7 @@ Las lecciones están pensadas para seguirse en orden, pero cada una puede leerse
 
 Cada lección incluye **retos** con su solución para practicar, y termina reproduciendo una figura o tabla del artículo.
 
-Además, la guía [Cómo usar las funciones del paquete](functions_es.html) muestra cómo aplicar `get_heatmap_mat()`, `create_heatmap()`, `processGO()` y `Reduce_GOTerm()` a tus propios datos.
+Además, la guía [Cómo usar las funciones del paquete](functions_es.html) muestra cómo aplicar `get_heatmap_mat()`, `create_heatmap()`, `process_go()` y `reduce_go_terms()` a tus propios datos.
 
 ## ¿Cómo citar?
 

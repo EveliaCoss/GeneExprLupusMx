@@ -81,6 +81,17 @@ BiocManager::install(c("DESeq2", "ComplexHeatmap"))
 - [Registro de
   cambios](https://eveliacoss.github.io/GeneExprLupusMx/articles/news_es.html)
 
+### Shinyapp
+
+Explora los resultados de forma interactiva en la [Shinyapp de
+GeneExprLupusMx](https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp).
+Por ahora solo está disponible en español.
+
+<p align="center">
+
+<a href="https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp"><img src="man/figures/shinyapp.jpg" alt="Shinyapp de GeneExprLupusMx" width="400"></a>
+</p>
+
 ### Datos
 
 ``` r
@@ -276,6 +287,17 @@ BiocManager::install(c("DESeq2", "ComplexHeatmap"))
 - [Data
   download](https://eveliacoss.github.io/GeneExprLupusMx/articles/download_en.html)
 - [Changelog](https://eveliacoss.github.io/GeneExprLupusMx/news/index.html)
+
+### Shinyapp
+
+Explore the results interactively in the [GeneExprLupusMx
+Shinyapp](https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp). For
+now, it is only available in Spanish.
+
+<p align="center">
+
+<a href="https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp"><img src="man/figures/shinyapp.jpg" alt="GeneExprLupusMx Shinyapp" width="400"></a>
+</p>
 
 ### Data
 
