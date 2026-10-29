@@ -1,10 +1,8 @@
-# GeneExprLupusMx (development version)
+# GeneExprLupusMx 0.1.0
 
-## GeneExprLupusMx 0.0.0.9000
+First public release of GeneExprLupusMx, archived in Zenodo.
 
-Initial version of GeneExprLupusMx.
-
-### Lessons
+## Lessons
 
 - Learning path with seven lessons that reproduce the article's figures, plus a getting-started guide, in Spanish (`*_es`) and English (`*_en`):
   - `intro`: getting started with the package.
@@ -22,18 +20,18 @@ Initial version of GeneExprLupusMx.
 - Each lesson includes a glossary, lesson map, challenges with solutions, figure and table captions with values computed in the code, and per-language navigation buttons.
 - Lessons harmonized: same step format, unified glossary, prerequisites with full titles, and captions for every figure and table (including Table 1).
 
-### Data
+## Data
 
 - New reference data: `volunteer_info`, `biotype_summary`, `sle_genes`, `isg_genes`, `moDC_genes`, `dc_genes`, `tolDC_genes`.
 - New checkpoints between lessons: `dds`, `zscore_mat`, `de_results`, `go_results`, `de_celltype_results`, `go_celltype_results`, `de_interaction_results`, `go_interaction_results`.
 - Scripts in `data-raw/` to regenerate each object (archived g:Profiler, version e113).
 - Corrected documentation of `filtered_txi` and `metadata_cleaned`.
 
-### Functions
+## Functions
 
 - `get_heatmap_mat()`, `create_heatmap()` (rasterization off by default), `processGO()` and `Reduce_GOTerm()`.
 
-### Website and documentation
+## Website and documentation
 
 - New home page (`index.Rmd`) with the Overview image and lesson table.
 - Bilingual README (Spanish and English).
