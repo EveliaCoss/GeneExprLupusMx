@@ -1,4 +1,4 @@
-# Pruebas de processGO() y Reduce_GOTerm()
+# Pruebas de process_go() y reduce_go_terms()
 
 skip_if_no_go_pkgs <- function() {
   for (p in c("rrvgo", "org.Hs.eg.db", "GO.db", "treemap", "dplyr", "ggplot2")) {
@@ -6,7 +6,7 @@ skip_if_no_go_pkgs <- function() {
   }
 }
 
-# Guarda una tabla de enriquecimiento con las columnas que espera processGO()
+# Guarda una tabla de enriquecimiento con las columnas que espera process_go()
 save_go_file <- function(dir, file, n = 60) {
   d <- go_celltype_results[go_celltype_results$query == "SLE_UP_moDC" &
                              go_celltype_results$source == "GO:BP", ]
@@ -24,12 +24,12 @@ local_dirs <- function(env = parent.frame()) {
   stats::setNames(as.list(dirs), c("indir", "outdir", "figdir"))
 }
 
-test_that("processGO reduces GO terms and saves results and plots", {
+test_that("process_go reduces GO terms and saves results and plots", {
   skip_if_no_go_pkgs()
   dirs <- local_dirs()
   f <- save_go_file(dirs$indir, "UP_GO_SLE_moDC.RData")
 
-  res <- suppressMessages(processGO(f, "UP", dirs$outdir, dirs$figdir))
+  res <- suppressMessages(process_go(f, "UP", dirs$outdir, dirs$figdir))
   expect_null(res)
   expect_setequal(list.files(dirs$outdir),
                   c("reducedTerms_simMatrix_UP_SLE_moDC.RData",
@@ -46,59 +46,69 @@ test_that("processGO reduces GO terms and saves results and plots", {
   expect_true(all(c("go_id", "term", "p.adjust", "parentTerm") %in% names(env$joined_data)))
 })
 
-test_that("processGO validates direction and the file contents", {
+test_that("process_go validates direction and the file contents", {
   skip_if_no_go_pkgs()
   dirs <- local_dirs()
   f <- save_go_file(dirs$indir, "UP_GO_x.RData")
-  expect_error(processGO(f, "LEFT", dirs$outdir, dirs$figdir), "should be one of")
+  expect_error(process_go(f, "LEFT", dirs$outdir, dirs$figdir), "should be one of")
 
   a <- data.frame(go_id = "GO:0006955")
   b <- a
   two <- file.path(dirs$indir, "UP_GO_two.RData")
   save(a, b, file = two)
-  expect_error(suppressMessages(processGO(two, "UP", dirs$outdir, dirs$figdir)),
+  expect_error(suppressMessages(process_go(two, "UP", dirs$outdir, dirs$figdir)),
                "exactamente un objeto")
 })
 
-test_that("processGO skips files without go_id or with few GO terms", {
+test_that("process_go skips files without go_id or with few GO terms", {
   skip_if_no_go_pkgs()
   dirs <- local_dirs()
   no_id <- data.frame(term = "immune response", p.adjust = 0.01)
   f_no_id <- file.path(dirs$indir, "UP_GO_noid.RData")
   save(no_id, file = f_no_id)
-  msgs <- capture_messages(res <- processGO(f_no_id, "UP", dirs$outdir, dirs$figdir))
+  msgs <- capture_messages(res <- process_go(f_no_id, "UP", dirs$outdir, dirs$figdir))
   expect_true(any(grepl("No 'go_id' column found", msgs, fixed = TRUE)))
   expect_null(res)
 
   f_few <- save_go_file(dirs$indir, "DOWN_GO_few.RData", n = 10)
-  msgs <- capture_messages(processGO(f_few, "DOWN", dirs$outdir, dirs$figdir))
+  msgs <- capture_messages(process_go(f_few, "DOWN", dirs$outdir, dirs$figdir))
   expect_true(any(grepl("fewer than 40 unique GO terms", msgs, fixed = TRUE)))
   expect_length(list.files(dirs$outdir), 0)
   expect_length(list.files(dirs$figdir), 0)
 })
 
-test_that("processGO skips GO IDs that are not in org.Hs.eg.db", {
+test_that("process_go skips GO IDs that are not in org.Hs.eg.db", {
   skip_if_no_go_pkgs()
   dirs <- local_dirs()
   bad <- data.frame(go_id = sprintf("GO:99%05d", 1:45), term = paste("term", 1:45),
                     p.adjust = 0.01)
   f <- file.path(dirs$indir, "UP_GO_bad.RData")
   save(bad, file = f)
-  msgs <- capture_messages(suppressWarnings(processGO(f, "UP", dirs$outdir, dirs$figdir)))
+  msgs <- capture_messages(suppressWarnings(process_go(f, "UP", dirs$outdir, dirs$figdir)))
   expect_true(any(grepl("Invalid simMatrix structure", msgs, fixed = TRUE)))
   expect_length(list.files(dirs$outdir), 0)
 })
 
-test_that("Reduce_GOTerm processes every UP_GO_ and DOWN_GO_ file in a folder", {
+test_that("reduce_go_terms processes every UP_GO_ and DOWN_GO_ file in a folder", {
   skip_if_no_go_pkgs()
   dirs <- local_dirs()
   save_go_file(dirs$indir, "UP_GO_first.RData", n = 10)
   save_go_file(dirs$indir, "DOWN_GO_second.RData", n = 10)
   save_go_file(dirs$indir, "other_file.RData", n = 10)
 
-  msgs <- capture_messages(res <- Reduce_GOTerm(dirs$indir, dirs$outdir, dirs$figdir))
+  msgs <- capture_messages(res <- reduce_go_terms(dirs$indir, dirs$outdir, dirs$figdir))
   expect_null(res)
   expect_true(any(grepl("Dataset: first", msgs, fixed = TRUE)))
   expect_true(any(grepl("Dataset: second", msgs, fixed = TRUE)))
   expect_false(any(grepl("other_file", msgs, fixed = TRUE)))
+})
+
+test_that("processGO and Reduce_GOTerm are deprecated aliases", {
+  skip_if_no_go_pkgs()
+  dirs <- local_dirs()
+  f <- save_go_file(dirs$indir, "UP_GO_old.RData", n = 10)
+  expect_warning(suppressMessages(processGO(f, "UP", dirs$outdir, dirs$figdir)),
+                 "process_go")
+  expect_warning(suppressMessages(Reduce_GOTerm(dirs$indir, dirs$outdir, dirs$figdir)),
+                 "reduce_go_terms")
 })

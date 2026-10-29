@@ -136,7 +136,7 @@ The lessons are designed to be followed in order, but each one can be read on it
 
 Each lesson includes **challenges** with their solutions for practice, and ends by reproducing a figure or table from the article.
 
-In addition, the guide [How to use the package functions](functions_en.html) shows how to apply `get_heatmap_mat()`, `create_heatmap()`, `processGO()` and `Reduce_GOTerm()` to your own data.
+In addition, the guide [How to use the package functions](functions_en.html) shows how to apply `get_heatmap_mat()`, `create_heatmap()`, `process_go()` and `reduce_go_terms()` to your own data.
 
 ## How to cite
 

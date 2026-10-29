@@ -56,6 +56,18 @@ authors:
   Evelia Coss:
     href: https://eveliacoss.github.io/
 
+home:
+  sidebar:
+    structure: [links, shinyapp, license, community, citation, authors, dev]
+    components:
+      shinyapp:
+        title: Shinyapp
+        text: |
+          <a href="https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp"><img src="reference/figures/shinyapp.jpg" alt="Shinyapp de GeneExprLupusMx" width="100%"></a>
+
+          Explora los resultados de forma interactiva. Por ahora solo está disponible en español. /
+          Explore the results interactively. For now, it is only available in Spanish.
+
 navbar:
   bg: primary
   type: dark

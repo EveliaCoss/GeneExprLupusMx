@@ -1,3 +1,13 @@
+# GeneExprLupusMx 0.1.1
+
+## Functions
+
+- `processGO()` and `Reduce_GOTerm()` were renamed `process_go()` and `reduce_go_terms()`, so that all the functions follow the same style (`snake_case`). The old names still work, but are deprecated and show a warning.
+
+## Website
+
+- New "Shinyapp" section in the README and the home page sidebar, with a link to the [GeneExprLupusMx Shinyapp](https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp) (for now, only in Spanish).
+
 # GeneExprLupusMx 0.1.0
 
 First public release of GeneExprLupusMx, archived in Zenodo.

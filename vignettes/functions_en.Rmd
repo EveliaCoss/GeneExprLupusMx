@@ -1,6 +1,6 @@
 ---
 title: "How to use the package functions"
-subtitle: "get_heatmap_mat(), create_heatmap(), processGO() y Reduce_GOTerm()"
+subtitle: "get_heatmap_mat(), create_heatmap(), process_go() and reduce_go_terms()"
 output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 package: "GeneExprLupusMx"
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 4.5
 )
-# processGO() and Reduce_GOTerm() need rrvgo and org.Hs.eg.db (Bioconductor)
+# process_go() and reduce_go_terms() need rrvgo and org.Hs.eg.db (Bioconductor)
 has_go_pkgs <- requireNamespace("rrvgo", quietly = TRUE) && requireNamespace("org.Hs.eg.db", quietly = TRUE)
 ```
 
@@ -35,8 +35,8 @@ Besides the data, `GeneExprLupusMx` includes four functions used throughout the 
 |---------|------------------|-----------|
 | `get_heatmap_mat()` | Turns a `DESeqDataSet` into a z-score matrix ready for a *heatmap* | Lesson 3 |
 | `create_heatmap()` | Draws a `ComplexHeatmap` *heatmap* with a color annotation; several can be stacked | Lesson 3 |
-| `processGO()` | Reduces the redundant GO terms of **one** enrichment file and plots the parent terms | — |
-| `Reduce_GOTerm()` | Applies `processGO()` to **all** the enrichment files in a folder | — |
+| `process_go()` | Reduces the redundant GO terms of **one** enrichment file and plots the parent terms | — |
+| `reduce_go_terms()` | Applies `process_go()` to **all** the enrichment files in a folder | — |
 
 **What you need to know beforehand:** you should have completed the lessons [From RNA-seq counts to data exploration](intro_RNAseq_en.html) (VST and z-scores) and [Biological functions of differentially expressed genes](l4_GOterms_en.html) (functional enrichment).
 
@@ -170,9 +170,9 @@ In the patients' tolDCs these genes tend to be lower: it is the weaker induction
 
 </details>
 
-## 4. `processGO()`: reducing redundant GO terms
+## 4. `process_go()`: reducing redundant GO terms
 
-An enrichment analysis usually returns **hundreds of GO terms**, many nearly identical ("response to virus", "defense response to virus"…). `processGO()` uses the `rrvgo` package to group them by **semantic similarity** and summarize them into **parent terms**.
+An enrichment analysis usually returns **hundreds of GO terms**, many nearly identical ("response to virus", "defense response to virus"…). `process_go()` uses the `rrvgo` package to group them by **semantic similarity** and summarize them into **parent terms**.
 
 The function reads an `.RData` file containing **a single table** with three columns:
 
@@ -198,16 +198,16 @@ nrow(go_table)
 save(go_table, file = file.path(go_dir, "UP_GO_monocyte.RData"))
 ```
 
-Now we run `processGO()`. It needs at least 40 distinct GO terms; with fewer, it skips the file:
+Now we run `process_go()`. It needs at least 40 distinct GO terms; with fewer, it skips the file:
 
-```{r processGO, eval = has_go_pkgs}
-processGO(f = file.path(go_dir, "UP_GO_monocyte.RData"),
+```{r process_go, eval = has_go_pkgs}
+process_go(f = file.path(go_dir, "UP_GO_monocyte.RData"),
           direction = "UP", outdir = out_dir, figdir = fig_dir)
 ```
 
 The function saves two `.RData` files and two plots:
 
-```{r processGO_files, eval = has_go_pkgs}
+```{r process_go_files, eval = has_go_pkgs}
 list.files(out_dir)
 list.files(fig_dir)
 ```
@@ -242,9 +242,9 @@ reducedTerms %>%
   theme_minimal(base_size = 12)
 ```
 
-## 5. `Reduce_GOTerm()`: many files at once
+## 5. `reduce_go_terms()`: many files at once
 
-If you have several lists (for example, one per cell type and direction), save one file per list in the same folder and use `Reduce_GOTerm()`. The function finds all the `UP_GO_*.RData` and `DOWN_GO_*.RData` files and applies `processGO()` to each one:
+If you have several lists (for example, one per cell type and direction), save one file per list in the same folder and use `reduce_go_terms()`. The function finds all the `UP_GO_*.RData` and `DOWN_GO_*.RData` files and applies `process_go()` to each one:
 
 ```{r reduce_goterm_files, eval = has_go_pkgs}
 lists <- c(DOWN_GO_moDC = "SLE_DOWN_moDC", UP_GO_tolDC = "SLE_UP_tolDC")
@@ -258,20 +258,20 @@ list.files(go_dir)
 ```
 
 ```{r reduce_goterm, eval = FALSE}
-Reduce_GOTerm(indir = go_dir, outdir = out_dir, figdir = fig_dir)
+reduce_go_terms(indir = go_dir, outdir = out_dir, figdir = fig_dir)
 ```
 
-`Reduce_GOTerm()` processes the three files and saves their results in the same format as `processGO()`. Each file takes about a minute, because `rrvgo` computes the similarity between all terms.
+`reduce_go_terms()` processes the three files and saves their results in the same format as `process_go()`. Each file takes about a minute, because `rrvgo` computes the similarity between all terms.
 
 ::: {.callout-note}
-**Challenge 2.** Run `processGO()` on the `DOWN_GO_moDC.RData` file. Which parent term groups the most terms?
+**Challenge 2.** Run `process_go()` on the `DOWN_GO_moDC.RData` file. Which parent term groups the most terms?
 :::
 
 <details class="callout-tip">
 <summary>Show solution</summary>
 
 ```{r reto2, eval = FALSE}
-processGO(f = file.path(go_dir, "DOWN_GO_moDC.RData"),
+process_go(f = file.path(go_dir, "DOWN_GO_moDC.RData"),
           direction = "DOWN", outdir = out_dir, figdir = fig_dir)
 
 load(file.path(out_dir, "reducedTerms_simMatrix_DOWN_moDC.RData"))
@@ -288,15 +288,15 @@ The most frequent parent term is **"T cell activation"**: the genes that go down
 |---------|---------|--------|
 | `get_heatmap_mat()` | `DESeqDataSet` | z-score matrix (genes × samples) |
 | `create_heatmap()` | Matrix, color and `split` | `Heatmap` object; stack it with `%v%` |
-| `processGO()` | One `UP_GO_*.RData` or `DOWN_GO_*.RData` file | Reduced terms (`.RData`), *treemap* and bars (`.png`) |
-| `Reduce_GOTerm()` | A folder with several files | The same as `processGO()`, for each file |
+| `process_go()` | One `UP_GO_*.RData` or `DOWN_GO_*.RData` file | Reduced terms (`.RData`), *treemap* and bars (`.png`) |
+| `reduce_go_terms()` | A folder with several files | The same as `process_go()`, for each file |
 
 ### Common beginner mistakes
 
 - **Forgetting to change the design** when taking a single cell type: `~ Cell_type + Group` makes no sense with only one cell type.
 - **Stacking *heatmaps* with different columns**: `%v%` needs the same columns, in the same order.
-- **Misnaming the GO files**: `Reduce_GOTerm()` only finds `UP_GO_<name>.RData` and `DOWN_GO_<name>.RData` files.
-- **Saving more than one object in the `.RData`**: `processGO()` expects exactly one table per file.
+- **Misnaming the GO files**: `reduce_go_terms()` only finds `UP_GO_<name>.RData` and `DOWN_GO_<name>.RData` files.
+- **Saving more than one object in the `.RData`**: `process_go()` expects exactly one table per file.
 
 To go back to the lessons, see [Get started with GeneExprLupusMx](intro_en.html).
 

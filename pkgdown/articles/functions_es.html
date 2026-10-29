@@ -54,7 +54,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GeneExprLupusMx</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Cambiar la navegación">
@@ -136,9 +136,9 @@
 
       <h1>Cómo usar las funciones del paquete</h1>
             <h3 data-toc-skip class="subtitle">get_heatmap_mat(),
-create_heatmap(), processGO() y Reduce_GOTerm()</h3>
+create_heatmap(), process_go() y reduce_go_terms()</h3>
             
-            <h4 data-toc-skip class="date">2026-10-28</h4>
+            <h4 data-toc-skip class="date">2026-10-29</h4>
       
       <small class="dont-index">Código: <a href="https://github.com/EveliaCoss/GeneExprLupusMx/blob/HEAD/vignettes/functions_es.Rmd" class="external-link"><code>vignettes/functions_es.Rmd</code></a></small>
       <div class="d-none name"><code>functions_es.Rmd</code></div>
@@ -323,14 +323,14 @@ anotación de color; se pueden apilar varios</td>
 <td>Lección 3</td>
 </tr>
 <tr class="odd">
-<td><code><a href="../reference/processGO.html">processGO()</a></code></td>
+<td><code><a href="../reference/process_go.html">process_go()</a></code></td>
 <td>Reduce los términos GO redundantes de <strong>un</strong> archivo de
 enriquecimiento y grafica los términos padre</td>
 <td>—</td>
 </tr>
 <tr class="even">
-<td><code><a href="../reference/Reduce_GOTerm.html">Reduce_GOTerm()</a></code></td>
-<td>Aplica <code><a href="../reference/processGO.html">processGO()</a></code> a <strong>todos</strong> los
+<td><code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code></td>
+<td>Aplica <code><a href="../reference/process_go.html">process_go()</a></code> a <strong>todos</strong> los
 archivos de enriquecimiento de una carpeta</td>
 <td>—</td>
 </tr>
@@ -508,11 +508,11 @@ lección 7.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="processgo-reducir-términos-go-redundantes">4. <code>processGO()</code>: reducir términos GO redundantes<a class="anchor" aria-label="anchor" href="#processgo-reducir-t%C3%A9rminos-go-redundantes"></a>
+<h2 id="process_go-reducir-términos-go-redundantes">4. <code>process_go()</code>: reducir términos GO redundantes<a class="anchor" aria-label="anchor" href="#process_go-reducir-t%C3%A9rminos-go-redundantes"></a>
 </h2>
 <p>Un análisis de enriquecimiento suele devolver <strong>cientos de
 términos GO</strong>, muchos casi iguales (“response to virus”, “defense
-response to virus”…). <code><a href="../reference/processGO.html">processGO()</a></code> usa el paquete
+response to virus”…). <code><a href="../reference/process_go.html">process_go()</a></code> usa el paquete
 <code>rrvgo</code> para agruparlos por <strong>similitud
 semántica</strong> y resumirlos en <strong>términos padre</strong>.</p>
 <p>La función lee un archivo <code>.RData</code> que contenga
@@ -556,10 +556,10 @@ lección 4):</p>
 <span><span class="co">#&gt; [1] 183</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">go_table</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">go_dir</span>, <span class="st">"UP_GO_monocyte.RData"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Ahora ejecutamos <code><a href="../reference/processGO.html">processGO()</a></code>. Necesita al menos 40
+<p>Ahora ejecutamos <code><a href="../reference/process_go.html">process_go()</a></code>. Necesita al menos 40
 términos GO distintos; si hay menos, omite el archivo:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/processGO.html">processGO</a></span><span class="op">(</span>f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">go_dir</span>, <span class="st">"UP_GO_monocyte.RData"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/process_go.html">process_go</a></span><span class="op">(</span>f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">go_dir</span>, <span class="st">"UP_GO_monocyte.RData"</span><span class="op">)</span>,</span>
 <span>          direction <span class="op">=</span> <span class="st">"UP"</span>, outdir <span class="op">=</span> <span class="va">out_dir</span>, figdir <span class="op">=</span> <span class="va">fig_dir</span><span class="op">)</span></span></code></pre></div>
 <p>La función guarda dos archivos <code>.RData</code> y dos
 gráficas:</p>
@@ -606,13 +606,13 @@ padre:</p>
 <p><img src="functions_es_files/figure-html/go_bars-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
-<h2 id="reduce_goterm-muchos-archivos-a-la-vez">5. <code>Reduce_GOTerm()</code>: muchos archivos a la vez<a class="anchor" aria-label="anchor" href="#reduce_goterm-muchos-archivos-a-la-vez"></a>
+<h2 id="reduce_go_terms-muchos-archivos-a-la-vez">5. <code>reduce_go_terms()</code>: muchos archivos a la vez<a class="anchor" aria-label="anchor" href="#reduce_go_terms-muchos-archivos-a-la-vez"></a>
 </h2>
 <p>Si tienes varias listas (por ejemplo, una por tipo celular y
 dirección), guarda un archivo por lista en la misma carpeta y usa
-<code><a href="../reference/Reduce_GOTerm.html">Reduce_GOTerm()</a></code>. La función busca todos los archivos
+<code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code>. La función busca todos los archivos
 <code>UP_GO_*.RData</code> y <code>DOWN_GO_*.RData</code> y aplica
-<code><a href="../reference/processGO.html">processGO()</a></code> a cada uno:</p>
+<code><a href="../reference/process_go.html">process_go()</a></code> a cada uno:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>DOWN_GO_moDC <span class="op">=</span> <span class="st">"SLE_DOWN_moDC"</span>, UP_GO_tolDC <span class="op">=</span> <span class="st">"SLE_UP_tolDC"</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">f</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lists</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -624,20 +624,20 @@ dirección), guarda un archivo por lista en la misma carpeta y usa
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">go_dir</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "DOWN_GO_moDC.RData"   "UP_GO_monocyte.RData" "UP_GO_tolDC.RData"</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/Reduce_GOTerm.html">Reduce_GOTerm</a></span><span class="op">(</span>indir <span class="op">=</span> <span class="va">go_dir</span>, outdir <span class="op">=</span> <span class="va">out_dir</span>, figdir <span class="op">=</span> <span class="va">fig_dir</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/Reduce_GOTerm.html">Reduce_GOTerm()</a></code> procesa los tres archivos y guarda sus
-resultados con el mismo formato que <code><a href="../reference/processGO.html">processGO()</a></code>. Cada
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/reduce_go_terms.html">reduce_go_terms</a></span><span class="op">(</span>indir <span class="op">=</span> <span class="va">go_dir</span>, outdir <span class="op">=</span> <span class="va">out_dir</span>, figdir <span class="op">=</span> <span class="va">fig_dir</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code> procesa los tres archivos y guarda sus
+resultados con el mismo formato que <code><a href="../reference/process_go.html">process_go()</a></code>. Cada
 archivo tarda alrededor de un minuto, porque <code>rrvgo</code> calcula
 la similitud entre todos los términos.</p>
 <div class="callout-note">
-<p><strong>Reto 2.</strong> Ejecuta <code><a href="../reference/processGO.html">processGO()</a></code> sobre el
+<p><strong>Reto 2.</strong> Ejecuta <code><a href="../reference/process_go.html">process_go()</a></code> sobre el
 archivo <code>DOWN_GO_moDC.RData</code>. ¿Cuál es el término padre que
 agrupa más términos?</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
 </summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/processGO.html">processGO</a></span><span class="op">(</span>f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">go_dir</span>, <span class="st">"DOWN_GO_moDC.RData"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/process_go.html">process_go</a></span><span class="op">(</span>f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">go_dir</span>, <span class="st">"DOWN_GO_moDC.RData"</span><span class="op">)</span>,</span>
 <span>          direction <span class="op">=</span> <span class="st">"DOWN"</span>, outdir <span class="op">=</span> <span class="va">out_dir</span>, figdir <span class="op">=</span> <span class="va">fig_dir</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"reducedTerms_simMatrix_DOWN_moDC.RData"</span><span class="op">)</span><span class="op">)</span></span>
@@ -677,7 +677,7 @@ son sobre todo genes de linfocitos T (<code>CD28</code>,
 </td>
 </tr>
 <tr class="odd">
-<td><code><a href="../reference/processGO.html">processGO()</a></code></td>
+<td><code><a href="../reference/process_go.html">process_go()</a></code></td>
 <td>Un archivo <code>UP_GO_*.RData</code> o
 <code>DOWN_GO_*.RData</code>
 </td>
@@ -685,9 +685,9 @@ son sobre todo genes de linfocitos T (<code>CD28</code>,
 (<code>.png</code>)</td>
 </tr>
 <tr class="even">
-<td><code><a href="../reference/Reduce_GOTerm.html">Reduce_GOTerm()</a></code></td>
+<td><code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code></td>
 <td>Una carpeta con varios archivos</td>
-<td>Lo mismo que <code><a href="../reference/processGO.html">processGO()</a></code>, para cada archivo</td>
+<td>Lo mismo que <code><a href="../reference/process_go.html">process_go()</a></code>, para cada archivo</td>
 </tr>
 </tbody>
 </table>
@@ -704,12 +704,12 @@ un tipo celular.</li>
 <code>%v%</code> necesita las mismas columnas, en el mismo orden.</li>
 <li>
 <strong>Nombrar mal los archivos de GO</strong>:
-<code><a href="../reference/Reduce_GOTerm.html">Reduce_GOTerm()</a></code> solo encuentra archivos
+<code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code> solo encuentra archivos
 <code>UP_GO_&lt;nombre&gt;.RData</code> y
 <code>DOWN_GO_&lt;nombre&gt;.RData</code>.</li>
 <li>
 <strong>Guardar más de un objeto en el <code>.RData</code></strong>:
-<code><a href="../reference/processGO.html">processGO()</a></code> espera exactamente una tabla por archivo.</li>
+<code><a href="../reference/process_go.html">process_go()</a></code> espera exactamente una tabla por archivo.</li>
 </ul>
 <p>Para volver a las lecciones, consulta <a href="intro_es.html">Primeros pasos con el paquete
 GeneExprLupusMx</a>.</p>
@@ -747,7 +747,7 @@ GeneExprLupusMx</a>.</p>
 <span><span class="co">#&gt;  [9] GenomicRanges_1.64.0        Seqinfo_1.2.0              </span></span>
 <span><span class="co">#&gt; [11] IRanges_2.46.0              S4Vectors_0.50.1           </span></span>
 <span><span class="co">#&gt; [13] BiocGenerics_0.58.1         generics_0.1.4             </span></span>
-<span><span class="co">#&gt; [15] GeneExprLupusMx_0.1.0      </span></span>
+<span><span class="co">#&gt; [15] GeneExprLupusMx_0.1.1      </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
 <span><span class="co">#&gt;   [1] DBI_1.3.0            rlang_1.3.0          magrittr_2.0.5      </span></span>

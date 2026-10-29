@@ -1,4 +1,4 @@
-# --------- processGO (function) / REDUCE GO TERMS by file----------------------
+# --------- process_go (function) / REDUCE GO TERMS by file----------------------
 #' Process GO Enrichment Result from a Single File
 #'
 #' Load and analyze a single \code{.RData} file containing GO enrichment results
@@ -19,7 +19,7 @@
 #' @return Invisibly, \code{NULL}. Saves processed files and figures in
 #'   \code{outdir} and \code{figdir}.
 #'
-#' @seealso \code{\link{Reduce_GOTerm}} for batch processing of multiple
+#' @seealso \code{\link{reduce_go_terms}} for batch processing of multiple
 #'   enrichment files.
 #'
 #' @examples
@@ -33,18 +33,18 @@
 #'   go_table <- data.frame(go_id = go_bp$term_id, term = go_bp$term_name,
 #'                          p.adjust = go_bp$p_value)
 #'
-#'   go_dir <- file.path(tempdir(), "processGO_example")
+#'   go_dir <- file.path(tempdir(), "process_go_example")
 #'   dir.create(go_dir, showWarnings = FALSE)
 #'   f <- file.path(go_dir, "UP_GO_SLE_moDC.RData")
 #'   save(go_table, file = f)
 #'
-#'   processGO(f, direction = "UP", outdir = go_dir, figdir = go_dir)
+#'   process_go(f, direction = "UP", outdir = go_dir, figdir = go_dir)
 #'   list.files(go_dir)
 #' }
 #' }
 #'
 #' @export
-processGO <- function(f, direction = c("UP", "DOWN"), outdir, figdir) {
+process_go <- function(f, direction = c("UP", "DOWN"), outdir, figdir) {
   pkgs <- c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2")
   if (!all(vapply(pkgs, requireNamespace, logical(1), quietly = TRUE))) {
     stop("Install rrvgo, org.Hs.eg.db, dplyr and ggplot2 to use this function: ",
@@ -177,12 +177,12 @@ save_treemap <- function(reducedTerms, path) {
 }
 
 
-# --------- Reduce_GOTerm (function) / REDUCE GO TERMS----------------------
+# --------- reduce_go_terms (function) / REDUCE GO TERMS----------------------
 #' Batch Reduce and Visualize GO Terms Across Multiple Datasets
 #'
 #' Applies semantic similarity reduction to GO enrichment results from a batch
 #' of \code{.RData} files (both UP and DOWN regulated genes). For each dataset,
-#' it invokes \code{\link{processGO}} to reduce redundancy, merge metadata, and
+#' it invokes \code{\link{process_go}} to reduce redundancy, merge metadata, and
 #' generate visualizations.
 #'
 #' This wrapper function automates analysis across multiple files following the
@@ -216,13 +216,13 @@ save_treemap <- function(reducedTerms, path) {
 #' @return Invisibly, \code{NULL}. It generates and saves \code{.RData} and
 #'   \code{.png} files in the specified output directories.
 #'
-#' @seealso \code{\link{processGO}} for analyzing individual files.
+#' @seealso \code{\link{process_go}} for analyzing individual files.
 #'
 #' @examples
 #' \donttest{
 #' if (all(vapply(c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2"),
 #'                requireNamespace, logical(1), quietly = TRUE))) {
-#'   indir <- file.path(tempdir(), "Reduce_GOTerm_example")
+#'   indir <- file.path(tempdir(), "reduce_go_terms_example")
 #'   dir.create(indir, showWarnings = FALSE)
 #'
 #'   # One file per enrichment result, named UP_GO_<name>.RData or DOWN_GO_<name>.RData
@@ -236,21 +236,21 @@ save_treemap <- function(reducedTerms, path) {
 #'     save(go_table, file = file.path(indir, paste0(direction, "_GO_moDC.RData")))
 #'   }
 #'
-#'   Reduce_GOTerm(indir = indir, outdir = tempdir(), figdir = tempdir())
+#'   reduce_go_terms(indir = indir, outdir = tempdir(), figdir = tempdir())
 #' }
 #' }
 #'
 #' @export
-Reduce_GOTerm <- function(indir, outdir, figdir) {
+reduce_go_terms <- function(indir, outdir, figdir) {
   files_up   <- list.files(indir, pattern = "^UP_GO_(.+)\\.RData$", full.names = TRUE)
   files_down <- list.files(indir, pattern = "^DOWN_GO_(.+)\\.RData$", full.names = TRUE)
 
-  # Process both UP and DOWN datasets using processGO()
+  # Process both UP and DOWN datasets using process_go()
   for (f in files_up) {
-    processGO(f = f, direction = "UP", outdir = outdir, figdir = figdir)
+    process_go(f = f, direction = "UP", outdir = outdir, figdir = figdir)
   }
   for (f in files_down) {
-    processGO(f = f, direction = "DOWN", outdir = outdir, figdir = figdir)
+    process_go(f = f, direction = "DOWN", outdir = outdir, figdir = figdir)
   }
   invisible(NULL)
 }
