@@ -49,13 +49,25 @@ to allow uninterrupted batch processing across datasets.
 Requires the Bioconductor packages \pkg{rrvgo} and \pkg{org.Hs.eg.db}.
 }
 \examples{
-\dontrun{
-# Batch process all GO enrichment results in the directory
-Reduce_GOTerm(
-  indir = "data/enrichment/",
-  outdir = "results/GO_reduced/",
-  figdir = "figures/GO_terms/"
-)
+\donttest{
+if (all(vapply(c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2"),
+               requireNamespace, logical(1), quietly = TRUE))) {
+  indir <- file.path(tempdir(), "Reduce_GOTerm_example")
+  dir.create(indir, showWarnings = FALSE)
+
+  # One file per enrichment result, named UP_GO_<name>.RData or DOWN_GO_<name>.RData
+  for (q in c("SLE_UP_moDC", "SLE_DOWN_moDC")) {
+    go_bp <- go_celltype_results[go_celltype_results$query == q &
+                                   go_celltype_results$source == "GO:BP", ]
+    go_bp <- head(go_bp[order(go_bp$p_value), ], 60)
+    go_table <- data.frame(go_id = go_bp$term_id, term = go_bp$term_name,
+                           p.adjust = go_bp$p_value)
+    direction <- if (grepl("_UP_", q, fixed = TRUE)) "UP" else "DOWN"
+    save(go_table, file = file.path(indir, paste0(direction, "_GO_moDC.RData")))
+  }
+
+  Reduce_GOTerm(indir = indir, outdir = tempdir(), figdir = tempdir())
+}
 }
 
 }

@@ -32,14 +32,24 @@ Requires the Bioconductor packages \pkg{rrvgo} and
 \pkg{org.Hs.eg.db}. Datasets with fewer than 40 unique GO terms are skipped.
 }
 \examples{
-\dontrun{
-# Analyze a specific UP-regulated dataset
-processGO(
-  f = "data/enrichment/UP_GO_MySample1.RData",
-  direction = "UP",
-  outdir = "results/GO_terms/",
-  figdir = "figures/GO_terms/"
-)
+\donttest{
+if (all(vapply(c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2"),
+               requireNamespace, logical(1), quietly = TRUE))) {
+  # Enrichment table with the columns go_id, term and p.adjust
+  go_bp <- go_celltype_results[go_celltype_results$query == "SLE_UP_moDC" &
+                                 go_celltype_results$source == "GO:BP", ]
+  go_bp <- head(go_bp[order(go_bp$p_value), ], 60)
+  go_table <- data.frame(go_id = go_bp$term_id, term = go_bp$term_name,
+                         p.adjust = go_bp$p_value)
+
+  go_dir <- file.path(tempdir(), "processGO_example")
+  dir.create(go_dir, showWarnings = FALSE)
+  f <- file.path(go_dir, "UP_GO_SLE_moDC.RData")
+  save(go_table, file = f)
+
+  processGO(f, direction = "UP", outdir = go_dir, figdir = go_dir)
+  list.files(go_dir)
+}
 }
 
 }

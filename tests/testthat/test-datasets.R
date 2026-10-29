@@ -41,7 +41,7 @@ test_that("filtered_txi has the tximport structure", {
 test_that("filtered_txi has 21,718 genes and the 99 samples of metadata_cleaned", {
   expect_identical(dim(filtered_txi$counts), c(21718L, 99L))
   expect_identical(colnames(filtered_txi$counts), sample_ids)
-  expect_equal(anyDuplicated(rownames(filtered_txi$counts)), 0)
+  expect_identical(anyDuplicated(rownames(filtered_txi$counts)), 0L)
   expect_true(all(filtered_txi$counts >= 0))
   expect_true(all(filtered_txi$abundance >= 0))
   expect_true(all(filtered_txi$length > 0))
@@ -55,7 +55,7 @@ test_that("dds matches the counts and metadata", {
   expect_true(all(rownames(dds) %in% rownames(filtered_txi$counts)))
   expect_identical(deparse(DESeq2::design(dds)), "~Cell_type + Group")
   counts <- DESeq2::counts(dds)
-  expect_true(is.integer(counts))
+  expect_type(counts, "integer")
   expect_true(all(counts >= 0))
   expect_true(all(c("Group", "Cell_type", "Volunteer_ID") %in% names(dds@colData)))
 })
@@ -80,7 +80,7 @@ test_that("metadata_cleaned has one row per sample", {
   expect_identical(dim(metadata_cleaned), c(99L, 14L))
   expect_true(all(c("sample_ID", "Group", "Cell_type", "SLEDAI_category") %in%
                     colnames(metadata_cleaned)))
-  expect_equal(anyDuplicated(sample_ids), 0)
+  expect_identical(anyDuplicated(sample_ids), 0L)
   expect_identical(levels(metadata_cleaned$Group), c("Ctrl", "SLE"))
   expect_setequal(levels(metadata_cleaned$Cell_type), c("monocyte", "moDC", "tolDC"))
 })
@@ -102,7 +102,7 @@ test_that("sample_ID encodes the volunteer and the cell type", {
 test_that("volunteer_info has one row per volunteer", {
   expect_s3_class(volunteer_info, "data.frame")
   expect_identical(nrow(volunteer_info), 33L)
-  expect_equal(anyDuplicated(volunteer_info$Volunteer_ID), 0)
+  expect_identical(anyDuplicated(volunteer_info$Volunteer_ID), 0L)
   expect_identical(as.vector(table(volunteer_info$Group)), c(10L, 23L))
   expect_s3_class(volunteer_info$Time_of_recruitment, "Date")
   expect_true(all(volunteer_info$Age_years > 0))
@@ -179,7 +179,7 @@ test_that("go_interaction_results has UP and DOWN for moDC and tolDC", {
 test_that("biotype_summary annotates genes of filtered_txi", {
   expect_s3_class(biotype_summary, "data.frame")
   expect_named(biotype_summary, c("gene", "gene_biotype", "Group_biotype"))
-  expect_equal(anyDuplicated(biotype_summary$gene), 0)
+  expect_identical(anyDuplicated(biotype_summary$gene), 0L)
   expect_true(all(biotype_summary$gene %in% rownames(filtered_txi$counts)))
   expect_setequal(unique(biotype_summary$Group_biotype),
                   c("PCG", "lncRNA", "Pseudogene", "small ncRNAs", "TEC"))
@@ -190,7 +190,7 @@ test_that("isg_genes is a list of unique genes", {
   expect_named(isg_genes, "genes")
   expect_identical(nrow(isg_genes), 423L)
   expect_false(anyNA(isg_genes$genes))
-  expect_equal(anyDuplicated(isg_genes$genes), 0)
+  expect_identical(anyDuplicated(isg_genes$genes), 0L)
 })
 
 test_that("sle_genes lists genes with their reference", {
@@ -207,7 +207,7 @@ test_that("dc_genes, moDC_genes and tolDC_genes have unique genes", {
     expect_s3_class(d, "data.frame")
     expect_true("gene" %in% names(d))
     expect_false(anyNA(d$gene))
-    expect_equal(anyDuplicated(d$gene), 0)
+    expect_identical(anyDuplicated(d$gene), 0L)
   }
   expect_named(dc_genes, c("gene", "process", "GOterm", "info"))
   expect_setequal(unique(moDC_genes$Expression), c("Upregulated", "Downregulated"))

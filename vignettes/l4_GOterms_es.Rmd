@@ -161,7 +161,7 @@ La **prueba hipergeométrica** calcula qué tan probable es sacar tantas canicas
 
 ## 3. **Paso 1:** enriquecimiento con g:Profiler
 
-[g:Profiler](https://biit.cs.ut.ee/gprofiler) consulta al mismo tiempo varias bases de datos (GO, Reactome, KEGG, WikiPathways, TF, miRNA, HP, CORUM). En R se usa con la función `gost()` del paquete `gprofiler2`:
+[g:Profiler](https://biit.cs.ut.ee/gprofiler/) consulta al mismo tiempo varias bases de datos (GO, Reactome, KEGG, WikiPathways, TF, miRNA, HP, CORUM). En R se usa con la función `gost()` del paquete `gprofiler2`:
 
 ```{r gost, eval = FALSE}
 library(gprofiler2)

@@ -12,6 +12,8 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "man/figures/R
 # GeneExprLupusMx
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/EveliaCoss/GeneExprLupusMx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EveliaCoss/GeneExprLupusMx/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/EveliaCoss/GeneExprLupusMx/graph/badge.svg)](https://app.codecov.io/gh/EveliaCoss/GeneExprLupusMx)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23751369.svg)](https://doi.org/10.5281/zenodo.23751369)
 [![License: MIT](https://img.shields.io/badge/License-MIT-3D3F8F.svg)](LICENSE.md)
 <!-- badges: end -->

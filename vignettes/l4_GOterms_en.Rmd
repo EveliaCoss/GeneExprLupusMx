@@ -161,7 +161,7 @@ The **hypergeometric test** calculates how likely it is to draw that many red ma
 
 ## 3. **Step 1:** enrichment with g:Profiler
 
-[g:Profiler](https://biit.cs.ut.ee/gprofiler) queries several databases at the same time (GO, Reactome, KEGG, WikiPathways, TF, miRNA, HP, CORUM). In R it is used through the `gost()` function of the `gprofiler2` package:
+[g:Profiler](https://biit.cs.ut.ee/gprofiler/) queries several databases at the same time (GO, Reactome, KEGG, WikiPathways, TF, miRNA, HP, CORUM). In R it is used through the `gost()` function of the `gprofiler2` package:
 
 ```{r gost, eval = FALSE}
 library(gprofiler2)
