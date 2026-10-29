@@ -46,7 +46,8 @@ Suggests:
     scales,
     SummarizedExperiment,
     testthat (>= 3.0.0),
-    tidyverse
+    tidyverse,
+    withr
 biocViews:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
