@@ -9,7 +9,8 @@ type: software
 license: MIT
 title: 'GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con
   lecciones de aprendizaje'
-version: 0.0.0.9000
+version: 0.1.0
+date-released: '2026-10-28'
 abstract: Paquete de datos con lecciones de aprendizaje bilingües (español e inglés).
   Incluye los perfiles transcriptómicos (RNA-seq) de monocitos, células dendríticas
   derivadas de monocitos (moDC) y células dendríticas tolerogénicas (tolDC) de 33
@@ -36,7 +37,7 @@ preferred-citation:
     email: ecossnav@gmail.com
     orcid: https://orcid.org/0000-0002-7087-2977
   year: '2026'
-  notes: R package version 0.0.0.9000
+  notes: R package version 0.1.0
   url: https://github.com/EveliaCoss/GeneExprLupusMx
 repository-code: https://github.com/EveliaCoss/GeneExprLupusMx
 url: https://eveliacoss.github.io/GeneExprLupusMx/

@@ -1,0 +1,46 @@
+{
+  "title": "GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje",
+  "upload_type": "software",
+  "description": "<p>Paquete de datos de R con lecciones de aprendizaje bilingües (español e inglés). Incluye los perfiles transcriptómicos (RNA-seq) de monocitos, células dendríticas derivadas de monocitos (moDC) y células dendríticas tolerogénicas (tolDC) de 33 mujeres mexicanas (10 controles sanas y 23 pacientes con lupus eritematoso sistémico; 99 muestras), sus metadatos clínicos y los resultados intermedios de cada análisis. Las lecciones reproducen paso a paso las figuras del artículo original.</p><p>R data package with bilingual learning lessons (Spanish and English) on the transcriptomics of lupus in Mexican women: RNA-seq profiles of monocytes, monocyte-derived dendritic cells (moDC) and tolerogenic dendritic cells (tolDC) from 33 Mexican women (10 healthy controls and 23 patients with systemic lupus erythematosus; 99 samples), their clinical metadata and the intermediate results of each analysis. The lessons reproduce the figures of the original article step by step.</p><p>Sitio web / Website: <a href=\"https://eveliacoss.github.io/GeneExprLupusMx/\">https://eveliacoss.github.io/GeneExprLupusMx/</a></p>",
+  "creators": [
+    {
+      "name": "Coss, Evelia",
+      "orcid": "0000-0002-7087-2977"
+    }
+  ],
+  "license": "MIT",
+  "language": "spa",
+  "keywords": [
+    "R package",
+    "data package",
+    "lupus",
+    "systemic lupus erythematosus",
+    "transcriptomics",
+    "RNA-seq",
+    "dendritic cells",
+    "Mexico",
+    "education",
+    "bilingual",
+    "open data"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.17742206",
+      "relation": "isDerivedFrom",
+      "scheme": "doi",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "10.3389/fimmu.2026.1771959",
+      "relation": "isSupplementTo",
+      "scheme": "doi",
+      "resource_type": "publication-article"
+    },
+    {
+      "identifier": "https://eveliacoss.github.io/GeneExprLupusMx/",
+      "relation": "isDocumentedBy",
+      "scheme": "url",
+      "resource_type": "other"
+    }
+  ]
+}
