@@ -214,3 +214,16 @@ en el estudio. **/** We also thank the open resources
 Ontology](https://geneontology.org/) and
 [Reactome](https://reactome.org/), and the volunteers who took part in
 the study.
+
+## Licencia / License
+
+El código del paquete se distribuye bajo la [licencia
+MIT](LICENSE.html). Los datos originales provienen de las fuentes
+indicadas en *Origen de los datos* (el registro de Zenodo usa la
+licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)); si
+los usas, cita el artículo y el registro de Zenodo. **/** The package
+code is released under the [MIT license](LICENSE.html). The original
+data come from the sources listed in *Data sources* (the Zenodo record
+uses the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+license); if you use them, please cite the article and the Zenodo
+record.
