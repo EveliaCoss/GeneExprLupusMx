@@ -99,11 +99,9 @@ Hay dos tipos de cita: una para el **paquete** y otra para los **datos**. Si usa
 
 Si usas las lecciones, las funciones o los objetos del paquete, cita también `GeneExprLupusMx`:
 
-> Coss E (2026) *GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje*. Paquete de R. <https://github.com/EveliaCoss/GeneExprLupusMx>.
+> Coss E (2026) *GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje*. Paquete de R. <https://github.com/EveliaCoss/GeneExprLupusMx> [doi: 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
-::: {.callout-pending}
-**Pendiente:** El DOI de Zenodo del paquete se agregará próximamente; mientras tanto, cita el repositorio de GitHub y la versión que usaste (`packageVersion("GeneExprLupusMx")`).
-:::
+Este DOI siempre apunta a la versión más reciente; en [Zenodo](https://doi.org/10.5281/zenodo.23751369) encontrarás el DOI de cada versión.
 
 En R, `citation("GeneExprLupusMx")` muestra la cita del paquete.
 

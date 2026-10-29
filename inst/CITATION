@@ -6,17 +6,17 @@ bibentry(
                    comment = c(ORCID = "0000-0002-7087-2977")),
   year    = "2026",
   note    = paste("R package version", meta$Version),
+  doi     = "10.5281/zenodo.23751369",
   url     = "https://github.com/EveliaCoss/GeneExprLupusMx",
   textVersion = paste0(
     "Coss E (2026) GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas ",
     "con lecciones de aprendizaje. R package version ", meta$Version, ". ",
+    "doi: 10.5281/zenodo.23751369. ",
     "https://github.com/EveliaCoss/GeneExprLupusMx"
   )
 )
 
 citFooter(
-  "Pendiente / Pending: el DOI de Zenodo del paquete se agregará próximamente /",
-  "the Zenodo DOI of the package will be added soon.",
   "Los datos provienen de / The data come from:",
   "Hernández-Ledesma AL, Coss-Navarrete EL, et al (2026) Front. Immunol. 17:1771959,",
   "doi: 10.3389/fimmu.2026.1771959; y / and Zenodo, doi: 10.5281/zenodo.17742206."

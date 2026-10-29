@@ -144,11 +144,9 @@ There are two citations: one for the **package** and one for the **data**. If yo
 
 **1) How to cite the package** (lessons, functions and R objects):
 
-> Coss E (2026) *GeneExprLupusMx: Transcriptomic data of lupus in Mexican women with learning lessons*. R package. <https://github.com/EveliaCoss/GeneExprLupusMx>.
+> Coss E (2026) *GeneExprLupusMx: Transcriptomic data of lupus in Mexican women with learning lessons*. R package. <https://github.com/EveliaCoss/GeneExprLupusMx> [doi: 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
-::: {.callout-pending}
-**Pending:** The Zenodo DOI of the package will be added soon; in the meantime, cite the GitHub repository and the version you used (`packageVersion("GeneExprLupusMx")`).
-:::
+This DOI always points to the latest version; on [Zenodo](https://doi.org/10.5281/zenodo.23751369) you can find the DOI of each version.
 
 **2) How to cite the data** (original article and analysis in Zenodo):
 
