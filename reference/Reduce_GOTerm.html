@@ -166,14 +166,51 @@ to allow uninterrupted batch processing across datasets.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># Batch process all GO enrichment results in the directory</span></span></span>
-<span class="r-in"><span><span class="fu">Reduce_GOTerm</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  indir <span class="op">=</span> <span class="st">"data/enrichment/"</span>,</span></span>
-<span class="r-in"><span>  outdir <span class="op">=</span> <span class="st">"results/GO_reduced/"</span>,</span></span>
-<span class="r-in"><span>  figdir <span class="op">=</span> <span class="st">"figures/GO_terms/"</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"rrvgo"</span>, <span class="st">"org.Hs.eg.db"</span>, <span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               <span class="va">requireNamespace</span>, <span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">indir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"Reduce_GOTerm_example"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">indir</span>, showWarnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># One file per enrichment result, named UP_GO_&lt;name&gt;.RData or DOWN_GO_&lt;name&gt;.RData</span></span></span>
+<span class="r-in"><span>  <span class="kw">for</span> <span class="op">(</span><span class="va">q</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SLE_UP_moDC"</span>, <span class="st">"SLE_DOWN_moDC"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">go_bp</span> <span class="op">&lt;-</span> <span class="va">go_celltype_results</span><span class="op">[</span><span class="va">go_celltype_results</span><span class="op">$</span><span class="va">query</span> <span class="op">==</span> <span class="va">q</span> <span class="op">&amp;</span></span></span>
+<span class="r-in"><span>                                   <span class="va">go_celltype_results</span><span class="op">$</span><span class="va">source</span> <span class="op">==</span> <span class="st">"GO:BP"</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span>    <span class="va">go_bp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">go_bp</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">go_bp</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span>, <span class="op">]</span>, <span class="fl">60</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">go_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>go_id <span class="op">=</span> <span class="va">go_bp</span><span class="op">$</span><span class="va">term_id</span>, term <span class="op">=</span> <span class="va">go_bp</span><span class="op">$</span><span class="va">term_name</span>,</span></span>
+<span class="r-in"><span>                           p.adjust <span class="op">=</span> <span class="va">go_bp</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">direction</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"_UP_"</span>, <span class="va">q</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="st">"UP"</span> <span class="kw">else</span> <span class="st">"DOWN"</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">go_table</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">indir</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">direction</span>, <span class="st">"_GO_moDC.RData"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="fu">Reduce_GOTerm</span><span class="op">(</span>indir <span class="op">=</span> <span class="va">indir</span>, outdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, figdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Dataset: moDC</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Create simMatrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> preparing gene to GO mapping data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> preparing IC data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reduce semantic similarity</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 'select()' returned 1:many mapping between keys and columns</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Merge metadata</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Save treemap plot</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Dataset: moDC</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Create simMatrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> preparing gene to GO mapping data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> preparing IC data...</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 1 terms without IC information in orgdb for BP</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reduce semantic similarity</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 'select()' returned 1:many mapping between keys and columns</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Merge metadata</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Save treemap plot</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
