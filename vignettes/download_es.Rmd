@@ -31,7 +31,7 @@ Todos los datos de `GeneExprLupusMx` se distribuyen con el paquete: al cargarlo 
 | `de_results`, `de_celltype_results`, `de_interaction_results` | Resultados de expresión diferencial (`DESeq2`) | 1 fila por gen |
 | `go_results`, `go_celltype_results`, `go_interaction_results` | Enriquecimiento funcional (g:Profiler) | 1 fila por término |
 
-La descripción completa de cada objeto está en la [Referencia](../reference/index.html) o en R con `?nombre_del_objeto`. Los scripts que generan cada objeto se encuentran en la carpeta [`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw) del repositorio.
+La descripción completa de cada objeto está en la [Referencia](https://eveliacoss.github.io/GeneExprLupusMx/reference/index.html) o en R con `?nombre_del_objeto`. Los scripts que generan cada objeto se encuentran en la carpeta [`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw) del repositorio.
 
 ## 2. Origen de los datos
 
