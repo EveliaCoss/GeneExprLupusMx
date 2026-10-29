@@ -31,7 +31,7 @@ All `GeneExprLupusMx` data are distributed with the package: once it is loaded, 
 | `de_results`, `de_celltype_results`, `de_interaction_results` | Differential expression results (`DESeq2`) | 1 row per gene |
 | `go_results`, `go_celltype_results`, `go_interaction_results` | Functional enrichment (g:Profiler) | 1 row per term |
 
-The full description of each object is in the [Reference](../reference/index.html) section, or in R with `?object_name`. The scripts that generate each object are in the [`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw) folder of the repository.
+The full description of each object is in the [Reference](https://eveliacoss.github.io/GeneExprLupusMx/reference/index.html) section, or in R with `?object_name`. The scripts that generate each object are in the [`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data-raw) folder of the repository.
 
 ## 2. Data sources
 
