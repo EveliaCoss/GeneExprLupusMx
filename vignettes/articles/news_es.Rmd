@@ -2,7 +2,7 @@
 title: "Registro de cambios"
 ---
 
-# GeneExprLupusMx 0.1.1
+# GeneExprLupusMx (versión en desarrollo)
 
 ## Funciones
 
