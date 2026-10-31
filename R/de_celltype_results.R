@@ -3,7 +3,7 @@
 #' \pkg{DESeq2} results comparing in vitro differentiated dendritic cells
 #' (moDC or tolDC) against monocytes, within each group (healthy controls and
 #' SLE patients). Used in the lesson about monocyte differentiation
-#' (\code{vignette("l5_DEGs_monocytes_diff_es")}; Figures 4 and 5 of the article).
+#' (\href{https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_es.html}{l5_DEGs_monocytes_diff_es}; Figures 4 and 5 of the article).
 #'
 #' Designs (all genes of \code{filtered_txi}, reference level \code{monocyte}):
 #' \itemize{

@@ -42,7 +42,7 @@ Install the package from [GitHub](https://github.com/EveliaCoss/GeneExprLupusMx)
 
 ```{r install, eval = FALSE}
 install.packages(c("remotes", "BiocManager", "tidyverse"))
-remotes::install_github("EveliaCoss/GeneExprLupusMx")
+remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
 BiocManager::install("DESeq2")
 ```
 
@@ -126,17 +126,17 @@ The lessons are designed to be followed in order, but each one can be read on it
 
 | Lesson | You will learn to… | Data | Time |
 |---------|---------------|-------|--------|
-| [1. Meeting the participants](clinical_en.html) | Describe the cohort with descriptive statistics, tables, normality tests, and comparisons between groups | `volunteer_info` | 45 to 60 min |
-| [2. From RNA-seq counts to data exploration](intro_RNAseq_en.html) | Import the counts, normalize them with `DESeq2`, explore genes, and make *heatmaps* and PCA | `filtered_txi`, `metadata_cleaned`, `volunteer_info` | 1 to 1.5 h |
-| [3. Differentially expressed genes between patients and controls](l3_DEGs_en.html) | Validate cell types with biomarkers, run differential expression with `DESeq2`, and interpret volcano plots | `filtered_txi`, `metadata_cleaned`, `zscore_mat` | 1.5 h |
-| [4. Biological functions of differentially expressed genes](l4_GOterms_en.html) | Run a functional enrichment analysis with g:Profiler, identify SLE and ISG genes, test their enrichment (hypergeometric and Fisher), and correlate ISGs with disease activity | `de_results`, `go_results`, `sle_genes`, `isg_genes`, `biotype_summary`, `zscore_mat`, `metadata_cleaned`, `volunteer_info` | 1.5 h |
-| [5. Differentiation of monocytes into dendritic cells](l5_DEGs_monocytes_diff_en.html) | Compare dendritic cells against monocytes, validate differentiation with known genes, and explore pathways and lipid metabolism | `de_celltype_results`, `go_celltype_results`, `moDC_genes`, `dc_genes` | 1.5 h |
-| [6. The transcriptional signature of tolerogenic dendritic cells](l6_DEGs_tolDcs_en.html) | Evaluate tolDC with a published signature, combine z-scores and LFC, choose the right reference for comparison, and identify the genes that agree with the signature | `tolDC_genes`, `de_celltype_results`, `zscore_mat` | 1 h |
-| [7. Do patient and control cells differentiate in the same way?](l7_DEGs_between_groups_en.html) | Fit a model with an interaction, interpret a "difference of differences", summarize the genes with Reactome processes, and plot expression trajectories | `de_interaction_results`, `go_interaction_results`, `zscore_mat`, `isg_genes` | 1.5 h |
+| [1. Meeting the participants](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_en.html) | Describe the cohort with descriptive statistics, tables, normality tests, and comparisons between groups | `volunteer_info` | 45 to 60 min |
+| [2. From RNA-seq counts to data exploration](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_en.html) | Import the counts, normalize them with `DESeq2`, explore genes, and make *heatmaps* and PCA | `filtered_txi`, `metadata_cleaned`, `volunteer_info` | 1 to 1.5 h |
+| [3. Differentially expressed genes between patients and controls](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_en.html) | Validate cell types with biomarkers, run differential expression with `DESeq2`, and interpret volcano plots | `filtered_txi`, `metadata_cleaned`, `zscore_mat` | 1.5 h |
+| [4. Biological functions of differentially expressed genes](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_en.html) | Run a functional enrichment analysis with g:Profiler, identify SLE and ISG genes, test their enrichment (hypergeometric and Fisher), and correlate ISGs with disease activity | `de_results`, `go_results`, `sle_genes`, `isg_genes`, `biotype_summary`, `zscore_mat`, `metadata_cleaned`, `volunteer_info` | 1.5 h |
+| [5. Differentiation of monocytes into dendritic cells](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_en.html) | Compare dendritic cells against monocytes, validate differentiation with known genes, and explore pathways and lipid metabolism | `de_celltype_results`, `go_celltype_results`, `moDC_genes`, `dc_genes` | 1.5 h |
+| [6. The transcriptional signature of tolerogenic dendritic cells](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_en.html) | Evaluate tolDC with a published signature, combine z-scores and LFC, choose the right reference for comparison, and identify the genes that agree with the signature | `tolDC_genes`, `de_celltype_results`, `zscore_mat` | 1 h |
+| [7. Do patient and control cells differentiate in the same way?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_en.html) | Fit a model with an interaction, interpret a "difference of differences", summarize the genes with Reactome processes, and plot expression trajectories | `de_interaction_results`, `go_interaction_results`, `zscore_mat`, `isg_genes` | 1.5 h |
 
 Each lesson includes **challenges** with their solutions for practice, and ends by reproducing a figure or table from the article.
 
-In addition, the guide [How to use the package functions](functions_en.html) shows how to apply `get_heatmap_mat()`, `create_heatmap()`, `process_go()` and `reduce_go_terms()` to your own data.
+In addition, the guide [How to use the package functions](https://eveliacoss.github.io/GeneExprLupusMx/articles/functions_en.html) shows how to apply `get_heatmap_mat()`, `create_heatmap()`, `process_go()` and `reduce_go_terms()` to your own data.
 
 ## How to cite
 
@@ -156,7 +156,7 @@ This DOI always points to the latest version; on [Zenodo](https://doi.org/10.528
 
 ```{=html}
 <nav class="lesson-nav">
-  <a class="lesson-next" href="clinical_en.html">Next lesson: Meeting the participants →</a>
+  <a class="lesson-next" href="https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_en.html">Next lesson: Meeting the participants →</a>
 </nav>
 <a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Back to the top of the page">↑ Back to top</a>
 ```

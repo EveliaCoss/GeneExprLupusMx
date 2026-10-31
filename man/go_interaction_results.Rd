@@ -21,7 +21,7 @@ go_interaction_results
 Functional enrichment of the genes whose change from monocytes to dendritic
 cells differs between SLE patients and controls
 (\code{\link{de_interaction_results}}), obtained with \pkg{gprofiler2} in
-\code{vignette("l7_DEGs_between_groups_es")}.
+\href{https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.html}{l7_DEGs_between_groups_es}.
 }
 \details{
 Genes with \code{padj < 0.05} were split by the sign of

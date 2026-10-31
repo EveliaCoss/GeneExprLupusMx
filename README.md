@@ -47,7 +47,7 @@ original.
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx")
+remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
 ```
 
 Algunas lecciones usan paquetes de Bioconductor:
@@ -252,7 +252,7 @@ reproduce, step by step, the figures of the original article.
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx")
+remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
 ```
 
 Some lessons use Bioconductor packages:

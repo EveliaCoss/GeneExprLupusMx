@@ -21,7 +21,7 @@ go_celltype_results
 Functional enrichment of the differentially expressed genes (DEG) between
 dendritic cells and monocytes (\code{\link{de_celltype_results}}), obtained
 with \pkg{gprofiler2} in the lesson about monocyte differentiation
-(\code{vignette("l5_DEGs_monocytes_diff_es")}).
+(\href{https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_es.html}{l5_DEGs_monocytes_diff_es}).
 }
 \details{
 DEG were defined with \code{|log2FoldChange| >= 1} and \code{padj < 0.05}

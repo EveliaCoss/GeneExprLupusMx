@@ -3,7 +3,7 @@
 #' Genes reported as activated (up-regulated) or repressed (down-regulated) in
 #' tolerogenic dendritic cells by Robertson et al. (2021). Used to evaluate
 #' whether the tolDCs of the study acquire the expected tolerogenic signature
-#' (Figure 6 of the article; \code{vignette("l6_DEGs_tolDCs_es")}).
+#' (Figure 6 of the article; \href{https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.html}{l6_DEGs_tolDcs_es}).
 #'
 #' @format A data frame with 86 rows and 4 columns:
 #' \describe{

@@ -4,7 +4,7 @@
 #' to in vitro differentiated dendritic cells (moDC or tolDC) is different in
 #' SLE patients than in healthy controls. Used in the lesson about the
 #' between-group comparison of contrasts
-#' (\code{vignette("l7_DEGs_between_groups_es")}; Figure 7A and 7B of the article).
+#' (\href{https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.html}{l7_DEGs_between_groups_es}; Figure 7A and 7B of the article).
 #'
 #' Design (all genes of \code{filtered_txi}, the 99 samples, reference levels
 #' \code{Ctrl} and \code{monocyte}): \code{~ Group + Cell_type + Group:Cell_type}.

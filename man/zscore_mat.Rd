@@ -16,7 +16,7 @@ zscore_mat
 \description{
 Gene-wise z-scores of the variance-stabilized expression (VST) computed in
 the lesson "De las cuentas de RNA-seq a la exploración de datos"
-(\code{vignette("intro_RNAseq_es")}). Useful for heatmaps and clustering.
+(\href{https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.html}{intro_RNAseq_es}). Useful for heatmaps and clustering.
 }
 \details{
 Steps: \code{vst(dds, blind = FALSE)}, removal of genes with zero variance,

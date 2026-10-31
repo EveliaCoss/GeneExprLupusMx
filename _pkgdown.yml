@@ -68,6 +68,42 @@ home:
           Explora los resultados de forma interactiva. Por ahora solo está disponible en español. /
           Explore the results interactively. For now, it is only available in Spanish.
 
+reference:
+- title: Funciones / Functions
+  contents:
+  - create_heatmap
+  - get_heatmap_mat
+  - process_go
+  - reduce_go_terms
+- title: Datos de las participantes / Participant data
+  contents:
+  - metadata_cleaned
+  - volunteer_info
+- title: Datos de expresión / Expression data
+  contents:
+  - filtered_txi
+  - biotype_summary
+  - dds
+  - zscore_mat
+- title: Resultados de las lecciones / Lesson results
+  contents:
+  - de_results
+  - go_results
+  - de_celltype_results
+  - go_celltype_results
+  - de_interaction_results
+  - go_interaction_results
+- title: Listas de genes / Gene lists
+  contents:
+  - sle_genes
+  - isg_genes
+  - dc_genes
+  - moDC_genes
+  - tolDC_genes
+- title: Funciones obsoletas / Deprecated functions
+  contents:
+  - GeneExprLupusMx-deprecated
+
 navbar:
   bg: primary
   type: dark

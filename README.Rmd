@@ -40,7 +40,7 @@ Sitio web / Website: <https://eveliacoss.github.io/GeneExprLupusMx/>
 
 ```r
 # install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx")
+remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
 ```
 
 Algunas lecciones usan paquetes de Bioconductor:
@@ -143,7 +143,7 @@ El código del paquete se distribuye bajo la [licencia MIT](LICENSE.md). Los dat
 
 ```r
 # install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx")
+remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
 ```
 
 Some lessons use Bioconductor packages:
