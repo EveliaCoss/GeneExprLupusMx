@@ -4,11 +4,13 @@ de_cols <- c("gene", "baseMean", "log2FoldChange", "lfcSE", "stat", "pvalue", "p
 go_cols <- c("query", "source", "term_id", "term_name", "term_size", "query_size",
              "intersection_size", "p_value", "parents", "intersection")
 sample_ids <- as.character(metadata_cleaned$sample_ID)
+# genes de filtered_txi, en el mismo orden (las tablas de DE se calcularon con todos)
+all_genes <- de_results$monocyte$gene
 
 expect_de_table <- function(d) {
   expect_s3_class(d, "data.frame")
   expect_named(d, de_cols)
-  expect_identical(d$gene, rownames(filtered_txi$counts))
+  expect_identical(d$gene, all_genes)
   expect_true(all(d$pvalue >= 0 & d$pvalue <= 1, na.rm = TRUE))
   expect_true(all(d$padj >= 0 & d$padj <= 1, na.rm = TRUE))
   # padj (Benjamini-Hochberg) nunca es menor que el p-valor
@@ -27,7 +29,13 @@ expect_go_table <- function(d) {
 
 # ---- Cuentas -----------------------------------------------------------------
 
+test_that("de_results covers the 21,718 genes of filtered_txi", {
+  expect_identical(length(all_genes), 21718L)
+  expect_identical(anyDuplicated(all_genes), 0L)
+})
+
 test_that("filtered_txi has the tximport structure", {
+  filtered_txi <- local_download("filtered_txi")
   expect_type(filtered_txi, "list")
   expect_named(filtered_txi, c("abundance", "counts", "length", "countsFromAbundance"))
   expect_identical(filtered_txi$countsFromAbundance, "no")
@@ -39,6 +47,8 @@ test_that("filtered_txi has the tximport structure", {
 })
 
 test_that("filtered_txi has 21,718 genes and the 99 samples of metadata_cleaned", {
+  filtered_txi <- local_download("filtered_txi")
+  expect_identical(rownames(filtered_txi$counts), all_genes)
   expect_identical(dim(filtered_txi$counts), c(21718L, 99L))
   expect_identical(colnames(filtered_txi$counts), sample_ids)
   expect_identical(anyDuplicated(rownames(filtered_txi$counts)), 0L)
@@ -49,10 +59,11 @@ test_that("filtered_txi has 21,718 genes and the 99 samples of metadata_cleaned"
 
 test_that("dds matches the counts and metadata", {
   skip_if_not_installed("DESeq2")
+  dds <- local_download("dds")
   expect_s4_class(dds, "DESeqDataSet")
   expect_identical(dim(dds), c(13596L, 99L))
   expect_identical(colnames(dds), sample_ids)
-  expect_true(all(rownames(dds) %in% rownames(filtered_txi$counts)))
+  expect_true(all(rownames(dds) %in% all_genes))
   expect_identical(deparse(DESeq2::design(dds)), "~Cell_type + Group")
   counts <- DESeq2::counts(dds)
   expect_type(counts, "integer")
@@ -61,6 +72,7 @@ test_that("dds matches the counts and metadata", {
 })
 
 test_that("zscore_mat has one Z-score per gene and sample of dds", {
+  zscore_mat <- local_download("zscore_mat")
   expect_true(is.matrix(zscore_mat))
   expect_identical(dim(zscore_mat), c(13596L, 99L))
   expect_identical(colnames(zscore_mat), sample_ids)
@@ -70,7 +82,7 @@ test_that("zscore_mat has one Z-score per gene and sample of dds", {
   expect_equal(unname(apply(zscore_mat, 1, stats::sd)), rep(1, nrow(zscore_mat)),
                tolerance = 1e-8)
   skip_if_not_installed("DESeq2")
-  expect_identical(rownames(zscore_mat), rownames(dds))
+  expect_identical(rownames(zscore_mat), rownames(local_download("dds")))
 })
 
 # ---- Metadatos ---------------------------------------------------------------
@@ -180,7 +192,7 @@ test_that("biotype_summary annotates genes of filtered_txi", {
   expect_s3_class(biotype_summary, "data.frame")
   expect_named(biotype_summary, c("gene", "gene_biotype", "Group_biotype"))
   expect_identical(anyDuplicated(biotype_summary$gene), 0L)
-  expect_true(all(biotype_summary$gene %in% rownames(filtered_txi$counts)))
+  expect_true(all(biotype_summary$gene %in% all_genes))
   expect_setequal(unique(biotype_summary$Group_biotype),
                   c("PCG", "lncRNA", "Pseudogene", "small ncRNAs", "TEC"))
 })

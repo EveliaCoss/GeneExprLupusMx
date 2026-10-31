@@ -23,9 +23,6 @@ Hernández-Ledesma AL, Coss-Navarrete EL, et al. (2026), Front.
 Immunol. 17:1771959 (\doi{10.3389/fimmu.2026.1771959}); data and analysis
 code deposited in Zenodo (\doi{10.5281/zenodo.17742206}).
 }
-\usage{
-filtered_txi
-}
 \description{
 Gene-level RNA-seq quantification of the 99 samples of the study
 (33 volunteers x 3 cell types: monocytes, moDCs and tolDCs). Transcripts were
@@ -34,15 +31,21 @@ Genes are identified by their gene symbol; duplicated entries in gene
 biotypes were removed before creating this object.
 }
 \details{
+This object is not installed with the package because of its size: get
+it with \code{filtered_txi <- download_data("filtered_txi")} (see \code{\link{download_data}}).
+
 Row names are gene symbols (e.g., \code{"A1BG"}) and column names
 are sample identifiers (e.g., \code{"QR011_1"}), in the same order as the
 rows of \code{\link{metadata_cleaned}}. Use it with
 \code{DESeq2::DESeqDataSetFromTximport()}.
 }
 \examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+filtered_txi <- download_data("filtered_txi")
 names(filtered_txi)
 dim(filtered_txi$counts)
 filtered_txi$counts[1:4, 1:4]
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link{metadata_cleaned}}, \code{\link{biotype_summary}}

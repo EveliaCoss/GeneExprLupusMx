@@ -1,7 +1,14 @@
 # GeneExprLupusMx (development version)
 
+## Smaller package
+
+- The three largest objects (`filtered_txi`, `dds` and `zscore_mat`) are no longer installed with the package. They are files of the v0.1.0 GitHub release, and the new function `download_data()` downloads them the first time they are used and then reads the saved copy. The package now requires R >= 4.0.
+- Only the "Get started" guides (`intro_es`, `intro_en`) are installed as vignettes. The lessons, the functions guide and the data download page are now only on the [website](https://eveliacoss.github.io/GeneExprLupusMx/).
+- Smaller figures, and the unused logo and `overview.png` were removed.
+
 ## Functions
 
+- New `download_data()` to get `filtered_txi`, `dds` and `zscore_mat`.
 - `processGO()` and `Reduce_GOTerm()` were renamed `process_go()` and `reduce_go_terms()`, so that all the functions follow the same style (`snake_case`). The old names still work, but are deprecated and show a warning.
 
 ## Website

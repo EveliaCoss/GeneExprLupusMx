@@ -6,6 +6,9 @@
 #' Genes are identified by their gene symbol; duplicated entries in gene
 #' biotypes were removed before creating this object.
 #'
+#' This object is not installed with the package because of its size: get
+#' it with \code{filtered_txi <- download_data("filtered_txi")} (see \code{\link{download_data}}).
+#'
 #' @format A list with the structure returned by \code{tximport::tximport()}:
 #' \describe{
 #'   \item{abundance}{Numeric matrix (21,718 genes x 99 samples) of gene
@@ -30,8 +33,13 @@
 #'
 #' @seealso \code{\link{metadata_cleaned}}, \code{\link{biotype_summary}}
 #'
-#' @examples
+#' @examplesIf interactive()
+#' filtered_txi <- download_data("filtered_txi")
 #' names(filtered_txi)
 #' dim(filtered_txi$counts)
 #' filtered_txi$counts[1:4, 1:4]
-"filtered_txi"
+#' @name filtered_txi
+#' @docType data
+#' @keywords datasets
+#' @usage NULL
+NULL

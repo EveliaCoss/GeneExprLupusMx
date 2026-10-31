@@ -14,6 +14,14 @@ make_small_dds <- function() {
   )
 }
 
+# Matriz pequeña de Z-scores simulados: 50 genes x 20 muestras
+make_small_zscores <- function() {
+  set.seed(1)
+  mat <- matrix(stats::rnorm(50 * 20), nrow = 50,
+                dimnames = list(paste0("gene", 1:50), metadata_cleaned$sample_ID[1:20]))
+  t(scale(t(mat)))
+}
+
 test_that("get_heatmap_mat returns Z-scores and drops zero-variance genes", {
   skip_if_not_installed("DESeq2")
   skip_if_not_installed("SummarizedExperiment")
@@ -41,6 +49,7 @@ test_that("get_heatmap_mat works on one cell type of dds", {
   skip_on_cran()
   skip_if_not_installed("DESeq2")
   skip_if_not_installed("SummarizedExperiment")
+  dds <- local_download("dds")
   mo <- dds[, dds$Cell_type == "monocyte"]
   DESeq2::design(mo) <- ~ Group
   mat <- suppressMessages(get_heatmap_mat(mo))
@@ -50,7 +59,7 @@ test_that("get_heatmap_mat works on one cell type of dds", {
 
 test_that("create_heatmap returns a ComplexHeatmap object", {
   skip_if_not_installed("ComplexHeatmap")
-  mat <- zscore_mat[1:50, 1:20]
+  mat <- make_small_zscores()
   ht <- create_heatmap(mat, color = "black", split = NULL)
 
   expect_s4_class(ht, "Heatmap")
@@ -61,7 +70,7 @@ test_that("create_heatmap returns a ComplexHeatmap object", {
 
 test_that("create_heatmap splits columns and can be drawn and stacked", {
   skip_if_not_installed("ComplexHeatmap")
-  mat <- zscore_mat[1:50, 1:20]
+  mat <- make_small_zscores()
   group <- metadata_cleaned$Group[1:20]
   ht_mo <- create_heatmap(mat, color = "black", split = group)
   ht_dc <- create_heatmap(mat, color = "palevioletred", split = group)

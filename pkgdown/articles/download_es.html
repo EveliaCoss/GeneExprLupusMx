@@ -143,10 +143,14 @@
 
     
     
-<p>Todos los datos de <code>GeneExprLupusMx</code> se distribuyen con el
-paquete: al cargarlo quedan disponibles en R, sin descargas adicionales.
-Esta página explica cómo obtenerlos fuera de R y dónde se encuentran los
-datos crudos de secuenciación.</p>
+<p>Casi todos los datos de <code>GeneExprLupusMx</code> se distribuyen
+con el paquete: al cargarlo quedan disponibles en R. Los tres objetos
+más grandes (<code>filtered_txi</code>, <code>dds</code> y
+<code>zscore_mat</code>) no se instalan con el paquete, para que sea
+ligero: se descargan con <code><a href="../reference/download_data.html">download_data()</a></code> la primera vez que
+los usas y después se leen desde tu computadora. Esta página explica
+cómo obtenerlos fuera de R y dónde se encuentran los datos crudos de
+secuenciación.</p>
 <div class="section level2">
 <h2 id="datos-incluidos-en-el-paquete">1. Datos incluidos en el paquete<a class="anchor" aria-label="anchor" href="#datos-incluidos-en-el-paquete"></a>
 </h2>
@@ -165,8 +169,8 @@ datos crudos de secuenciación.</p>
 <tr class="odd">
 <td><code>filtered_txi</code></td>
 <td>Cuentas de RNA-seq (Salmon + <code>tximport</code>):
-<code>counts</code>, <code>abundance</code> (TPM) y
-<code>length</code>
+<code>counts</code>, <code>abundance</code> (TPM) y <code>length</code>.
+Se descarga con <code>download_data("filtered_txi")</code>
 </td>
 <td>21,718 genes × 99 muestras</td>
 </tr>
@@ -206,7 +210,9 @@ tolDC</td>
 <code>dds</code>, <code>zscore_mat</code>
 </td>
 <td>
-<code>DESeqDataSet</code> normalizado y matriz de z-scores</td>
+<code>DESeqDataSet</code> normalizado y matriz de z-scores. Se
+descargan con <code><a href="../reference/download_data.html">download_data()</a></code>
+</td>
 <td>13,596 genes × 99 muestras</td>
 </tr>
 <tr class="even">
@@ -294,6 +300,7 @@ objetos como tablas:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">volunteer_info</span>,   <span class="st">"GeneExprLupusMx_datos/volunteer_info.csv"</span>,   row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Matrices de cuentas y TPM (genes en filas, muestras en columnas)</span></span>
+<span><span class="va">filtered_txi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_data.html">download_data</a></span><span class="op">(</span><span class="st">"filtered_txi"</span><span class="op">)</span> <span class="co"># solo descarga la primera vez</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span>,    <span class="st">"GeneExprLupusMx_datos/counts.csv"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">abundance</span>, <span class="st">"GeneExprLupusMx_datos/tpm.csv"</span><span class="op">)</span></span>
 <span></span>
@@ -307,11 +314,18 @@ objetos como tablas:</p>
 </h2>
 <p>Cada objeto también está disponible como archivo <code>.rda</code> en
 la carpeta <a href="https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data" class="external-link"><code>data/</code></a>
-del repositorio. Puedes cargarlo sin instalar el paquete:</p>
+del repositorio, y los tres más grandes como archivos <code>.rds</code>
+en el <a href="https://github.com/EveliaCoss/GeneExprLupusMx/releases/tag/v0.1.0" class="external-link"><em>release</em>
+v0.1.0</a>. Puedes cargarlos sin instalar el paquete:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/EveliaCoss/GeneExprLupusMx/raw/main/data/metadata_cleaned.rda"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">url</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Los objetos grandes: primero se descarga el archivo y luego se lee</span></span>
+<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/EveliaCoss/GeneExprLupusMx/releases/download/v0.1.0/filtered_txi.rds"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"filtered_txi.rds"</span>, mode <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span>
+<span><span class="va">filtered_txi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"filtered_txi.rds"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="datos-crudos-de-secuenciación">6. Datos crudos de secuenciación<a class="anchor" aria-label="anchor" href="#datos-crudos-de-secuenciaci%C3%B3n"></a>

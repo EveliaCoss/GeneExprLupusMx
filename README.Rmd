@@ -73,6 +73,7 @@ Explora los resultados de forma interactiva en la [Shinyapp de GeneExprLupusMx](
 
 ```{r ejemplo}
 library(GeneExprLupusMx)
+filtered_txi <- download_data("filtered_txi") # solo descarga la primera vez
 dim(filtered_txi$counts) # genes x muestras
 table(metadata_cleaned$Group, metadata_cleaned$Cell_type)
 ```
@@ -176,6 +177,7 @@ Explore the results interactively in the [GeneExprLupusMx Shinyapp](https://gith
 
 ```{r example}
 library(GeneExprLupusMx)
+filtered_txi <- download_data("filtered_txi") # only downloads the first time
 dim(filtered_txi$counts) # genes x samples
 table(metadata_cleaned$Group, metadata_cleaned$Cell_type)
 ```

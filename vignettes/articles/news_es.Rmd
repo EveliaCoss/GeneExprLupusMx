@@ -4,8 +4,15 @@ title: "Registro de cambios"
 
 # GeneExprLupusMx (versión en desarrollo)
 
+## Paquete más ligero
+
+- Los tres objetos más grandes (`filtered_txi`, `dds` y `zscore_mat`) ya no se instalan con el paquete. Están como archivos del *release* v0.1.0 de GitHub, y la nueva función `download_data()` los descarga la primera vez que se usan y después lee la copia guardada. El paquete ahora requiere R >= 4.0.
+- Solo las guías de "Primeros pasos" (`intro_es`, `intro_en`) se instalan como viñetas. Las lecciones, la guía de funciones y la página de descarga de datos ahora están solo en la [página web](https://eveliacoss.github.io/GeneExprLupusMx/).
+- Figuras más ligeras; se quitaron el logo y `overview.png`, que no se usaban.
+
 ## Funciones
 
+- Nueva función `download_data()` para obtener `filtered_txi`, `dds` y `zscore_mat`.
 - `processGO()` y `Reduce_GOTerm()` ahora se llaman `process_go()` y `reduce_go_terms()`, para que todas las funciones sigan el mismo estilo (`snake_case`). Los nombres anteriores siguen funcionando, pero están obsoletos y muestran una advertencia.
 
 ## Sitio web

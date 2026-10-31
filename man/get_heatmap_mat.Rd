@@ -27,10 +27,16 @@ Requires the Bioconductor packages \pkg{DESeq2} and
 }
 \examples{
 if (requireNamespace("DESeq2", quietly = TRUE)) {
-  mo <- dds[, dds$Cell_type == "monocyte"]
-  DESeq2::design(mo) <- ~ Group # a single cell type: compare groups only
-  mo_mat <- get_heatmap_mat(mo)
-  dim(mo_mat)
+  # small simulated DESeqDataSet: 1,200 genes x 6 samples
+  # (with the lesson data: dds <- download_data("dds"))
+  set.seed(1)
+  counts <- matrix(rnbinom(1200 * 6, mu = 100, size = 10), ncol = 6,
+                   dimnames = list(paste0("gene", 1:1200), paste0("S", 1:6)))
+  col_data <- data.frame(Group = factor(rep(c("Ctrl", "SLE"), each = 3)),
+                         row.names = colnames(counts))
+  sim_dds <- DESeq2::DESeqDataSetFromMatrix(counts, col_data, design = ~ Group)
+  sim_mat <- get_heatmap_mat(sim_dds)
+  dim(sim_mat)
 }
 
 }

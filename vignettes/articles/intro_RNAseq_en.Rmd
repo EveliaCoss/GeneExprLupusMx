@@ -134,6 +134,9 @@ library(DESeq2)          # RNA-seq normalization and analysis
 library(tidyverse)       # table manipulation (dplyr) and plots (ggplot2)
 library(ggrepel)         # non-overlapping labels in ggplot2
 library(cowplot)         # combine several plots into a panel
+
+# Large package objects: downloaded only the first time (see ?download_data)
+filtered_txi <- download_data("filtered_txi")
 ```
 
 ::: {.alert .alert-warning}

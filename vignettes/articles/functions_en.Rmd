@@ -57,6 +57,9 @@ library(GeneExprLupusMx) # package data and functions
 library(DESeq2)          # DESeqDataSet object
 library(ComplexHeatmap)  # heatmaps
 library(dplyr)           # table manipulation
+
+# Large package objects: downloaded only the first time (see ?download_data)
+dds <- download_data("dds")
 ```
 
 Colors (the same as in the lessons):

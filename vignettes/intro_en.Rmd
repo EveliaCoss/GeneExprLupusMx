@@ -54,7 +54,7 @@ library(GeneExprLupusMx)
 
 ## What data does it contain?
 
-The package includes three main datasets. They are available as soon as you load the package; there is nothing else to download.
+The package includes three main datasets. `metadata_cleaned` and `volunteer_info` are available as soon as you load the package. `filtered_txi` is larger, so it is not installed with the package: it is downloaded with `download_data()` the first time you use it, and then read from your computer.
 
 | Object | What it contains | One row per | Size |
 |--------|------------------|-------------|------|
@@ -73,7 +73,7 @@ It also includes **reference gene lists** used by some lessons:
 | `dc_genes` | Genes associated with dendritic cell differentiation | Lesson 5 |
 | `tolDC_genes` | Transcriptional signature of tolerogenic dendritic cells (Robertson et al., 2021) | Lesson 6 |
 
-It also includes **checkpoints**: objects that are built in one lesson and saved in the package so that the next lesson can start from there, without repeating the steps.
+It also includes **checkpoints**: objects that are built in one lesson and saved in the package so that the next lesson can start from there, without repeating the steps. The two largest, `dds` and `zscore_mat`, are also downloaded with `download_data()`.
 
 | Object | What it contains | Built in |
 |--------|------------------|----------|
@@ -88,8 +88,13 @@ It also includes **checkpoints**: objects that are built in one lesson and saved
 
 A quick look at each one:
 
+```{r, eval = FALSE}
+filtered_txi <- download_data("filtered_txi") # only downloads the first time
+dim(filtered_txi$counts)                        # genes x samples
+#> [1] 21718    99
+```
+
 ```{r}
-dim(filtered_txi$counts)       # genes x samples
 head(metadata_cleaned[, c("sample_ID", "Group", "Cell_type")], 3)
 head(volunteer_info[, c("Volunteer_ID", "Group", "Age_years", "Time_of_recruitment")], 3)
 ```
@@ -110,10 +115,13 @@ flowchart LR
 </script>
 ```
 
-```{r}
+```{r, eval = FALSE}
 # The count columns are in the same order as the metadata rows
 all(colnames(filtered_txi$counts) == metadata_cleaned$sample_ID)
+#> [1] TRUE
+```
 
+```{r}
 # From sample to volunteer
 sub("_.*", "", "QR011_1")
 ```

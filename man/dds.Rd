@@ -11,15 +11,15 @@ A \code{DESeqDataSet} with 13,596 genes and 99 samples. Its
 \source{
 Generated from \code{filtered_txi} and \code{metadata_cleaned}.
 }
-\usage{
-dds
-}
 \description{
 \code{DESeqDataSet} built in the lesson "De las cuentas de RNA-seq a la
 exploración de datos" (\href{https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.html}{intro_RNAseq_es}), ready to be used
 as the starting point of later lessons.
 }
 \details{
+This object is not installed with the package because of its size: get
+it with \code{dds <- download_data("dds")} (see \code{\link{download_data}}).
+
 Steps: \code{DESeqDataSetFromTximport()} from \code{filtered_txi} and
 \code{metadata_cleaned} with design \code{~ Cell_type + Group} (reference
 levels \code{monocyte} and \code{Ctrl}), removal of genes with fewer than 10
@@ -29,11 +29,12 @@ Requires the \pkg{DESeq2} package (Bioconductor) to be used.
 The script that generates it is \code{data-raw/lesson2_checkpoints.R}.
 }
 \examples{
-if (requireNamespace("DESeq2", quietly = TRUE)) {
-  library(DESeq2)
-  dds
-  design(dds)
-}
+\dontshow{if (interactive() && requireNamespace("DESeq2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+library(DESeq2)
+dds <- download_data("dds")
+dds
+design(dds)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link{zscore_mat}}, \code{\link{filtered_txi}},

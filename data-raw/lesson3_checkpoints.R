@@ -5,7 +5,7 @@
 # Si cambian los pasos de la lección, actualizar este script y volver a ejecutarlo.
 
 library(DESeq2)
-load("data/filtered_txi.rda")
+filtered_txi <- GeneExprLupusMx::download_data("filtered_txi") # ver ?download_data
 load("data/metadata_cleaned.rda")
 
 metadata_cleaned$Group <- relevel(metadata_cleaned$Group, ref = "Ctrl")

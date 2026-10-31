@@ -115,10 +115,6 @@ Genes are identified by their gene symbol; duplicated entries in gene
 biotypes were removed before creating this object.</p>
     </div>
 
-    <div class="section level2">
-    <h2 id="ref-usage">Uso<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="va">filtered_txi</span></span></code></pre></div>
-    </div>
 
     <div class="section level2">
     <h2 id="formato">Formato<a class="anchor" aria-label="anchor" href="#formato"></a></h2>
@@ -151,7 +147,9 @@ code deposited in Zenodo (<a href="https://doi.org/10.5281/zenodo.17742206" clas
     </div>
     <div class="section level2">
     <h2 id="detalles">Detalles<a class="anchor" aria-label="anchor" href="#detalles"></a></h2>
-    <p>Row names are gene symbols (e.g., <code>"A1BG"</code>) and column names
+    <p>This object is not installed with the package because of its size: get
+it with <code>filtered_txi &lt;- download_data("filtered_txi")</code> (see <code><a href="download_data.html">download_data</a></code>).</p>
+<p>Row names are gene symbols (e.g., <code>"A1BG"</code>) and column names
 are sample identifiers (e.g., <code>"QR011_1"</code>), in the same order as the
 rows of <code><a href="metadata_cleaned.html">metadata_cleaned</a></code>. Use it with
 <code><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeq2::DESeqDataSetFromTximport()</a></code>.</p>
@@ -163,17 +161,12 @@ rows of <code><a href="metadata_cleaned.html">metadata_cleaned</a></code>. Use i
 
     <div class="section level2">
     <h2 id="ref-examples">Ejemplos<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "abundance"           "counts"              "length"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4] "countsFromAbundance"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive()</span></span></span>
+<span class="r-in"><span><span class="va">filtered_txi</span> <span class="op">&lt;-</span> <span class="fu"><a href="download_data.html">download_data</a></span><span class="op">(</span><span class="st">"filtered_txi"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 21718    99</span>
 <span class="r-in"><span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          QR011_0   QR011_1  QR011_3 QR013_0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1BG     179.000   134.000  401.000 163.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1BG-AS1  69.977    76.949  205.607  76.942</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1CF       0.000     0.000    0.000   0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A2M       16.000 27777.937 3700.000  29.584</span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Índice de contenidos"><h2>En esta página</h2>

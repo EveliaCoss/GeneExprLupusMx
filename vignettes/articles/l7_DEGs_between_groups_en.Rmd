@@ -85,6 +85,10 @@ library(tidyverse)       # table manipulation and plots
 library(ComplexHeatmap)  # heatmaps
 library(circlize)        # color scales for ComplexHeatmap
 library(cowplot)         # combining plots into panels
+
+# Large package objects: downloaded only the first time (see ?download_data)
+filtered_txi <- download_data("filtered_txi")
+zscore_mat   <- download_data("zscore_mat")
 ```
 
 Colors and threshold (the same as in the previous lessons, plus those for the lists in this lesson):

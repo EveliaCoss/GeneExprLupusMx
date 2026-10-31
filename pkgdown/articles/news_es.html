@@ -147,9 +147,30 @@
 <h2 id="geneexprlupusmx-versión-en-desarrollo">GeneExprLupusMx (versión en desarrollo)<a class="anchor" aria-label="anchor" href="#geneexprlupusmx-versi%C3%B3n-en-desarrollo"></a>
 </h2>
 <div class="section level3">
+<h3 id="paquete-más-ligero">Paquete más ligero<a class="anchor" aria-label="anchor" href="#paquete-m%C3%A1s-ligero"></a>
+</h3>
+<ul>
+<li>Los tres objetos más grandes (<code>filtered_txi</code>,
+<code>dds</code> y <code>zscore_mat</code>) ya no se instalan con el
+paquete. Están como archivos del <em>release</em> v0.1.0 de GitHub, y la
+nueva función <code><a href="../reference/download_data.html">download_data()</a></code> los descarga la primera vez
+que se usan y después lee la copia guardada. El paquete ahora requiere R
+&gt;= 4.0.</li>
+<li>Solo las guías de “Primeros pasos” (<code>intro_es</code>,
+<code>intro_en</code>) se instalan como viñetas. Las lecciones, la guía
+de funciones y la página de descarga de datos ahora están solo en la <a href="https://eveliacoss.github.io/GeneExprLupusMx/">página
+web</a>.</li>
+<li>Figuras más ligeras; se quitaron el logo y
+<code>overview.png</code>, que no se usaban.</li>
+</ul>
+</div>
+<div class="section level3">
 <h3 id="funciones">Funciones<a class="anchor" aria-label="anchor" href="#funciones"></a>
 </h3>
 <ul>
+<li>Nueva función <code><a href="../reference/download_data.html">download_data()</a></code> para obtener
+<code>filtered_txi</code>, <code>dds</code> y
+<code>zscore_mat</code>.</li>
 <li>
 <code><a href="../reference/GeneExprLupusMx-deprecated.html">processGO()</a></code> y <code><a href="../reference/GeneExprLupusMx-deprecated.html">Reduce_GOTerm()</a></code> ahora se
 llaman <code><a href="../reference/process_go.html">process_go()</a></code> y <code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code>, para
