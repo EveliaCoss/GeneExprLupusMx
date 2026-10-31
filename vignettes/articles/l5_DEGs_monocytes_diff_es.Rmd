@@ -87,6 +87,9 @@ library(ComplexHeatmap)  # heatmaps
 library(circlize)        # escalas de color para ComplexHeatmap
 library(grid)            # dibujar formas dentro de los heatmaps
 library(cowplot)         # unir gráficas en un panel
+
+# Objetos grandes del paquete: se descargan solo la primera vez (ver ?download_data)
+filtered_txi <- download_data("filtered_txi")
 ```
 
 Colores y umbrales (los mismos de las lecciones anteriores):

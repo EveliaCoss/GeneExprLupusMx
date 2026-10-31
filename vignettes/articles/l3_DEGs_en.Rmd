@@ -93,6 +93,10 @@ library(ComplexHeatmap)  # heatmaps
 library(circlize)        # color scales for ComplexHeatmap
 library(ggrepel)         # non-overlapping labels
 library(cowplot)         # combine plots into a panel
+
+# Large package objects: downloaded only the first time (see ?download_data)
+filtered_txi <- download_data("filtered_txi")
+zscore_mat   <- download_data("zscore_mat")
 ```
 
 Colors and thresholds we will use throughout the lesson:

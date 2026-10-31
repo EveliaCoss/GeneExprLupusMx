@@ -93,6 +93,9 @@ library(ComplexHeatmap)  # heatmaps
 library(circlize)        # color scales for ComplexHeatmap
 library(grid)            # drawing shapes inside the heatmaps
 library(cowplot)         # combining plots into a panel
+
+# Large package objects: downloaded only the first time (see ?download_data)
+zscore_mat <- download_data("zscore_mat")
 ```
 
 Colors and thresholds (the same as in the previous lesson):

@@ -4,6 +4,9 @@
 #' the lesson "De las cuentas de RNA-seq a la exploración de datos"
 #' (\href{https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.html}{intro_RNAseq_es}). Useful for heatmaps and clustering.
 #'
+#' This object is not installed with the package because of its size: get
+#' it with \code{zscore_mat <- download_data("zscore_mat")} (see \code{\link{download_data}}).
+#'
 #' Steps: \code{vst(dds, blind = FALSE)}, removal of genes with zero variance,
 #' and \code{t(scale(t(...)))} so that each gene has mean 0 and standard
 #' deviation 1 across samples.
@@ -16,7 +19,12 @@
 #'
 #' @seealso \code{\link{dds}}
 #'
-#' @examples
+#' @examplesIf interactive()
+#' zscore_mat <- download_data("zscore_mat")
 #' dim(zscore_mat)
 #' zscore_mat[1:4, 1:4]
-"zscore_mat"
+#' @name zscore_mat
+#' @docType data
+#' @keywords datasets
+#' @usage NULL
+NULL

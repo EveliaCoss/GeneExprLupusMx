@@ -16,7 +16,7 @@
 
 library(DESeq2)
 library(gprofiler2)
-load("data/filtered_txi.rda")
+filtered_txi <- GeneExprLupusMx::download_data("filtered_txi") # ver ?download_data
 load("data/metadata_cleaned.rda")
 
 # --- 1. Modelo de interacción ---

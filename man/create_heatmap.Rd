@@ -42,7 +42,10 @@ Requires the Bioconductor package \pkg{ComplexHeatmap}.
 }
 \examples{
 if (requireNamespace("ComplexHeatmap", quietly = TRUE)) {
-  mat <- zscore_mat[1:50, 1:20]
+  # small simulated Z-score matrix: 50 genes x 20 samples
+  # (with the lesson data: zscore_mat <- download_data("zscore_mat"))
+  set.seed(1)
+  mat <- t(scale(t(matrix(rnorm(50 * 20), nrow = 50))))
   ht <- create_heatmap(mat, color = "black", split = NULL)
   ComplexHeatmap::draw(ht)
 }

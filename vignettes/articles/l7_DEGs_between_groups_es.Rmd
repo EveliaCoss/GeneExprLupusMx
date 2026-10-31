@@ -85,6 +85,10 @@ library(tidyverse)       # manipulación de tablas y gráficas
 library(ComplexHeatmap)  # heatmaps
 library(circlize)        # escalas de color para ComplexHeatmap
 library(cowplot)         # unir gráficas en paneles
+
+# Objetos grandes del paquete: se descargan solo la primera vez (ver ?download_data)
+filtered_txi <- download_data("filtered_txi")
+zscore_mat   <- download_data("zscore_mat")
 ```
 
 Colores y umbral (los mismos de las lecciones anteriores, más los de las listas de esta lección):

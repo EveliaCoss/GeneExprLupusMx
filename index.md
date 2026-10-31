@@ -71,6 +71,7 @@ BiocManager::install(c("DESeq2", "ComplexHeatmap"))
 
 ``` r
 library(GeneExprLupusMx)
+filtered_txi <- download_data("filtered_txi") # solo la primera vez / only the first time
 dim(filtered_txi$counts) # genes x muestras / genes x samples
 #> [1] 21718    99
 table(metadata_cleaned$Group, metadata_cleaned$Cell_type)

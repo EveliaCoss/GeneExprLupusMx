@@ -71,6 +71,7 @@ home:
 reference:
 - title: Funciones / Functions
   contents:
+  - download_data
   - create_heatmap
   - get_heatmap_mat
   - process_go

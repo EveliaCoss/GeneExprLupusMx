@@ -96,6 +96,7 @@ Por ahora solo está disponible en español.
 
 ``` r
 library(GeneExprLupusMx)
+filtered_txi <- download_data("filtered_txi") # solo descarga la primera vez
 dim(filtered_txi$counts) # genes x muestras
 #> [1] 21718    99
 table(metadata_cleaned$Group, metadata_cleaned$Cell_type)
@@ -300,6 +301,7 @@ now, it is only available in Spanish.
 
 ``` r
 library(GeneExprLupusMx)
+filtered_txi <- download_data("filtered_txi") # only downloads the first time
 dim(filtered_txi$counts) # genes x samples
 #> [1] 21718    99
 table(metadata_cleaned$Group, metadata_cleaned$Cell_type)

@@ -83,6 +83,9 @@ library(GeneExprLupusMx) # datos del paquete
 library(tidyverse)       # manipulación de tablas y gráficas
 library(ComplexHeatmap)  # heatmaps
 library(circlize)        # escalas de color para ComplexHeatmap
+
+# Objetos grandes del paquete: se descargan solo la primera vez (ver ?download_data)
+zscore_mat <- download_data("zscore_mat")
 ```
 
 Colores y umbrales (los mismos de las lecciones anteriores):

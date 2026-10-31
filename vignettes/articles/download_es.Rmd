@@ -15,19 +15,19 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
 ```{css, echo = FALSE, file = "../lesson.css"}
 ```
 
-Todos los datos de `GeneExprLupusMx` se distribuyen con el paquete: al cargarlo quedan disponibles en R, sin descargas adicionales. Esta página explica cómo obtenerlos fuera de R y dónde se encuentran los datos crudos de secuenciación.
+Casi todos los datos de `GeneExprLupusMx` se distribuyen con el paquete: al cargarlo quedan disponibles en R. Los tres objetos más grandes (`filtered_txi`, `dds` y `zscore_mat`) no se instalan con el paquete, para que sea ligero: se descargan con `download_data()` la primera vez que los usas y después se leen desde tu computadora. Esta página explica cómo obtenerlos fuera de R y dónde se encuentran los datos crudos de secuenciación.
 
 ## 1. Datos incluidos en el paquete
 
 | Objeto | Contenido | Tamaño |
 |--------|-----------|--------|
-| `filtered_txi` | Cuentas de RNA-seq (Salmon + `tximport`): `counts`, `abundance` (TPM) y `length` | 21,718 genes × 99 muestras |
+| `filtered_txi` | Cuentas de RNA-seq (Salmon + `tximport`): `counts`, `abundance` (TPM) y `length`. Se descarga con `download_data("filtered_txi")` | 21,718 genes × 99 muestras |
 | `metadata_cleaned` | Grupo, tipo celular y datos clínicos de cada muestra | 99 muestras |
 | `volunteer_info` | Edad, diagnóstico, tratamientos y fecha de reclutamiento | 33 voluntarias |
 | `biotype_summary` | Biotipo de cada gen | 1 fila por gen |
 | `sle_genes`, `isg_genes` | Genes asociados al lupus y genes estimulados por interferón | listas de genes |
 | `moDC_genes`, `dc_genes`, `tolDC_genes` | Genes de diferenciación de células dendríticas y firma de las tolDC | listas de genes |
-| `dds`, `zscore_mat` | `DESeqDataSet` normalizado y matriz de z-scores | 13,596 genes × 99 muestras |
+| `dds`, `zscore_mat` | `DESeqDataSet` normalizado y matriz de z-scores. Se descargan con `download_data()` | 13,596 genes × 99 muestras |
 | `de_results`, `de_celltype_results`, `de_interaction_results` | Resultados de expresión diferencial (`DESeq2`) | 1 fila por gen |
 | `go_results`, `go_celltype_results`, `go_interaction_results` | Enriquecimiento funcional (g:Profiler) | 1 fila por término |
 
@@ -67,6 +67,7 @@ write.csv(metadata_cleaned, "GeneExprLupusMx_datos/metadata_cleaned.csv", row.na
 write.csv(volunteer_info,   "GeneExprLupusMx_datos/volunteer_info.csv",   row.names = FALSE)
 
 # Matrices de cuentas y TPM (genes en filas, muestras en columnas)
+filtered_txi <- download_data("filtered_txi") # solo descarga la primera vez
 write.csv(filtered_txi$counts,    "GeneExprLupusMx_datos/counts.csv")
 write.csv(filtered_txi$abundance, "GeneExprLupusMx_datos/tpm.csv")
 
@@ -78,12 +79,17 @@ for (cell in names(de_results)) {
 
 ## 5. Descarga directa desde GitHub
 
-Cada objeto también está disponible como archivo `.rda` en la carpeta [`data/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data) del repositorio. Puedes cargarlo sin instalar el paquete:
+Cada objeto también está disponible como archivo `.rda` en la carpeta [`data/`](https://github.com/EveliaCoss/GeneExprLupusMx/tree/main/data) del repositorio, y los tres más grandes como archivos `.rds` en el [*release* v0.1.0](https://github.com/EveliaCoss/GeneExprLupusMx/releases/tag/v0.1.0). Puedes cargarlos sin instalar el paquete:
 
 ```{r}
 url <- "https://github.com/EveliaCoss/GeneExprLupusMx/raw/main/data/metadata_cleaned.rda"
 load(url(url))
 head(metadata_cleaned)
+
+# Los objetos grandes: primero se descarga el archivo y luego se lee
+url <- "https://github.com/EveliaCoss/GeneExprLupusMx/releases/download/v0.1.0/filtered_txi.rds"
+download.file(url, "filtered_txi.rds", mode = "wb")
+filtered_txi <- readRDS("filtered_txi.rds")
 ```
 
 ## 6. Datos crudos de secuenciación

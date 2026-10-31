@@ -2,6 +2,7 @@
 
 export(Reduce_GOTerm)
 export(create_heatmap)
+export(download_data)
 export(get_heatmap_mat)
 export(processGO)
 export(process_go)

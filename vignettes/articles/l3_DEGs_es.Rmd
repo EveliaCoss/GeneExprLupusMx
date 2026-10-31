@@ -93,6 +93,10 @@ library(ComplexHeatmap)  # heatmaps
 library(circlize)        # escalas de color para ComplexHeatmap
 library(ggrepel)         # etiquetas que no se enciman
 library(cowplot)         # unir gráficas en un panel
+
+# Objetos grandes del paquete: se descargan solo la primera vez (ver ?download_data)
+filtered_txi <- download_data("filtered_txi")
+zscore_mat   <- download_data("zscore_mat")
 ```
 
 Colores y umbrales que usaremos en toda la lección:
