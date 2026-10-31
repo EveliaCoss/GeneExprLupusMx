@@ -38,7 +38,17 @@ row annotation. Designed to stack several heatmaps (for example, one per cell
 type) with consistent formatting.
 }
 \details{
-Requires the Bioconductor package \pkg{ComplexHeatmap}.
+Requires the Bioconductor package \pkg{ComplexHeatmap}, which is
+not installed with GeneExprLupusMx. If it is missing, the function stops
+and shows how to install it:
+\preformatted{install.packages("BiocManager")
+BiocManager::install("ComplexHeatmap")}
+}
+\note{
+Other packages (e.g., \pkg{RplotterPkg} and \pkg{wilson}) also have a
+function called \code{create_heatmap()}. If you load one of them together
+with GeneExprLupusMx, the one loaded last is used. To make sure you use
+this one, call it as \code{GeneExprLupusMx::create_heatmap()}.
 }
 \examples{
 if (requireNamespace("ComplexHeatmap", quietly = TRUE)) {
