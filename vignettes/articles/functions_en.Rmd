@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 has_go_pkgs <- requireNamespace("rrvgo", quietly = TRUE) && requireNamespace("org.Hs.eg.db", quietly = TRUE)
 ```
 
-```{css, echo = FALSE, file = "lesson.css"}
+```{css, echo = FALSE, file = "../lesson.css"}
 ```
 
 ## Welcome

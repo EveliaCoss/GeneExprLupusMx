@@ -12,7 +12,7 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
 ```
 
-```{css, echo = FALSE, file = "lesson.css"}
+```{css, echo = FALSE, file = "../lesson.css"}
 ```
 
 Todos los datos de `GeneExprLupusMx` se distribuyen con el paquete: al cargarlo quedan disponibles en R, sin descargas adicionales. Esta página explica cómo obtenerlos fuera de R y dónde se encuentran los datos crudos de secuenciación.
@@ -48,7 +48,7 @@ Los scripts de la carpeta [`data-raw/`](https://github.com/EveliaCoss/GeneExprLu
 
 ```{r}
 # install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx")
+remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
 
 library(GeneExprLupusMx)
 data(package = "GeneExprLupusMx") # lista de objetos disponibles

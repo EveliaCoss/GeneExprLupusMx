@@ -12,7 +12,7 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
 ```
 
-```{css, echo = FALSE, file = "lesson.css"}
+```{css, echo = FALSE, file = "../lesson.css"}
 ```
 
 All `GeneExprLupusMx` data are distributed with the package: once it is loaded, they are available in R with no additional downloads. This page explains how to get them outside R and where the raw sequencing data are stored.
@@ -48,7 +48,7 @@ The scripts in the [`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/t
 
 ```{r}
 # install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx")
+remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
 
 library(GeneExprLupusMx)
 data(package = "GeneExprLupusMx") # list of available objects

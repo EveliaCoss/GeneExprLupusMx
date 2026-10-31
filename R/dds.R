@@ -1,7 +1,7 @@
 #' DESeqDataSet checkpoint from the RNA-seq lesson
 #'
 #' \code{DESeqDataSet} built in the lesson "De las cuentas de RNA-seq a la
-#' exploración de datos" (\code{vignette("intro_RNAseq_es")}), ready to be used
+#' exploración de datos" (\href{https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.html}{intro_RNAseq_es}), ready to be used
 #' as the starting point of later lessons.
 #'
 #' Steps: \code{DESeqDataSetFromTximport()} from \code{filtered_txi} and

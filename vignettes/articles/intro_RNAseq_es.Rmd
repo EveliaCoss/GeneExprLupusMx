@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{css, echo = FALSE, file = "lesson.css"}
+```{css, echo = FALSE, file = "../lesson.css"}
 ```
 
 ## Bienvenida
@@ -122,7 +122,7 @@ Instala el paquete desde [GitHub](https://github.com/EveliaCoss/GeneExprLupusMx)
 
 ```{r install, eval = FALSE}
 install.packages(c("remotes", "BiocManager", "tidyverse"))
-remotes::install_github("EveliaCoss/GeneExprLupusMx")
+remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
 BiocManager::install("DESeq2")
 ```
 

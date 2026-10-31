@@ -42,7 +42,7 @@ Instala el paquete desde [GitHub](https://github.com/EveliaCoss/GeneExprLupusMx)
 
 ```{r install, eval = FALSE}
 install.packages(c("remotes", "BiocManager", "tidyverse"))
-remotes::install_github("EveliaCoss/GeneExprLupusMx")
+remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
 BiocManager::install("DESeq2")
 ```
 
@@ -126,17 +126,17 @@ Las lecciones están pensadas para seguirse en orden, pero cada una puede leerse
 
 | Lección | Aprenderás a… | Datos | Tiempo |
 |---------|---------------|-------|--------|
-| [1. Conociendo a las participantes](clinical_es.html) | Describir a la cohorte con estadística descriptiva, tablas, pruebas de normalidad y comparaciones entre grupos | `volunteer_info` | 45 a 60 min |
-| [2. De las cuentas de RNA-seq a la exploración de datos](intro_RNAseq_es.html) | Importar las cuentas, normalizarlas con `DESeq2`, explorar genes y hacer *heatmaps* y PCA | `filtered_txi`, `metadata_cleaned`, `volunteer_info` | 1 a 1.5 h |
-| [3. Genes diferencialmente expresados entre pacientes y controles](l3_DEGs_es.html) | Validar tipos celulares con biomarcadores, hacer expresión diferencial con `DESeq2` e interpretar volcano plots | `filtered_txi`, `metadata_cleaned`, `zscore_mat` | 1.5 h |
-| [4. Funciones biológicas de los genes diferencialmente expresados](l4_GOterms_es.html) | Hacer un análisis de enriquecimiento funcional con g:Profiler, identificar genes de SLE e ISG, probar su enriquecimiento (hipergeométrica y Fisher) y correlacionar los ISG con la actividad de la enfermedad | `de_results`, `go_results`, `sle_genes`, `isg_genes`, `biotype_summary`, `zscore_mat`, `metadata_cleaned`, `volunteer_info` | 1.5 h |
-| [5. Diferenciación de monocitos a células dendríticas](l5_DEGs_monocytes_diff_es.html) | Comparar células dendríticas contra monocitos, validar la diferenciación con genes conocidos y explorar rutas y metabolismo de lípidos | `de_celltype_results`, `go_celltype_results`, `moDC_genes`, `dc_genes` | 1.5 h |
-| [6. La firma transcripcional de las células dendríticas tolerogénicas](l6_DEGs_tolDcs_es.html) | Evaluar las tolDC con una firma publicada, combinar z-scores y LFC, elegir la referencia correcta para comparar e identificar los genes que concuerdan con la firma | `tolDC_genes`, `de_celltype_results`, `zscore_mat` | 1 h |
-| [7. ¿Se diferencian igual las células de pacientes y controles?](l7_DEGs_between_groups_es.html) | Ajustar un modelo con interacción, interpretar una "diferencia de diferencias", resumir los genes con procesos de Reactome y graficar trayectorias de expresión | `de_interaction_results`, `go_interaction_results`, `zscore_mat`, `isg_genes` | 1.5 h |
+| [1. Conociendo a las participantes](https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.html) | Describir a la cohorte con estadística descriptiva, tablas, pruebas de normalidad y comparaciones entre grupos | `volunteer_info` | 45 a 60 min |
+| [2. De las cuentas de RNA-seq a la exploración de datos](https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.html) | Importar las cuentas, normalizarlas con `DESeq2`, explorar genes y hacer *heatmaps* y PCA | `filtered_txi`, `metadata_cleaned`, `volunteer_info` | 1 a 1.5 h |
+| [3. Genes diferencialmente expresados entre pacientes y controles](https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.html) | Validar tipos celulares con biomarcadores, hacer expresión diferencial con `DESeq2` e interpretar volcano plots | `filtered_txi`, `metadata_cleaned`, `zscore_mat` | 1.5 h |
+| [4. Funciones biológicas de los genes diferencialmente expresados](https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.html) | Hacer un análisis de enriquecimiento funcional con g:Profiler, identificar genes de SLE e ISG, probar su enriquecimiento (hipergeométrica y Fisher) y correlacionar los ISG con la actividad de la enfermedad | `de_results`, `go_results`, `sle_genes`, `isg_genes`, `biotype_summary`, `zscore_mat`, `metadata_cleaned`, `volunteer_info` | 1.5 h |
+| [5. Diferenciación de monocitos a células dendríticas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_es.html) | Comparar células dendríticas contra monocitos, validar la diferenciación con genes conocidos y explorar rutas y metabolismo de lípidos | `de_celltype_results`, `go_celltype_results`, `moDC_genes`, `dc_genes` | 1.5 h |
+| [6. La firma transcripcional de las células dendríticas tolerogénicas](https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.html) | Evaluar las tolDC con una firma publicada, combinar z-scores y LFC, elegir la referencia correcta para comparar e identificar los genes que concuerdan con la firma | `tolDC_genes`, `de_celltype_results`, `zscore_mat` | 1 h |
+| [7. ¿Se diferencian igual las células de pacientes y controles?](https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.html) | Ajustar un modelo con interacción, interpretar una "diferencia de diferencias", resumir los genes con procesos de Reactome y graficar trayectorias de expresión | `de_interaction_results`, `go_interaction_results`, `zscore_mat`, `isg_genes` | 1.5 h |
 
 Cada lección incluye **retos** con su solución para practicar, y termina reproduciendo una figura o tabla del artículo.
 
-Además, la guía [Cómo usar las funciones del paquete](functions_es.html) muestra cómo aplicar `get_heatmap_mat()`, `create_heatmap()`, `process_go()` y `reduce_go_terms()` a tus propios datos.
+Además, la guía [Cómo usar las funciones del paquete](https://eveliacoss.github.io/GeneExprLupusMx/articles/functions_es.html) muestra cómo aplicar `get_heatmap_mat()`, `create_heatmap()`, `process_go()` y `reduce_go_terms()` a tus propios datos.
 
 ## ¿Cómo citar?
 
@@ -156,7 +156,7 @@ Este DOI siempre apunta a la versión más reciente; en [Zenodo](https://doi.org
 
 ```{=html}
 <nav class="lesson-nav">
-  <a class="lesson-next" href="clinical_es.html">Siguiente lección: Conociendo a las participantes →</a>
+  <a class="lesson-next" href="https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.html">Siguiente lección: Conociendo a las participantes →</a>
 </nav>
 <a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
 ```

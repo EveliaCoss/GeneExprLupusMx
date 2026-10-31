@@ -3,7 +3,7 @@
 #' Functional enrichment of the differentially expressed genes (DEG) of each
 #' cell type, obtained with \pkg{gprofiler2} in the lesson "Funciones
 #' biológicas de los genes diferencialmente expresados"
-#' (\code{vignette("l4_GOterms_es")}).
+#' (\href{https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.html}{l4_GOterms_es}).
 #'
 #' DEG were defined in \code{\link{de_results}} with
 #' \code{|log2FoldChange| >= 1} and \code{padj < 0.05}, and queried as five

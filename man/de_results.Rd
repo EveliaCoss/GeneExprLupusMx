@@ -28,7 +28,7 @@ de_results
 \pkg{DESeq2} results of the comparison between SLE patients and healthy
 controls within each cell type, generated in the lesson "Genes
 diferencialmente expresados entre pacientes y controles"
-(\code{vignette("l3_DEGs_es")}). Starting point of the functional
+(\href{https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.html}{l3_DEGs_es}). Starting point of the functional
 enrichment lesson.
 }
 \details{
