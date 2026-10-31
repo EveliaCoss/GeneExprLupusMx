@@ -138,7 +138,7 @@
             <h3 data-toc-skip class="subtitle">Qué contiene el paquete y
 por dónde empezar</h3>
             
-            <h4 data-toc-skip class="date">2026-10-29</h4>
+            <h4 data-toc-skip class="date">2026-10-31</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/vignettes/intro_es.Rmd" class="external-link"><code>vignettes/intro_es.Rmd</code></a></small>
       <div class="d-none name"><code>intro_es.Rmd</code></div>
@@ -330,7 +330,7 @@ Resumen del estudio y del contenido del paquete.
 lecciones usan además <code>DESeq2</code>, disponible en <a href="https://bioconductor.org/packages/DESeq2" class="external-link">Bioconductor</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"remotes"</span>, <span class="st">"BiocManager"</span>, <span class="st">"tidyverse"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"DESeq2"</span><span class="op">)</span></span></code></pre></div>
 <p>Una vez instalado, cárgalo:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -554,16 +554,16 @@ puede leerse por separado.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><a href="clinical_es.html">1. Conociendo a las
-participantes</a></td>
+<td><a href="https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.html">1.
+Conociendo a las participantes</a></td>
 <td>Describir a la cohorte con estadística descriptiva, tablas, pruebas
 de normalidad y comparaciones entre grupos</td>
 <td><code>volunteer_info</code></td>
 <td>45 a 60 min</td>
 </tr>
 <tr class="even">
-<td><a href="intro_RNAseq_es.html">2. De las cuentas de RNA-seq a la
-exploración de datos</a></td>
+<td><a href="https://eveliacoss.github.io/GeneExprLupusMx/articles/intro_RNAseq_es.html">2.
+De las cuentas de RNA-seq a la exploración de datos</a></td>
 <td>Importar las cuentas, normalizarlas con <code>DESeq2</code>,
 explorar genes y hacer <em>heatmaps</em> y PCA</td>
 <td>
@@ -573,8 +573,8 @@ explorar genes y hacer <em>heatmaps</em> y PCA</td>
 <td>1 a 1.5 h</td>
 </tr>
 <tr class="odd">
-<td><a href="l3_DEGs_es.html">3. Genes diferencialmente expresados entre
-pacientes y controles</a></td>
+<td><a href="https://eveliacoss.github.io/GeneExprLupusMx/articles/l3_DEGs_es.html">3.
+Genes diferencialmente expresados entre pacientes y controles</a></td>
 <td>Validar tipos celulares con biomarcadores, hacer expresión
 diferencial con <code>DESeq2</code> e interpretar volcano plots</td>
 <td>
@@ -584,8 +584,8 @@ diferencial con <code>DESeq2</code> e interpretar volcano plots</td>
 <td>1.5 h</td>
 </tr>
 <tr class="even">
-<td><a href="l4_GOterms_es.html">4. Funciones biológicas de los genes
-diferencialmente expresados</a></td>
+<td><a href="https://eveliacoss.github.io/GeneExprLupusMx/articles/l4_GOterms_es.html">4.
+Funciones biológicas de los genes diferencialmente expresados</a></td>
 <td>Hacer un análisis de enriquecimiento funcional con g:Profiler,
 identificar genes de SLE e ISG, probar su enriquecimiento
 (hipergeométrica y Fisher) y correlacionar los ISG con la actividad de
@@ -599,8 +599,8 @@ la enfermedad</td>
 <td>1.5 h</td>
 </tr>
 <tr class="odd">
-<td><a href="l5_DEGs_monocytes_diff_es.html">5. Diferenciación de
-monocitos a células dendríticas</a></td>
+<td><a href="https://eveliacoss.github.io/GeneExprLupusMx/articles/l5_DEGs_monocytes_diff_es.html">5.
+Diferenciación de monocitos a células dendríticas</a></td>
 <td>Comparar células dendríticas contra monocitos, validar la
 diferenciación con genes conocidos y explorar rutas y metabolismo de
 lípidos</td>
@@ -611,8 +611,9 @@ lípidos</td>
 <td>1.5 h</td>
 </tr>
 <tr class="even">
-<td><a href="l6_DEGs_tolDcs_es.html">6. La firma transcripcional de las
-células dendríticas tolerogénicas</a></td>
+<td><a href="https://eveliacoss.github.io/GeneExprLupusMx/articles/l6_DEGs_tolDcs_es.html">6.
+La firma transcripcional de las células dendríticas
+tolerogénicas</a></td>
 <td>Evaluar las tolDC con una firma publicada, combinar z-scores y LFC,
 elegir la referencia correcta para comparar e identificar los genes que
 concuerdan con la firma</td>
@@ -623,8 +624,8 @@ concuerdan con la firma</td>
 <td>1 h</td>
 </tr>
 <tr class="odd">
-<td><a href="l7_DEGs_between_groups_es.html">7. ¿Se diferencian igual
-las células de pacientes y controles?</a></td>
+<td><a href="https://eveliacoss.github.io/GeneExprLupusMx/articles/l7_DEGs_between_groups_es.html">7.
+¿Se diferencian igual las células de pacientes y controles?</a></td>
 <td>Ajustar un modelo con interacción, interpretar una “diferencia de
 diferencias”, resumir los genes con procesos de Reactome y graficar
 trayectorias de expresión</td>
@@ -639,10 +640,11 @@ trayectorias de expresión</td>
 </table>
 <p>Cada lección incluye <strong>retos</strong> con su solución para
 practicar, y termina reproduciendo una figura o tabla del artículo.</p>
-<p>Además, la guía <a href="functions_es.html">Cómo usar las funciones
-del paquete</a> muestra cómo aplicar <code><a href="../reference/get_heatmap_mat.html">get_heatmap_mat()</a></code>,
-<code><a href="../reference/create_heatmap.html">create_heatmap()</a></code>, <code><a href="../reference/process_go.html">process_go()</a></code> y
-<code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code> a tus propios datos.</p>
+<p>Además, la guía <a href="https://eveliacoss.github.io/GeneExprLupusMx/articles/functions_es.html">Cómo
+usar las funciones del paquete</a> muestra cómo aplicar
+<code><a href="../reference/get_heatmap_mat.html">get_heatmap_mat()</a></code>, <code><a href="../reference/create_heatmap.html">create_heatmap()</a></code>,
+<code><a href="../reference/process_go.html">process_go()</a></code> y <code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code> a tus propios
+datos.</p>
 </div>
 <div class="section level2">
 <h2 id="cómo-citar">¿Cómo citar?<a class="anchor" aria-label="anchor" href="#c%C3%B3mo-citar"></a>
@@ -675,7 +677,7 @@ women with Systemic Lupus Erythematosus</a> [Data set]. <em>Zenodo</em>.
 <a href="https://doi.org/10.5281/zenodo.17742206" class="external-link">doi:
 10.5281/zenodo.17742206</a>.</p>
 </blockquote>
-<nav class="lesson-nav"><a class="lesson-next" href="clinical_es.html">Siguiente lección: Conociendo a las participantes →</a>
+<nav class="lesson-nav"><a class="lesson-next" href="https://eveliacoss.github.io/GeneExprLupusMx/articles/clinical_es.html">Siguiente lección: Conociendo a las participantes →</a>
 </nav><a class="back-to-top" href="#top" onclick="window.scrollTo({top: 0, behavior: 'instant'}); return false;" title="Volver al inicio de la página">↑ Volver a Inicio</a>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
