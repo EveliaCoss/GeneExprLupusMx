@@ -1,6 +1,0 @@
-# intro
-
-``` r
-
-library(GeneExprLupusMx)
-```

@@ -47,8 +47,8 @@ template:
     image:
       src: man/figures/overview_promo_en.png
       alt: "GeneExprLupusMx overview: data, workflow, key findings and lessons"
-destination: pkgdown
-llm-docs: false # no generar copias .md del sitio: pkgdown/index.md tapaba a index.md como fuente de la página de inicio
+# La web se construye en docs/ (ignorada por git); GitHub Actions la publica en gh-pages.
+llm-docs: false # no generar copias .md del sitio: index.md del sitio tapaba a index.md como fuente de la página de inicio
 
 lang: es # Lenguaje de Español por default
 
