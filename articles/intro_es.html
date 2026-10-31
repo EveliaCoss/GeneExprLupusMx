@@ -339,9 +339,12 @@ lecciones usan además <code>DESeq2</code>, disponible en <a href="https://bioco
 <div class="section level2">
 <h2 id="qué-datos-contiene">¿Qué datos contiene?<a class="anchor" aria-label="anchor" href="#qu%C3%A9-datos-contiene"></a>
 </h2>
-<p>El paquete incluye tres conjuntos de datos principales. Están
-disponibles en cuanto cargas el paquete; no hay que descargar nada
-más.</p>
+<p>El paquete incluye tres conjuntos de datos principales.
+<code>metadata_cleaned</code> y <code>volunteer_info</code> están
+disponibles en cuanto cargas el paquete. <code>filtered_txi</code> es
+más grande, así que no se instala con el paquete: se descarga con
+<code><a href="../reference/download_data.html">download_data()</a></code> la primera vez que lo usas y después se lee
+desde tu computadora.</p>
 <table class="table">
 <colgroup>
 <col width="18%">
@@ -427,7 +430,9 @@ usan algunas lecciones:</p>
 </table>
 <p>Además, incluye <strong>checkpoints</strong>: objetos que se
 construyen en una lección y se guardan en el paquete para que la
-siguiente pueda empezar desde ahí, sin repetir los pasos.</p>
+siguiente pueda empezar desde ahí, sin repetir los pasos. Los dos más
+grandes, <code>dds</code> y <code>zscore_mat</code>, también se
+descargan con <code><a href="../reference/download_data.html">download_data()</a></code>.</p>
 <table class="table">
 <colgroup>
 <col width="20%">
@@ -493,9 +498,11 @@ monocito a célula dendrítica es distinto en las pacientes
 </table>
 <p>Un vistazo rápido a cada uno:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span>       <span class="co"># genes x muestras</span></span>
-<span><span class="co">#&gt; [1] 21718    99</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sample_ID"</span>, <span class="st">"Group"</span>, <span class="st">"Cell_type"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">filtered_txi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_data.html">download_data</a></span><span class="op">(</span><span class="st">"filtered_txi"</span><span class="op">)</span> <span class="co"># solo descarga la primera vez</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span>                        <span class="co"># genes x muestras</span></span>
+<span><span class="co">#&gt; [1] 21718    99</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sample_ID"</span>, <span class="st">"Group"</span>, <span class="st">"Cell_type"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         sample_ID Group Cell_type</span></span>
 <span><span class="co">#&gt; QR011_0   QR011_0  Ctrl  monocyte</span></span>
 <span><span class="co">#&gt; QR011_1   QR011_1  Ctrl      moDC</span></span>
@@ -521,12 +528,12 @@ flowchart LR
 <script type="module">
   import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
   mermaid.initialize({ startOnLoad: true });
-</script><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+</script><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Las columnas de las cuentas están en el mismo orden que las filas de los metadatos</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">filtered_txi</span><span class="op">$</span><span class="va">counts</span><span class="op">)</span> <span class="op">==</span> <span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">sample_ID</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span>
-<span></span>
-<span><span class="co"># De muestra a voluntaria</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># De muestra a voluntaria</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"_.*"</span>, <span class="st">""</span>, <span class="st">"QR011_1"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "QR011"</span></span></code></pre></div>
 <p>Para conocer cada columna en detalle, consulta la ayuda:

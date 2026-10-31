@@ -402,7 +402,11 @@ Visual summary of lesson 3.
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap" class="external-link">ComplexHeatmap</a></span><span class="op">)</span>  <span class="co"># heatmaps</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/circlize" class="external-link">circlize</a></span><span class="op">)</span>        <span class="co"># color scales for ComplexHeatmap</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggrepel.slowkow.com/" class="external-link">ggrepel</a></span><span class="op">)</span>         <span class="co"># non-overlapping labels</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span>         <span class="co"># combine plots into a panel</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span>         <span class="co"># combine plots into a panel</span></span>
+<span></span>
+<span><span class="co"># Large package objects: downloaded only the first time (see ?download_data)</span></span>
+<span><span class="va">filtered_txi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_data.html">download_data</a></span><span class="op">(</span><span class="st">"filtered_txi"</span><span class="op">)</span></span>
+<span><span class="va">zscore_mat</span>   <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_data.html">download_data</a></span><span class="op">(</span><span class="st">"zscore_mat"</span><span class="op">)</span></span></code></pre></div>
 <p>Colors and thresholds we will use throughout the lesson:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cell_color</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>monocyte <span class="op">=</span> <span class="st">"black"</span>, moDC <span class="op">=</span> <span class="st">"palevioletred"</span>, tolDC <span class="op">=</span> <span class="st">"gold1"</span><span class="op">)</span></span>
@@ -662,8 +666,8 @@ the reference, Ctrl):</p>
 <span><span class="co">#&gt; OTOF      725.570        5.08949  0.819047   6.21392 5.16796e-10 1.80439e-06</span></span>
 <span><span class="co">#&gt; SIGLEC1  8360.445        3.11093  0.521640   5.96375 2.46508e-09 5.73787e-06</span></span>
 <span><span class="co">#&gt; USP18     758.460        3.12316  0.541137   5.77148 7.85805e-09 1.37182e-05</span></span>
-<span><span class="co">#&gt; GMPR      403.561        1.64509  0.301470   5.45691 4.84499e-08 6.76651e-05</span></span>
-<span><span class="co">#&gt; IFI44L   6547.050        2.82422  0.550876   5.12678 2.94735e-07 2.72542e-04</span></span></code></pre></div>
+<span><span class="co">#&gt; GMPR      403.561        1.64509  0.301470   5.45691 4.84500e-08 6.76652e-05</span></span>
+<span><span class="co">#&gt; IFI44L   6547.050        2.82422  0.550876   5.12678 2.94735e-07 2.72543e-04</span></span></code></pre></div>
 <p>What does each column mean?</p>
 <table class="table">
 <colgroup>
