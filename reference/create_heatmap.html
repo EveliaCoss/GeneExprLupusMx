@@ -161,7 +161,18 @@ combined or drawn.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Requires the Bioconductor package <span class="pkg">ComplexHeatmap</span>.</p>
+    <p>Requires the Bioconductor package <span class="pkg">ComplexHeatmap</span>, which is
+not installed with GeneExprLupusMx. If it is missing, the function stops
+and shows how to install it:</p><div class="sourceCode"><pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
+
+    </div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>Other packages (e.g., <span class="pkg">RplotterPkg</span> and <span class="pkg">wilson</span>) also have a
+function called <code>create_heatmap()</code>. If you load one of them together
+with GeneExprLupusMx, the one loaded last is used. To make sure you use
+this one, call it as <code>GeneExprLupusMx::create_heatmap()</code>.</p>
     </div>
 
     <div class="section level2">
