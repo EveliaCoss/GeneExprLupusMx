@@ -112,3 +112,25 @@ test_that("processGO and Reduce_GOTerm are deprecated aliases", {
   expect_warning(suppressMessages(Reduce_GOTerm(dirs$indir, dirs$outdir, dirs$figdir)),
                  "reduce_go_terms")
 })
+
+test_that("reduce_go_similarity returns NULL with a message if rrvgo fails", {
+  skip_if_no_go_pkgs()
+  bar_data <- data.frame(go_id = c("GO:0006955", "GO:0045087"), p.adjust = c(0.01, 0.02))
+
+  local_mocked_bindings(calculateSimMatrix = function(...) stop("boom"), .package = "rrvgo")
+  msgs <- capture_messages(res <- reduce_go_similarity(bar_data, "test"))
+  expect_match(msgs, "Failed to calculate simMatrix: boom", all = FALSE)
+  expect_null(res)
+})
+
+test_that("reduce_go_similarity returns NULL with a message if the reduction fails", {
+  skip_if_no_go_pkgs()
+  bar_data <- data.frame(go_id = c("GO:0006955", "GO:0045087"), p.adjust = c(0.01, 0.02))
+  sim <- matrix(c(1, 0, 0, 1), 2, dimnames = list(bar_data$go_id, bar_data$go_id))
+
+  local_mocked_bindings(calculateSimMatrix = function(...) sim,
+                        reduceSimMatrix = function(...) stop("boom"), .package = "rrvgo")
+  msgs <- capture_messages(res <- reduce_go_similarity(bar_data, "test"))
+  expect_match(msgs, "reduceSimMatrix() failed: boom", fixed = TRUE, all = FALSE)
+  expect_null(res)
+})

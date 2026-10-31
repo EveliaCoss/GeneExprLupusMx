@@ -30,9 +30,7 @@
 #'
 #' @export
 get_heatmap_mat <- function(dds_object, sample_order = colnames(dds_object)) {
-  if (!requireNamespace("DESeq2", quietly = TRUE)) {
-    stop("Install DESeq2 to use this function: BiocManager::install('DESeq2')")
-  }
+  check_pkgs(c("DESeq2", "SummarizedExperiment"), "get_heatmap_mat")
   vsd <- DESeq2::vst(dds_object, blind = FALSE)
   mat <- SummarizedExperiment::assay(vsd)
   mat <- mat[apply(mat, 1, stats::var) != 0, ] # filter out genes with zero variance

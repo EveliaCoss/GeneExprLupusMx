@@ -17,6 +17,12 @@
 #'   "cache")}. Delete that folder to free space or to download them again.
 #'   The first download needs about 46 MB in total.
 #'
+#' @note Several other packages (e.g., \pkg{FedData}, \pkg{admixr} and
+#'   \pkg{tidyfinance}) also have a function called \code{download_data()}. If
+#'   you load one of them together with GeneExprLupusMx, the one loaded last is
+#'   used. To make sure you use this one, call it as
+#'   \code{GeneExprLupusMx::download_data()}.
+#'
 #' @seealso \code{\link{filtered_txi}}, \code{\link{dds}},
 #'   \code{\link{zscore_mat}}
 #'
@@ -31,8 +37,7 @@ download_data <- function(name = c("filtered_txi", "dds", "zscore_mat"),
   path <- file.path(tools::R_user_dir("GeneExprLupusMx", "cache"), tag,
                     paste0(name, ".rds"))
   if (!file.exists(path)) {
-    url <- paste0("https://github.com/EveliaCoss/GeneExprLupusMx/releases/download/",
-                  tag, "/", name, ".rds")
+    url <- release_url(name, tag)
     message("Downloading ", name, " (only the first time)...")
     dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
     tmp <- tempfile(fileext = ".rds")
@@ -47,7 +52,15 @@ download_data <- function(name = c("filtered_txi", "dds", "zscore_mat"),
     }
     # copy only complete downloads, so a failed download is never cached;
     # if the cache folder is not writable (e.g., on a server), read the download
-    if (!file.copy(tmp, path, overwrite = TRUE)) return(readRDS(tmp))
+    if (!suppressWarnings(file.copy(tmp, path, overwrite = TRUE))) return(readRDS(tmp))
   }
   readRDS(path)
+}
+
+# URL of a file of a GitHub release of the package (separate function so the
+# tests can use a local file instead)
+#' @noRd
+release_url <- function(name, tag) {
+  paste0("https://github.com/EveliaCoss/GeneExprLupusMx/releases/download/",
+         tag, "/", name, ".rds")
 }

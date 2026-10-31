@@ -45,11 +45,7 @@
 #'
 #' @export
 process_go <- function(f, direction = c("UP", "DOWN"), outdir, figdir) {
-  pkgs <- c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2")
-  if (!all(vapply(pkgs, requireNamespace, logical(1), quietly = TRUE))) {
-    stop("Install rrvgo, org.Hs.eg.db, dplyr and ggplot2 to use this function: ",
-         "BiocManager::install(c('rrvgo', 'org.Hs.eg.db', 'dplyr', 'ggplot2'))")
-  }
+  check_pkgs(c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2"), "process_go")
   direction <- match.arg(direction)
   plot_name <- gsub(paste0("^", direction, "_GO_(.+)\\.RData$"), "\\1", basename(f))
 

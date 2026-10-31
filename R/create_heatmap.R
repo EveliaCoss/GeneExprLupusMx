@@ -18,7 +18,16 @@
 #' @return A \code{Heatmap} object from \pkg{ComplexHeatmap}, ready to be
 #'   combined or drawn.
 #'
-#' @details Requires the Bioconductor package \pkg{ComplexHeatmap}.
+#' @details Requires the Bioconductor package \pkg{ComplexHeatmap}, which is
+#'   not installed with GeneExprLupusMx. If it is missing, the function stops
+#'   and shows how to install it:
+#'   \preformatted{install.packages("BiocManager")
+#' BiocManager::install("ComplexHeatmap")}
+#'
+#' @note Other packages (e.g., \pkg{RplotterPkg} and \pkg{wilson}) also have a
+#'   function called \code{create_heatmap()}. If you load one of them together
+#'   with GeneExprLupusMx, the one loaded last is used. To make sure you use
+#'   this one, call it as \code{GeneExprLupusMx::create_heatmap()}.
 #'
 #' @examples
 #' if (requireNamespace("ComplexHeatmap", quietly = TRUE)) {
@@ -33,9 +42,7 @@
 #' @export
 create_heatmap <- function(mat, color, split, common_names = rownames(mat),
                            use_raster_flag = FALSE) {
-  if (!requireNamespace("ComplexHeatmap", quietly = TRUE)) {
-    stop("Install ComplexHeatmap to use this function: BiocManager::install('ComplexHeatmap')")
-  }
+  check_pkgs("ComplexHeatmap", "create_heatmap")
   ha <- ComplexHeatmap::rowAnnotation(
     m = rep("1", length(common_names)),
     show_legend = FALSE,

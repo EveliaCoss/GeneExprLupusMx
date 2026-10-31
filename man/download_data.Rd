@@ -28,6 +28,13 @@ Files are saved in \code{tools::R_user_dir("GeneExprLupusMx",
   "cache")}. Delete that folder to free space or to download them again.
 The first download needs about 46 MB in total.
 }
+\note{
+Several other packages (e.g., \pkg{FedData}, \pkg{admixr} and
+\pkg{tidyfinance}) also have a function called \code{download_data()}. If
+you load one of them together with GeneExprLupusMx, the one loaded last is
+used. To make sure you use this one, call it as
+\code{GeneExprLupusMx::download_data()}.
+}
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 filtered_txi <- download_data("filtered_txi")
