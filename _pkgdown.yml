@@ -42,6 +42,14 @@ template:
         main .callout-pending > :last-child { margin-bottom: 0; }
         main .callout-pending strong:first-child { color: #B42318; }
       </style>
+      <!-- Google Analytics: cuenta visitas a la web del paquete -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3VVJGRE4T"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Y3VVJGRE4T');
+      </script>
   #light-switch: true # boton de prender y apagar light/dark theme
   opengraph:
     image:
