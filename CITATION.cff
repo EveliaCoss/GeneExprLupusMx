@@ -7,8 +7,7 @@ cff-version: 1.2.0
 message: 'To cite package "GeneExprLupusMx" in publications use:'
 type: software
 license: MIT
-title: 'GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con
-  lecciones de aprendizaje'
+title: 'GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons'
 version: 0.1.0
 doi: 10.5281/zenodo.23751369
 date-released: '2026-10-28'
@@ -30,8 +29,7 @@ authors:
   orcid: https://orcid.org/0000-0002-7087-2977
 preferred-citation:
   type: manual
-  title: 'GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con
-    lecciones de aprendizaje'
+  title: 'GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons'
   authors:
   - family-names: Coss
     given-names: Evelia

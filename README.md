@@ -12,7 +12,7 @@
 coverage](https://codecov.io/gh/EveliaCoss/GeneExprLupusMx/graph/badge.svg)](https://app.codecov.io/gh/EveliaCoss/GeneExprLupusMx)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23751369.svg)](https://doi.org/10.5281/zenodo.23751369)
 [![License:
-MIT](https://img.shields.io/badge/License-MIT-3D3F8F.svg)](LICENSE.md)
+MIT](https://img.shields.io/badge/License-MIT-3D3F8F.svg)](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/LICENSE.md)
 <!-- badges: end -->
 
 **[Español](#español) \| [English](#english)**
@@ -130,8 +130,7 @@ usas este recurso, por favor incluye ambas.
 
 Si usas las lecciones, las funciones o los objetos de R del paquete:
 
-> Coss E (2026) *GeneExprLupusMx: Datos transcriptómicos de lupus en
-> mujeres mexicanas con lecciones de aprendizaje*. Paquete de R.
+> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons*. Paquete de R.
 > <https://github.com/EveliaCoss/GeneExprLupusMx> [doi:
 > 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
@@ -222,7 +221,7 @@ en el estudio.
 
 ### Licencia
 
-El código del paquete se distribuye bajo la [licencia MIT](LICENSE.md).
+El código del paquete se distribuye bajo la [licencia MIT](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/LICENSE.md).
 Los datos originales provienen de las fuentes indicadas en [Origen de
 los datos](#origen-de-los-datos) (el registro de Zenodo usa la licencia
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)); si los usas,
@@ -334,8 +333,7 @@ There are two citations: one for the **package** and one for the
 
 If you use the lessons, functions or R objects of the package:
 
-> Coss E (2026) *GeneExprLupusMx: Transcriptomic data of lupus in
-> Mexican women with learning lessons*. R package.
+> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons*. R package.
 > <https://github.com/EveliaCoss/GeneExprLupusMx> [doi:
 > 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
@@ -426,7 +424,7 @@ the study.
 
 ### License
 
-The package code is released under the [MIT license](LICENSE.md). The
+The package code is released under the [MIT license](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/LICENSE.md). The
 original data come from the sources listed in [Data
 sources](#data-sources) (the Zenodo record uses the [CC BY
 4.0](https://creativecommons.org/licenses/by/4.0/) license); if you use

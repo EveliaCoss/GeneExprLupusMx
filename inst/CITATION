@@ -1,7 +1,7 @@
 bibentry(
   bibtype = "Manual",
   header  = "Para citar el paquete GeneExprLupusMx / To cite the GeneExprLupusMx package:",
-  title   = "GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje",
+  title   = "GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons",
   author  = person("Evelia", "Coss", email = "ecossnav@gmail.com",
                    comment = c(ORCID = "0000-0002-7087-2977")),
   year    = "2026",
@@ -9,8 +9,8 @@ bibentry(
   doi     = "10.5281/zenodo.23751369",
   url     = "https://github.com/EveliaCoss/GeneExprLupusMx",
   textVersion = paste0(
-    "Coss E (2026) GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas ",
-    "con lecciones de aprendizaje. R package version ", meta$Version, ". ",
+    "Coss E (2026) GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons. ",
+    "R package version ", meta$Version, ". ",
     "doi: 10.5281/zenodo.23751369. ",
     "https://github.com/EveliaCoss/GeneExprLupusMx"
   )
