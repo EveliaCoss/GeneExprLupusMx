@@ -1,5 +1,5 @@
 Package: GeneExprLupusMx
-Title: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje
+Title: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons
 Version: 0.1.0.9000
 Authors@R: 
     person(given = "Evelia", family = "Coss", 
@@ -7,7 +7,8 @@ Authors@R:
       role = c("aut", "cre", "cph"),
       comment = c(ORCID = "0000-0002-7087-2977"))
 Description: Paquete de datos con lecciones de aprendizaje bilingües (español
-  e inglés). Incluye los perfiles transcriptómicos (RNA-seq) de monocitos,
+  e inglés). Incluye los perfiles transcriptómicos, obtenidos por secuenciación
+  de ácido ribonucleico (RNA) o RNA-seq, de monocitos,
   células dendríticas derivadas de monocitos (moDC) y células dendríticas
   tolerogénicas (tolDC) de 33 mujeres mexicanas (10 controles sanas y 23
   pacientes con lupus eritematoso sistémico; 99 muestras), sus metadatos
@@ -15,9 +16,10 @@ Description: Paquete de datos con lecciones de aprendizaje bilingües (español
   reproducen paso a paso las figuras del artículo original, de la estadística
   descriptiva a la expresión diferencial, el enriquecimiento funcional y los
   modelos con interacción, y se acompañan de funciones auxiliares para
-  heatmaps y la reducción de términos GO. Data package with bilingual
-  learning lessons (Spanish and English) on the transcriptomics of lupus in
-  Mexican women, designed for teaching and reproducible research.
+  heatmaps y la reducción de términos de Gene Ontology (GO). Data package
+  with bilingual learning lessons (Spanish and English) on the
+  transcriptomics of lupus in Mexican women, designed for teaching and
+  reproducible research.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

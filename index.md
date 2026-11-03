@@ -115,8 +115,7 @@ this resource, please include both.
 
 **1) Cómo citar el paquete / How to cite the package**
 
-> Coss E (2026) *GeneExprLupusMx: Datos transcriptómicos de lupus en
-> mujeres mexicanas con lecciones de aprendizaje*. Paquete de R.
+> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons*. Paquete de R.
 > <https://github.com/EveliaCoss/GeneExprLupusMx> [doi:
 > 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 

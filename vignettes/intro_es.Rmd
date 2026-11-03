@@ -152,7 +152,7 @@ Hay dos citas: una para el **paquete** y otra para los **datos**. Si usas este r
 
 **1) Cómo citar el paquete** (lecciones, funciones y objetos de R):
 
-> Coss E (2026) *GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje*. Paquete de R. <https://github.com/EveliaCoss/GeneExprLupusMx> [doi: 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
+> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons*. Paquete de R. <https://github.com/EveliaCoss/GeneExprLupusMx> [doi: 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
 Este DOI siempre apunta a la versión más reciente; en [Zenodo](https://doi.org/10.5281/zenodo.23751369) encontrarás el DOI de cada versión.
 

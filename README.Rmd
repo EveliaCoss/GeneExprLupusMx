@@ -15,7 +15,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "man/figures/R
 [![R-CMD-check](https://github.com/EveliaCoss/GeneExprLupusMx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EveliaCoss/GeneExprLupusMx/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/EveliaCoss/GeneExprLupusMx/graph/badge.svg)](https://app.codecov.io/gh/EveliaCoss/GeneExprLupusMx)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23751369.svg)](https://doi.org/10.5281/zenodo.23751369)
-[![License: MIT](https://img.shields.io/badge/License-MIT-3D3F8F.svg)](LICENSE.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-3D3F8F.svg)](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/LICENSE.md)
 <!-- badges: end -->
 
 **[Español](#español) | [English](#english)**
@@ -92,7 +92,7 @@ Hay dos citas: una para el **paquete** y otra para los **datos**. Si usas este r
 
 Si usas las lecciones, las funciones o los objetos de R del paquete:
 
-> Coss E (2026) *GeneExprLupusMx: Datos transcriptómicos de lupus en mujeres mexicanas con lecciones de aprendizaje*. Paquete de R. <https://github.com/EveliaCoss/GeneExprLupusMx> [doi: 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
+> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons*. Paquete de R. <https://github.com/EveliaCoss/GeneExprLupusMx> [doi: 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
 Este DOI siempre apunta a la versión más reciente; en [Zenodo](https://doi.org/10.5281/zenodo.23751369) encontrarás el DOI de cada versión.
 
@@ -126,7 +126,7 @@ También agradecemos a los recursos abiertos [g:Profiler](https://biit.cs.ut.ee/
 
 ### Licencia
 
-El código del paquete se distribuye bajo la [licencia MIT](LICENSE.md). Los datos originales provienen de las fuentes indicadas en [Origen de los datos](#origen-de-los-datos) (el registro de Zenodo usa la licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)); si los usas, cita el artículo y el registro de Zenodo.
+El código del paquete se distribuye bajo la [licencia MIT](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/LICENSE.md). Los datos originales provienen de las fuentes indicadas en [Origen de los datos](#origen-de-los-datos) (el registro de Zenodo usa la licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)); si los usas, cita el artículo y el registro de Zenodo.
 
 ------------------------------------------------------------------------
 
@@ -196,7 +196,7 @@ There are two citations: one for the **package** and one for the **data**. If yo
 
 If you use the lessons, functions or R objects of the package:
 
-> Coss E (2026) *GeneExprLupusMx: Transcriptomic data of lupus in Mexican women with learning lessons*. R package. <https://github.com/EveliaCoss/GeneExprLupusMx> [doi: 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
+> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons*. R package. <https://github.com/EveliaCoss/GeneExprLupusMx> [doi: 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
 This DOI always points to the latest version; on [Zenodo](https://doi.org/10.5281/zenodo.23751369) you can find the DOI of each version.
 
@@ -230,4 +230,4 @@ We also thank the open resources [g:Profiler](https://biit.cs.ut.ee/gprofiler/),
 
 ### License
 
-The package code is released under the [MIT license](LICENSE.md). The original data come from the sources listed in [Data sources](#data-sources) (the Zenodo record uses the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license); if you use them, please cite the article and the Zenodo record.
+The package code is released under the [MIT license](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/LICENSE.md). The original data come from the sources listed in [Data sources](#data-sources) (the Zenodo record uses the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license); if you use them, please cite the article and the Zenodo record.
