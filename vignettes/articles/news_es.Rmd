@@ -17,6 +17,8 @@ title: "Registro de cambios"
 
 ## Sitio web
 
+- El paquete ya tiene logo, que aparece en el README y en la página web (también como ícono de la pestaña del navegador).
+- Nuevo título en inglés, "Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons", que sigue el estilo de CRAN (*Title Case* y menos de 65 caracteres). La cita del paquete también lo usa.
 - Nueva sección "Shinyapp" en el README y la barra lateral del inicio, con el enlace a la [Shinyapp de GeneExprLupusMx](https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp) (por ahora, solo en español).
 
 # GeneExprLupusMx 0.1.0

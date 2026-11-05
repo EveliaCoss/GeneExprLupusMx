@@ -1,4 +1,4 @@
-# GeneExprLupusMx
+# GeneExprLupusMx <a href="https://eveliacoss.github.io/GeneExprLupusMx/"><img src="man/figures/logo.png" align="right" height="138" alt="Logo de GeneExprLupusMx" /></a>
 
 ## Explorando el lupus en México: datos abiertos y análisis reproducibles en R
 
