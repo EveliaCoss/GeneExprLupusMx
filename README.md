@@ -3,7 +3,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit this file. -->
 
-# GeneExprLupusMx
+# GeneExprLupusMx <a href="https://eveliacoss.github.io/GeneExprLupusMx/"><img src="man/figures/logo.png" align="right" height="138" alt="Logo de GeneExprLupusMx" /></a>
 
 <!-- badges: start -->
 

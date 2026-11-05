@@ -13,6 +13,8 @@
 
 ## Website
 
+- The package now has a logo, shown in the README and on the website (also as the browser tab icon).
+- New English title, "Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons", which follows CRAN's style (Title Case, under 65 characters). The package citation uses it too.
 - New "Shinyapp" section in the README and the home page sidebar, with a link to the [GeneExprLupusMx Shinyapp](https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp) (for now, only in Spanish).
 
 # GeneExprLupusMx 0.1.0
