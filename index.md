@@ -39,6 +39,11 @@ reproduce, step by step, the figures of the original article
 
 <img src="man/figures/overview_promo_en.png" alt="GeneExprLupusMx overview: data, workflow, key findings and lessons" width="100%"/>
 
+## ¿Qué está en español y qué en inglés? / What is in Spanish and what is in English?
+
+- **En español e inglés / In Spanish and English:** el README, el sitio web, todas las lecciones, la viñeta de introducción, las imágenes de resumen de cada lección y el registro de cambios / the README, the website, all lessons, the introduction vignette, the summary images of each lesson and the changelog.
+- **Solo en inglés / English only:** los nombres de las funciones y de sus argumentos, y la ayuda de R (por ejemplo, `?create_heatmap`); elegimos el inglés para que el paquete sea compatible con el resto del ecosistema de R y porque los nombres quedan más cortos que en español / function and argument names, and the R help pages (e.g. `?create_heatmap`); we chose English for compatibility with the rest of the R ecosystem and because the names are shorter than in Spanish.
+
 ## Instalación / Installation
 
 ``` r

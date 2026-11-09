@@ -44,6 +44,11 @@ original
 - **Ciencia abierta:** hace visibles y reutilizables datos biomédicos
   generados en América Latina.
 
+### ¿Qué está en español y qué en inglés?
+
+- **En español e inglés:** este README, el sitio web, todas las lecciones, la viñeta de introducción, las imágenes de resumen de cada lección y el registro de cambios.
+- **Solo en inglés:** los nombres de las funciones y de sus argumentos, y la ayuda de R (por ejemplo, `?create_heatmap` o `?filtered_txi`). Elegimos el inglés para que el paquete sea compatible con el resto del ecosistema de R (Bioconductor, tidyverse) y porque los nombres quedan más cortos que en español.
+
 ### Instalación
 
 ``` r
@@ -249,6 +254,11 @@ reproduce, step by step, the figures of the original article
   to replicate the figures and analyses of the study.
 - **Open science:** makes biomedical data generated in Latin America
   visible and reusable.
+
+### What is in Spanish and what is in English?
+
+- **In Spanish and English:** this README, the website, all lessons, the introduction vignette, the summary images of each lesson and the changelog.
+- **English only:** function and argument names, and the R help pages (e.g. `?create_heatmap` or `?filtered_txi`). We chose English for compatibility with the rest of the R ecosystem (Bioconductor, tidyverse) and because the names are shorter than in Spanish.
 
 ### Installation
 
