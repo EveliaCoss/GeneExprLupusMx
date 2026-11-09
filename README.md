@@ -34,7 +34,8 @@ Incluye la expresión génica de *monocitos, células dendríticas derivadas
 de monocitos (moDC) y células dendríticas tolerogénicas (tolDC)* de 33
 voluntarias (10 controles y 23 pacientes; 99 muestras), junto con
 lecciones que reproducen, paso a paso, las figuras del artículo
-original.
+original
+([Hernández-Ledesma, Coss-Navarrete *et al.*, 2026, *Front. Immunol.*](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full)).
 
 - **Uso educativo:** recurso didáctico en bioinformática, inmunología y
   ciencias biomédicas.
@@ -239,7 +240,8 @@ women with **systemic lupus erythematosus (SLE)** and healthy controls.
 It includes gene expression from *monocytes, monocyte-derived dendritic
 cells (moDCs) and tolerogenic dendritic cells (tolDCs)* of 33 volunteers
 (10 controls and 23 patients; 99 samples), together with lessons that
-reproduce, step by step, the figures of the original article.
+reproduce, step by step, the figures of the original article
+([Hernández-Ledesma, Coss-Navarrete *et al.*, 2026, *Front. Immunol.*](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full)).
 
 - **Educational use:** a teaching resource in bioinformatics, immunology
   and biomedical sciences.
