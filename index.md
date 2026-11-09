@@ -40,15 +40,16 @@ reproduce, step by step, the figures of the original article.
 ## Instalación / Installation
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
+# install.packages("pak")
+pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
 
-Algunas lecciones usan paquetes de Bioconductor / Some lessons use
-Bioconductor packages:
+Algunas lecciones usan paquetes de Bioconductor, que `pak` también
+instala / Some lessons use Bioconductor packages, which `pak` also
+installs:
 
 ``` r
-BiocManager::install(c("DESeq2", "ComplexHeatmap"))
+pak::pak(c("DESeq2", "ComplexHeatmap"))
 ```
 
 ## Lecciones / Lessons
@@ -201,7 +202,7 @@ possible:
   [roxygen2](https://CRAN.R-project.org/package=roxygen2),
   [usethis](https://CRAN.R-project.org/package=usethis),
   [testthat](https://CRAN.R-project.org/package=testthat),
-  [remotes](https://CRAN.R-project.org/package=remotes) y / and
+  [pak](https://CRAN.R-project.org/package=pak) y / and
   [BiocManager](https://CRAN.R-project.org/package=BiocManager).
 
 También agradecemos a los recursos abiertos

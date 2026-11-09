@@ -41,9 +41,8 @@ knitr::include_graphics("img/overview_promo_en.png")
 Install the package from [GitHub](https://github.com/EveliaCoss/GeneExprLupusMx). Some lessons also use `DESeq2`, available on [Bioconductor](https://bioconductor.org/packages/DESeq2):
 
 ```{r install, eval = FALSE}
-install.packages(c("remotes", "BiocManager", "tidyverse"))
-remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
-BiocManager::install("DESeq2")
+install.packages(c("pak", "tidyverse"))
+pak::pak(c("EveliaCoss/GeneExprLupusMx", "DESeq2"))
 ```
 
 Once installed, load it:

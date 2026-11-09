@@ -31,14 +31,14 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ## Instalación / Installation
 
 ```r
-# install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
+# install.packages("pak")
+pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
 
-Algunas lecciones usan paquetes de Bioconductor / Some lessons use Bioconductor packages:
+Algunas lecciones usan paquetes de Bioconductor, que `pak` también instala / Some lessons use Bioconductor packages, which `pak` also installs:
 
 ```r
-BiocManager::install(c("DESeq2", "ComplexHeatmap"))
+pak::pak(c("DESeq2", "ComplexHeatmap"))
 ```
 
 ## Lecciones / Lessons
@@ -98,7 +98,7 @@ Este DOI siempre apunta a la versión más reciente; en [Zenodo](https://doi.org
 
 - **Bioconductor:** [DESeq2](https://bioconductor.org/packages/DESeq2), [tximport](https://bioconductor.org/packages/tximport), [SummarizedExperiment](https://bioconductor.org/packages/SummarizedExperiment), [ComplexHeatmap](https://bioconductor.org/packages/ComplexHeatmap), [rrvgo](https://bioconductor.org/packages/rrvgo) y / and [org.Hs.eg.db](https://bioconductor.org/packages/org.Hs.eg.db).
 - **Análisis y visualización / Analysis and visualization:** [tidyverse](https://CRAN.R-project.org/package=tidyverse) ([dplyr](https://CRAN.R-project.org/package=dplyr), [ggplot2](https://CRAN.R-project.org/package=ggplot2), [tidyr](https://CRAN.R-project.org/package=tidyr), [purrr](https://CRAN.R-project.org/package=purrr)…), [gprofiler2](https://CRAN.R-project.org/package=gprofiler2), [circlize](https://CRAN.R-project.org/package=circlize), [cowplot](https://CRAN.R-project.org/package=cowplot), [ggrepel](https://CRAN.R-project.org/package=ggrepel), [ggh4x](https://CRAN.R-project.org/package=ggh4x), [scales](https://CRAN.R-project.org/package=scales), [readxl](https://CRAN.R-project.org/package=readxl) y / and [stringi](https://CRAN.R-project.org/package=stringi).
-- **Desarrollo y documentación / Development and documentation:** [knitr](https://CRAN.R-project.org/package=knitr), [rmarkdown](https://CRAN.R-project.org/package=rmarkdown), [pkgdown](https://CRAN.R-project.org/package=pkgdown), [roxygen2](https://CRAN.R-project.org/package=roxygen2), [usethis](https://CRAN.R-project.org/package=usethis), [testthat](https://CRAN.R-project.org/package=testthat), [remotes](https://CRAN.R-project.org/package=remotes) y / and [BiocManager](https://CRAN.R-project.org/package=BiocManager).
+- **Desarrollo y documentación / Development and documentation:** [knitr](https://CRAN.R-project.org/package=knitr), [rmarkdown](https://CRAN.R-project.org/package=rmarkdown), [pkgdown](https://CRAN.R-project.org/package=pkgdown), [roxygen2](https://CRAN.R-project.org/package=roxygen2), [usethis](https://CRAN.R-project.org/package=usethis), [testthat](https://CRAN.R-project.org/package=testthat), [pak](https://CRAN.R-project.org/package=pak) y / and [BiocManager](https://CRAN.R-project.org/package=BiocManager).
 
 También agradecemos a los recursos abiertos [g:Profiler](https://biit.cs.ut.ee/gprofiler/), [Gene Ontology](https://geneontology.org/) y [Reactome](https://reactome.org/), y a las voluntarias que participaron en el estudio. **/** We also thank the open resources [g:Profiler](https://biit.cs.ut.ee/gprofiler/), [Gene Ontology](https://geneontology.org/) and [Reactome](https://reactome.org/), and the volunteers who took part in the study.
 

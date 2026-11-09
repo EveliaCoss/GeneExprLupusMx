@@ -121,9 +121,8 @@ The result is a table: how many reads each gene has in each sample. We call this
 Install the package from [GitHub](https://github.com/EveliaCoss/GeneExprLupusMx) and `DESeq2` from [Bioconductor](https://bioconductor.org/packages/DESeq2). You only need to do this once.
 
 ```{r install, eval = FALSE}
-install.packages(c("remotes", "BiocManager", "tidyverse"))
-remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
-BiocManager::install("DESeq2")
+install.packages(c("pak", "tidyverse"))
+pak::pak(c("EveliaCoss/GeneExprLupusMx", "DESeq2"))
 ```
 
 ### Load the packages

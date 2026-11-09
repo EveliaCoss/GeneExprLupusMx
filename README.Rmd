@@ -39,14 +39,14 @@ Sitio web / Website: <https://eveliacoss.github.io/GeneExprLupusMx/>
 ### Instalación
 
 ```r
-# install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
+# install.packages("pak")
+pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
 
-Algunas lecciones usan paquetes de Bioconductor:
+Algunas lecciones usan paquetes de Bioconductor, que `pak` también instala:
 
 ```r
-BiocManager::install(c("DESeq2", "ComplexHeatmap"))
+pak::pak(c("DESeq2", "ComplexHeatmap"))
 ```
 
 ### Lecciones
@@ -120,7 +120,7 @@ Los datos y el código provienen del artículo original y del análisis deposita
 
 - **Bioconductor:** [DESeq2](https://bioconductor.org/packages/DESeq2), [tximport](https://bioconductor.org/packages/tximport), [SummarizedExperiment](https://bioconductor.org/packages/SummarizedExperiment), [ComplexHeatmap](https://bioconductor.org/packages/ComplexHeatmap), [rrvgo](https://bioconductor.org/packages/rrvgo) y [org.Hs.eg.db](https://bioconductor.org/packages/org.Hs.eg.db).
 - **Análisis y visualización:** [tidyverse](https://CRAN.R-project.org/package=tidyverse) ([dplyr](https://CRAN.R-project.org/package=dplyr), [ggplot2](https://CRAN.R-project.org/package=ggplot2), [tidyr](https://CRAN.R-project.org/package=tidyr), [purrr](https://CRAN.R-project.org/package=purrr)…), [gprofiler2](https://CRAN.R-project.org/package=gprofiler2), [circlize](https://CRAN.R-project.org/package=circlize), [cowplot](https://CRAN.R-project.org/package=cowplot), [ggrepel](https://CRAN.R-project.org/package=ggrepel), [ggh4x](https://CRAN.R-project.org/package=ggh4x), [scales](https://CRAN.R-project.org/package=scales), [readxl](https://CRAN.R-project.org/package=readxl) y [stringi](https://CRAN.R-project.org/package=stringi).
-- **Desarrollo y documentación:** [knitr](https://CRAN.R-project.org/package=knitr), [rmarkdown](https://CRAN.R-project.org/package=rmarkdown), [pkgdown](https://CRAN.R-project.org/package=pkgdown), [roxygen2](https://CRAN.R-project.org/package=roxygen2), [usethis](https://CRAN.R-project.org/package=usethis), [testthat](https://CRAN.R-project.org/package=testthat), [remotes](https://CRAN.R-project.org/package=remotes) y [BiocManager](https://CRAN.R-project.org/package=BiocManager).
+- **Desarrollo y documentación:** [knitr](https://CRAN.R-project.org/package=knitr), [rmarkdown](https://CRAN.R-project.org/package=rmarkdown), [pkgdown](https://CRAN.R-project.org/package=pkgdown), [roxygen2](https://CRAN.R-project.org/package=roxygen2), [usethis](https://CRAN.R-project.org/package=usethis), [testthat](https://CRAN.R-project.org/package=testthat), [pak](https://CRAN.R-project.org/package=pak) y [BiocManager](https://CRAN.R-project.org/package=BiocManager).
 
 También agradecemos a los recursos abiertos [g:Profiler](https://biit.cs.ut.ee/gprofiler/), [Gene Ontology](https://geneontology.org/) y [Reactome](https://reactome.org/), y a las voluntarias que participaron en el estudio.
 
@@ -143,14 +143,14 @@ El código del paquete se distribuye bajo la [licencia MIT](https://github.com/E
 ### Installation
 
 ```r
-# install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
+# install.packages("pak")
+pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
 
-Some lessons use Bioconductor packages:
+Some lessons use Bioconductor packages, which `pak` also installs:
 
 ```r
-BiocManager::install(c("DESeq2", "ComplexHeatmap"))
+pak::pak(c("DESeq2", "ComplexHeatmap"))
 ```
 
 ### Lessons
@@ -224,7 +224,7 @@ The data and code come from the original article and the analysis deposited in Z
 
 - **Bioconductor:** [DESeq2](https://bioconductor.org/packages/DESeq2), [tximport](https://bioconductor.org/packages/tximport), [SummarizedExperiment](https://bioconductor.org/packages/SummarizedExperiment), [ComplexHeatmap](https://bioconductor.org/packages/ComplexHeatmap), [rrvgo](https://bioconductor.org/packages/rrvgo) and [org.Hs.eg.db](https://bioconductor.org/packages/org.Hs.eg.db).
 - **Analysis and visualization:** [tidyverse](https://CRAN.R-project.org/package=tidyverse) ([dplyr](https://CRAN.R-project.org/package=dplyr), [ggplot2](https://CRAN.R-project.org/package=ggplot2), [tidyr](https://CRAN.R-project.org/package=tidyr), [purrr](https://CRAN.R-project.org/package=purrr)…), [gprofiler2](https://CRAN.R-project.org/package=gprofiler2), [circlize](https://CRAN.R-project.org/package=circlize), [cowplot](https://CRAN.R-project.org/package=cowplot), [ggrepel](https://CRAN.R-project.org/package=ggrepel), [ggh4x](https://CRAN.R-project.org/package=ggh4x), [scales](https://CRAN.R-project.org/package=scales), [readxl](https://CRAN.R-project.org/package=readxl) and [stringi](https://CRAN.R-project.org/package=stringi).
-- **Development and documentation:** [knitr](https://CRAN.R-project.org/package=knitr), [rmarkdown](https://CRAN.R-project.org/package=rmarkdown), [pkgdown](https://CRAN.R-project.org/package=pkgdown), [roxygen2](https://CRAN.R-project.org/package=roxygen2), [usethis](https://CRAN.R-project.org/package=usethis), [testthat](https://CRAN.R-project.org/package=testthat), [remotes](https://CRAN.R-project.org/package=remotes) and [BiocManager](https://CRAN.R-project.org/package=BiocManager).
+- **Development and documentation:** [knitr](https://CRAN.R-project.org/package=knitr), [rmarkdown](https://CRAN.R-project.org/package=rmarkdown), [pkgdown](https://CRAN.R-project.org/package=pkgdown), [roxygen2](https://CRAN.R-project.org/package=roxygen2), [usethis](https://CRAN.R-project.org/package=usethis), [testthat](https://CRAN.R-project.org/package=testthat), [pak](https://CRAN.R-project.org/package=pak) and [BiocManager](https://CRAN.R-project.org/package=BiocManager).
 
 We also thank the open resources [g:Profiler](https://biit.cs.ut.ee/gprofiler/), [Gene Ontology](https://geneontology.org/) and [Reactome](https://reactome.org/), and the volunteers who took part in the study.
 

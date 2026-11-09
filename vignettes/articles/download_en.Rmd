@@ -47,8 +47,8 @@ The scripts in the [`data-raw/`](https://github.com/EveliaCoss/GeneExprLupusMx/t
 ## 3. Load the data in R
 
 ```{r}
-# install.packages("remotes")
-remotes::install_github("EveliaCoss/GeneExprLupusMx", build_vignettes = TRUE)
+# install.packages("pak")
+pak::pak("EveliaCoss/GeneExprLupusMx")
 
 library(GeneExprLupusMx)
 data(package = "GeneExprLupusMx") # list of available objects
