@@ -383,7 +383,13 @@ Resumen visual de la lección 7.
 <div class="section level2">
 <h2 id="preparación">1. Preparación<a class="anchor" aria-label="anchor" href="#preparaci%C3%B3n"></a>
 </h2>
+<p>Si aún no tienes los paquetes de esta lección, instálalos (solo una
+vez):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span>, <span class="st">"DESeq2"</span>, <span class="st">"ComplexHeatmap"</span>, <span class="st">"circlize"</span>,</span>
+<span>           <span class="st">"tidyverse"</span>, <span class="st">"cowplot"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span> <span class="co"># datos del paquete</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>       <span class="co"># manipulación de tablas y gráficas</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap" class="external-link">ComplexHeatmap</a></span><span class="op">)</span>  <span class="co"># heatmaps</span></span>
@@ -395,7 +401,7 @@ Resumen visual de la lección 7.
 <span><span class="va">zscore_mat</span>   <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_data.html">download_data</a></span><span class="op">(</span><span class="st">"zscore_mat"</span><span class="op">)</span></span></code></pre></div>
 <p>Colores y umbral (los mismos de las lecciones anteriores, más los de
 las listas de esta lección):</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cell_color</span>       <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>monocyte <span class="op">=</span> <span class="st">"black"</span>, moDC <span class="op">=</span> <span class="st">"palevioletred"</span>, tolDC <span class="op">=</span> <span class="st">"gold1"</span><span class="op">)</span></span>
 <span><span class="va">group_color</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#96d4ccff"</span>, SLE <span class="op">=</span> <span class="st">"#b493b4ff"</span><span class="op">)</span></span>
 <span><span class="va">expression_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>UP <span class="op">=</span> <span class="st">"firebrick3"</span>, DOWN <span class="op">=</span> <span class="st">"dodgerblue3"</span><span class="op">)</span></span>
@@ -410,7 +416,7 @@ las listas de esta lección):</p>
 <p>Tomemos un gen estimulado por interferón, <code>ISG15</code>. En la
 lección 5 calculamos su LFC de monocito a célula dendrítica en cada
 grupo:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">de_celltype_results</span>, <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">log2FoldChange</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">gene</span> <span class="op">==</span> <span class="st">"ISG15"</span><span class="op">]</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  Ctrl_moDC Ctrl_tolDC   SLE_moDC  SLE_tolDC </span></span>
 <span><span class="co">#&gt;      -1.69      -0.95      -3.41      -3.27</span></span></code></pre></div>
@@ -422,7 +428,7 @@ diferencia entre esos dos cambios es la
 <p>Una gráfica de líneas lo hace evidente. Graficamos el z-score medio
 de cada grupo en cada tipo celular, usando el checkpoint
 <code>zscore_mat</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_interaction</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">gene</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">metadata_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>zscore    <span class="op">=</span> <span class="va">zscore_mat</span><span class="op">[</span><span class="va">gene</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">sample_ID</span><span class="op">)</span><span class="op">]</span>,</span>
@@ -437,7 +443,7 @@ de cada grupo en cada tipo celular, usando el checkpoint
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">gene</span>, x <span class="op">=</span> <span class="st">"Tipo celular"</span>, y <span class="op">=</span> <span class="st">"z-score medio (± error estándar)"</span>, color <span class="op">=</span> <span class="st">"Grupo"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_interaction</span><span class="op">(</span><span class="st">"ISG15"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="l7_DEGs_between_groups_es_files/figure-html/isg15_plot-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <ul>
@@ -463,7 +469,7 @@ un valor más alto.</p>
 LFC “a ojo”. Para obtener un <strong>valor p</strong> de la diferencia,
 hay que ajustar un solo modelo con las 99 muestras y un término de
 interacción, <code>Group:Cell_type</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thelovelab/DESeq2" class="external-link">DESeq2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromTximport</a></span><span class="op">(</span>txi     <span class="op">=</span> <span class="va">filtered_txi</span>,</span>
@@ -522,14 +528,14 @@ monocito</td>
 </tbody>
 </table>
 <p>Nos interesan los dos últimos:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">de_interaction_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>moDC <span class="op">=</span> <span class="st">"moDC"</span>, tolDC <span class="op">=</span> <span class="st">"tolDC"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">cell</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"GroupSLE.Cell_type"</span>, <span class="va">cell</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>, <span class="va">res</span>, row.names <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Como el modelo tarda en ajustarse, el paquete incluye el resultado
 como checkpoint, <code>de_interaction_results</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">de_interaction_results</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "moDC"  "tolDC"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">de_interaction_results</span><span class="op">$</span><span class="va">tolDC</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">de_interaction_results</span><span class="op">$</span><span class="va">tolDC</span><span class="op">$</span><span class="va">padj</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span>
@@ -549,7 +555,7 @@ como checkpoint, <code>de_interaction_results</code>:</p>
 <span><span class="co">#&gt; 5079  2.178151e-03</span></span></code></pre></div>
 <p>Comprobemos que el LFC de la interacción es la diferencia de
 diferencias que calculamos a mano para <code>ISG15</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">de_interaction_results</span>, <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">log2FoldChange</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">gene</span> <span class="op">==</span> <span class="st">"ISG15"</span><span class="op">]</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  moDC tolDC </span></span>
 <span><span class="co">#&gt; -1.73 -2.32</span></span></code></pre></div>
@@ -565,7 +571,7 @@ dosis de glucocorticoides.</p>
 <code>padj &lt; 0.05</code>. Lo clasificamos como <code>UP</code> o
 <code>DOWN</code> según el signo del LFC, y nombramos cada lista como
 <code>SLEvsCtrl_&lt;dirección&gt;_&lt;tipo celular&gt;</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">deg_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">imap_dfr</a></span><span class="op">(</span><span class="va">de_interaction_results</span>, <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">cell</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span>, <span class="va">padj</span> <span class="op">&lt;</span> <span class="va">padj_threshold</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -593,7 +599,7 @@ interacción grande, con <code>|log2FoldChange| ≥ 1</code>?</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">deg_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">query</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>total <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, lfc_1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">log2FoldChange</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -614,7 +620,7 @@ explica cada interacción?</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid</a></span><span class="op">(</span><span class="fu">plot_interaction</span><span class="op">(</span><span class="st">"IL5RA"</span><span class="op">)</span>, <span class="fu">plot_interaction</span><span class="op">(</span><span class="st">"ABCG1"</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="l7_DEGs_between_groups_es_files/figure-html/reto2-1.png" class="r-plt" alt="" width="960" style="display: block; margin: auto;"></p>
 <ul>
@@ -634,7 +640,7 @@ pacientes: las líneas se separan (interacción en tolDC, LFC ≈ 2.4).</li>
 <p>Como en las lecciones anteriores, buscamos términos enriquecidos en
 cada lista con g:Profiler (<a href="GO:BP" class="uri">GO:BP</a>, KEGG y
 Reactome):</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gprofiler2</span><span class="op">)</span></span>
 <span><span class="fu">set_base_url</span><span class="op">(</span><span class="st">"https://biit.cs.ut.ee/gprofiler_archive3/e113_eg59_p19"</span><span class="op">)</span> <span class="co"># versión archivada (junio de 2025)</span></span>
 <span></span>
@@ -643,7 +649,7 @@ Reactome):</p>
 <span>                 user_threshold <span class="op">=</span> <span class="fl">0.05</span>, sources <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GO:BP"</span>, <span class="st">"KEGG"</span>, <span class="st">"REAC"</span><span class="op">)</span>, evcodes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>El resultado está en el checkpoint
 <code>go_interaction_results</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">go_interaction_results</span>, <span class="st">"gprofiler_version"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "e113_eg59_p19_903d2221"</span></span>
 <span><span class="va">go_interaction_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -659,7 +665,7 @@ Reactome):</p>
 <p>Para la figura usamos solo <strong>Reactome (REAC)</strong>. A cada
 gen le asignamos su <strong>proceso específico</strong>: el término de
 Reactome con menos genes en el que aparece (como en la lección 4):</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reac_specific</span> <span class="op">&lt;-</span> <span class="va">go_interaction_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">source</span> <span class="op">==</span> <span class="st">"REAC"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_rows.html" class="external-link">separate_rows</a></span><span class="op">(</span><span class="va">intersection</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -685,7 +691,7 @@ de Reactome. Esos son los genes de la Figura 7A.</p>
 </h2>
 <p>Hacemos una matriz de genes × listas con el LFC de la interacción;
 queda vacía (<code>NA</code>) si el gen no está en esa lista:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lfc_mat</span> <span class="op">&lt;-</span> <span class="va">deg_reac</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">query</span>, <span class="va">log2FoldChange</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">query</span>, values_from <span class="op">=</span> <span class="va">log2FoldChange</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -709,7 +715,7 @@ queda vacía (<code>NA</code>) si el gen no está en esa lista:</p>
 <span><span class="co">#&gt; DHX58             -0.9784128</span></span></code></pre></div>
 <p>Agrupamos los genes según en qué listas aparecen. Con la misma
 función agruparemos después los procesos de la Figura 7B:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">list_direction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"SLEvsCtrl_(UP|DOWN)_.*"</span>, <span class="st">"\\1"</span>, <span class="va">query_order</span><span class="op">)</span> <span class="co"># UP, DOWN, UP, DOWN</span></span>
 <span></span>
 <span><span class="co"># p. ej., "NA_DOWN_NA_DOWN" = está en DOWN_moDC y en DOWN_tolDC</span></span>
@@ -737,7 +743,7 @@ función agruparemos después los procesos de la Figura 7B:</p>
 <p>Ahora las anotaciones de las columnas. Cada lista se identifica por
 su dirección, su tipo celular y su comparación; encima va un
 <em>barplot</em> con el número de genes de cada lista:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">column_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>query      <span class="op">=</span> <span class="va">query_order</span>,</span>
 <span>                      Expression <span class="op">=</span> <span class="va">list_direction</span>,</span>
 <span>                      Cell_type  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">".*_"</span>, <span class="st">""</span>, <span class="va">query</span><span class="op">)</span>,</span>
@@ -757,7 +763,7 @@ su dirección, su tipo celular y su comparación; encima va un
 <span><span class="va">counts_anno</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/HeatmapAnnotation.html" class="external-link">HeatmapAnnotation</a></span><span class="op">(</span></span>
 <span>  <span class="st">"DEG Counts"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/anno_barplot.html" class="external-link">anno_barplot</a></span><span class="op">(</span><span class="va">deg_counts</span>, add_numbers <span class="op">=</span> <span class="cn">TRUE</span>, height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">2</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  annotation_name_side <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ht_fig7a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">lfc_mat</span>, name <span class="op">=</span> <span class="st">"log2FC"</span>, col <span class="op">=</span> <span class="va">lfc_color</span>,</span>
 <span>  na_col <span class="op">=</span> <span class="st">"white"</span>, rect_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
@@ -794,7 +800,7 @@ ISG? Usa la lista <code>isg_genes</code> de la lección 4.</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">isg_in_fig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lfc_mat</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lfc_mat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">isg_genes</span><span class="op">$</span><span class="va">genes</span><span class="op">]</span></span>
 <span><span class="va">isg_in_fig</span></span>
 <span><span class="co">#&gt;  [1] "BST2"    "CCL2"    "DHX58"   "EIF2AK2" "HELZ2"   "HERC5"   "IFI35"  </span></span>
@@ -815,7 +821,7 @@ tipo celular; ninguno está entre los que suben.</p>
 </h2>
 <p>Contamos cuántos genes de cada lista pertenecen a cada proceso
 específico, y dejamos vacías las celdas sin genes:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">process_mat</span> <span class="op">&lt;-</span> <span class="va">deg_reac</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">specific_process</span>, <span class="va">query</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">query</span>, values_from <span class="op">=</span> <span class="va">n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -830,7 +836,7 @@ específico, y dejamos vacías las celdas sin genes:</p>
 <span><span class="co">#&gt;               8               2               3               2               1</span></span></code></pre></div>
 <p>Cada celda lleva un círculo coloreado según el número de genes. Lo
 dibujamos con <code>layer_fun</code>, como en la lección 5:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">count_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/circlize/man/colorRamp2.html" class="external-link">colorRamp2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#FDE725"</span>, <span class="st">"#5DC863"</span>, <span class="st">"#3B528B"</span>, <span class="st">"#440154"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ht_fig7b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span></span>
@@ -876,7 +882,7 @@ expression…”).</li>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">deg_reac</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">specific_process</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>genes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span><span class="op">)</span></span>
@@ -907,7 +913,7 @@ Ver solución
 <p>Reproducimos los paneles A y B. Como en las lecciones anteriores,
 capturamos los <em>heatmaps</em> como objetos gráficos y los unimos con
 <code><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid()</a></code>:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grab</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">ht</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="va">ht</span>, merge_legends <span class="op">=</span> <span class="cn">TRUE</span>, heatmap_legend_side <span class="op">=</span> <span class="st">"bottom"</span>,</span>
 <span>                           annotation_legend_side <span class="op">=</span> <span class="st">"bottom"</span>, <span class="va">...</span><span class="op">)</span>, wrap.grobs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -944,7 +950,7 @@ expresados; LFC, log2 fold change.</p>
 <p>La figura original se encuentra en el <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">artículo</a>.</p>
 </div>
 <p>Para guardarla en alta resolución:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"Figura_7AB.png"</span>, <span class="va">figure_7</span>, width <span class="op">=</span> <span class="fl">18</span>, height <span class="op">=</span> <span class="fl">12</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -987,7 +993,7 @@ pero baja más en las pacientes.</td>
 gen: el z-score medio de cada grupo en monocitos, moDC y tolDC. Primero
 seleccionamos los genes que bajan y calculamos las medias, como en
 <code>plot_interaction()</code>:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">trajectory_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">lfc_mat</span><span class="op">)</span>, classification <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">gene_pattern</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">startsWith</a></span><span class="op">(</span><span class="va">classification</span>, <span class="st">"Downregulated"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">trajectory_genes</span><span class="op">)</span></span>
@@ -1017,7 +1023,7 @@ seleccionamos los genes que bajan y calculamos las medias, como en
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ctrl  moDC      EBP               0.500 Downregulated - SLE tolDC</span></span></code></pre></div>
 <p>Ahora graficamos un panel por gen, agrupados según su clasificación
 en la Figura 7A:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">exp_mean_trajectory</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">exp_mean_df</span>,</span>
 <span>                              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Cell_type</span>, y <span class="op">=</span> <span class="va">mean_expression</span>, group <span class="op">=</span> <span class="va">Group</span>, color <span class="op">=</span> <span class="va">Group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1059,7 +1065,7 @@ promedio de moDC y tolDC):</p>
 <strong>inducción atenuada</strong>; si baja, es una <strong>represión
 excesiva</strong>.</li>
 </ul>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">trajectory_type</span> <span class="op">&lt;-</span> <span class="va">exp_mean_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Group</span>, <span class="va">Cell_type</span><span class="op">)</span>, values_from <span class="op">=</span> <span class="va">mean_expression</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
@@ -1107,7 +1113,7 @@ qué proceso específico de Reactome pertenecen?</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">trajectory_type</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">trajectory</span> <span class="op">==</span> <span class="st">"Inducción atenuada"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">reac_specific</span>, by <span class="op">=</span> <span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1125,7 +1131,7 @@ Ver solución
 de los controles inducen al diferenciarse y las de las pacientes inducen
 menos.</p>
 </details><p>Para guardar la figura suplementaria:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"Figura_suplementaria_trayectorias.png"</span>, <span class="va">exp_mean_trajectory</span>, width <span class="op">=</span> <span class="fl">14</span>, height <span class="op">=</span> <span class="fl">13</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -1226,7 +1232,7 @@ con los datos fuera de R, consulta la página de <a href="download_es.html">Desc
 <div class="section level2">
 <h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>
 </h2>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.6.2 (2026-10-29)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>

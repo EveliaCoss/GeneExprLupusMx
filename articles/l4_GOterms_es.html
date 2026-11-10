@@ -397,7 +397,13 @@ Resumen visual de la lección 4.
 <div class="section level2">
 <h2 id="preparación">1. Preparación<a class="anchor" aria-label="anchor" href="#preparaci%C3%B3n"></a>
 </h2>
+<p>Si aún no tienes los paquetes de esta lección, instálalos (solo una
+vez):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span>, <span class="st">"ComplexHeatmap"</span>, <span class="st">"circlize"</span>,</span>
+<span>           <span class="st">"tidyverse"</span>, <span class="st">"cowplot"</span>, <span class="st">"ggh4x"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span> <span class="co"># datos del paquete</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>       <span class="co"># manipulación de tablas y gráficas</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/ComplexHeatmap" class="external-link">ComplexHeatmap</a></span><span class="op">)</span>  <span class="co"># heatmaps</span></span>
@@ -408,7 +414,7 @@ Resumen visual de la lección 4.
 <span><span class="co"># Objetos grandes del paquete: se descargan solo la primera vez (ver ?download_data)</span></span>
 <span><span class="va">zscore_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_data.html">download_data</a></span><span class="op">(</span><span class="st">"zscore_mat"</span><span class="op">)</span></span></code></pre></div>
 <p>Colores y umbrales (los mismos de la lección anterior):</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cell_color</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>monocyte <span class="op">=</span> <span class="st">"black"</span>, moDC <span class="op">=</span> <span class="st">"palevioletred"</span>, tolDC <span class="op">=</span> <span class="st">"gold1"</span><span class="op">)</span></span>
 <span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#96d4ccff"</span>, SLE <span class="op">=</span> <span class="st">"#b493b4ff"</span><span class="op">)</span></span>
 <span></span>
@@ -420,7 +426,7 @@ Resumen visual de la lección 4.
 <p>El checkpoint <code>de_results</code> contiene los resultados de
 <code>DESeq2</code> de los tres tipos celulares. Recuperamos los DEG en
 una sola tabla:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">deg_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">de_results</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">cell</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">de_results</span><span class="op">[[</span><span class="va">cell</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span>, <span class="va">padj</span> <span class="op">&lt;</span> <span class="va">padj_threshold</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">log2FoldChange</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="va">lfc_threshold</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -443,7 +449,7 @@ bajen, así que hay cinco listas.</p>
 gráficas necesitamos <strong>una fila por gen</strong> (94 genes) y una
 etiqueta que describa su <strong>patrón</strong>: en qué tipos celulares
 cambia.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">genes_in</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cell</span>, <span class="va">direction</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">deg_df</span><span class="op">$</span><span class="va">gene</span><span class="op">[</span><span class="va">deg_df</span><span class="op">$</span><span class="va">Cell_type</span> <span class="op">==</span> <span class="va">cell</span> <span class="op">&amp;</span> <span class="va">deg_df</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="va">direction</span><span class="op">]</span></span>
 <span><span class="op">}</span></span>
@@ -503,7 +509,7 @@ función. Es una pista para generar hipótesis.</p>
 mismo tiempo varias bases de datos (GO, Reactome, KEGG, WikiPathways,
 TF, miRNA, HP, CORUM). En R se usa con la función <code>gost()</code>
 del paquete <code>gprofiler2</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gprofiler2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">deg_lists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/splitAsList.html" class="external-link">split</a></span><span class="op">(</span><span class="va">deg_df</span><span class="op">$</span><span class="va">gene</span>, <span class="va">deg_df</span><span class="op">$</span><span class="va">query</span><span class="op">)</span> <span class="co"># una lista de genes por query</span></span>
@@ -526,7 +532,7 @@ reproducibles, <strong>fija la versión</strong> con
 <p><code>gost()</code> necesita conexión a internet. Para que esta
 lección funcione sin conexión, el paquete incluye el resultado como
 checkpoint, <code>go_results</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">go_results</span>, <span class="st">"gprofiler_version"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "e113_eg59_p19_903d2221"</span></span>
 <span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">go_results</span><span class="op">)</span></span>
@@ -580,7 +586,7 @@ checkpoint, <code>go_results</code>:</p>
 </tbody>
 </table>
 <p>¿Cuántos términos significativos hay por lista y base de datos?</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">query</span>, <span class="va">source</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">source</span>, values_from <span class="op">=</span> <span class="va">n</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
@@ -599,7 +605,7 @@ la base de datos más grande.</p>
 <h3 id="los-términos-más-significativos">3.1 Los términos más significativos<a class="anchor" aria-label="anchor" href="#los-t%C3%A9rminos-m%C3%A1s-significativos"></a>
 </h3>
 <p>Veamos los 10 procesos biológicos (<a href="GO:BP" class="uri">GO:BP</a>) más significativos de los monocitos:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">query</span> <span class="op">==</span> <span class="st">"SLE_UP_monocyte"</span>, <span class="va">source</span> <span class="op">==</span> <span class="st">"GO:BP"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span><span class="va">p_value</span>, n <span class="op">=</span> <span class="fl">10</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -621,7 +627,7 @@ enriquecimiento.</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">query</span> <span class="op">==</span> <span class="st">"SLE_UP_tolDC"</span>, <span class="va">source</span> <span class="op">==</span> <span class="st">"REAC"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_min</a></span><span class="op">(</span><span class="va">p_value</span>, n <span class="op">=</span> <span class="fl">5</span>, with_ties <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -663,7 +669,7 @@ de datos.</li>
 </h3>
 <p>Ordenamos las muestras por tipo celular y grupo, y tomamos los
 z-scores de los 94 genes del checkpoint <code>zscore_mat</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sample_order</span> <span class="op">&lt;-</span> <span class="va">metadata_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Cell_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Cell_type</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monocyte"</span>, <span class="st">"moDC"</span>, <span class="st">"tolDC"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">Cell_type</span>, <span class="va">Group</span><span class="op">)</span></span>
@@ -674,7 +680,7 @@ z-scores de los 94 genes del checkpoint <code>zscore_mat</code>:</p>
 <p>Agregamos anotaciones: arriba, el grupo y el tipo celular de cada
 muestra; a la izquierda, el LFC; a la derecha, el biotipo del gen (de
 <code>biotype_summary</code>) y su patrón.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pattern_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tri-lineage (UP)"</span> <span class="op">=</span> <span class="st">"#b2182b"</span>, <span class="st">"monocyte (UP)"</span> <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>                   <span class="st">"moDC (UP)"</span> <span class="op">=</span> <span class="st">"palevioletred"</span>, <span class="st">"moDC (DOWN)"</span> <span class="op">=</span> <span class="st">"palevioletred"</span>,</span>
 <span>                   <span class="st">"tolDC (UP)"</span> <span class="op">=</span> <span class="st">"gold1"</span>, <span class="st">"tolDC (DOWN)"</span> <span class="op">=</span> <span class="st">"gold1"</span>,</span>
@@ -716,7 +722,7 @@ muestra; a la izquierda, el LFC; a la derecha, el biotipo del gen (de
 <p>Una matriz con el LFC de cada gen en cada lista de DEG (0 si el gen
 no es DEG en esa lista). Arriba, un <em>barplot</em> con cuántos DEG
 tiene cada lista:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lfc_mat</span> <span class="op">&lt;-</span> <span class="va">deg_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>column <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace</a></span><span class="op">(</span><span class="va">query</span>, <span class="st">"SLE_(UP|DOWN)_(.*)"</span>, <span class="st">"\\2 (\\1)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># "monocyte (UP)"</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">column</span>, <span class="va">log2FoldChange</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -745,7 +751,7 @@ tiene cada lista:</p>
 <p>¿En qué bases de datos tiene cada gen al menos un término
 significativo? Separamos la columna <code>intersection</code> (genes
 separados por comas) en una fila por gen:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_source</span> <span class="op">&lt;-</span> <span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">source</span>, <span class="va">intersection</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_rows.html" class="external-link">separate_rows</a></span><span class="op">(</span><span class="va">intersection</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -781,7 +787,7 @@ separados por comas) en una fila por gen:</p>
 <p>Al unir <em>heatmaps</em> con <code>+</code>,
 <code>ComplexHeatmap</code> aplica a todos el orden de filas del
 primero, así que cada fila es el mismo gen en los tres:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ht_fig3a</span> <span class="op">&lt;-</span> <span class="va">ht_expression</span> <span class="op">+</span> <span class="va">ht_lfc</span> <span class="op">+</span> <span class="va">ht_presence</span></span>
 <span></span>
 <span><span class="va">ht_opt</span><span class="op">$</span><span class="va">message</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
@@ -815,7 +821,7 @@ paquete:</p>
 <code>isg_genes</code>: 423 genes estimulados por interferón (Yu et
 al., 2025).</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sle_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">sle_genes</span><span class="op">$</span><span class="va">Gene_name</span><span class="op">)</span>, <span class="va">gene_info</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span></span>
 <span><span class="va">isg_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">isg_genes</span><span class="op">$</span><span class="va">genes</span>, <span class="va">gene_info</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span></span>
 <span><span class="va">sle_deg</span></span>
@@ -827,7 +833,7 @@ al., 2025).</li>
 <strong>32</strong> son ISG. Los graficamos como en la lección anterior:
 un <em>dot plot</em> con la expresión media (z-score) por grupo y tipo
 celular. Como lo haremos dos veces, lo guardamos en una función:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_gene_dots</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">x_label</span>, <span class="va">gene_levels</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">dots_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">zscore_mat</span><span class="op">[</span><span class="va">genes</span>, <span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -862,13 +868,13 @@ celular. Como lo haremos dos veces, lo guardamos en una función:</p>
 <span>          axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>          plot.margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span><span class="fl">5.5</span>, <span class="fl">40</span>, <span class="fl">5.5</span>, <span class="fl">5.5</span><span class="op">)</span><span class="op">)</span> <span class="co"># margen para que no se corte la última etiqueta</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_sle</span> <span class="op">&lt;-</span> <span class="fu">plot_gene_dots</span><span class="op">(</span><span class="va">sle_deg</span>, <span class="st">"Genes asociados a SLE compartidos"</span>,</span>
 <span>                        gene_levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IFI27"</span>, <span class="st">"CMPK2"</span>, <span class="st">"EIF2AK2"</span>, <span class="st">"IFI44L"</span>, <span class="st">"IFI6"</span>, <span class="st">"IFIT1"</span>,</span>
 <span>                                        <span class="st">"IFIT3"</span>, <span class="st">"ISG15"</span>, <span class="st">"OAS1"</span>, <span class="st">"OAS2"</span>, <span class="st">"RSAD2"</span>, <span class="st">"USP18"</span>, <span class="st">"LBH"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">p_sle</span></span></code></pre></div>
 <p><img src="l4_GOterms_es_files/figure-html/fig3b-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_isg</span> <span class="op">&lt;-</span> <span class="fu">plot_gene_dots</span><span class="op">(</span><span class="va">isg_deg</span>, <span class="st">"Genes estimulados por interferón (ISG)"</span><span class="op">)</span></span>
 <span><span class="va">p_isg</span></span></code></pre></div>
 <p><img src="l4_GOterms_es_files/figure-html/fig3c-1.png" class="r-plt" alt="" width="1152" style="display: block; margin: auto;"></p>
@@ -889,7 +895,7 @@ de los tres tipos celulares.</p>
 canicas (DEG) de una bolsa con todos los genes del paquete, ¿qué tan
 probable es que 32 o más sean rojas (ISG)?</p>
 <p>Necesitamos cuatro números:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">de_results</span><span class="op">$</span><span class="va">monocyte</span><span class="op">)</span> <span class="co"># universo: todos los genes del paquete</span></span>
 <span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">isg_genes</span><span class="op">)</span>           <span class="co"># ISG en la lista de referencia</span></span>
 <span><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">gene_info</span><span class="op">)</span>           <span class="co"># DEG</span></span>
@@ -906,14 +912,14 @@ un enriquecimiento de 17.5 veces.</p>
 de</strong> <code>q - 1</code> canicas rojas, es decir, <code>q</code> o
 más. Usamos <code>lower.tail = FALSE</code> porque nos interesa la cola
 superior (sobrerrepresentación):</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_hyper</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Hypergeometric.html" class="external-link">phyper</a></span><span class="op">(</span><span class="va">q</span> <span class="op">-</span> <span class="fl">1</span>, <span class="va">m</span>, <span class="va">N</span> <span class="op">-</span> <span class="va">m</span>, <span class="va">k</span>, lower.tail <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">p_hyper</span></span>
 <span><span class="co">#&gt; [1] 2.484086e-31</span></span></code></pre></div>
 <p>La <strong>prueba exacta de Fisher</strong> hace la misma pregunta
 con una tabla de 2 × 2. Con la alternativa de una cola
 (<code>"greater"</code>) es exactamente la misma prueba:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">isg_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">q</span>, <span class="va">k</span> <span class="op">-</span> <span class="va">q</span>, <span class="va">m</span> <span class="op">-</span> <span class="va">q</span>, <span class="va">N</span> <span class="op">-</span> <span class="va">m</span> <span class="op">-</span> <span class="va">k</span> <span class="op">+</span> <span class="va">q</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>                    dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ISG <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sí"</span>, <span class="st">"No"</span><span class="op">)</span>, DEG <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sí"</span>, <span class="st">"No"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">isg_table</span></span>
@@ -952,7 +958,7 @@ conclusión?</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m_universe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">isg_genes</span><span class="op">$</span><span class="va">genes</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">de_results</span><span class="op">$</span><span class="va">monocyte</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span></span>
 <span><span class="va">m_universe</span></span>
 <span><span class="co">#&gt; [1] 404</span></span>
@@ -980,7 +986,7 @@ concreto.</li>
 <strong>Proceso padre:</strong> el término con <strong>más</strong>
 genes (<code>term_size</code> máximo), el más general.</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">process_info</span> <span class="op">&lt;-</span> <span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">source</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"REAC"</span>, <span class="st">"GO:BP"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_rows.html" class="external-link">separate_rows</a></span><span class="op">(</span><span class="va">intersection</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1002,7 +1008,7 @@ genes (<code>term_size</code> máximo), el más general.</li>
 una columna por ISG. Cada celda lleva el <strong>padj de expresión
 diferencial</strong> del gen si el gen tiene anotación en esa base de
 datos, y queda vacía si no la tiene:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">isg_order</span> <span class="op">&lt;-</span> <span class="va">gene_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">isg_deg</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">pattern</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tri-lineage (UP)"</span>, <span class="st">"monocyte (UP)"</span>, <span class="st">"moDC (DOWN)"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1020,7 +1026,7 @@ datos, y queda vacía si no la tiene:</p>
 <span><span class="co">#&gt; BP   1.137584e-07 0.0002735559 0.01576357 0.004584681     NA 6.766521e-05</span></span></code></pre></div>
 <p>Las anotaciones de arriba muestran el patrón de cada gen y sus
 procesos. Los genes sin anotación aparecen como “No information”:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># proceso de cada gen en una base de datos ("No information" si no tiene anotación)</span></span>
 <span><span class="va">process_of</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">src</span>, <span class="va">column</span>, <span class="va">genes</span> <span class="op">=</span> <span class="va">isg_order</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">process_info</span>, <span class="va">source</span> <span class="op">==</span> <span class="va">src</span><span class="op">)</span></span>
@@ -1108,7 +1114,7 @@ la columna <code>intersection</code>.</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">go_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">query</span> <span class="op">==</span> <span class="st">"SLE_UP_monocyte"</span>, <span class="va">source</span> <span class="op">==</span> <span class="st">"REAC"</span>,</span>
 <span>         <span class="va">term_name</span> <span class="op">==</span> <span class="st">"Interferon alpha/beta signaling"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1126,7 +1132,7 @@ específico en Reactome?</p>
 </div>
 <details class="callout-tip"><summary>
 Ver solución
-</summary><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_source</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op">==</span> <span class="st">"ABCA1"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 2</span></span></span>
 <span><span class="co">#&gt;   gene  source</span></span>
@@ -1156,7 +1162,7 @@ suplementaria S4)<a class="anchor" aria-label="anchor" href="#paso-5-procesos-de
 <p>La Figura 3D mostró solo los ISG. Repitamos el análisis con
 <strong>todos los DEG que tienen anotación</strong> en Reactome o <a href="GO:BP" class="uri">GO:BP</a>, agrupándolos por su proceso padre de
 Reactome:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">s4_info</span> <span class="op">&lt;-</span> <span class="va">gene_info</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">process_info</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>reac_parent   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu">process_of</span><span class="op">(</span><span class="st">"REAC"</span>, <span class="st">"parent_process"</span>, <span class="va">gene</span><span class="op">)</span>,</span>
@@ -1178,7 +1184,7 @@ Reactome:</p>
 <span><span class="co">#&gt; 7                                No information 32</span></span></code></pre></div>
 <p>Como en la Figura 3D, cada celda lleva el padj de expresión
 diferencial del gen si tiene anotación en esa base de datos:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">s4_padj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>REAC <span class="op">=</span> <span class="st">"REAC"</span>, BP <span class="op">=</span> <span class="st">"GO:BP"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">src</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">annotated</span> <span class="op">&lt;-</span> <span class="va">s4_info</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">process_info</span><span class="op">$</span><span class="va">gene</span><span class="op">[</span><span class="va">process_info</span><span class="op">$</span><span class="va">source</span> <span class="op">==</span> <span class="va">src</span><span class="op">]</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">annotated</span>, <span class="va">s4_info</span><span class="op">$</span><span class="va">padj</span>, <span class="cn">NA</span><span class="op">)</span></span>
@@ -1192,7 +1198,7 @@ diferencial del gen si tiene anotación en esa base de datos:</p>
 <span><span class="co">#&gt; CD96   0.01135195 0.01135195</span></span>
 <span><span class="co">#&gt; CFI    0.02067849 0.02067849</span></span>
 <span><span class="co">#&gt; DEFA1B 0.02095546 0.02095546</span></span></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ht_s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span></span>
 <span>  <span class="va">s4_padj</span>, col <span class="op">=</span> <span class="va">padj_color</span>, na_col <span class="op">=</span> <span class="st">"#f0f0f0"</span>,</span>
 <span>  border <span class="op">=</span> <span class="cn">TRUE</span>, rect_gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"white"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
@@ -1250,7 +1256,7 @@ suplementario del artículo</a>.</p>
 </h2>
 <p>Capturamos los <em>heatmaps</em> como objetos gráficos (como en la
 lección anterior) y los unimos con los <em>dot plots</em>:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grab</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">ht</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="va">ht</span>, merge_legends <span class="op">=</span> <span class="cn">TRUE</span>, heatmap_legend_side <span class="op">=</span> <span class="st">"top"</span>,</span>
 <span>                           annotation_legend_side <span class="op">=</span> <span class="st">"top"</span>, <span class="va">...</span><span class="op">)</span>, wrap.grobs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -1292,7 +1298,7 @@ tiene anotación en esa base de datos; su color representa el padj
 <p>La figura original se encuentra en el <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">artículo</a>.</p>
 </div>
 <p>Para guardarla en alta resolución:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"Figura_3.png"</span>, <span class="va">figure_3</span>, width <span class="op">=</span> <span class="fl">16</span>, height <span class="op">=</span> <span class="fl">30</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -1310,7 +1316,7 @@ una relación lineal ni datos normales.</p>
 muestra de las pacientes. Cada paciente aporta tres muestras (monocito,
 moDC y tolDC); el identificador de la paciente es la parte de
 <code>sample_ID</code> antes del guion bajo:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sle_info</span> <span class="op">&lt;-</span> <span class="va">metadata_cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Group</span> <span class="op">==</span> <span class="st">"SLE"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>sample_ID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">sample_ID</span><span class="op">)</span>,</span>
@@ -1337,7 +1343,7 @@ el poder para detectar una correlación es limitado.</p>
 <p>Guardamos la prueba en una función. Como probamos 32 genes a la vez,
 corregimos los valores p por <strong>pruebas múltiples</strong> con FDR,
 igual que <code>DESeq2</code> con el <code>padj</code>:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spearman</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">zscore</span>, <span class="va">df</span><span class="op">$</span><span class="va">SLEDAI</span>, method <span class="op">=</span> <span class="st">"spearman"</span>, exact <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>rho <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html" class="external-link">unname</a></span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="va">estimate</span><span class="op">)</span>, p_value <span class="op">=</span> <span class="va">test</span><span class="op">$</span><span class="va">p.value</span><span class="op">)</span></span>
@@ -1347,7 +1353,7 @@ igual que <code>DESeq2</code> con el <code>padj</code>:</p>
 </h3>
 <p>Para no contar tres veces a la misma paciente, promediamos el z-score
 de sus tres tipos celulares antes de correlacionar:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cor_overall</span> <span class="op">&lt;-</span> <span class="va">isg_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">patient</span>, <span class="va">SLEDAI</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>zscore <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">zscore</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1578,7 +1584,7 @@ Index</em>.</p>
 </h3>
 <p>Ahora repetimos la prueba dentro de cada tipo celular (23 muestras
 por tipo) y corregimos por FDR dentro de cada uno:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cor_celltype</span> <span class="op">&lt;-</span> <span class="va">isg_long</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Cell_type</span>, <span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_modify</a></span><span class="op">(</span><span class="op">~</span> <span class="fu">spearman</span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2172,7 +2178,7 @@ Diferenciación de monocitos</strong> al final de esta página.</p>
 <div class="section level2">
 <h2 id="información-de-la-sesión">Información de la sesión<a class="anchor" aria-label="anchor" href="#informaci%C3%B3n-de-la-sesi%C3%B3n"></a>
 </h2>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.6.2 (2026-10-29)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>

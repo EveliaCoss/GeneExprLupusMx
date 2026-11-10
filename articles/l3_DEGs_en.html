@@ -400,7 +400,13 @@ Visual summary of lesson 3.
 <div class="section level2">
 <h2 id="setup">1. Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
+<p>If you do not have this lesson’s packages yet, install them (only
+once):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EveliaCoss/GeneExprLupusMx"</span>, <span class="st">"DESeq2"</span>, <span class="st">"ComplexHeatmap"</span>, <span class="st">"circlize"</span>,</span>
+<span>           <span class="st">"tidyverse"</span>, <span class="st">"ggrepel"</span>, <span class="st">"cowplot"</span>, <span class="st">"ggh4x"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EveliaCoss/GeneExprLupusMx" class="external-link">GeneExprLupusMx</a></span><span class="op">)</span> <span class="co"># package data and heatmap functions</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thelovelab/DESeq2" class="external-link">DESeq2</a></span><span class="op">)</span>          <span class="co"># differential expression</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>       <span class="co"># table manipulation and plots</span></span>
@@ -413,7 +419,7 @@ Visual summary of lesson 3.
 <span><span class="va">filtered_txi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_data.html">download_data</a></span><span class="op">(</span><span class="st">"filtered_txi"</span><span class="op">)</span></span>
 <span><span class="va">zscore_mat</span>   <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_data.html">download_data</a></span><span class="op">(</span><span class="st">"zscore_mat"</span><span class="op">)</span></span></code></pre></div>
 <p>Colors and thresholds we will use throughout the lesson:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cell_color</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>monocyte <span class="op">=</span> <span class="st">"black"</span>, moDC <span class="op">=</span> <span class="st">"palevioletred"</span>, tolDC <span class="op">=</span> <span class="st">"gold1"</span><span class="op">)</span></span>
 <span><span class="va">group_color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Ctrl <span class="op">=</span> <span class="st">"#96d4ccff"</span>, SLE <span class="op">=</span> <span class="st">"#b493b4ff"</span><span class="op">)</span></span>
 <span></span>
@@ -431,7 +437,7 @@ checkpoint from the previous lesson.</p>
 <strong>raw counts of all genes</strong>. We create a
 <code>DESeqDataSet</code> object with the design <code>~ Group</code>
 (SLE versus Ctrl), which we will later split by cell type:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="va">metadata_cleaned</span><span class="op">$</span><span class="va">Group</span>, ref <span class="op">=</span> <span class="st">"Ctrl"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">full_dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html" class="external-link">DESeqDataSetFromTximport</a></span><span class="op">(</span>txi     <span class="op">=</span> <span class="va">filtered_txi</span>,</span>
@@ -465,7 +471,7 @@ be?<a class="anchor" aria-label="anchor" href="#step-1-are-the-cells-what-they-c
 sample is of the cell type it claims to be. For this we use
 <strong>biomarkers</strong>: genes known to be expressed in one cell
 type and not in the others.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">markers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  monocyte <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CD36"</span>, <span class="st">"CSF3R"</span>, <span class="st">"DPYD"</span>, <span class="st">"FCN1"</span>, <span class="st">"VCAN"</span><span class="op">)</span>,</span>
 <span>  moDC     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CD1C"</span>, <span class="st">"IRF4"</span>, <span class="st">"NDRG2"</span>, <span class="st">"CCRL2"</span>, <span class="st">"SPARC"</span><span class="op">)</span>, <span class="co"># as in the published Figure 2B</span></span>
@@ -485,7 +491,7 @@ above its average in that group.</li>
 &gt; 0): how consistent that expression is across the samples in the
 group.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">marker_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">zscore_mat</span><span class="op">[</span><span class="va">marker_genes</span>, <span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="st">"gene"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">gene</span>, names_to <span class="op">=</span> <span class="st">"sample_ID"</span>, values_to <span class="op">=</span> <span class="st">"expression"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -511,7 +517,7 @@ group.</li>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ctrl  moDC      CXCL1          -<span style="color: #BB0000;">0.721</span>            10 Ctrl_moDC tolDC</span></span></code></pre></div>
 <p>We plot it as a <em>dot plot</em>: the color is the mean expression
 and the size is the percentage of samples.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># minimum and maximum mean expression, for the color scale</span></span>
 <span><span class="va">min_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">marker_df</span><span class="op">$</span><span class="va">mean_expression</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">max_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">marker_df</span><span class="op">$</span><span class="va">mean_expression</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -558,7 +564,7 @@ with the others of <strong>its own cell type</strong>.</p>
 <p>The package function <code><a href="../reference/get_heatmap_mat.html">get_heatmap_mat()</a></code> applies the VST
 transformation, removes genes with no variation, and calculates the
 z-scores:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cell_types</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monocyte"</span>, <span class="st">"moDC"</span>, <span class="st">"tolDC"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">heatmap_mats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">cell_types</span>, <span class="kw">function</span><span class="op">(</span><span class="va">cell</span><span class="op">)</span> <span class="op">{</span></span>
@@ -575,7 +581,7 @@ z-scores:</p>
 heatmaps, <strong>each column is the same person</strong>. We keep the
 genes present in all three and order the volunteers by group and disease
 activity:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">common_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="va">intersect</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">heatmap_mats</span>, <span class="va">rownames</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">common_genes</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 16283</span></span>
@@ -587,7 +593,7 @@ activity:</p>
 <p>Now we build one heatmap per cell type with the package’s
 <code><a href="../reference/create_heatmap.html">create_heatmap()</a></code> and stack them. At the top we add two
 annotations: the age and the group of each volunteer.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">top_annotation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/HeatmapAnnotation.html" class="external-link">HeatmapAnnotation</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Age (years)"</span> <span class="op">=</span> <span class="va">sample_info</span><span class="op">$</span><span class="va">Age_years</span>,</span>
 <span>  Group         <span class="op">=</span> <span class="va">sample_info</span><span class="op">$</span><span class="va">Group</span>,</span>
@@ -630,7 +636,7 @@ of variation: mixing them would mask the differences due to lupus.</p>
 <h3 id="step-by-step-with-monocytes">4.2 Step by step with monocytes<a class="anchor" aria-label="anchor" href="#step-by-step-with-monocytes"></a>
 </h3>
 <p>We select the 33 monocyte samples:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dds_mo</span> <span class="op">&lt;-</span> <span class="va">full_dds</span><span class="op">[</span>, <span class="va">full_dds</span><span class="op">$</span><span class="va">Cell_type</span> <span class="op">==</span> <span class="st">"monocyte"</span><span class="op">]</span></span>
 <span><span class="va">dds_mo</span><span class="op">$</span><span class="va">Cell_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="va">dds_mo</span><span class="op">$</span><span class="va">Cell_type</span><span class="op">)</span> <span class="co"># remove levels that no longer exist</span></span>
 <span><span class="fu">design</span><span class="op">(</span><span class="va">dds_mo</span><span class="op">)</span> <span class="co"># ~ Group</span></span>
@@ -653,13 +659,13 @@ between replicates of the same group.</li>
 uses the <strong>Wald test</strong> to assess whether the LFC between
 groups is different from zero.</li>
 </ol>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dds_mo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeq.html" class="external-link">DESeq</a></span><span class="op">(</span><span class="va">dds_mo</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">resultsNames</a></span><span class="op">(</span><span class="va">dds_mo</span><span class="op">)</span> <span class="co"># available comparisons</span></span>
 <span><span class="co">#&gt; [1] "Intercept"         "Group_SLE_vs_Ctrl"</span></span></code></pre></div>
 <p>We extract the <code>Group_SLE_vs_Ctrl</code> comparison (SLE against
 the reference, Ctrl):</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res_mo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html" class="external-link">results</a></span><span class="op">(</span><span class="va">dds_mo</span>, name <span class="op">=</span> <span class="st">"Group_SLE_vs_Ctrl"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res_mo</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">res_mo</span><span class="op">$</span><span class="va">padj</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; log2 fold change (MLE): Group SLE vs Ctrl </span></span>
@@ -716,7 +722,7 @@ decide</strong>)</td>
 patients’ monocytes it is expressed about 2<sup>6.5</sup> ≈ 90 times
 more than in controls. It is one of the interferon signature genes you
 saw in the previous lesson.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res_mo</span>, alpha <span class="op">=</span> <span class="va">padj_threshold</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; out of 17139 with nonzero total read count</span></span>
@@ -743,7 +749,7 @@ These genes are not considered in the analysis.</p>
 </h3>
 <p>We repeat the same for each cell type with a function. We store the
 results as tables, with the gene name in a column:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">run_de</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cell</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">dds_cell</span> <span class="op">&lt;-</span> <span class="va">full_dds</span><span class="op">[</span>, <span class="va">full_dds</span><span class="op">$</span><span class="va">Cell_type</span> <span class="op">==</span> <span class="va">cell</span><span class="op">]</span></span>
 <span>  <span class="va">dds_cell</span><span class="op">$</span><span class="va">Cell_type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="va">dds_cell</span><span class="op">$</span><span class="va">Cell_type</span><span class="op">)</span></span>
@@ -776,7 +782,7 @@ half.</li>
 </ul>
 <p>Requiring both avoids keeping genes that change “significantly” but
 very little, and genes that change a lot but unreliably.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">classify_deg</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -829,7 +835,7 @@ cell type if you use <code>|LFC| ≥ 0.5</code> instead of 1?</p>
 </div>
 <details class="callout-tip"><summary>
 Show solution
-</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lfc_threshold</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">de_results</span>, <span class="va">classify_deg</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Expression</span>,</span>
 <span>  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Up-regulated"</span>, <span class="st">"Down-regulated"</span>, <span class="st">"Unchanged"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -874,7 +880,7 @@ also be the most significant.</p>
 classification, draws the thresholds, and labels the 5 most significant
 genes in each direction (you can change this with
 <code>n_labels</code>):</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_volcano</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">title</span>, <span class="va">n_labels</span> <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">n_up</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="st">"Up-regulated"</span><span class="op">)</span></span>
 <span>  <span class="va">n_down</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="st">"Down-regulated"</span><span class="op">)</span></span>
@@ -911,7 +917,7 @@ genes in each direction (you can change this with
 <div class="section level3">
 <h3 id="monocytes">6.3 Monocytes<a class="anchor" aria-label="anchor" href="#monocytes"></a>
 </h3>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_volcano_mo</span> <span class="op">&lt;-</span> <span class="fu">plot_volcano</span><span class="op">(</span><span class="va">de_classified</span><span class="op">$</span><span class="va">monocyte</span>, <span class="st">"monocyte\nSLE vs Ctrl"</span><span class="op">)</span></span>
 <span><span class="va">p_volcano_mo</span></span></code></pre></div>
 <p><img src="l3_DEGs_en_files/figure-html/volcano_mo-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
@@ -925,7 +931,7 @@ confirmed with statistics.</p>
 <div class="section level3">
 <h3 id="modc">6.4 moDC<a class="anchor" aria-label="anchor" href="#modc"></a>
 </h3>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_volcano_modc</span> <span class="op">&lt;-</span> <span class="fu">plot_volcano</span><span class="op">(</span><span class="va">de_classified</span><span class="op">$</span><span class="va">moDC</span>, <span class="st">"moDC\nSLE vs Ctrl"</span><span class="op">)</span></span>
 <span><span class="va">p_volcano_modc</span></span></code></pre></div>
 <p><img src="l3_DEGs_en_files/figure-html/volcano_modc-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
@@ -945,7 +951,7 @@ to obtain more realistic LFCs in these cases.</p>
 <div class="section level3">
 <h3 id="toldc">6.5 tolDC<a class="anchor" aria-label="anchor" href="#toldc"></a>
 </h3>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_volcano_toldc</span> <span class="op">&lt;-</span> <span class="fu">plot_volcano</span><span class="op">(</span><span class="va">de_classified</span><span class="op">$</span><span class="va">tolDC</span>, <span class="st">"tolDC\nSLE vs Ctrl"</span><span class="op">)</span></span>
 <span><span class="va">p_volcano_toldc</span></span></code></pre></div>
 <p><img src="l3_DEGs_en_files/figure-html/volcano_toldc-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
@@ -957,7 +963,7 @@ metabolism</strong>, which we will explore in the next lesson.</p>
 <div class="section level3">
 <h3 id="which-genes-do-the-cell-types-share">6.6 Which genes do the cell types share?<a class="anchor" aria-label="anchor" href="#which-genes-do-the-cell-types-share"></a>
 </h3>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">up_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">de_classified</span>, <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="va">df</span><span class="op">$</span><span class="va">gene</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="st">"Up-regulated"</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">down_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">de_classified</span>, <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="va">df</span><span class="op">$</span><span class="va">gene</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="st">"Down-regulated"</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
@@ -984,7 +990,7 @@ joins the three tables into one.</p>
 </div>
 <details class="callout-tip"><summary>
 Show solution
-</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">de_results</span>, .id <span class="op">=</span> <span class="st">"Cell_type"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"IFI27"</span>, <span class="st">"USP18"</span>, <span class="st">"SIGLEC1"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">gene</span>, <span class="va">Cell_type</span>, <span class="va">log2FoldChange</span>, <span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1009,7 +1015,7 @@ sorted by <code>padj</code>.</p>
 </div>
 <details class="callout-tip"><summary>
 Show solution
-</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">de_classified</span><span class="op">$</span><span class="va">moDC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Expression</span> <span class="op">!=</span> <span class="st">"Unchanged"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">padj</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1025,7 +1031,7 @@ Show solution
 so we first “capture” it as a graphical object with
 <code><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid::grid.grabExpr()</a></code> so that we can combine it with the
 others:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_heatmap</span> <span class="op">&lt;-</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/draw-dispatch.html" class="external-link">draw</a></span><span class="op">(</span><span class="va">top_annotation</span> <span class="op"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/pct_v_pct.html" class="external-link">%v%</a></span> <span class="va">heatmap_list</span>,</span>
 <span>       merge_legends <span class="op">=</span> <span class="cn">TRUE</span>, annotation_legend_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">cell_legend</span><span class="op">)</span>,</span>
@@ -1044,7 +1050,7 @@ others:</p>
 <span>                      nrow <span class="op">=</span> <span class="fl">1</span>, rel_widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">figure_2</span></span></code></pre></div>
 <p><img src="l3_DEGs_en_files/figure-html/figura_2-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Number of DEGs per cell type, for the figure caption</span></span>
 <span><span class="va">up_n</span>   <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cell</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">de_classified</span><span class="op">[[</span><span class="va">cell</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Expression</span> <span class="op">==</span> <span class="st">"Up-regulated"</span><span class="op">)</span></span>
@@ -1070,7 +1076,7 @@ tolDC (4 up and 12 down). DEGs were selected with |LFC| ≥ 1 and padj
 <p>The original figure can be found in the <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full" class="external-link">article</a>.</p>
 </div>
 <p>To save it in high resolution:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"Figure_2.png"</span>, <span class="va">figure_2</span>, width <span class="op">=</span> <span class="fl">20</span>, height <span class="op">=</span> <span class="fl">11</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -1176,7 +1182,7 @@ DEGs</strong> button at the bottom of this page.</p>
 <div class="section level2">
 <h2 id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version 4.6.2 (2026-10-29)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
