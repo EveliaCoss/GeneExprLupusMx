@@ -115,6 +115,8 @@
 <ul><li>New <code><a href="../reference/download_data.html">download_data()</a></code> to get <code>filtered_txi</code>, <code>dds</code> and <code>zscore_mat</code>.</li>
 <li>
 <code><a href="../reference/GeneExprLupusMx-deprecated.html">processGO()</a></code> and <code><a href="../reference/GeneExprLupusMx-deprecated.html">Reduce_GOTerm()</a></code> were renamed <code><a href="../reference/process_go.html">process_go()</a></code> and <code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code>, so that all the functions follow the same style (<code>snake_case</code>). The old names still work, but are deprecated and show a warning.</li>
+<li>
+<code><a href="../reference/create_heatmap.html">create_heatmap()</a></code>, <code><a href="../reference/get_heatmap_mat.html">get_heatmap_mat()</a></code> and <code><a href="../reference/process_go.html">process_go()</a></code> check their suggested packages with <code><a href="https://rlang.r-lib.org/reference/is_installed.html" class="external-link">rlang::check_installed()</a></code>, which offers to install the missing ones in interactive sessions.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="website-development-version">Website<a class="anchor" aria-label="anchor" href="#website-development-version"></a></h3>
