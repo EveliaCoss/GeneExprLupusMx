@@ -84,6 +84,7 @@ test_that("process_go skips GO IDs that are not in org.Hs.eg.db", {
                     p.adjust = 0.01)
   f <- file.path(dirs$indir, "UP_GO_bad.RData")
   save(bad, file = f)
+  # rrvgo avisa "No terms were found in orgdb for BP" porque los GO IDs no existen
   msgs <- capture_messages(suppressWarnings(process_go(f, "UP", dirs$outdir, dirs$figdir)))
   expect_true(any(grepl("Invalid simMatrix structure", msgs, fixed = TRUE)))
   expect_length(list.files(dirs$outdir), 0)

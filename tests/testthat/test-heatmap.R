@@ -3,7 +3,7 @@
 # DESeqDataSet pequeño y simulado: 1,200 genes (vst() necesita al menos 1,000)
 # y un gen sin cuentas, que tiene varianza cero y debe eliminarse
 make_small_dds <- function() {
-  set.seed(1)
+  withr::local_seed(1)
   counts <- matrix(stats::rnbinom(1200 * 6, mu = 100, size = 10), ncol = 6,
                    dimnames = list(paste0("gene", 1:1200), paste0("S", 1:6)))
   counts["gene1", ] <- 0L
@@ -16,7 +16,7 @@ make_small_dds <- function() {
 
 # Matriz pequeña de Z-scores simulados: 50 genes x 20 muestras
 make_small_zscores <- function() {
-  set.seed(1)
+  withr::local_seed(1)
   mat <- matrix(stats::rnorm(50 * 20), nrow = 50,
                 dimnames = list(paste0("gene", 1:50), metadata_cleaned$sample_ID[1:20]))
   t(scale(t(mat)))
@@ -46,7 +46,6 @@ test_that("get_heatmap_mat orders the columns with sample_order", {
 })
 
 test_that("get_heatmap_mat works on one cell type of dds", {
-  skip_on_cran()
   skip_if_not_installed("DESeq2")
   skip_if_not_installed("SummarizedExperiment")
   dds <- local_download("dds")

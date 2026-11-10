@@ -389,7 +389,7 @@ Let us apply it to all four continuous variables at once:
 normality <- tibble(variable = c("Age_years", continuous_vars)) %>%
   mutate(
     values  = map(variable, ~ na.omit(volunteer_info[[.x]])),
-    n       = map_int(values, length),
+    n       = lengths(values),
     W       = map_dbl(values, ~ shapiro.test(.x)$statistic),
     p_value = map_dbl(values, ~ shapiro.test(.x)$p.value),
     normal  = p_value >= 0.05 # TRUE = compatible with normality
