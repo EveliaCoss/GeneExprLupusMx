@@ -85,6 +85,14 @@ knitr::include_graphics("img/lesson3_overview_es.png")
 
 ## 1. Preparación
 
+Si aún no tienes los paquetes de esta lección, instálalos (solo una vez):
+
+```{r install, eval = FALSE}
+# install.packages("pak")
+pak::pak(c("EveliaCoss/GeneExprLupusMx", "DESeq2", "ComplexHeatmap", "circlize",
+           "tidyverse", "ggrepel", "cowplot", "ggh4x"))
+```
+
 ```{r setup}
 library(GeneExprLupusMx) # datos del paquete y funciones para heatmaps
 library(DESeq2)          # expresión diferencial

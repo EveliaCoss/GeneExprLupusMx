@@ -46,7 +46,6 @@ Suggests:
     ggplot2,
     ggrepel,
     knitr,
-    MASS,
     org.Hs.eg.db,
     rmarkdown,
     rrvgo,

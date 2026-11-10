@@ -79,6 +79,14 @@ knitr::include_graphics("img/lesson7_overview_en.png")
 
 ## 1. Setup
 
+If you do not have this lesson's packages yet, install them (only once):
+
+```{r install, eval = FALSE}
+# install.packages("pak")
+pak::pak(c("EveliaCoss/GeneExprLupusMx", "DESeq2", "ComplexHeatmap", "circlize",
+           "tidyverse", "cowplot"))
+```
+
 ```{r setup}
 library(GeneExprLupusMx) # package data
 library(tidyverse)       # table manipulation and plots

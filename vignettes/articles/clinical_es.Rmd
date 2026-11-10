@@ -88,6 +88,13 @@ knitr::include_graphics("img/lesson1_overview_es.png")
 
 ## 1. Preparación
 
+Si aún no tienes los paquetes de esta lección, instálalos (solo una vez):
+
+```{r install, eval = FALSE}
+# install.packages("pak")
+pak::pak(c("EveliaCoss/GeneExprLupusMx", "tidyverse", "cowplot"))
+```
+
 ```{r setup}
 library(GeneExprLupusMx) # nuestros datos
 library(tidyverse)       # manipulación de tablas (dplyr) y gráficas (ggplot2)
