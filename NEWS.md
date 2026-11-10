@@ -10,6 +10,7 @@
 
 - New `download_data()` to get `filtered_txi`, `dds` and `zscore_mat`.
 - `processGO()` and `Reduce_GOTerm()` were renamed `process_go()` and `reduce_go_terms()`, so that all the functions follow the same style (`snake_case`). The old names still work, but are deprecated and show a warning.
+- `create_heatmap()`, `get_heatmap_mat()` and `process_go()` check their suggested packages with `rlang::check_installed()`, which offers to install the missing ones in interactive sessions.
 
 ## Website
 

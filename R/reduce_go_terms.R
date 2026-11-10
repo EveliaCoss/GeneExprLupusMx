@@ -45,7 +45,8 @@
 #'
 #' @export
 process_go <- function(f, direction = c("UP", "DOWN"), outdir, figdir) {
-  check_pkgs(c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2"), "process_go")
+  rlang::check_installed(c("rrvgo", "org.Hs.eg.db", "dplyr", "ggplot2"),
+                         reason = "to use `process_go()`.")
   direction <- match.arg(direction)
   plot_name <- gsub(paste0("^", direction, "_GO_(.+)\\.RData$"), "\\1", basename(f))
 

@@ -28,6 +28,7 @@ BugReports: https://github.com/EveliaCoss/GeneExprLupusMx/issues
 Depends: 
     R (>= 4.0)
 Imports:
+    rlang,
     tools,
     utils
 LazyData: true

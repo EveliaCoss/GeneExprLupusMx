@@ -39,10 +39,9 @@ type) with consistent formatting.
 }
 \details{
 Requires the Bioconductor package \pkg{ComplexHeatmap}, which is
-not installed with GeneExprLupusMx. If it is missing, the function stops
-and shows how to install it:
-\preformatted{install.packages("BiocManager")
-BiocManager::install("ComplexHeatmap")}
+not installed with GeneExprLupusMx. If it is missing, the function offers to
+install it (in interactive sessions) or stops. You can install it with:
+\preformatted{pak::pak("ComplexHeatmap")}
 }
 \note{
 Other packages (e.g., \pkg{RplotterPkg} and \pkg{wilson}) also have a
