@@ -1,41 +1,19 @@
 # Pruebas de estructura y consistencia de los datos del paquete
 
-de_cols <- c("gene", "baseMean", "log2FoldChange", "lfcSE", "stat", "pvalue", "padj")
-go_cols <- c("query", "source", "term_id", "term_name", "term_size", "query_size",
-             "intersection_size", "p_value", "parents", "intersection")
 sample_ids <- as.character(metadata_cleaned$sample_ID)
 # genes de filtered_txi, en el mismo orden (las tablas de DE se calcularon con todos)
 all_genes <- de_results$monocyte$gene
 
-expect_de_table <- function(d) {
-  expect_s3_class(d, "data.frame")
-  expect_named(d, de_cols)
-  expect_identical(d$gene, all_genes)
-  expect_true(all(d$pvalue >= 0 & d$pvalue <= 1, na.rm = TRUE))
-  expect_true(all(d$padj >= 0 & d$padj <= 1, na.rm = TRUE))
-  # padj (Benjamini-Hochberg) nunca es menor que el p-valor
-  expect_true(all(d$padj >= d$pvalue, na.rm = TRUE))
-  expect_true(all(d$baseMean >= 0))
-}
-
-expect_go_table <- function(d) {
-  expect_s3_class(d, "data.frame")
-  expect_named(d, go_cols)
-  expect_true(all(d$p_value > 0 & d$p_value <= 1))
-  expect_true(all(d$intersection_size <= d$term_size))
-  expect_true(all(d$intersection_size <= d$query_size))
-  expect_false(anyNA(d$term_id))
-}
-
 # ---- Cuentas -----------------------------------------------------------------
 
 test_that("de_results covers the 21,718 genes of filtered_txi", {
-  expect_identical(length(all_genes), 21718L)
+  expect_length(all_genes, 21718)
   expect_identical(anyDuplicated(all_genes), 0L)
 })
 
 test_that("filtered_txi has the tximport structure", {
-  filtered_txi <- local_download("filtered_txi")
+  skip_if_offline()
+  filtered_txi <- download_data("filtered_txi")
   expect_type(filtered_txi, "list")
   expect_named(filtered_txi, c("abundance", "counts", "length", "countsFromAbundance"))
   expect_identical(filtered_txi$countsFromAbundance, "no")
@@ -47,34 +25,37 @@ test_that("filtered_txi has the tximport structure", {
 })
 
 test_that("filtered_txi has 21,718 genes and the 99 samples of metadata_cleaned", {
-  filtered_txi <- local_download("filtered_txi")
+  skip_if_offline()
+  filtered_txi <- download_data("filtered_txi")
   expect_identical(rownames(filtered_txi$counts), all_genes)
-  expect_identical(dim(filtered_txi$counts), c(21718L, 99L))
+  expect_shape(filtered_txi$counts, dim = c(21718L, 99L))
   expect_identical(colnames(filtered_txi$counts), sample_ids)
   expect_identical(anyDuplicated(rownames(filtered_txi$counts)), 0L)
-  expect_true(all(filtered_txi$counts >= 0))
-  expect_true(all(filtered_txi$abundance >= 0))
-  expect_true(all(filtered_txi$length > 0))
+  expect_gte(min(filtered_txi$counts), 0)
+  expect_gte(min(filtered_txi$abundance), 0)
+  expect_gt(min(filtered_txi$length), 0)
 })
 
 test_that("dds matches the counts and metadata", {
   skip_if_not_installed("DESeq2")
-  dds <- local_download("dds")
+  skip_if_offline()
+  dds <- download_data("dds")
   expect_s4_class(dds, "DESeqDataSet")
-  expect_identical(dim(dds), c(13596L, 99L))
+  expect_shape(dds, dim = c(13596L, 99L))
   expect_identical(colnames(dds), sample_ids)
-  expect_true(all(rownames(dds) %in% all_genes))
+  expect_in(rownames(dds), all_genes)
   expect_identical(deparse(DESeq2::design(dds)), "~Cell_type + Group")
   counts <- DESeq2::counts(dds)
   expect_type(counts, "integer")
-  expect_true(all(counts >= 0))
-  expect_true(all(c("Group", "Cell_type", "Volunteer_ID") %in% names(dds@colData)))
+  expect_gte(min(counts), 0)
+  expect_contains(names(dds@colData), c("Group", "Cell_type", "Volunteer_ID"))
 })
 
 test_that("zscore_mat has one Z-score per gene and sample of dds", {
-  zscore_mat <- local_download("zscore_mat")
+  skip_if_offline()
+  zscore_mat <- download_data("zscore_mat")
   expect_true(is.matrix(zscore_mat))
-  expect_identical(dim(zscore_mat), c(13596L, 99L))
+  expect_shape(zscore_mat, dim = c(13596L, 99L))
   expect_identical(colnames(zscore_mat), sample_ids)
   expect_false(anyNA(zscore_mat))
   # cada gen tiene media 0 y desviación estándar 1
@@ -82,16 +63,16 @@ test_that("zscore_mat has one Z-score per gene and sample of dds", {
   expect_equal(unname(apply(zscore_mat, 1, stats::sd)), rep(1, nrow(zscore_mat)),
                tolerance = 1e-8)
   skip_if_not_installed("DESeq2")
-  expect_identical(rownames(zscore_mat), rownames(local_download("dds")))
+  expect_identical(rownames(zscore_mat), rownames(download_data("dds")))
 })
 
 # ---- Metadatos ---------------------------------------------------------------
 
 test_that("metadata_cleaned has one row per sample", {
   expect_s3_class(metadata_cleaned, "data.frame")
-  expect_identical(dim(metadata_cleaned), c(99L, 14L))
-  expect_true(all(c("sample_ID", "Group", "Cell_type", "SLEDAI_category") %in%
-                    colnames(metadata_cleaned)))
+  expect_shape(metadata_cleaned, dim = c(99L, 14L))
+  expect_contains(colnames(metadata_cleaned),
+                  c("sample_ID", "Group", "Cell_type", "SLEDAI_category"))
   expect_identical(anyDuplicated(sample_ids), 0L)
   expect_identical(levels(metadata_cleaned$Group), c("Ctrl", "SLE"))
   expect_setequal(levels(metadata_cleaned$Cell_type), c("monocyte", "moDC", "tolDC"))
@@ -99,25 +80,25 @@ test_that("metadata_cleaned has one row per sample", {
 
 test_that("metadata_cleaned has 10 controls and 23 patients per cell type", {
   tab <- table(metadata_cleaned$Group, metadata_cleaned$Cell_type)
-  expect_true(all(tab["Ctrl", ] == 10))
-  expect_true(all(tab["SLE", ] == 23))
+  expect_all_equal(as.vector(tab["Ctrl", ]), 10L)
+  expect_all_equal(as.vector(tab["SLE", ]), 23L)
 })
 
 test_that("sample_ID encodes the volunteer and the cell type", {
   volunteer <- sub("_.*", "", sample_ids)
   suffix <- sub(".*_", "", sample_ids)
-  expect_true(all(table(volunteer) == 3))
+  expect_all_equal(as.vector(table(volunteer)), 3L)
   cell_by_suffix <- c("0" = "monocyte", "1" = "moDC", "3" = "tolDC")
   expect_identical(unname(cell_by_suffix[suffix]), as.character(metadata_cleaned$Cell_type))
 })
 
 test_that("volunteer_info has one row per volunteer", {
   expect_s3_class(volunteer_info, "data.frame")
-  expect_identical(nrow(volunteer_info), 33L)
+  expect_shape(volunteer_info, nrow = 33L)
   expect_identical(anyDuplicated(volunteer_info$Volunteer_ID), 0L)
   expect_identical(as.vector(table(volunteer_info$Group)), c(10L, 23L))
   expect_s3_class(volunteer_info$Time_of_recruitment, "Date")
-  expect_true(all(volunteer_info$Age_years > 0))
+  expect_all_true(volunteer_info$Age_years > 0)
 })
 
 test_that("volunteer_info links to metadata_cleaned with the same group", {
@@ -130,10 +111,10 @@ test_that("volunteer_info links to metadata_cleaned with the same group", {
 
 test_that("clinical variables are only filled in for patients", {
   ctrl <- volunteer_info$Group == "Ctrl"
-  expect_true(all(is.na(volunteer_info$SLEDAI[ctrl])))
+  expect_all_true(is.na(volunteer_info$SLEDAI[ctrl]))
   expect_false(anyNA(volunteer_info$SLEDAI[!ctrl]))
-  expect_true(all(volunteer_info$SLEDAI[!ctrl] >= 0))
-  expect_true(all(is.na(volunteer_info$Nephritis[ctrl])))
+  expect_all_true(volunteer_info$SLEDAI[!ctrl] >= 0)
+  expect_all_true(is.na(volunteer_info$Nephritis[ctrl]))
   expect_false(anyNA(volunteer_info$Nephritis[!ctrl]))
 })
 
@@ -142,19 +123,19 @@ test_that("clinical variables are only filled in for patients", {
 test_that("de_results has SLE vs Ctrl per cell type", {
   expect_type(de_results, "list")
   expect_named(de_results, c("monocyte", "moDC", "tolDC"))
-  for (d in de_results) expect_de_table(d)
+  for (d in de_results) expect_de_table(d, all_genes)
 })
 
 test_that("de_celltype_results has the differentiation contrasts", {
   expect_type(de_celltype_results, "list")
   expect_named(de_celltype_results, c("Ctrl_moDC", "Ctrl_tolDC", "SLE_moDC", "SLE_tolDC"))
-  for (d in de_celltype_results) expect_de_table(d)
+  for (d in de_celltype_results) expect_de_table(d, all_genes)
 })
 
 test_that("de_interaction_results has the group x cell type interaction", {
   expect_type(de_interaction_results, "list")
   expect_named(de_interaction_results, c("moDC", "tolDC"))
-  for (d in de_interaction_results) expect_de_table(d)
+  for (d in de_interaction_results) expect_de_table(d, all_genes)
 })
 
 # ---- Resultados de enriquecimiento funcional ---------------------------------
@@ -164,7 +145,7 @@ test_that("go_results has the g:Profiler results for SLE vs Ctrl", {
   expect_setequal(unique(go_results$query),
                   c("SLE_UP_monocyte", "SLE_UP_moDC", "SLE_DOWN_moDC",
                     "SLE_UP_tolDC", "SLE_DOWN_tolDC"))
-  expect_true("GO:BP" %in% go_results$source)
+  expect_contains(go_results$source, "GO:BP")
   # cada término lista tantos genes como su intersección
   expect_identical(lengths(strsplit(go_results$intersection, ",")),
                    go_results$intersection_size)
@@ -192,7 +173,7 @@ test_that("biotype_summary annotates genes of filtered_txi", {
   expect_s3_class(biotype_summary, "data.frame")
   expect_named(biotype_summary, c("gene", "gene_biotype", "Group_biotype"))
   expect_identical(anyDuplicated(biotype_summary$gene), 0L)
-  expect_true(all(biotype_summary$gene %in% all_genes))
+  expect_in(biotype_summary$gene, all_genes)
   expect_setequal(unique(biotype_summary$Group_biotype),
                   c("PCG", "lncRNA", "Pseudogene", "small ncRNAs", "TEC"))
 })
@@ -200,7 +181,7 @@ test_that("biotype_summary annotates genes of filtered_txi", {
 test_that("isg_genes is a list of unique genes", {
   expect_s3_class(isg_genes, "data.frame")
   expect_named(isg_genes, "genes")
-  expect_identical(nrow(isg_genes), 423L)
+  expect_shape(isg_genes, nrow = 423L)
   expect_false(anyNA(isg_genes$genes))
   expect_identical(anyDuplicated(isg_genes$genes), 0L)
 })
@@ -210,19 +191,19 @@ test_that("sle_genes lists genes with their reference", {
   expect_named(sle_genes, c("Gene_name", "Associated_pathways", "Reference", "Link"))
   expect_false(anyNA(sle_genes$Gene_name))
   expect_false(anyNA(sle_genes$Reference))
-  expect_true(all(grepl("^https?://", stats::na.omit(sle_genes$Link))))
+  expect_match(stats::na.omit(sle_genes$Link), "^https?://")
 })
 
 test_that("dc_genes, moDC_genes and tolDC_genes have unique genes", {
   gene_lists <- list(dc_genes = dc_genes, moDC_genes = moDC_genes, tolDC_genes = tolDC_genes)
   for (d in gene_lists) {
     expect_s3_class(d, "data.frame")
-    expect_true("gene" %in% names(d))
+    expect_contains(names(d), "gene")
     expect_false(anyNA(d$gene))
     expect_identical(anyDuplicated(d$gene), 0L)
   }
   expect_named(dc_genes, c("gene", "process", "GOterm", "info"))
   expect_setequal(unique(moDC_genes$Expression), c("Upregulated", "Downregulated"))
-  expect_true(all(grepl("^(Activated|Repressed) - ", tolDC_genes$tolDC_signature)))
-  expect_true(all(grepl("^https?://", c(moDC_genes$link, tolDC_genes$link))))
+  expect_match(tolDC_genes$tolDC_signature, "^(Activated|Repressed) - ")
+  expect_match(c(moDC_genes$link, tolDC_genes$link), "^https?://")
 })

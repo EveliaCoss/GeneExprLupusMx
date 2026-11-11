@@ -30,8 +30,8 @@ test_that("get_heatmap_mat returns Z-scores and drops zero-variance genes", {
 
   expect_true(is.matrix(mat))
   expect_identical(colnames(mat), colnames(small_dds))
-  expect_false("gene1" %in% rownames(mat))
-  expect_identical(nrow(mat), 1199L)
+  expect_disjoint(rownames(mat), "gene1")
+  expect_shape(mat, nrow = 1199L)
   expect_lt(max(abs(rowMeans(mat))), 1e-8)
   expect_equal(unname(apply(mat, 1, stats::sd)), rep(1, nrow(mat)), tolerance = 1e-8)
 })
@@ -48,12 +48,13 @@ test_that("get_heatmap_mat orders the columns with sample_order", {
 test_that("get_heatmap_mat works on one cell type of dds", {
   skip_if_not_installed("DESeq2")
   skip_if_not_installed("SummarizedExperiment")
-  dds <- local_download("dds")
+  skip_if_offline()
+  dds <- download_data("dds")
   mo <- dds[, dds$Cell_type == "monocyte"]
   DESeq2::design(mo) <- ~ Group
   mat <- suppressMessages(get_heatmap_mat(mo))
-  expect_identical(ncol(mat), 33L)
-  expect_true(all(rownames(mat) %in% rownames(dds)))
+  expect_shape(mat, ncol = 33L)
+  expect_in(rownames(mat), rownames(dds))
 })
 
 test_that("create_heatmap returns a ComplexHeatmap object", {

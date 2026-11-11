@@ -40,10 +40,10 @@ test_that("process_go reduces GO terms and saves results and plots", {
   env <- new.env()
   load(file.path(dirs$outdir, "reducedTerms_simMatrix_UP_SLE_moDC.RData"), envir = env)
   expect_true(is.matrix(env$simMatrix))
-  expect_true(all(env$reducedTerms$size > 0))
+  expect_all_true(env$reducedTerms$size > 0)
   load(file.path(dirs$outdir, "geneListAndGOterms_UP_SLE_moDC.RData"), envir = env)
   expect_false(anyNA(env$joined_data$parentTerm))
-  expect_true(all(c("go_id", "term", "p.adjust", "parentTerm") %in% names(env$joined_data)))
+  expect_contains(names(env$joined_data), c("go_id", "term", "p.adjust", "parentTerm"))
 })
 
 test_that("process_go validates direction and the file contents", {
@@ -66,13 +66,14 @@ test_that("process_go skips files without go_id or with few GO terms", {
   no_id <- data.frame(term = "immune response", p.adjust = 0.01)
   f_no_id <- file.path(dirs$indir, "UP_GO_noid.RData")
   save(no_id, file = f_no_id)
-  msgs <- capture_messages(res <- process_go(f_no_id, "UP", dirs$outdir, dirs$figdir))
-  expect_true(any(grepl("No 'go_id' column found", msgs, fixed = TRUE)))
+  expect_snapshot(
+    res <- process_go(f_no_id, "UP", dirs$outdir, dirs$figdir),
+    transform = function(x) gsub(dirs$indir, "<indir>", x, fixed = TRUE)
+  )
   expect_null(res)
 
   f_few <- save_go_file(dirs$indir, "DOWN_GO_few.RData", n = 10)
-  msgs <- capture_messages(process_go(f_few, "DOWN", dirs$outdir, dirs$figdir))
-  expect_true(any(grepl("fewer than 40 unique GO terms", msgs, fixed = TRUE)))
+  expect_snapshot(process_go(f_few, "DOWN", dirs$outdir, dirs$figdir))
   expect_length(list.files(dirs$outdir), 0)
   expect_length(list.files(dirs$figdir), 0)
 })
@@ -85,8 +86,7 @@ test_that("process_go skips GO IDs that are not in org.Hs.eg.db", {
   f <- file.path(dirs$indir, "UP_GO_bad.RData")
   save(bad, file = f)
   # rrvgo avisa "No terms were found in orgdb for BP" porque los GO IDs no existen
-  msgs <- capture_messages(suppressWarnings(process_go(f, "UP", dirs$outdir, dirs$figdir)))
-  expect_true(any(grepl("Invalid simMatrix structure", msgs, fixed = TRUE)))
+  expect_snapshot(suppressWarnings(process_go(f, "UP", dirs$outdir, dirs$figdir)))
   expect_length(list.files(dirs$outdir), 0)
 })
 
@@ -97,11 +97,9 @@ test_that("reduce_go_terms processes every UP_GO_ and DOWN_GO_ file in a folder"
   save_go_file(dirs$indir, "DOWN_GO_second.RData", n = 10)
   save_go_file(dirs$indir, "other_file.RData", n = 10)
 
-  msgs <- capture_messages(res <- reduce_go_terms(dirs$indir, dirs$outdir, dirs$figdir))
+  # el snapshot muestra que se procesan first y second, pero no other_file
+  expect_snapshot(res <- reduce_go_terms(dirs$indir, dirs$outdir, dirs$figdir))
   expect_null(res)
-  expect_true(any(grepl("Dataset: first", msgs, fixed = TRUE)))
-  expect_true(any(grepl("Dataset: second", msgs, fixed = TRUE)))
-  expect_false(any(grepl("other_file", msgs, fixed = TRUE)))
 })
 
 test_that("processGO and Reduce_GOTerm are deprecated aliases", {
@@ -119,8 +117,7 @@ test_that("reduce_go_similarity returns NULL with a message if rrvgo fails", {
   bar_data <- data.frame(go_id = c("GO:0006955", "GO:0045087"), p.adjust = c(0.01, 0.02))
 
   local_mocked_bindings(calculateSimMatrix = function(...) stop("boom"), .package = "rrvgo")
-  msgs <- capture_messages(res <- reduce_go_similarity(bar_data, "test"))
-  expect_match(msgs, "Failed to calculate simMatrix: boom", all = FALSE)
+  expect_snapshot(res <- reduce_go_similarity(bar_data, "test"))
   expect_null(res)
 })
 
@@ -131,7 +128,6 @@ test_that("reduce_go_similarity returns NULL with a message if the reduction fai
 
   local_mocked_bindings(calculateSimMatrix = function(...) sim,
                         reduceSimMatrix = function(...) stop("boom"), .package = "rrvgo")
-  msgs <- capture_messages(res <- reduce_go_similarity(bar_data, "test"))
-  expect_match(msgs, "reduceSimMatrix() failed: boom", fixed = TRUE, all = FALSE)
+  expect_snapshot(res <- reduce_go_similarity(bar_data, "test"))
   expect_null(res)
 })
