@@ -1,5 +1,5 @@
 name: Reportar un error
-description: Algo no funciona en una función, una lección o el sitio web.
+description: Algo no funciona en una función, una lección, la instalación o el sitio web.
 title: "[Error]: "
 labels: ["bug"]
 assignees:
@@ -8,27 +8,69 @@ body:
   - type: markdown
     attributes:
       value: |
-        ¡Gracias por avisar! Con un ejemplo que se pueda reproducir es más fácil encontrar el error.
+        ¡Gracias por avisar! Llena los campos de abajo; los marcados con * son obligatorios.
+        Con un ejemplo que se pueda reproducir es más fácil encontrar y corregir el error.
+  - type: dropdown
+    id: donde
+    attributes:
+      label: ¿Dónde ocurrió el error?
+      options:
+        - En una función del paquete
+        - En una lección
+        - Al instalar el paquete
+        - En el sitio web o el README
+        - Otro
+    validations:
+      required: true
+  - type: input
+    id: cual
+    attributes:
+      label: ¿Qué función o lección?
+      description: Escribe el nombre de la función o de la lección, y la sección si es una lección.
+      placeholder: "Por ejemplo: create_heatmap(), o Lección 3, sección 6. Volcano plots"
   - type: textarea
     id: descripcion
     attributes:
       label: ¿Qué pasó?
-      description: Describe el error. Si es en una lección, indica cuál y en qué sección.
+      description: Describe qué hiciste y qué pasó. Si apareció un mensaje de error, cópialo aquí tal cual.
+      placeholder: |
+        Al correr create_heatmap() con mi matriz aparece este error:
+        Error in ...
     validations:
       required: true
   - type: textarea
     id: reprex
     attributes:
       label: Código para reproducirlo
-      description: Un ejemplo mínimo, de preferencia hecho con [reprex](https://reprex.tidyverse.org/) (`reprex::reprex()`).
+      description: |
+        Pega el código más corto que produzca el error. Si puedes, usa `reprex::reprex()`:
+        copia tu código, corre `reprex::reprex()` en R y pega aquí el resultado.
+        Más información: https://reprex.tidyverse.org/
+      placeholder: |
+        library(GeneExprLupusMx)
+        zscore_mat <- download_data("zscore_mat")
+        create_heatmap(zscore_mat[1:50, ], color = "black", split = NULL)
       render: r
   - type: textarea
     id: esperado
     attributes:
       label: ¿Qué esperabas que pasara?
+      placeholder: "Por ejemplo: que se dibujara el heatmap con las 50 filas."
   - type: textarea
     id: sesion
     attributes:
       label: Información de tu sesión de R
-      description: Pega aquí el resultado de `sessionInfo()`.
+      description: Corre `sessionInfo()` en R y pega aquí el resultado. Así sé qué versiones de R y de los paquetes usas.
+      placeholder: |
+        R version 4.5.1 (2025-06-13)
+        Platform: aarch64-apple-darwin20
+        ...
       render: text
+  - type: checkboxes
+    id: revision
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: Revisé que no exista un [issue](https://github.com/EveliaCoss/GeneExprLupusMx/issues) sobre el mismo error.
+          required: true
+        - label: Tengo instalada la versión más reciente del paquete (`pak::pak("EveliaCoss/GeneExprLupusMx")`).

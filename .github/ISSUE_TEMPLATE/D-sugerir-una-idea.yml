@@ -8,7 +8,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        ¡Gracias por querer contribuir! Consulta también la [guía para contribuir](https://eveliacoss.github.io/GeneExprLupusMx/CONTRIBUTING.html).
+        ¡Gracias por querer contribuir! Llena los campos de abajo; los marcados con * son obligatorios.
+        Consulta también la [guía para contribuir](https://eveliacoss.github.io/GeneExprLupusMx/CONTRIBUTING.html).
   - type: dropdown
     id: tipo
     attributes:
@@ -21,16 +22,46 @@ body:
         - Otro
     validations:
       required: true
+  - type: input
+    id: relacion
+    attributes:
+      label: ¿Con qué lección o función se relaciona?
+      description: Si tu idea es sobre una parte del paquete, indica cuál. Si es nueva, déjalo vacío.
+      placeholder: "Por ejemplo: Lección 4, sección 3. Enriquecimiento con g:Profiler"
   - type: textarea
     id: descripcion
     attributes:
       label: Tu idea
-      description: Describe tu idea. Si es sobre una lección, indica cuál.
+      description: |
+        Según el tipo de contribución, cuéntame:
+        - **Traducción:** a qué idioma y qué lecciones te gustaría traducir.
+        - **Revisión:** qué encontraste (un error, algo poco claro, un enlace roto) y cómo lo cambiarías.
+        - **Gráfica o análisis:** qué te gustaría ver o calcular, con qué datos del paquete y por qué sería útil.
+        - **Código o análisis:** qué hace tu código y qué resultado obtuviste.
+      placeholder: "Por ejemplo: me gustaría ver un PCA de las muestras coloreado por grupo y tipo celular, para mostrar cómo se separan antes del análisis de expresión diferencial."
     validations:
       required: true
   - type: textarea
     id: codigo
     attributes:
       label: Código (opcional)
-      description: Si tienes código, pégalo aquí.
+      description: Si ya tienes código, pégalo aquí.
+      placeholder: |
+        library(GeneExprLupusMx)
+        library(DESeq2)
+        dds <- download_data("dds")
+        plotPCA(vst(dds), intgroup = c("Group", "Cell_type"))
       render: r
+  - type: textarea
+    id: referencias
+    attributes:
+      label: Referencias o ejemplos (opcional)
+      description: Artículos, páginas o imágenes que ayuden a entender tu idea. Puedes arrastrar imágenes a este campo.
+  - type: dropdown
+    id: ayuda
+    attributes:
+      label: ¿Te gustaría hacerlo tú?
+      options:
+        - Sí, puedo enviar un pull request
+        - Sí, con ayuda
+        - No, solo comparto la idea

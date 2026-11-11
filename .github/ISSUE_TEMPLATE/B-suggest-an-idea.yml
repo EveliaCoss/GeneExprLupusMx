@@ -8,7 +8,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for wanting to contribute! See also the [contributing guide](https://eveliacoss.github.io/GeneExprLupusMx/CONTRIBUTING.html).
+        Thank you for wanting to contribute! Fill in the fields below; those marked with * are required.
+        See also the [contributing guide](https://eveliacoss.github.io/GeneExprLupusMx/CONTRIBUTING.html).
   - type: dropdown
     id: type
     attributes:
@@ -21,16 +22,46 @@ body:
         - Other
     validations:
       required: true
+  - type: input
+    id: related
+    attributes:
+      label: Which lesson or function is it related to?
+      description: If your idea is about a part of the package, say which one. If it is new, leave it empty.
+      placeholder: "For example: Lesson 4, section 3. Enrichment with g:Profiler"
   - type: textarea
     id: description
     attributes:
       label: Your idea
-      description: Describe your idea. If it is about a lesson, say which one.
+      description: |
+        Depending on the type of contribution, tell me:
+        - **Translation:** into which language and which lessons you would like to translate.
+        - **Review:** what you found (a mistake, something unclear, a broken link) and how you would change it.
+        - **Plot or analysis:** what you would like to see or compute, with which data of the package and why it would be useful.
+        - **Code or analysis:** what your code does and what result you got.
+      placeholder: "For example: I would like to see a PCA of the samples colored by group and cell type, to show how they separate before the differential expression analysis."
     validations:
       required: true
   - type: textarea
     id: code
     attributes:
       label: Code (optional)
-      description: If you have code, paste it here.
+      description: If you already have code, paste it here.
+      placeholder: |
+        library(GeneExprLupusMx)
+        library(DESeq2)
+        dds <- download_data("dds")
+        plotPCA(vst(dds), intgroup = c("Group", "Cell_type"))
       render: r
+  - type: textarea
+    id: references
+    attributes:
+      label: References or examples (optional)
+      description: Papers, pages or images that help to understand your idea. You can drag images into this field.
+  - type: dropdown
+    id: help
+    attributes:
+      label: Would you like to do it yourself?
+      options:
+        - Yes, I can submit a pull request
+        - Yes, with some help
+        - No, I am only sharing the idea

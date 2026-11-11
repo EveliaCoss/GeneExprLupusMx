@@ -1,5 +1,5 @@
 name: Report a bug
-description: Something does not work in a function, a lesson or the website.
+description: Something does not work in a function, a lesson, the installation or the website.
 title: "[Bug]: "
 labels: ["bug"]
 assignees:
@@ -8,27 +8,69 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for reporting it! A reproducible example makes it easier to find the bug.
+        Thank you for reporting it! Fill in the fields below; those marked with * are required.
+        A reproducible example makes it easier to find and fix the bug.
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where did the bug happen?
+      options:
+        - In a function of the package
+        - In a lesson
+        - When installing the package
+        - On the website or the README
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: which
+    attributes:
+      label: Which function or lesson?
+      description: Write the name of the function or the lesson, and the section if it is a lesson.
+      placeholder: "For example: create_heatmap(), or Lesson 3, section 6. Volcano plots"
   - type: textarea
     id: description
     attributes:
       label: What happened?
-      description: Describe the bug. If it is in a lesson, say which one and in which section.
+      description: Describe what you did and what happened. If an error message appeared, copy it here as it is.
+      placeholder: |
+        When I run create_heatmap() with my matrix I get this error:
+        Error in ...
     validations:
       required: true
   - type: textarea
     id: reprex
     attributes:
       label: Code to reproduce it
-      description: A minimal example, preferably made with [reprex](https://reprex.tidyverse.org/) (`reprex::reprex()`).
+      description: |
+        Paste the shortest code that produces the bug. If you can, use `reprex::reprex()`:
+        copy your code, run `reprex::reprex()` in R and paste the result here.
+        More information: https://reprex.tidyverse.org/
+      placeholder: |
+        library(GeneExprLupusMx)
+        zscore_mat <- download_data("zscore_mat")
+        create_heatmap(zscore_mat[1:50, ], color = "black", split = NULL)
       render: r
   - type: textarea
     id: expected
     attributes:
       label: What did you expect to happen?
+      placeholder: "For example: that the heatmap would be drawn with the 50 rows."
   - type: textarea
     id: session
     attributes:
       label: Your R session information
-      description: Paste the output of `sessionInfo()` here.
+      description: Run `sessionInfo()` in R and paste the result here, so I know which versions of R and of the packages you use.
+      placeholder: |
+        R version 4.5.1 (2025-06-13)
+        Platform: aarch64-apple-darwin20
+        ...
       render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked that there is no [issue](https://github.com/EveliaCoss/GeneExprLupusMx/issues) about the same bug.
+          required: true
+        - label: I have the latest version of the package installed (`pak::pak("EveliaCoss/GeneExprLupusMx")`).
