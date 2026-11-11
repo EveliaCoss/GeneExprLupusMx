@@ -1,0 +1,34 @@
+name: Reportar un error
+description: Algo no funciona en una función, una lección o el sitio web.
+title: "[Error]: "
+labels: ["bug"]
+assignees:
+  - EveliaCoss
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ¡Gracias por avisar! Con un ejemplo que se pueda reproducir es más fácil encontrar el error.
+  - type: textarea
+    id: descripcion
+    attributes:
+      label: ¿Qué pasó?
+      description: Describe el error. Si es en una lección, indica cuál y en qué sección.
+    validations:
+      required: true
+  - type: textarea
+    id: reprex
+    attributes:
+      label: Código para reproducirlo
+      description: Un ejemplo mínimo, de preferencia hecho con [reprex](https://reprex.tidyverse.org/) (`reprex::reprex()`).
+      render: r
+  - type: textarea
+    id: esperado
+    attributes:
+      label: ¿Qué esperabas que pasara?
+  - type: textarea
+    id: sesion
+    attributes:
+      label: Información de tu sesión de R
+      description: Pega aquí el resultado de `sessionInfo()`.
+      render: text

@@ -1,0 +1,36 @@
+name: Sugerir una idea o contribución
+description: Traducciones, revisión de los materiales, nuevas gráficas o análisis, o código que quieras compartir.
+title: "[Idea]: "
+labels: ["enhancement"]
+assignees:
+  - EveliaCoss
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ¡Gracias por querer contribuir! Consulta también la [guía para contribuir](https://eveliacoss.github.io/GeneExprLupusMx/CONTRIBUTING.html).
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo de contribución
+      options:
+        - Traducción a otro idioma
+        - Revisión de los materiales (lecciones, README, ayuda)
+        - Nueva gráfica o análisis
+        - Código o análisis que quiero compartir
+        - Otro
+    validations:
+      required: true
+  - type: textarea
+    id: descripcion
+    attributes:
+      label: Tu idea
+      description: Describe tu idea. Si es sobre una lección, indica cuál.
+    validations:
+      required: true
+  - type: textarea
+    id: codigo
+    attributes:
+      label: Código (opcional)
+      description: Si tienes código, pégalo aquí.
+      render: r

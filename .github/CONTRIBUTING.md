@@ -1,47 +1,67 @@
-# Contributing to GeneExprLupusMx
+# Cómo contribuir / Contributing
 
-This outlines how to propose a change to GeneExprLupusMx.
-For a detailed discussion on contributing to this and other tidyverse packages, please see the [development contributing guide](https://rstd.io/tidy-contrib) and our [code review principles](https://code-review.tidyverse.org/).
+**[Español](#español) | [English](#english)**
 
-## Fixing typos
+## Español
 
-You can fix typos, spelling mistakes, or grammatical errors in the documentation directly using the GitHub web interface, as long as the changes are made in the _source_ file. 
-This generally means you'll need to edit [roxygen2 comments](https://roxygen2.r-lib.org/articles/roxygen2.html) in an `.R`, not a `.Rd` file. 
-You can find the `.R` file that generates the `.Rd` by reading the comment in the first line.
+¡Gracias por tu interés en GeneExprLupusMx! Puedes escribir en español o en inglés.
 
-## Bigger changes
+### Formas de contribuir
 
-If you want to make a bigger change, it's a good idea to first file an issue and make sure someone from the team agrees that it’s needed. 
-If you’ve found a bug, please file an issue that illustrates the bug with a minimal 
-[reprex](https://www.tidyverse.org/help/#reprex) (this will also help you write a unit test, if needed).
-See our guide on [how to create a great issue](https://code-review.tidyverse.org/issues/) for more advice.
+- **Traducciones a otros idiomas.** Las lecciones están en español e inglés. Si quieres traducirlas a otro idioma (por ejemplo, portugués), abre un *issue* para organizarnos antes de empezar.
+- **Revisión de los materiales.** Si encuentras un error, una explicación poco clara o un enlace roto en las lecciones, el README o la ayuda de las funciones, avísame en un *issue*.
+- **Sugerencias de gráficas y análisis.** ¿Se te ocurre otra gráfica u otro análisis que se pueda hacer con estos datos? Cuéntame tu idea en un *issue*.
+- **Comparte tus ideas o tu código.** Si ya hiciste un análisis con el paquete, puedes compartirlo en un *issue* o en un *pull request*.
+- **Reportar errores.** Si una función no hace lo que esperas, abre un *issue* con un ejemplo mínimo reproducible ([reprex](https://reprex.tidyverse.org/)).
 
-### Pull request process
+### Dónde está cada cosa
 
-*   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("EveliaCoss/GeneExprLupusMx", fork = TRUE)`.
+- **Lecciones:** `vignettes/articles/`, un archivo por idioma (`*_es.Rmd` y `*_en.Rmd`). Si cambias una lección, cambia también su versión en el otro idioma (o avísame y yo la actualizo).
+- **Funciones y documentación de los datos:** `R/`. La ayuda (`man/`) se genera con [roxygen2](https://roxygen2.r-lib.org/): edita los comentarios `#'` en `R/`, no los archivos `.Rd`.
+- **Pruebas:** `tests/testthat/`.
 
-*   Install all development dependencies with `devtools::install_dev_deps()`, and then make sure the package passes R CMD check by running `devtools::check()`. 
-    If R CMD check doesn't pass cleanly, it's a good idea to ask for help before continuing. 
-*   Create a Git branch for your pull request (PR). We recommend using `usethis::pr_init("brief-description-of-change")`.
+### *Pull requests*
 
-*   Make your changes, commit to git, and then create a PR by running `usethis::pr_push()`, and following the prompts in your browser.
-    The title of your PR should briefly describe the change.
-    The body of your PR should contain `Fixes #issue-number`.
+1. Haz un *fork* y clónalo, por ejemplo con `usethis::create_from_github("EveliaCoss/GeneExprLupusMx", fork = TRUE)`.
+2. Instala todas las dependencias, incluidas las de `Suggests`, con `pak::local_install_dev_deps()`, y crea una rama con `usethis::pr_init("descripcion-breve")`.
+3. Haz tus cambios. Si cambias una función, agrega o actualiza sus pruebas y comprueba que `devtools::check()` pase sin errores.
+4. Si el cambio es visible para quien usa el paquete, agrega una línea al inicio de `NEWS.md`.
+5. Envía el *pull request* con `usethis::pr_push()`.
 
-*  For user-facing changes, add a bullet to the top of `NEWS.md` (i.e. just below the first header). Follow the style described in <https://style.tidyverse.org/news.html>.
+Para cambios grandes, abre primero un *issue* para que lo platiquemos.
 
-### Code style
+### Código de conducta
 
-*   New code should follow the tidyverse [style guide](https://style.tidyverse.org). 
-    You can use [Air](https://posit-dev.github.io/air/) to apply this style, but please don't restyle code that has nothing to do with your PR.  
+Este paquete emplea el [Código de Conducta de rOpenSci](https://ropensci.org/es/c%C3%B3digo-de-conducta/) (ver también [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)). Al participar, aceptas cumplirlo.
 
-*  We use [roxygen2](https://cran.r-project.org/package=roxygen2), with [Markdown syntax](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd-formatting.html), for documentation.  
+## English
 
-*  We use [testthat](https://cran.r-project.org/package=testthat) for unit tests. 
-   Contributions with test cases included are easier to accept.  
+Thank you for your interest in GeneExprLupusMx! You can write in Spanish or in English.
 
-## Code of Conduct
+### Ways to contribute
 
-Please note that the GeneExprLupusMx project is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this
-project you agree to abide by its terms.
+- **Translations into other languages.** The lessons are in Spanish and English. If you would like to translate them into another language (for example, Portuguese), open an issue so we can organize before you start.
+- **Review of the materials.** If you find a mistake, an unclear explanation or a broken link in the lessons, the README or the function help, let me know in an issue.
+- **Suggestions of plots and analyses.** Can you think of another plot or analysis that could be done with these data? Tell me about your idea in an issue.
+- **Share your ideas or your code.** If you already did an analysis with the package, you can share it in an issue or in a pull request.
+- **Report bugs.** If a function does not do what you expect, open an issue with a minimal reproducible example ([reprex](https://reprex.tidyverse.org/)).
+
+### Where things are
+
+- **Lessons:** `vignettes/articles/`, one file per language (`*_es.Rmd` and `*_en.Rmd`). If you change a lesson, also change its version in the other language (or let me know and I will update it).
+- **Functions and data documentation:** `R/`. The help files (`man/`) are generated with [roxygen2](https://roxygen2.r-lib.org/): edit the `#'` comments in `R/`, not the `.Rd` files.
+- **Tests:** `tests/testthat/`.
+
+### Pull requests
+
+1. Fork and clone the repository, for example with `usethis::create_from_github("EveliaCoss/GeneExprLupusMx", fork = TRUE)`.
+2. Install all the dependencies, including those in `Suggests`, with `pak::local_install_dev_deps()`, and create a branch with `usethis::pr_init("brief-description")`.
+3. Make your changes. If you change a function, add or update its tests and check that `devtools::check()` passes without errors.
+4. If the change is visible to package users, add a bullet at the top of `NEWS.md`.
+5. Submit the pull request with `usethis::pr_push()`.
+
+For big changes, please open an issue first so we can discuss it.
+
+### Code of Conduct
+
+This package uses the [rOpenSci Code of Conduct](https://ropensci.org/code-of-conduct/) (see also [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)). By participating, you agree to abide by its terms.
