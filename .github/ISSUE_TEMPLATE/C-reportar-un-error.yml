@@ -56,16 +56,43 @@ body:
     attributes:
       label: ¿Qué esperabas que pasara?
       placeholder: "Por ejemplo: que se dibujara el heatmap con las 50 filas."
+  - type: dropdown
+    id: sistema
+    attributes:
+      label: Sistema operativo
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Otro
+    validations:
+      required: true
+  - type: input
+    id: version_r
+    attributes:
+      label: Versión de R
+      description: Corre `R.version.string` en R y copia el resultado.
+      placeholder: "R version 4.5.1 (2025-06-13)"
+    validations:
+      required: true
+  - type: input
+    id: version_paquete
+    attributes:
+      label: Versión de GeneExprLupusMx
+      description: Corre `packageVersion("GeneExprLupusMx")` en R y copia el resultado (si no se pudo instalar, déjalo vacío).
+      placeholder: "0.1.0.9000"
   - type: textarea
     id: sesion
     attributes:
       label: Información de tu sesión de R
-      description: Corre `sessionInfo()` en R y pega aquí el resultado. Así sé qué versiones de R y de los paquetes usas.
+      description: Corre `sessionInfo()` en R y pega aquí el resultado completo. Muestra las versiones de todos los paquetes que tienes cargados.
       placeholder: |
         R version 4.5.1 (2025-06-13)
         Platform: aarch64-apple-darwin20
         ...
       render: text
+    validations:
+      required: true
   - type: checkboxes
     id: revision
     attributes:
