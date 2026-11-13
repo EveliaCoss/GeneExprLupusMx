@@ -32,7 +32,7 @@ Para cambios grandes, abre primero un *issue* para que lo platiquemos.
 
 ### Código de conducta
 
-Este paquete tiene un [Código de Conducta](CODE_OF_CONDUCT.md), basado en el Contributor Covenant. Al participar, aceptas cumplirlo.
+Este paquete tiene un [Código de Conducta](CODE_OF_CONDUCT.md), adaptado del [Código de Conducta de los VieRnes de Bioinformática](https://viernesbioinformatica.github.io/codigo/). Al participar, aceptas cumplirlo.
 
 ## English
 
@@ -64,4 +64,4 @@ For big changes, please open an issue first so we can discuss it.
 
 ### Code of Conduct
 
-This package has a [Code of Conduct](CODE_OF_CONDUCT.md), based on the Contributor Covenant. By participating, you agree to abide by its terms.
+This package has a [Code of Conduct](CODE_OF_CONDUCT.md), adapted from the [VieRnes de Bioinformática Code of Conduct](https://viernesbioinformatica.github.io/codigo/). By participating, you agree to abide by its terms.
