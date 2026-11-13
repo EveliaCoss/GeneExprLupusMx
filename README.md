@@ -34,8 +34,10 @@ Incluye la expresión génica de *monocitos, células dendríticas derivadas
 de monocitos (moDC) y células dendríticas tolerogénicas (tolDC)* de 33
 voluntarias (10 controles y 23 pacientes; 99 muestras), junto con
 lecciones que reproducen, paso a paso, las figuras del artículo
-original
-([Hernández-Ledesma, Coss-Navarrete *et al.*, 2026, *Front. Immunol.*](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full)).
+original, [*Gene expression profiling of dendritic cell tolerance
+dysfunction in women with systemic lupus
+erythematosus*](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full)
+(Hernández-Ledesma, Coss-Navarrete *et al.*, 2026, *Front. Immunol.*).
 
 - **Uso educativo:** recurso didáctico en bioinformática, inmunología y
   ciencias biomédicas.
@@ -46,8 +48,14 @@ original
 
 ### ¿Qué está en español y qué en inglés?
 
-- **En español e inglés:** este README, el sitio web, todas las lecciones, la viñeta de introducción, las imágenes de resumen de cada lección y el registro de cambios.
-- **Solo en inglés:** los nombres de las funciones y de sus argumentos, y la ayuda de R (por ejemplo, `?create_heatmap` o `?filtered_txi`). Elegimos el inglés para que el paquete sea compatible con el resto del ecosistema de R (Bioconductor, tidyverse) y porque los nombres quedan más cortos que en español.
+- **En español e inglés:** este README, el sitio web, todas las
+  lecciones, la viñeta de introducción, las imágenes de resumen de cada
+  lección y el registro de cambios.
+- **Solo en inglés:** los nombres de las funciones y de sus argumentos,
+  y la ayuda de R (por ejemplo, `?create_heatmap` o `?filtered_txi`).
+  Elegimos el inglés para que el paquete sea compatible con el resto del
+  ecosistema de R (Bioconductor, tidyverse) y porque los nombres quedan
+  más cortos que en español.
 
 ### Instalación
 
@@ -56,7 +64,8 @@ original
 pak::pak("EveliaCoss/GeneExprLupusMx")
 ```
 
-Algunas lecciones usan paquetes de Bioconductor, que `pak` también instala:
+Algunas lecciones usan paquetes de Bioconductor, que `pak` también
+instala:
 
 ``` r
 pak::pak(c("DESeq2", "ComplexHeatmap"))
@@ -136,7 +145,8 @@ usas este recurso, por favor incluye ambas.
 
 Si usas las lecciones, las funciones o los objetos de R del paquete:
 
-> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons*. Paquete de R.
+> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women
+> with Bilingual Lessons*. Paquete de R.
 > <https://github.com/EveliaCoss/GeneExprLupusMx> [doi:
 > 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
@@ -227,7 +237,8 @@ en el estudio.
 
 ### Licencia
 
-El código del paquete se distribuye bajo la [licencia MIT](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/LICENSE.md).
+El código del paquete se distribuye bajo la [licencia
+MIT](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/LICENSE.md).
 Los datos originales provienen de las fuentes indicadas en [Origen de
 los datos](#origen-de-los-datos) (el registro de Zenodo usa la licencia
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)); si los usas,
@@ -245,8 +256,11 @@ women with **systemic lupus erythematosus (SLE)** and healthy controls.
 It includes gene expression from *monocytes, monocyte-derived dendritic
 cells (moDCs) and tolerogenic dendritic cells (tolDCs)* of 33 volunteers
 (10 controls and 23 patients; 99 samples), together with lessons that
-reproduce, step by step, the figures of the original article
-([Hernández-Ledesma, Coss-Navarrete *et al.*, 2026, *Front. Immunol.*](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full)).
+reproduce, step by step, the figures of the original article, [*Gene
+expression profiling of dendritic cell tolerance dysfunction in women
+with systemic lupus
+erythematosus*](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full)
+(Hernández-Ledesma, Coss-Navarrete *et al.*, 2026, *Front. Immunol.*).
 
 - **Educational use:** a teaching resource in bioinformatics, immunology
   and biomedical sciences.
@@ -257,8 +271,13 @@ reproduce, step by step, the figures of the original article
 
 ### What is in Spanish and what is in English?
 
-- **In Spanish and English:** this README, the website, all lessons, the introduction vignette, the summary images of each lesson and the changelog.
-- **English only:** function and argument names, and the R help pages (e.g. `?create_heatmap` or `?filtered_txi`). We chose English for compatibility with the rest of the R ecosystem (Bioconductor, tidyverse) and because the names are shorter than in Spanish.
+- **In Spanish and English:** this README, the website, all lessons, the
+  introduction vignette, the summary images of each lesson and the
+  changelog.
+- **English only:** function and argument names, and the R help pages
+  (e.g. `?create_heatmap` or `?filtered_txi`). We chose English for
+  compatibility with the rest of the R ecosystem (Bioconductor,
+  tidyverse) and because the names are shorter than in Spanish.
 
 ### Installation
 
@@ -345,7 +364,8 @@ There are two citations: one for the **package** and one for the
 
 If you use the lessons, functions or R objects of the package:
 
-> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons*. R package.
+> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women
+> with Bilingual Lessons*. R package.
 > <https://github.com/EveliaCoss/GeneExprLupusMx> [doi:
 > 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
@@ -436,8 +456,9 @@ the study.
 
 ### License
 
-The package code is released under the [MIT license](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/LICENSE.md). The
-original data come from the sources listed in [Data
+The package code is released under the [MIT
+license](https://github.com/EveliaCoss/GeneExprLupusMx/blob/main/LICENSE.md).
+The original data come from the sources listed in [Data
 sources](#data-sources) (the Zenodo record uses the [CC BY
 4.0](https://creativecommons.org/licenses/by/4.0/) license); if you use
 them, please cite the article and the Zenodo record.
