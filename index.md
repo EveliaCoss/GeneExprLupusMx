@@ -9,7 +9,10 @@ Incluye la expresión génica de *monocitos, células dendríticas derivadas
 de monocitos (moDC) y células dendríticas tolerogénicas (tolDC)* de 33
 voluntarias (10 controles y 23 pacientes; 99 muestras), junto con
 lecciones que reproducen, paso a paso, las figuras del artículo
-original, [*Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus*](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full) (Hernández-Ledesma, Coss-Navarrete *et al.*, 2026, *Front. Immunol.*).
+original, [*Gene expression profiling of dendritic cell tolerance
+dysfunction in women with systemic lupus
+erythematosus*](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full)
+(Hernández-Ledesma, Coss-Navarrete *et al.*, 2026, *Front. Immunol.*).
 
 - **Uso educativo:** recurso didáctico en bioinformática, inmunología y
   ciencias biomédicas.
@@ -26,7 +29,11 @@ women with **systemic lupus erythematosus (SLE)** and healthy controls.
 It includes gene expression from *monocytes, monocyte-derived dendritic
 cells (moDCs) and tolerogenic dendritic cells (tolDCs)* of 33 volunteers
 (10 controls and 23 patients; 99 samples), together with lessons that
-reproduce, step by step, the figures of the original article, [*Gene expression profiling of dendritic cell tolerance dysfunction in women with systemic lupus erythematosus*](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full) (Hernández-Ledesma, Coss-Navarrete *et al.*, 2026, *Front. Immunol.*).
+reproduce, step by step, the figures of the original article, [*Gene
+expression profiling of dendritic cell tolerance dysfunction in women
+with systemic lupus
+erythematosus*](https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1771959/full)
+(Hernández-Ledesma, Coss-Navarrete *et al.*, 2026, *Front. Immunol.*).
 
 - **Educational use:** a teaching resource in bioinformatics, immunology
   and biomedical sciences.
@@ -39,8 +46,19 @@ reproduce, step by step, the figures of the original article, [*Gene expression 
 
 ## ¿Qué está en español y qué en inglés? / What is in Spanish and what is in English?
 
-- **En español e inglés / In Spanish and English:** el README, el sitio web, todas las lecciones, la viñeta de introducción, las imágenes de resumen de cada lección y el registro de cambios / the README, the website, all lessons, the introduction vignette, the summary images of each lesson and the changelog.
-- **Solo en inglés / English only:** los nombres de las funciones y de sus argumentos, y la ayuda de R (por ejemplo, `?create_heatmap`); elegimos el inglés para que el paquete sea compatible con el resto del ecosistema de R y porque los nombres quedan más cortos que en español / function and argument names, and the R help pages (e.g. `?create_heatmap`); we chose English for compatibility with the rest of the R ecosystem and because the names are shorter than in Spanish.
+- **En español e inglés / In Spanish and English:** el README, el sitio
+  web, todas las lecciones, la viñeta de introducción, las imágenes de
+  resumen de cada lección y el registro de cambios / the README, the
+  website, all lessons, the introduction vignette, the summary images of
+  each lesson and the changelog.
+- **Solo en inglés / English only:** los nombres de las funciones y de
+  sus argumentos, y la ayuda de R (por ejemplo, `?create_heatmap`);
+  elegimos el inglés para que el paquete sea compatible con el resto del
+  ecosistema de R y porque los nombres quedan más cortos que en español
+  / function and argument names, and the R help pages
+  (e.g. `?create_heatmap`); we chose English for compatibility with the
+  rest of the R ecosystem and because the names are shorter than in
+  Spanish.
 
 ## Instalación / Installation
 
@@ -121,7 +139,8 @@ this resource, please include both.
 
 **1) Cómo citar el paquete / How to cite the package**
 
-> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons*. Paquete de R.
+> Coss E (2026) *GeneExprLupusMx: Lupus RNA-Seq Data from Mexican Women
+> with Bilingual Lessons*. Paquete de R.
 > <https://github.com/EveliaCoss/GeneExprLupusMx> [doi:
 > 10.5281/zenodo.23751369](https://doi.org/10.5281/zenodo.23751369).
 
