@@ -4,7 +4,13 @@
 
 - The three largest objects (`filtered_txi`, `dds` and `zscore_mat`) are no longer installed with the package. They are files of the v0.1.0 GitHub release, and the new function `download_data()` downloads them the first time they are used and then reads the saved copy. The package now requires R >= 4.0.
 - Only the "Get started" guides (`intro_es`, `intro_en`) are installed as vignettes. The lessons, the functions guide and the data download page are now only on the [website](https://eveliacoss.github.io/GeneExprLupusMx/).
-- Smaller figures, and the unused logo and `overview.png` were removed.
+- Smaller figures, and the unused logo, `overview.png` and cell illustrations were removed.
+- `MASS` is no longer in `Suggests`, since no lesson uses it.
+
+## Installation
+
+- The installation instructions (README, website, vignettes and lessons) now use `pak::pak()`, which also installs the Bioconductor packages. The `biocViews` field was removed from `DESCRIPTION`.
+- Each lesson starts with the line to install the packages it uses.
 
 ## Functions
 
@@ -14,9 +20,21 @@
 
 ## Website
 
+- The first paragraph of the README and the home page links the original article and gives its title.
+- New section in the README and the home page on what is in Spanish and English.
+- New badge with the status of the rOpenSci software review.
 - The package now has a logo, shown in the README and on the website (also as the browser tab icon).
 - New English title, "Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons", which follows CRAN's style (Title Case, under 65 characters). The package citation uses it too.
 - New "Shinyapp" section in the README and the home page sidebar, with a link to the [GeneExprLupusMx Shinyapp](https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp) (for now, only in Spanish).
+
+## Contributing
+
+- New contributing guide (`CONTRIBUTING.md`) and issue templates to report a bug or suggest an idea, in Spanish and English.
+- The code of conduct is now adapted from the [VieRnes de Bioinformática Code of Conduct](https://viernesbioinformatica.github.io/codigo/).
+
+## Tests
+
+- The tests use snapshots (`expect_snapshot()`) for messages, custom expectations for the results tables, and `withr::local_seed()`. Each test that needs the internet skips when offline. The package now suggests testthat >= 3.3.0.
 
 # GeneExprLupusMx 0.1.0
 
