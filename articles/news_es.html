@@ -165,8 +165,23 @@ que se usan y después lee la copia guardada. El paquete ahora requiere R
 <code>intro_en</code>) se instalan como viñetas. Las lecciones, la guía
 de funciones y la página de descarga de datos ahora están solo en la <a href="https://eveliacoss.github.io/GeneExprLupusMx/">página
 web</a>.</li>
-<li>Figuras más ligeras; se quitaron el logo y
-<code>overview.png</code>, que no se usaban.</li>
+<li>Figuras más ligeras; se quitaron el logo, <code>overview.png</code>
+y las ilustraciones de células, que no se usaban.</li>
+<li>
+<code>MASS</code> ya no está en <code>Suggests</code>, porque
+ninguna lección lo usa.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="instalación">Instalación<a class="anchor" aria-label="anchor" href="#instalaci%C3%B3n"></a>
+</h3>
+<ul>
+<li>Las instrucciones de instalación (README, página web, viñetas y
+lecciones) ahora usan <code><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak::pak()</a></code>, que también instala los
+paquetes de Bioconductor. Se quitó el campo <code>biocViews</code> del
+<code>DESCRIPTION</code>.</li>
+<li>Cada lección empieza con la línea para instalar los paquetes que
+usa.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -174,20 +189,32 @@ web</a>.</li>
 </h3>
 <ul>
 <li>Nueva función <code><a href="../reference/download_data.html">download_data()</a></code> para obtener
-<code>filtered_txi</code>, <code>dds</code> y
-<code>zscore_mat</code>.</li>
+<code>filtered_txi</code>, <code>dds</code> y <code>zscore_mat</code>.
+Si la carpeta de caché no tiene permiso de escritura, avisa que los
+datos se volverán a descargar la próxima vez.</li>
 <li>
 <code><a href="../reference/GeneExprLupusMx-deprecated.html">processGO()</a></code> y <code><a href="../reference/GeneExprLupusMx-deprecated.html">Reduce_GOTerm()</a></code> ahora se
 llaman <code><a href="../reference/process_go.html">process_go()</a></code> y <code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code>, para
 que todas las funciones sigan el mismo estilo (<code>snake_case</code>).
 Los nombres anteriores siguen funcionando, pero están obsoletos y
 muestran una advertencia.</li>
+<li>
+<code><a href="../reference/create_heatmap.html">create_heatmap()</a></code>, <code><a href="../reference/get_heatmap_mat.html">get_heatmap_mat()</a></code> y
+<code><a href="../reference/process_go.html">process_go()</a></code> comprueban sus paquetes sugeridos con
+<code><a href="https://rlang.r-lib.org/reference/is_installed.html" class="external-link">rlang::check_installed()</a></code>, que ofrece instalar los que
+falten en sesiones interactivas.</li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="sitio-web">Sitio web<a class="anchor" aria-label="anchor" href="#sitio-web"></a>
 </h3>
 <ul>
+<li>El primer párrafo del README y de la página de inicio enlaza al
+artículo original e incluye su título.</li>
+<li>Nueva sección en el README y en la página de inicio sobre qué está
+en español y qué en inglés.</li>
+<li>Nueva insignia con el estado de la revisión de software de
+rOpenSci.</li>
 <li>El paquete ya tiene logo, que aparece en el README y en la página
 web (también como ícono de la pestaña del navegador).</li>
 <li>Nuevo título en inglés, “Lupus RNA-Seq Data from Mexican Women with
@@ -196,6 +223,28 @@ menos de 65 caracteres). La cita del paquete también lo usa.</li>
 <li>Nueva sección “Shinyapp” en el README y la barra lateral del inicio,
 con el enlace a la <a href="https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp" class="external-link">Shinyapp
 de GeneExprLupusMx</a> (por ahora, solo en español).</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="contribuciones">Contribuciones<a class="anchor" aria-label="anchor" href="#contribuciones"></a>
+</h3>
+<ul>
+<li>Nueva guía para contribuir (<code>CONTRIBUTING.md</code>) y
+plantillas de <em>issues</em> para reportar un error o sugerir una idea,
+en español e inglés.</li>
+<li>El código de conducta ahora está adaptado del <a href="https://viernesbioinformatica.github.io/codigo/" class="external-link">Código de
+Conducta de los VieRnes de Bioinformática</a>.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="pruebas">Pruebas<a class="anchor" aria-label="anchor" href="#pruebas"></a>
+</h3>
+<ul>
+<li>Las pruebas usan <em>snapshots</em> (<code>expect_snapshot()</code>)
+para los mensajes, expectativas propias para las tablas de resultados y
+<code><a href="https://withr.r-lib.org/reference/with_seed.html" class="external-link">withr::local_seed()</a></code>. Cada prueba que necesita internet se
+omite cuando no hay conexión. El paquete ahora sugiere testthat &gt;=
+3.3.0.</li>
 </ul>
 </div>
 </div>

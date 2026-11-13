@@ -108,11 +108,18 @@
 <h3 id="smaller-package-development-version">Smaller package<a class="anchor" aria-label="anchor" href="#smaller-package-development-version"></a></h3>
 <ul><li>The three largest objects (<code>filtered_txi</code>, <code>dds</code> and <code>zscore_mat</code>) are no longer installed with the package. They are files of the v0.1.0 GitHub release, and the new function <code><a href="../reference/download_data.html">download_data()</a></code> downloads them the first time they are used and then reads the saved copy. The package now requires R &gt;= 4.0.</li>
 <li>Only the “Get started” guides (<code>intro_es</code>, <code>intro_en</code>) are installed as vignettes. The lessons, the functions guide and the data download page are now only on the <a href="https://eveliacoss.github.io/GeneExprLupusMx/">website</a>.</li>
-<li>Smaller figures, and the unused logo and <code>overview.png</code> were removed.</li>
+<li>Smaller figures, and the unused logo, <code>overview.png</code> and cell illustrations were removed.</li>
+<li>
+<code>MASS</code> is no longer in <code>Suggests</code>, since no lesson uses it.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="installation-development-version">Installation<a class="anchor" aria-label="anchor" href="#installation-development-version"></a></h3>
+<ul><li>The installation instructions (README, website, vignettes and lessons) now use <code><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak::pak()</a></code>, which also installs the Bioconductor packages. The <code>biocViews</code> field was removed from <code>DESCRIPTION</code>.</li>
+<li>Each lesson starts with the line to install the packages it uses.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="functions-development-version">Functions<a class="anchor" aria-label="anchor" href="#functions-development-version"></a></h3>
-<ul><li>New <code><a href="../reference/download_data.html">download_data()</a></code> to get <code>filtered_txi</code>, <code>dds</code> and <code>zscore_mat</code>.</li>
+<ul><li>New <code><a href="../reference/download_data.html">download_data()</a></code> to get <code>filtered_txi</code>, <code>dds</code> and <code>zscore_mat</code>. If the cache folder is not writable, it warns that the data will be downloaded again next time.</li>
 <li>
 <code><a href="../reference/GeneExprLupusMx-deprecated.html">processGO()</a></code> and <code><a href="../reference/GeneExprLupusMx-deprecated.html">Reduce_GOTerm()</a></code> were renamed <code><a href="../reference/process_go.html">process_go()</a></code> and <code><a href="../reference/reduce_go_terms.html">reduce_go_terms()</a></code>, so that all the functions follow the same style (<code>snake_case</code>). The old names still work, but are deprecated and show a warning.</li>
 <li>
@@ -120,9 +127,21 @@
 </ul></div>
 <div class="section level3">
 <h3 id="website-development-version">Website<a class="anchor" aria-label="anchor" href="#website-development-version"></a></h3>
-<ul><li>The package now has a logo, shown in the README and on the website (also as the browser tab icon).</li>
+<ul><li>The first paragraph of the README and the home page links the original article and gives its title.</li>
+<li>New section in the README and the home page on what is in Spanish and English.</li>
+<li>New badge with the status of the rOpenSci software review.</li>
+<li>The package now has a logo, shown in the README and on the website (also as the browser tab icon).</li>
 <li>New English title, “Lupus RNA-Seq Data from Mexican Women with Bilingual Lessons”, which follows CRAN’s style (Title Case, under 65 characters). The package citation uses it too.</li>
 <li>New “Shinyapp” section in the README and the home page sidebar, with a link to the <a href="https://github.com/EveliaCoss/GeneExprLupusMx_shinyapp" class="external-link">GeneExprLupusMx Shinyapp</a> (for now, only in Spanish).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="contributing-development-version">Contributing<a class="anchor" aria-label="anchor" href="#contributing-development-version"></a></h3>
+<ul><li>New contributing guide (<code>CONTRIBUTING.md</code>) and issue templates to report a bug or suggest an idea, in Spanish and English.</li>
+<li>The code of conduct is now adapted from the <a href="https://viernesbioinformatica.github.io/codigo/" class="external-link">VieRnes de Bioinformática Code of Conduct</a>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="tests-development-version">Tests<a class="anchor" aria-label="anchor" href="#tests-development-version"></a></h3>
+<ul><li>The tests use snapshots (<code>expect_snapshot()</code>) for messages, custom expectations for the results tables, and <code><a href="https://withr.r-lib.org/reference/with_seed.html" class="external-link">withr::local_seed()</a></code>. Each test that needs the internet skips when offline. The package now suggests testthat &gt;= 3.3.0.</li>
 </ul></div>
 </div>
     <div class="section level2">
