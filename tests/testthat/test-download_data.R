@@ -51,7 +51,9 @@ test_that("download_data still works if the cache folder is not writable", {
   fake <- list(a = 1)
   url <- local_release(fake)
   local_mocked_bindings(release_url = function(name, tag) url)
-  expect_identical(suppressMessages(download_data("dds", tag = "test-tag")), fake)
+  expect_warning(x <- suppressMessages(download_data("dds", tag = "test-tag")),
+                 "Could not save 'dds' in the cache folder")
+  expect_identical(x, fake)
   expect_false(file.exists(cache_file("dds", "test-tag")))
 })
 

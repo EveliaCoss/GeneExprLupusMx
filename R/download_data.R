@@ -51,9 +51,15 @@ download_data <- function(name = c("filtered_txi", "dds", "zscore_mat"),
            ". Check your internet connection and try again.", call. = FALSE)
     }
     # copy only complete downloads, so a failed download is never cached;
-    # if the cache folder is not writable (e.g., on a server), read the download
-    # (file.copy() then warns "cannot create file ... Permission denied")
-    if (!suppressWarnings(file.copy(tmp, path, overwrite = TRUE))) return(readRDS(tmp))
+    # if the cache folder is not writable (e.g., on a server), our warning
+    # replaces file.copy()'s ("cannot create file ... Permission denied") and
+    # the download is read anyway
+    if (!suppressWarnings(file.copy(tmp, path, overwrite = TRUE))) {
+      warning("Could not save '", name, "' in the cache folder ", dirname(path),
+              " (no write permission?). It will be downloaded again next time.",
+              call. = FALSE)
+      return(readRDS(tmp))
+    }
   }
   readRDS(path)
 }
