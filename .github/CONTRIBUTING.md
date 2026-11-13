@@ -32,7 +32,7 @@ Para cambios grandes, abre primero un *issue* para que lo platiquemos.
 
 ### Código de conducta
 
-Este paquete emplea el [Código de Conducta de rOpenSci](https://ropensci.org/es/c%C3%B3digo-de-conducta/) (ver también [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)). Al participar, aceptas cumplirlo.
+Este paquete tiene un [Código de Conducta](CODE_OF_CONDUCT.md), basado en el Contributor Covenant. Al participar, aceptas cumplirlo.
 
 ## English
 
@@ -64,4 +64,4 @@ For big changes, please open an issue first so we can discuss it.
 
 ### Code of Conduct
 
-This package uses the [rOpenSci Code of Conduct](https://ropensci.org/code-of-conduct/) (see also [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)). By participating, you agree to abide by its terms.
+This package has a [Code of Conduct](CODE_OF_CONDUCT.md), based on the Contributor Covenant. By participating, you agree to abide by its terms.
