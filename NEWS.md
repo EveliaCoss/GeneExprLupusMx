@@ -20,6 +20,7 @@
 
 ## Website
 
+- `?GeneExprLupusMx` now opens the help page of the package, with its description and links.
 - The first paragraph of the README and the home page links the original article and gives its title.
 - New section in the README and the home page on what is in Spanish and English.
 - New badge with the status of the rOpenSci software review.
