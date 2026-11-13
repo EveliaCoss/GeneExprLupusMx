@@ -7,6 +7,8 @@
 
 <!-- badges: start -->
 
+[![Status at rOpenSci Software Peer
+Review](https://badges.ropensci.org/824_status.svg)](https://github.com/ropensci/software-review/issues/824)
 [![R-CMD-check](https://github.com/EveliaCoss/GeneExprLupusMx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EveliaCoss/GeneExprLupusMx/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/EveliaCoss/GeneExprLupusMx/graph/badge.svg)](https://app.codecov.io/gh/EveliaCoss/GeneExprLupusMx)
